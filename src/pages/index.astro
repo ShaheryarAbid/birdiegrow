@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import TextLink from '../components/TextLink.astro';
+import Cta from '../components/sections/Cta.astro';
+import Faq from '../components/sections/Faq.astro';
+import Glance from '../components/sections/Glance.astro';
+import { SITE } from '../consts';
+import { PRICING } from '../data/product';
+import '../styles/sections.css';
+import '../styles/home.css';
+
+const faqs = [
+  ['Is Birdie just another booking tool?', 'No. Birdie is purpose-built for golf simulator venues — hourly bays, group bookings, weekday pricing, memberships, and 24/7 door access — with a revenue layer that shows you where to grow. Generic schedulers do none of that.'],
+  ['How is Birdie different from Golf O’Clock?', 'Birdie pairs the booking system with revenue intelligence (utilization tracking, lapsed-customer reactivation, review automation) and integrates smart-lock door access (Kisi, PDK, UniFi Access, Avigilon Alta, RemoteLock) for unattended operation — built around how simulator operators actually run.'],
+  ['How long does setup take?', 'You go live within 24 hours of signing. We configure your bays, pricing, memberships, and add-ons for you — no developers, no migration headaches, no downtime.'],
+  ['Do I need technical experience to set up Birdie?', 'No. We handle all the setup. You book a walkthrough, we configure the system, and your booking flow goes live.'],
+];
+// Product-row facts (static HTML on purpose: AI crawlers extract these). Rendered as the "glance" carousel.
+const productFacts = [
+  ['Best for', 'Simulator venues focused on weekday utilization and revenue growth — Birdie pairs bay booking with a revenue layer that surfaces underused hours and lapsed customers. Works for staffed venues and fully unmanned 24/7 operations.'],
+  ['Works with', 'Any simulator hardware or game software. Birdie is the booking layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
+  ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
+  ['Pricing', 'From $197/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
+  ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
+];
+
+const ownerViews = [
+  ['Bookings', 'Full control over your daily bookings and schedule.', 'home/preview-calendar'],
+  ['Analytics', 'Weekday occupancy, revenue per bay and the hours that sit empty.', 'home/preview-analytics'],
+  ['Members', 'Membership plans with hour tracking, plus lapsed-customer reactivation.', 'home/preview-membership'],
+  ['Messages', 'Automated text and email confirmations, reminders and receipts.', 'demo-messages-mobile-CMOUn86E'],
+  ['Payments', 'Stripe, Square, Clover and Helcim (beta) built into the booking flow.', 'demo-payments-mobile-BsHYhvnk'],
+];
+const guestViews = [
+  ['Bay calendar', 'Real-time availability across all bays.', 'home/preview-calendar'],
+  ['Booking home', 'Pick a bay, a time and a group size. Pay. Done in under 30 seconds.', 'home/preview-booking'],
+  ['Analytics', 'Weekday occupancy, revenue per bay and the hours that sit empty.', 'home/preview-analytics'],
+  ...ownerViews.slice(2),
+];
+const groups = [['Owner dashboard', ownerViews], ['Booking Experience', guestViews]];
+
+const setupIcons = ['calendar', 'sliders', 'phone', 'grid'];
+const process = [
+  ['01', 'Empty weekday bays', 'Most venues run at 40% weekday utilization. The right system surfaces those gaps and helps you fill them.', 'Payments & revenue', '/revenue/'],
+  ['02', 'No-shows with no warning', 'Manual confirmation means no-shows you didn’t see coming. Automated SMS reminders change that overnight.', 'SMS & Marketing', '/sms/'],
+  ['03', 'Software built for gyms, not simulators', 'Hourly bays, group bookings, weekday pricing, memberships — generic tools weren’t built for how you operate.', 'Product overview', '/features/'],
+];
+const featTabs = [
+  ['Booking', 'Fill the calendar', ['Real-time availability across every bay', 'Add-ons at checkout: BYOB, guests, custom items', 'Square payment inside the flow', 'Works on any phone in under 30 seconds']],
+  ['Members', 'Keep them coming back', ['Membership plans with hour banks and bay restrictions', 'Auto-segments customers inactive 60+ days', 'One-click reactivation campaigns by SMS or email', 'Automated Google review prompts after every session']],
+  ['Access', 'Run it unattended, 24/7', ['SMS unlock — no app, PIN or staff needed', 'Time-gated door access tied to the booking', 'Works with Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock', 'Every entry logged against the booking']],
+];
+const setup = [
+  ['Book a free walkthrough', 'See the platform live. No commitment.'],
+  ['We configure your system', 'Bays, pricing, memberships, and add-ons — all handled.'],
+  ['Your booking flow goes live', 'Customers can book within 24 hours of signing.'],
+  ['You start filling empty hours.', 'No tech knowledge required. We handle everything.'],
+];
+const stories = [
+  ['Private Links Utah', 'Cody Barlow · Unattended 24/7', 'story-1.webp', 'Utah', 'Runs a fully unattended 24/7 members-only venue — bookings, memberships, and door access all handled automatically, with no full-time staff on site.'],
+  ['All Seasons Indoor Golf', 'Bryan Moore · All-in-one operation', 'story-2.webp', 'Kansas City, MO', 'Runs one of Kansas City’s top indoor golf destinations on Birdie — bookings, memberships, marketing, and reporting, all on one platform.'],
+  ['Fairways Pub Grub & Indoor Golf', 'Danny · Pub + kitchen + golf', 'story-3.webp', 'Lancaster, CA', 'Runs a hybrid pub, kitchen, and indoor golf venue — managing bookings, memberships, leagues, and event packages all in one place.'],
+  ['GoGolf Lounge', 'Deep · New venue · Onboarding to launch', 'story-4.webp', 'North Attleboro, MA', 'Deep is opening GoGolf Lounge, a new indoor golf simulator venue in North Attleboro. He shares his experience building the business on Birdie from onboarding through opening day.'],
+];
+// 13 x 3 grid copied from the Figma "Mask group": [file, width, height] per tile, null = empty tile.
+const gridTiles: ([string, number, number] | [string, number, number, string] | null)[] = [
+  null, null, null, null, ['logo-kisi.webp', 55.6, 14.8], ['logo-image99.svg', 43.3, 30.3], null, ['logo-oxl1.webp', 51, 51], ['logo-unnamed2.webp', 38.8, 38.8], null, ['logo-image102.webp', 55.7, 28.7], null, null,
+  null, null, ['logo-white.svg', 65, 7], ['logo-frame-a.svg', 61.5, 14], null, ['logo-jvbj.webp', 49, 33.2], ['logo-birdie.svg', 56.9, 15], null, ['logo-image100.webp', 72.9, 72.9], ['logo-image101.webp', 57.1, 27.2], null, null, null,
+  null, null, null, ['logo-image103.webp', 53.8, 14.3], ['logo-frame-b.svg', 53.1, 11.3], null, null, ['logo-tm-b.svg', 24.8, 24.5, 'logo-tm-a.svg'], ['logo-logov3.svg', 58.2, 10.7], ['logo-clip-group.svg', 56.9, 14.7], ['logo-image106.webp', 35.9, 35.9], null, null,
+];
+const logoInfo: Record<string, [string, string, string]> = {
+  'logo-kisi.webp': ['Kisi', 'Door access', '/integrations/kisi/'],
+  'logo-image99.svg': ['PDK', 'Door access', '/integrations/pdk/'],
+  'logo-oxl1.webp': ['RemoteLock', 'Door access', '/integrations/remotelock/'],
+  'logo-unnamed2.webp': ['Avigilon Alta', 'Door access', '/integrations/avigilon-alta/'],
+  'logo-image102.webp': ['Clover', 'Payments', '/integrations/'],
+  'logo-white.svg': ['Foresight', 'Simulator', '/integrations/'],
+  'logo-frame-a.svg': ['TruGolf', 'Simulator', '/integrations/'],
+  'logo-jvbj.webp': ['UniFi Access', 'Door access', '/integrations/unifi-access/'],
+  'logo-birdie.svg': ['Birdie', 'Platform', '/platform/'],
+  'logo-image100.webp': ['Square', 'Payments', '/integrations/'],
+  'logo-image101.webp': ['Stripe', 'Payments', '/integrations/'],
+  'logo-image103.webp': ['Telnyx', 'Messaging', '/integrations/'],
+  'logo-frame-b.svg': ['Resend', 'Messaging', '/integrations/'],
+  'logo-tm-b.svg': ['TrackMan', 'Simulator', '/integrations/'],
+  'logo-logov3.svg': ['GSPro', 'Simulator', '/integrations/'],
+  'logo-clip-group.svg': ['Uneekor', 'Simulator', '/integrations/'],
+  'logo-image106.webp': ['E6 Connect', 'Simulator', '/integrations/'],
+};
+
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'Birdie', url: SITE.url, logo: `${SITE.url}/og-image.jpg`, description: 'Booking and revenue software purpose-built for indoor golf simulator venues — bay scheduling, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, and 24/7 smart-lock door access. Not home-simulator game software.', areaServed: ['US', 'CA'], knowsAbout: ['golf simulator booking software', 'golf simulator management software', 'indoor golf venue operations', 'golf simulator memberships', '24/7 simulator door access', 'golf simulator revenue and utilization'], sameAs: ['https://www.youtube.com/channel/UCPrsHy88OiJl7uDfvTE-UiA', 'https://x.com/birdiegrowgolf', 'https://www.facebook.com/profile.php?id=61580806705716', 'https://www.instagram.com/birdie.grow/', 'https://www.capterra.com/p/10041593/Birdie/', 'https://www.g2.com/products/birdie-2026-04-23/reviews'] },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Birdie', url: SITE.url },
+  { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Birdie', applicationCategory: 'BusinessApplication', applicationSubCategory: 'Golf Simulator Booking Software', operatingSystem: 'Web', description: SITE.description, url: `${SITE.url}/`, offers: { '@type': 'Offer', price: '197', priceCurrency: 'USD', priceValidUntil: '2026-12-31', availability: 'https://schema.org/InStock', url: `${SITE.url}/pricing/`, priceSpecification: { '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD', unitText: 'MONTH' }, description: 'Booking System plan, from $197/mo.' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+const A = '/assets/home/';
+const demo = SITE.demoPath;
+---
+<BaseLayout title={SITE.title} description={SITE.description} schema={schema} headerVariant="dark" headerOverlay>
+<div class="hm">
+  <!-- Hero -->
+  <section class="hm-hero">
+    <div class="hm-hero__pic">
+      <picture>
+        <source media="(max-width: 900px)" srcset="/assets/home/hero-mobile.webp" />
+        <img class="hm-hero__img" src={`${A}hero-bg.webp`} alt="Birdie golf simulator booking software — dark rim-lit golf ball with course map" fetchpriority="high" />
+      </picture>
+    </div>
+    <div class="hm-hero__content">
+      <h1>The booking <br />system built for golf simulator venues<i>.</i></h1>
+      <p class="hm-hero__p">Bay scheduling, memberships, Stripe, Square, Clover and Helcim (beta) payments, and automated confirmations — purpose-built for simulator operators. Live in 24 hours.</p>
+      <div class="hm-hero__act hm-btns">
+        <Button href={demo} mode="light">Book a demo</Button>
+        <Button href="#how-it-works" mode="dark" hierarchy="secondary" class="bd-btn--secondary-dark">See how it works <img src={`${A}arrow-right-light.svg`} alt="" width="16" height="16" /></Button>
+      </div>
+      <div class="hm-hero__stats">
+        <div><b>No</b><span>long-term contracts</span></div>
+        <div><b>27%</b><span>avg. increase in weekday bookings</span></div>
+        <div><b>24</b><span>hour setup — no developers needed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Everything in one place (bay calendar) -->
+  <section class="hm-sec hm-white hm-round hm-stack" style="--prev:#000" id="product">
+    <div class="hm-intro"><h2 class="hm-h2">Everything you need to run a golf<br class="hm-brd" /> simulator business — in one place<i>.</i></h2></div>
+    <div class="hm-tabs" role="tablist" id="pp-tabs">
+      {groups.map(([g], i) => <button role="tab" class={i === 0 ? 'is-on' : ''} data-g={i}>{g}</button>)}
+    </div>
+    <div class="hm-pp">
+      <div class="hm-pp__side">
+        {groups.map(([, views], gi) => (
+          <div class="hm-pp__acc" data-acc={gi} hidden={gi !== 0}>
+            {(views as string[][]).map(([label, desc, img], vi) => (
+              <button type="button" class={`hm-pp__item${vi === 0 ? ' is-open' : ''}`} aria-expanded={vi === 0 ? 'true' : 'false'} aria-controls={`pp-desc-${gi}-${vi}`} data-img={`/assets/${img}.webp`} data-kind={img.startsWith('home/') ? 'render' : 'screen'} data-label={label}>
+                <span class="row"><span>{label}</span><span class="chev"><img src="/assets/ui/chevron-down.svg" alt="" width="10" height="10" /></span></span>
+                <span class="desc" id={`pp-desc-${gi}-${vi}`}>{desc}</span>
+              </button>
+            ))}
+          </div>
+        ))}
+        <Button href={demo} mode="dark">Book a demo</Button>
+      </div>
+      <div class="hm-pp__art" data-kind="render">
+        <img id="pp-img" src="/assets/home/preview-calendar.webp" width="1240" height="1190" alt="Birdie booking calendar on a phone" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Birdie at a glance -->
+  <Glance facts={productFacts} />
+
+  <!-- Problems / process -->
+  <section class="hm-sec hm-white">
+    <div class="hm-proc">
+      <div class="hm-proc__head">
+        <h2 class="hm-h2">Your booking system shouldn’t be the reason you’re losing customers<i>.</i></h2>
+        <p class="hm-sub">Here’s how Birdie closes them.</p>
+      </div>
+      <div class="hm-proc__list" data-scroll-cards>
+        {process.map(([n, t, d, l, h], i) => (
+          <div class={`hm-pstep${i === 0 ? ' is-dark' : ''}`}>
+            <div class="hm-pstep__rail"><span class="n">{n}</span></div>
+            <div class="hm-pstep__card">
+              <div class="hm-pstep__bg" aria-hidden="true"></div>
+              <div class="txt"><h3>{t}</h3><p>{d}</p></div>
+              <div class="act">
+                <TextLink href={h}>{l}</TextLink>
+                <span class="cmp" aria-hidden="true">With Birdie<i></i></span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="hm-sec hm-white hm-stack" id="features">
+    <div class="hm-intro"><h2 class="hm-h2">Built around the three jobs of running a venue<i>.</i></h2></div>
+    <div class="hm-tabs" id="feat-tabs">{featTabs.map(([t], i) => <button class={i === 0 ? 'is-on' : ''} data-f={i}>{t}</button>)}</div>
+    <div class="hm-feat">
+      <div class="hm-feat__bg">
+        <img src={`${A}product-previews.webp`} alt="" loading="lazy" />
+      </div>
+      {featTabs.map(([, h, items], i) => (
+        <div class={`hm-feat__pane${i === 0 ? ' is-on' : ''}`} data-pane={i}>
+          <div class="hm-feat__text">
+            <div>
+              <h3>{h}</h3>
+              <ul>{(items as string[]).map((it) => <li><img src={`${A}check-feature.svg`} alt="" />{it}</li>)}</ul>
+            </div>
+            <div class="hm-btns" style="margin-top:24px"><Button href={demo} mode="light">Book a demo</Button></div>
+          </div>
+          {i === 0 && (
+            <div class="hm-form" aria-hidden="true">
+              <div class="h"><span>Date: September 2026</span><img src={`${A}icon-calendar.svg`} alt="" width="16" height="16" /></div>
+              <div class="days"><span class="on">WED<b>9</b><i class="dt"><em class="d"></em><em class="d"></em></i></span><span>THU<b>10</b><i class="dt"><em class="g"></em><em class="g"></em><em class="g"></em></i></span><span>FRI<b>11</b><i class="dt"><em class="o"></em><em class="o"></em></i></span><span>SAT<b>12</b><i class="dt"><em class="n"></em></i></span><span>SUN<b>13</b><i class="dt"><em class="n"></em></i></span><span>MON<b>14</b><i class="dt"><em class="o"></em></i></span></div>
+              <div class="lbl">Time</div><div class="times"><span>6:00 AM</span><span class="on">7:00 AM</span><span>8:00 AM</span></div>
+              <div class="bays"><div class="lbl">Bay</div>
+                <div class="bay sel"><img src={`${A}bay-callaway.webp`} alt="" />Callaway<small>$45/hour</small><i class="ck" aria-hidden="true"><svg viewBox="0 0 24 24" width="11" height="11"><path d="M20 6L9 17l-5-5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div>
+                <div class="bay"><img src={`${A}bay-titleist.webp`} alt="" />Titleist<small>$45/hour</small></div>
+                <div class="bay"><img src={`${A}bay-taylormade.webp`} alt="" />TaylorMade<small>$45/hour</small></div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+      <div class="hm-feat__dots" aria-label="Feature sections">
+        {featTabs.map(([, h], i) => <button type="button" class={i === 0 ? 'on' : ''} data-dot={i} aria-label={h}></button>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Setup steps -->
+  <section class="hm-sec hm-white hm-stack" id="how-it-works">
+    <div class="hm-intro">
+      <h2 class="hm-h2">Live in 24 Hours<i>.</i><br class="hm-brm" /> Zero Technical Overhead<i>.</i></h2>
+      <p class="hm-sub" style="max-width:985px">Birdie handles the setup so you can focus on running your venue. No developers, no migration headaches, no downtime, no risk, no complexity.</p>
+    </div>
+    <div class="hm-setup" data-setup-progress>
+      <div class="hm-setup__line" aria-hidden="true"></div>
+      <div class="hm-setup__trail" aria-hidden="true"></div>
+      <img class="hm-setup__ball" src={`${A}setup-ball.webp`} alt="" width="40" height="40" />
+      {setup.map(([t, d], i) => (
+        <div class={`hm-setup__row${i % 2 === 0 ? ' tl' : ' tr'}${i === 0 ? ' feat' : ''}`}>
+          <div class="hm-setup__side a">{i % 2 === 0 ? <div class="hm-setup__tile"><img class="ic" src={`${A}setup-icon-${setupIcons[i]}.svg`} alt="" /></div> : <div class="hm-setup__txt"><h3>{t}</h3><p>{d}</p></div>}</div>
+          <button type="button" class="hm-setup__mark" aria-label={`Step ${i + 1}: ${t}`}><span>{String(i + 1).padStart(2, '0')}</span><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m4 10 4 4 8-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+          <div class="hm-setup__side b">{i % 2 === 0 ? <div class="hm-setup__txt"><h3>{t}</h3><p>{d}</p></div> : <div class="hm-setup__tile"><img class="ic" src={`${A}setup-icon-${setupIcons[i]}.svg`} alt="" /></div>}</div>
+        </div>
+      ))}
+    </div>
+    <Button href="/pricing/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">See the pricing and get started <img src={`${A}arrow-down-dark.svg`} alt="" width="16" height="16" /></Button>
+  </section>
+
+  <!-- Customer stories -->
+  <section class="hm-sec hm-stories hm-round hm-stack">
+    <div class="hm-stories__head">
+      <div class="hm-intro">
+        <h2 class="hm-h2">Owners who run on Birdie<i>.</i></h2>
+        <p class="hm-sub">Customer stories. From unattended 24/7 clubs to full pub-and-kitchen venues — hear it from the owners.</p>
+      </div>
+      <Button href="/customers/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">See all customer stories <img src={`${A}arrow-right-dark.svg`} alt="" width="16" height="16" /></Button>
+    </div>
+    <div class="hm-stories__row">
+      {stories.map(([n, by, img, loc, desc]) => (
+        <a class="hm-story" href="/customers/">
+          <img class="bg" src={`${A}${img}`} alt="" loading="lazy" />
+          <span class="pin"><img src={`${A}icon-pin.svg`} alt="" />{loc}</span>
+          <span class="go bd-btn bd-btn--secondary-dark"><img src={`${A}icon-arrow-up-right.svg`} alt="" /></span>
+          <div><h3>{n}</h3><div class="by">{by}</div><p>{desc}</p></div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="hm-sec hm-price hm-stack" id="pricing">
+    <div class="hm-intro">
+      <h2 class="hm-h2">Start with Bookings<i>.</i> Scale When Ready<i>.</i></h2>
+      <p class="hm-sub">Start with the booking system, add website and ads when you’re ready to grow.</p>
+      <Button href={demo} mode="dark" class="">Book a Demo</Button>
+    </div>
+    <div class="hm-plans">
+      {PRICING.map((p, i) => (
+        <div class={`hm-plan${i === 0 ? ' is-dark' : ''}`}>
+          {i === 0 && (
+            <div class="hm-plan__bg hm-gl__bg">
+              <img class="bg" src={`${A}glance-card.webp`} alt="" loading="lazy" />
+            </div>
+          )}
+          {p.badge && <span class="badge bd-badge">{p.badge}</span>}
+          <div><h3>{p.name}</h3><p class="blurb">{p.blurb}</p></div>
+          <div class="amt">{p.price.startsWith('From') ? <><small>From</small>{p.price.replace('From ', '').replace('/mo', '')}<span class="mo">/mo</span></> : p.price.replace(' pricing', '')}</div>
+          <ul>{p.features.map((f) => f.startsWith('Everything in ') ? <li class="lead">{f}</li> : <li><img src={`${A}${i === 0 ? 'check-light' : 'check-dark'}.svg`} alt="" />{f}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+    <div class="hm-benefits">
+      <span><img src={`${A}check-dark.svg`} alt="" width="16" height="16" />No long-term contracts</span><i class="rule"></i><span><img src={`${A}check-dark.svg`} alt="" width="16" height="16" />Live in 24 hours</span><i class="rule"></i><span><img src={`${A}check-dark.svg`} alt="" width="16" height="16" />We handle all setup</span>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section class="hm-sec hm-logos hm-round hm-stack">
+    <div class="hm-intro">
+      <h2 class="hm-h2">Works with the gear you already have<i>.</i></h2>
+      <p class="hm-sub">Birdie sits above your simulator software. It doesn’t replace it.</p>
+      <Button href="/integrations/" mode="dark">All integrations</Button>
+    </div>
+    <div class="hm-grid" aria-label="Compatible platforms">{gridTiles.map((l) => l ? (
+      <a class={`hm-grid__tile${l[0] === 'logo-birdie.svg' ? ' dk' : ''}`} href={logoInfo[l[0]][2]} aria-label={`${logoInfo[l[0]][0]} — ${logoInfo[l[0]][1]}`}>
+        <img src={`${A}${l[0]}`} alt="" width={l[1]} height={l[2]} loading="lazy" />
+        {l[0] === 'logo-tm-b.svg' && <span class="hm-grid__brand-mark" aria-hidden="true"></span>}
+        {l[3] && <img class="sub" src={`${A}${l[3]}`} alt="" loading="lazy" />}
+        <span class="hm-grid__tip" aria-hidden="true">{logoInfo[l[0]][1]}</span>
+      </a>
+    ) : <i aria-hidden="true"></i>)}</div>
+  </section>
+
+  <!-- FAQ -->
+  <Faq heading="Questions owners usually ask" items={faqs} open={1} balls round={false} />
+
+  <!-- CTA -->
+  <Cta />
+</div>
+<script>
+  import { setupTabs } from '../scripts/tabs';
+  import { initHomeInteractions } from '../scripts/home';
+  initHomeInteractions();
+  // Product preview: tabs + accordion swap the phone screenshot.
+  const img = document.getElementById('pp-img') as HTMLImageElement | null;
+  const accs = document.querySelectorAll<HTMLElement>('[data-acc]');
+  const pick = (btn: HTMLElement) => {
+    btn.parentElement!.querySelectorAll('.hm-pp__item').forEach((x) => {
+      x.classList.toggle('is-open', x === btn);
+      x.setAttribute('aria-expanded', String(x === btn));
+    });
+    if (img) {
+      img.src = btn.dataset.img!;
+      img.alt = `Birdie product preview — ${btn.dataset.label}`;
+      img.parentElement!.dataset.kind = btn.dataset.kind;
+    }
+  };
+  document.querySelectorAll<HTMLElement>('.hm-pp__item').forEach((b) => {
+    b.addEventListener('click', () => pick(b));
+    b.addEventListener('focus', () => pick(b));
+    // Use actual pointer movement: a tab change must not select whatever moves under a parked cursor.
+    b.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && !b.classList.contains('is-open')) pick(b); });
+  });
+  const productBar = document.getElementById('pp-tabs');
+  if (productBar) setupTabs(productBar.parentElement!, productBar, Array.from(productBar.querySelectorAll('button')), Array.from(accs), {
+    onSelect: (index) => {
+      const first = accs[index].querySelector<HTMLElement>('.hm-pp__item');
+      if (first) pick(first);
+    },
+  });
+  const featureBar = document.getElementById('feat-tabs');
+  if (featureBar) {
+    const featBtns = Array.from(featureBar.querySelectorAll<HTMLButtonElement>('button'));
+    const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.hm-feat__dots button'));
+    setupTabs(featureBar.parentElement!, featureBar, featBtns, Array.from(document.querySelectorAll<HTMLElement>('.hm-feat__pane')), {
+      onSelect: (index) => dots.forEach((d, i) => d.classList.toggle('on', i === index)),
+    });
+    dots.forEach((d, i) => d.addEventListener('click', () => featBtns[i]?.click()));
+  }
+</script>
+</BaseLayout>

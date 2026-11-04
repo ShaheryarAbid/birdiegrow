@@ -1,0 +1,75 @@
+---
+/**
+ * Customer story cards with click-to-load YouTube facade — Figma "Content/Customer-Story" 260:13152 / "All customer stories" 438:16378.
+ * First story renders as the large dark featured card (shader), the rest as light two-column cards (image on top on mobile).
+ * Props: stories [{id (YouTube id, '' = no video), venue, person, location, tag, summary, img (local webp), alt}].
+ * The YouTube iframe is only injected on click (script at the bottom), so the page keeps its LCP.
+ */
+import '../../styles/sections.css';
+import '../../styles/customers.css';
+import { SHADER_DARK } from '../../data/shader';
+export interface Story { id: string; venue: string; person: string; location: string; tag: string; summary: string; img: string; alt?: string; }
+export interface Props { stories: Story[]; id?: string; }
+const { stories, id = 'stories' } = Astro.props;
+const A = '/assets/customers/';
+---
+<section class="cs-sec" id={id}>
+  <div class="cs-list">
+    {stories.map((t, i) => {
+      const feat = i === 0;
+      return (
+        <article class={`cs-card${feat ? ' is-feat' : ''}`}>
+          {feat && (
+            <div class="cs-card__bg" aria-hidden="true">
+              <img src="/assets/home/compat-bg.webp" alt="" loading="lazy" />
+              <div class="fade"></div>
+              <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+              <div class="hm-noise" style="background:#fdfffe"></div>
+            </div>
+          )}
+          <div class="cs-card__txt">
+            <span class="cs-loc"><img src={`${A}pin.svg`} alt="" width="20" height="20" />{t.location}</span>
+            <div class="cs-card__body">
+              <div class="cs-card__desc"><h3>{t.venue}</h3><p>{t.summary}</p></div>
+              <hr />
+              <div class="cs-card__by"><b>{t.person}</b><span>{t.tag}</span></div>
+            </div>
+          </div>
+          <div class={`cs-card__vid${t.id ? ' tvideo' : ''}`} data-video={t.id || undefined} role={t.id ? 'button' : undefined} tabindex={t.id ? 0 : undefined} aria-label={t.id ? `Play the ${t.venue} story` : undefined}>
+            <img
+              src={t.img}
+              alt={t.alt ?? `${t.person} — ${t.venue}, Birdie customer story`}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'auto'}
+              decoding={i === 0 ? 'sync' : 'async'}
+              width="800" height="540"
+            />
+            {t.id && <span class="cs-play" aria-hidden="true"><img src={`${A}play.svg`} alt="" width="16" height="16" /></span>}
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>
+<script is:inline>
+  (function () {
+    function load(el) {
+      var id = el.getAttribute('data-video');
+      if (!id || el.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      f.title = 'Birdie customer testimonial';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.setAttribute('allowfullscreen', '');
+      f.loading = 'lazy';
+      el.innerHTML = '';
+      el.appendChild(f);
+    }
+    document.querySelectorAll('.tvideo').forEach(function (el) {
+      el.addEventListener('click', function () { load(el); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(el); }
+      });
+    });
+  })();
+</script>

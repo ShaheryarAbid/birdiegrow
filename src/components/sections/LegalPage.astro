@@ -1,0 +1,15 @@
+---
+/**
+ * Legal page shell — Figma "Privacy" 366:15265 (centered 800px reading column on the near-white canvas, then the dark CTA band).
+ * Default slot = the policy markup (h1, "Last updated", h2 sections) exactly as written; typography comes from .sx-prose.
+ */
+import '../../styles/sections.css';
+import '../../styles/pages.css';
+import Cta from './Cta.astro';
+---
+<div class="hm">
+  <section class="pg-legal">
+    <article class="pg-legal__in sx-prose legal"><slot /></article>
+  </section>
+  <Cta heading="Run your venue on software built for it." body="Bay booking, memberships, payments, 24/7 door access, and revenue tracking — in one platform. Live in 24 hours." label="Book a demo" round={true} />
+</div>

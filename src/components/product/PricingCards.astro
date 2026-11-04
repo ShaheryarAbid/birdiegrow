@@ -1,0 +1,61 @@
+---
+/**
+ * Pricing cards — Figma "Commerce/Pricing-Cards" 498:287 (Pricing hero). First card is the dark highlighted plan (shader), the rest are light.
+ * Props: tiers [{name, price, badge, blurb, features}] (PRICING from src/data/product.ts — single source), notes (reassurance row under the cards).
+ * highlight (index of the dark card, default 0). highlightBadge (badge text for the highlighted card): when set, the highlighted card shows it and
+ * tier 0's own badge is suppressed so it doesn't compete (other tiers keep theirs); when unset every card keeps its own badge (pricing page).
+ * A first feature starting with "Everything in" becomes the green lead-in line ("... +").
+ * bg overrides the dark card's background artwork (defaults to the pricing hero's price-bg).
+ */
+import '../../styles/sections.css';
+import '../../styles/commerce.css';
+import { SHADER_DARK } from '../../data/shader';
+export interface Tier { name: string; price: string; badge?: string; blurb: string; features: string[]; }
+export interface Props { tiers: Tier[]; notes?: string[]; id?: string; highlight?: number; highlightBadge?: string; bg?: string; }
+const { tiers, notes = [], id, highlight = 0, highlightBadge, bg } = Astro.props;
+// An explicit bg means "paint this artwork into the card" — the CSS gradient placeholder is dropped (see .cm-plan.is-bg).
+const isBg = bg !== undefined;
+const bgSrc = bg ?? '/assets/home/price-bg.webp';
+const A = '/assets/home/';
+---
+<section class="cm-pricing" id={id}>
+  <div class="cm-plans">
+    {tiers.map((t, i) => {
+      const dark = i === highlight;
+      const badge = dark && highlightBadge !== undefined ? highlightBadge : (highlight !== 0 && i === 0 ? undefined : t.badge);
+      const lead = t.features[0]?.startsWith('Everything in') ? t.features[0] : null;
+      const list = lead ? t.features.slice(1) : t.features;
+      const from = t.price.startsWith('From ');
+      const amt = from ? t.price.replace('From ', '') : t.price.replace(/ pricing$/, '');
+      const [num, per] = amt.split('/');
+      return (
+        <article class={`cm-plan${dark ? ' is-dark' : ''}${dark && isBg ? ' is-bg' : ''}`}>
+          {dark && (
+            <div class="cm-plan__bg" aria-hidden="true">
+              <img src={bgSrc} alt="" loading="lazy" />
+              <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+              <div class="hm-noise" style="background:#fdfffe"></div>
+            </div>
+          )}
+          <header>
+            <div class="cm-plan__top">
+              <div><h2>{t.name}</h2><p>{t.blurb}</p></div>
+              {badge && <span class="cm-badge">{badge}</span>}
+            </div>
+            <p class="cm-amt">{from ? `From ${num}` : num}{per && <i>/{per}</i>}</p>
+          </header>
+          <img class="cm-rule" src={`${A}${dark ? 'glyph-price-dark' : 'glyph-price-light'}.svg`} alt="" />
+          <div class="cm-plan__list">
+            {lead && <p class="cm-lead">{lead} +</p>}
+            <ul>{list.map((f) => <li><img src={`${A}${dark ? 'check-light' : 'check-dark'}.svg`} alt="" />{f}</li>)}</ul>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+  {notes.length > 0 && (
+    <div class="hm-benefits">
+      {notes.map((n, i) => (<><span><img src={`${A}check-dark.svg`} alt="" class="ck" />{n}</span>{i < notes.length - 1 && <img class="rule" src={`${A}benefits-rule.svg`} alt="" />}</>))}
+    </div>
+  )}
+</section>

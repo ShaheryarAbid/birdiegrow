@@ -1,0 +1,17 @@
+---
+/** Redesign button — Figma UI Kit "Buttons" (Mode Dark|Light × Hierarchy Primary|Secondary). */
+export interface Props {
+  href?: string;
+  mode?: 'dark' | 'light';
+  hierarchy?: 'primary' | 'secondary';
+  icon?: boolean; // 24px icon-only square (e.g. account / menu)
+  disabled?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, mode = 'dark', hierarchy = 'primary', icon = false, disabled = false, class: cls = '', ...rest } = Astro.props;
+const variant = hierarchy === 'primary' ? mode : `secondary-${mode}`;
+const classes = ['bd-btn', `bd-btn--${variant}`, icon ? 'bd-btn--icon' : '', cls].filter(Boolean).join(' ');
+const Tag = href ? 'a' : 'button';
+---
+<Tag class={classes} href={href} aria-disabled={disabled ? 'true' : undefined} {...rest}><slot /></Tag>

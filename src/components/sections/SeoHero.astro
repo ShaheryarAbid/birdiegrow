@@ -1,0 +1,53 @@
+---
+/**
+ * Dark SEO landing hero — Figma "SEO landing / V2" 370:19258 (textured green/amber glow, breadcrumb, centered H1, two buttons,
+ * glass "short answer" panel). Use with BaseLayout headerVariant="dark" headerOverlay.
+ * Props: crumb (current page label; "Home /" is added), h1 (green "." appended unless punctuated), lead (or leadHtml for inline markup), eyebrow (small green line above the H1), primary/secondary {label, href},
+ * answerTitle (default "The short answer"). Default slot = the short-answer text (optional).
+ */
+import '../../styles/sections.css';
+import Button from '../Button.astro';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props {
+  crumb: string;
+  h1: string;
+  lead?: string;
+  leadHtml?: string;
+  eyebrow?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  answerTitle?: string;
+}
+const { crumb, h1, lead, leadHtml, eyebrow, primary, secondary, answerTitle = 'The short answer' } = Astro.props;
+const endsPunct = /[.?!]$/.test(h1.trim());
+const hasSlot = Astro.slots.has('default');
+---
+<section class="hm sx-seo">
+  <div class="sx-seo__bg" aria-hidden="true">
+    <img class="prev" src="/assets/seo/hero-preview.webp" alt="" />
+    <div class="tex"></div>
+    <div class="shade"></div>
+    <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+    <div class="hm-noise" style="background:#fdfffe"></div>
+  </div>
+  <div class="sx-seo__in">
+    <nav class="sx-seo__crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span></nav>
+    <div class="sx-seo__copy">
+      {eyebrow && <p class="sx-seo__eyebrow">{eyebrow}</p>}
+      <h1>{h1}{!endsPunct && <i>.</i>}</h1>
+      {leadHtml ? <p class="sx-seo__lead" set:html={leadHtml} /> : lead && <p class="sx-seo__lead">{lead}</p>}
+    </div>
+    {(primary || secondary) && (
+      <div class="hm-btns">
+        {primary && <Button href={primary.href} mode="light">{primary.label}</Button>}
+        {secondary && <Button href={secondary.href} mode="dark" hierarchy="secondary">{secondary.label} <img src="/assets/home/arrow-right-light.svg" alt="" width="16" height="16" /></Button>}
+      </div>
+    )}
+    {hasSlot && (
+      <div class="sx-seo__box">
+        <h2>{answerTitle}</h2>
+        <p><slot /></p>
+      </div>
+    )}
+  </div>
+</section>

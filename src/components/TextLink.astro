@@ -1,0 +1,6 @@
+---
+/** Redesign text link with trailing arrow — Figma UI Kit "Text-Link" 585:46144. */
+export interface Props { href: string; arrow?: boolean; class?: string; [key: string]: unknown; }
+const { href, arrow = true, class: cls = '', ...rest } = Astro.props;
+---
+<a class={`bd-link ${cls}`.trim()} href={href} {...rest}><slot />{arrow && <img src="/assets/ui/arrow-right.svg" alt="" width="16" height="16" />}</a>

@@ -1,0 +1,311 @@
+---
+/**
+ * SMS & marketing — /sms/ (Figma "SMS & marketing"). Three Figma-matched sections:
+ *  1. Full-bleed photo hero with a 3-state bottom strip (Consent / Message Types / Restrictions).
+ *  2. "How opt-in works." — light card with icon rows (left) + example booking form (right).
+ *  3. "What we send." — pill tabs over a dark glow card with the phone screenshot flush to the card bottom.
+ *  4. "Opt in or opt out at any time." — 2x2 white cards on a grey frame, keyword/privacy cards on flattened Figma art.
+ * The demo form ids (sms-demo / sms-optin / sms-demo-btn / sms-demo-note) and all legal copy are unchanged.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../consts';
+import { SMS_OPT_ICONS } from '../data/smsIcons';
+import '../styles/sections.css';
+import '../styles/home.css';
+import '../styles/product.css';
+
+// Hero bottom strip — three states, matching the three Figma desktop frames.
+const heroStates = [
+  { k: 'consent', label: 'Consent', text: "Messages go only to customers who provided their phone number through a venue's booking flow and affirmatively consented." },
+  { k: 'types', label: 'Message Types', text: 'Toll-free SMS sends transactional messages to existing venue customers: booking confirmations, reminders, schedule changes, membership confirmations, and service updates tied to a customer\u2019s reservation or account.' },
+  { k: 'restrict', label: 'Restrictions', text: 'We send no marketing blasts, no cold outreach, and use no purchased lists.' },
+];
+// Section 2 icon rows — glyphs extracted from the Figma section SVG (src/data/smsIcons.ts).
+const optInRows = [
+  "Customers optionally opt in via a separate, unchecked-by-default SMS consent checkbox on the venue's booking form.",
+  'Customers can complete a booking without checking it — SMS is only sent if the customer affirmatively opts in.',
+  'Submitting a booking alone does not constitute consent.',
+  'Phone numbers are never shared, sold, or rented.',
+];
+// Section 3 tabs — panel visuals are the flattened Figma phone screenshots (what-we-send-1..4).
+const sendTabs = [
+  { label: 'Booking confirmation', title: 'Booking confirmation', text: 'Instant proof of your reserved spot.', img: '/assets/features/what-we-send-1.webp', alt: 'Booking confirmation text message on an iPhone' },
+  { label: 'Booking reminder', title: 'Booking reminder', text: 'Timely alerts so you never miss a session.', img: '/assets/features/what-we-send-2.webp', alt: 'Booking reminder text message on an iPhone' },
+  { label: 'Membership confirmation', title: 'Membership confirmation', text: 'Instant updates confirming your membership is active.', img: '/assets/features/what-we-send-3.webp', alt: 'Membership confirmation text message on an iPhone' },
+  { label: 'Occasional venue update', title: 'Venue updates', text: 'Occasional news and offers to keep you in the loop.', img: '/assets/features/what-we-send-4.webp', alt: 'Venue update text message on an iPhone' },
+];
+// Section 4 cards — [title, html body, icon, flattened card art (2nd and 3rd cards only)].
+const optOutCards: [string, string, string, string?][] = [
+  ['When you opt in', 'After opting in, you\u2019ll receive a confirmation: \u201cBirdie: You are subscribed to receive booking confirmations, reminders, and venue updates. Msg &amp; data rates may apply. Reply STOP to opt out.\u201d', 'calendar'],
+  ['Opt-in &amp; opt-out keywords', 'Opt in or resubscribe by texting START, YES, or UNSTOP. Opt out at any time by replying STOP \u2014 you\u2019ll receive a single confirmation that you\u2019ve been unsubscribed. For help, reply HELP, visit <a href="/">birdiegrow.com</a>, or email <a href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a>.', 'pointer', 'keys'],
+  ['Privacy', 'Phone numbers are never shared, sold, or rented. Mobile information is handled as described in our <a href="/privacy/">Privacy Policy</a>, and messaging is governed by our <a href="/sms-terms/">SMS Terms &amp; Conditions</a>.', 'lock', 'lock'],
+  ['Message frequency &amp; rates', 'Message frequency varies based on your activity \u2014 the bookings you make and the reminders tied to your sessions. Message and data rates may apply, depending on your mobile carrier and plan.', 'mail'],
+];
+---
+<BaseLayout
+  title="SMS Program & Opt-In | Birdie"
+  description="How Birdie's SMS opt-in works for golf simulator venues: consent workflow, sample messages, opt-in and opt-out keywords, and an example booking opt-in form."
+  headerVariant="dark"
+  headerOverlay
+>
+<div class="hm sms-page">
+
+  <!-- 1 ─ Hero: flattened Figma photo (desktop + mobile art) with the 3-state strip pinned bottom-left -->
+  <section class="pf-hero pf-hero--wide sms-hero">
+    <div class="pf-hero__content">
+      <h1>SMS Program &amp; Opt-In<i>.</i></h1>
+      <p class="pf-hero__lead">How customers opt in to text messages from venues that use Birdie.<br class="d-br" />Birdie is a SaaS platform for independent golf simulator venues in the U.S.</p>
+      <div class="hm-btns">
+        <Button href={SITE.demoPath} mode="light">Book a demo</Button>
+        <Button href="#how-opt-in-works" mode="dark" hierarchy="secondary" class="bd-btn--secondary-dark">See how it works <img src="/assets/home/arrow-right-light.svg" alt="" width="16" height="16" /></Button>
+      </div>
+      <div class="sms-strip" data-sms-strip>
+        <div class="sms-strip__rules" role="tablist" aria-label="SMS program overview">
+          {heroStates.map((s, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''} aria-selected={i === 0 ? 'true' : 'false'} data-i={i} aria-label={s.label}></button>)}
+        </div>
+        <div class="sms-strip__body">
+          {heroStates.map((s, i) => <div class={`sms-state${i === 0 ? ' is-on' : ''}`} data-i={i} role="tabpanel" hidden={i !== 0}><h3>{s.label}</h3><p>{s.text}</p></div>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ─ How opt-in works: light icon-row card left, example booking form card right -->
+  <section class="hm-sec hm-white hm-stack sms-opt" id="how-opt-in-works">
+    <div class="sms-opt__card">
+      <div class="sms-opt__left">
+        <h2>How opt-in works<i>.</i></h2>
+        <ul class="sms-opt__rows">
+          {optInRows.map((t, n) => <li><span class="ic" set:html={SMS_OPT_ICONS[n]} />{t}</li>)}
+        </ul>
+        <p class="sms-opt__note">By checking the box above and submitting, a customer consents to receive recurring automated SMS from the venue via Birdie. Consent is not a condition of booking or purchase. Message and data rates may apply.</p>
+      </div>
+      <div class="sms-opt__right">
+        <div class="sms-opt__form">
+          <form id="sms-demo" onsubmit="return false">
+          <label>Name<input type="text" placeholder="Jordan Smith" autocomplete="off" /></label>
+          <label>Phone Number<span class="sms-opt__tel">
+            <span class="sms-opt__cc" role="button" tabindex="0" aria-label="Country code, United States +1">
+              <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="2" fill="#fff"/><rect width="20" height="1.08" y="0" fill="#B22234"/><rect width="20" height="1.08" y="2.15" fill="#B22234"/><rect width="20" height="1.08" y="4.31" fill="#B22234"/><rect width="20" height="1.08" y="6.46" fill="#B22234"/><rect width="20" height="1.08" y="8.62" fill="#B22234"/><rect width="20" height="1.08" y="10.77" fill="#B22234"/><rect width="20" height="1.08" y="12.92" fill="#B22234"/><rect width="9" height="7.55" fill="#3C3B6E"/><rect x="9" width="11" height="7.55" fill="#fff"/><rect x="9" width="11" height="1.08" fill="#B22234"/><rect x="9" y="2.15" width="11" height="1.08" fill="#B22234"/><rect x="9" y="4.31" width="11" height="1.08" fill="#B22234"/></svg>
+              <b>+1</b>
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#6B7280" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg>
+            </span>
+            <input type="tel" placeholder="(763) 328-0089" autocomplete="off" />
+          </span></label>
+          <label>Venue<input type="text" value="Green Room Golf" readonly /></label>
+          <label>Date &amp; time<input type="text" placeholder="Sat, 7:00 PM" autocomplete="off" /></label>
+          <label class="sms-consent">
+            <input type="checkbox" id="sms-optin" />
+            <span>Yes, I agree to receive recurring SMS booking confirmations, reminders, and membership updates from BirdieGrow LLC. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. See <a href="/privacy/">Privacy Policy</a> and <a href="/sms-terms/">Terms</a>.</span>
+          </label>
+          <button type="button" class="sms-opt__btn" id="sms-demo-btn">Book session</button>
+          <div class="sms-opt__divider" aria-hidden="true"></div>
+          <p id="sms-demo-note" class="sms-opt__info"><span class="n" aria-hidden="true">i</span>Example booking form — a demonstration of the SMS opt-in checkbox as it appears on venue booking pages. This form does not submit or store any information.</p>
+        </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ─ What we send: pill tabs over the glow card, phone screenshot flush to the card bottom -->
+  <section class="hm-sec hm-white hm-stack sms-send">
+    <div class="hm-intro">
+      <h2 class="hm-h2">What we send<i>.</i></h2>
+      <p class="hm-sub">Transactional and service messages tied to a customer's reservation or account — booking confirmations, reminders, schedule changes, membership confirmations, and occasional venue updates.</p>
+    </div>
+    <div class="pf-tabs sms-send__tabs">
+      <div class="hm-tabs" role="tablist">{sendTabs.map((t, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''} aria-selected={i === 0 ? 'true' : 'false'} data-i={i}>{t.label}</button>)}</div>
+      <div class="pf-tabs__panels">
+        {sendTabs.map((t, i) => (
+          <div class={`pf-tabs__panel${i === 0 ? ' is-on' : ''}`} data-i={i} role="tabpanel" hidden={i !== 0}>
+            <div class="pf-tabs__txt"><h3>{t.title}</h3><p>{t.text}</p></div>
+            <div class="pf-tabs__vis"><img src={t.img} alt={t.alt} width="383" /></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ─ Opt in or opt out at any time: four white cards on the light frame (2fr/3fr rows), keyword + privacy cards on the flattened Figma art -->
+  <section class="hm-sec hm-white hm-stack sms-lio">
+    <div class="hm-intro">
+      <h2 class="hm-h2">Opt in or opt out at any time<i>.</i></h2>
+      <p class="hm-sub">Booking confirmations, reminders, and venue updates.</p>
+    </div>
+    <div class="sms-lio__grid">
+      {optOutCards.map(([title, body, ic, art]) => (
+        <div class={`sms-lio__card${art ? ' sms-lio__card--' + art : ''}`}>
+          <span class="sms-lio__ic"><Icon name={ic} size={20} /></span>
+          <h3 set:html={title} />
+          <p set:html={body} />
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('sms-demo-btn');
+    var note = document.getElementById('sms-demo-note');
+    if (btn && note) btn.addEventListener('click', function () { note.style.display = 'block'; });
+  })();
+</script>
+<script>
+  import { setupTabs } from '../scripts/tabs';
+  // Section 3 — wire the pill tabs through the shared tabs helper.
+  document.querySelectorAll<HTMLElement>('.sms-send__tabs').forEach((root) => {
+    const bar = root.querySelector<HTMLElement>('.hm-tabs');
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('.hm-tabs button'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.pf-tabs__panel'));
+    if (!bar || btns.length < 2) return;
+    setupTabs(root, bar, btns, panels);
+  });
+  // Hero strip — three states: click a rule to jump, auto-rotate every 5s otherwise.
+  document.querySelectorAll<HTMLElement>('[data-sms-strip]').forEach((root) => {
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('.sms-strip__rules button'));
+    const states = Array.from(root.querySelectorAll<HTMLElement>('.sms-state'));
+    if (btns.length !== states.length) return;
+    let cur = 0;
+    let timer = 0;
+    const show = (i: number) => {
+      cur = i;
+      btns.forEach((b, n) => {
+        b.classList.toggle('is-on', n === i);
+        b.setAttribute('aria-selected', String(n === i));
+      });
+      states.forEach((s, n) => { s.classList.toggle('is-on', n === i); s.hidden = n !== i; });
+    };
+    btns.forEach((b, i) => b.addEventListener('click', () => { show(i); restart(); }));
+    const restart = () => { clearInterval(timer); timer = window.setInterval(() => show((cur + 1) % btns.length), 5000); };
+    restart();
+  });
+</script>
+<style is:global>
+  /* ===== 1 — Hero: flattened Figma photo full-bleed, copy left, 3-state strip pinned near the hero bottom ===== */
+  .sms-page .sms-hero { background: #000 url('/assets/features/sms-hero-desktop.webp') center / cover no-repeat; }
+  /* Figma: strip rules at y563 of the 791px hero, last text line ends y673 → content box 180 → bottom 118 */
+  .sms-page .sms-hero .pf-hero__content { top: 180px; bottom: 118px; height: auto; }
+  .sms-page .sms-hero h1 { max-width: none; }
+  .sms-page .sms-hero .pf-hero__lead { max-width: 520px; }
+  /* product.css pushes the button row down with margin-top:auto — keep it under the lead so the strip owns the free space */
+  .sms-page .pf-hero.sms-hero .pf-hero__content > .hm-btns { margin-top: 12px; }
+  /* Figma buttons: 48px, radius 16, white primary + translucent dark glass secondary */
+  .sms-page .sms-hero .hm-btns { gap: 12px; }
+  .sms-page .sms-hero .hm-btns .bd-btn { box-sizing: border-box; height: 48px; border: 0; padding: 16px 24px; border-radius: 16px; box-shadow: 0 20px 20px rgba(0, 0, 0, .03), 0 10px 10px rgba(0, 0, 0, .03); }
+  .sms-page .sms-hero .hm-btns .bd-btn--light { background: #fff; color: #000407; }
+  .sms-page .sms-hero .hm-btns .bd-btn--secondary-dark { background: rgba(255, 255, 255, .1); color: #fff; border: 1px solid rgba(255, 255, 255, .2); }
+
+  /* 3-state strip: three progress rules (active = white), then heading + body for the current state */
+  .sms-page .sms-strip { position: relative; width: 341px; margin-top: auto; }
+  .sms-page .sms-strip__rules { display: flex; gap: 8px; margin-bottom: 22px; }
+  .sms-page .sms-strip__rules button { flex: 1 1 0; height: 2px; padding: 0; border: 0; border-radius: 0; background: rgba(255, 255, 255, .2); cursor: pointer; transition: background .3s; }
+  .sms-page .sms-strip__rules button.is-on { background: #fff; }
+  .sms-page .sms-strip__body { position: relative; }
+  .sms-page .sms-state { transition: opacity .45s; }
+  .sms-page .sms-state[hidden] { display: none; }
+  .sms-page .sms-state.is-on[hidden] { display: block; opacity: 1; }
+  .sms-page .sms-state h3 { margin: 0 0 10px; font: 500 20px/1 var(--font-ui); letter-spacing: -.03em; color: #fff; }
+  .sms-page .sms-state p { margin: 0; font: 400 16px/1.45 var(--font-ui); letter-spacing: -.02em; color: #D1D5DB; }
+
+  @media (max-width: 900px) {
+    /* Mobile hero: the Figma art is 786x1582, so at any width the hero is exactly width x (width x 2.0127) — no stretched photo, no dead black below it */
+    .sms-page .sms-hero { display: block; position: relative; height: auto; min-height: calc(100vw * 2.0127); background: url('/assets/features/sms-hero-mobile.webp') left top / 100% auto no-repeat, #000; }
+    .sms-page .sms-hero .pf-hero__content { position: static; width: auto; padding: 112px 16px 0; }
+    .sms-page .sms-hero h1 { max-width: 300px; }
+    .sms-page .sms-strip { position: absolute; left: 16px; right: 16px; bottom: 40px; top: auto; width: auto; margin-top: 0; }
+    /* product.css mobile rules force width:auto + flex:none on the button row — beat them with specificity */
+    .sms-page .sms-hero .pf-hero__content .hm-btns { width: 100%; flex-wrap: nowrap; gap: 16px; }
+    .sms-page .sms-hero .hm-btns .bd-btn--light { flex: 0 0 auto; width: auto; }
+    .sms-page .sms-hero .hm-btns .bd-btn--secondary-dark { flex: 1 1 auto; width: auto; justify-content: center; }
+  }
+
+  /* ===== 2 — How opt-in works (Figma section SVG: 1100x684 frame, 20px radius, grey left / inset white form card) ===== */
+  .sms-page .sms-opt__card { width: 100%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 526px 574px; border-radius: 20px; overflow: hidden; background: #F0F2F1; }
+  .sms-page .sms-opt__left { box-sizing: border-box; padding: 32px 32px 40px 32px; display: flex; flex-direction: column; }
+  .sms-page .sms-opt__left h2 { margin: 24px 0 0; font: 600 48px/1 var(--font-display); letter-spacing: -.03em; color: #000407; }
+  .sms-page .sms-opt__left h2 i { font-style: normal; color: var(--green-500); }
+  .sms-page .sms-opt__rows { list-style: none; margin: 40px 0 0; padding: 0; display: flex; flex-direction: column; }
+  .sms-page .sms-opt__rows li { display: flex; gap: 24px; align-items: center; min-height: 44px; padding: 21px 0; border-bottom: 1px solid #E0E1E0; font: 400 16px/1.32 var(--font-ui); letter-spacing: -.03em; color: #000407; }
+  .sms-page .sms-opt__rows li:last-child { border-bottom: 0; }
+  .sms-page .sms-opt__rows .ic { flex: none; width: 44px; height: 44px; border-radius: 8px; background: #fff; display: grid; place-items: center; }
+  .sms-page .sms-opt__rows .ic svg { display: block; width: 44px; height: 44px; }
+  .sms-page .sms-opt__note { margin: auto 0 0; padding-top: 48px; font: 400 16px/1.45 var(--font-ui); letter-spacing: -.02em; color: #4B5563; max-width: 462px; }
+  /* Form card: white, radius 14, 48px inputs radius 14, green-gradient book button. Figma insets it 8px from the frame's top/right/bottom so the grey shows behind it */
+  .sms-page .sms-opt__right { box-sizing: border-box; padding: 8px 8px 8px 0; }
+  .sms-page .sms-opt__form { box-sizing: border-box; height: 100%; background: #FDFFFE; border-radius: 14px; padding: 32px; color: #000407; }
+  .sms-page .sms-opt__form form { display: flex; flex-direction: column; gap: 20px; }
+  .sms-page .sms-opt__form label { display: flex; flex-direction: column; gap: 10px; font: 400 16px/1.2 var(--font-ui); letter-spacing: -.02em; color: #000407; }
+  .sms-page .sms-opt__form input[type="text"], .sms-page .sms-opt__form input[type="tel"] { width: 100%; box-sizing: border-box; height: 48px; border: 1px solid #D4D6D7; border-radius: 14px; padding: 0 16px; font: 400 16px/1 var(--font-ui); letter-spacing: -.02em; background: #FDFFFE; color: #000407; }
+  .sms-page .sms-opt__form input::placeholder { color: #6B7280; opacity: 1; }
+  .sms-page .sms-opt__tel { display: flex; gap: 8px; }
+  .sms-page .sms-opt__cc { flex: none; width: 94px; height: 48px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border: 1px solid #D4D6D7; border-radius: 14px; background: #FDFFFE; cursor: pointer; }
+  .sms-page .sms-opt__cc b { font: 400 16px/1 var(--font-ui); color: #000407; }
+  .sms-page .sms-opt__cc svg[width="20"] { border-radius: 2px; display: block; }
+  .sms-page .sms-opt__tel input { flex: 1; min-width: 0; }
+  .sms-page .sms-opt__form label.sms-consent { flex-direction: row; align-items: flex-start; gap: 12px; font: 400 14px/1.45 var(--font-ui); color: #000407; cursor: pointer; }
+  .sms-page .sms-opt__form label.sms-consent input { width: 18px; height: 18px; flex: none; margin-top: 2px; accent-color: var(--green-800); }
+  .sms-page .sms-opt__form label.sms-consent a { color: var(--green-800); text-decoration: underline; }
+  .sms-page .sms-opt__btn { box-sizing: border-box; height: 48px; border: 0; border-radius: 14px; background: linear-gradient(97.21deg, #00240D -135.91%, #22C55E 103.19%); box-shadow: inset -1.1px -1.1px .55px rgba(255, 255, 255, .45), inset 1.1px 1.1px .55px rgba(0, 0, 0, .45); color: #F5F5F5; font: 500 16px/1 var(--font-ui); letter-spacing: -.03em; cursor: pointer; }
+  .sms-page .sms-opt__divider { height: 1px; background: #E5E7EB; }
+  .sms-page .sms-opt__info { display: flex; gap: 10px; margin: 0; font: 400 15px/1.45 var(--font-ui); letter-spacing: -.02em; color: #4B5563; }
+  .sms-page .sms-opt__info .n { flex: none; width: 16px; height: 16px; border-radius: 99px; background: #000407; color: #fff; font: italic 600 11px/16px var(--font-display); text-align: center; margin-top: 3px; }
+  @media (max-width: 900px) {
+    .sms-page .sms-opt__card { grid-template-columns: 1fr; max-width: 560px; border-radius: 24px; }
+    .sms-page .sms-opt__left { padding: 24px 20px 28px; }
+    .sms-page .sms-opt__left h2 { font-size: 32px; margin-top: 8px; }
+    .sms-page .sms-opt__note { padding-top: 32px; }
+    .sms-page .sms-opt__right { padding: 0; }
+    .sms-page .sms-opt__form { border-radius: 0; height: auto; }
+  }
+
+  /* ===== 3 — What we send: shared pf-tabs, card bg = flattened glow image, phone flush to the card bottom ===== */
+  .sms-page .sms-send .hm-sub { max-width: 760px; }
+  .sms-page .sms-send .pf-tabs { gap: 40px; }
+  .sms-page .sms-send .pf-tabs__panels { max-width: 960px; }
+  .sms-page .sms-send .pf-tabs__panel { background: #000407 url('/assets/features/what-we-send-bg.webp') center / cover no-repeat; min-height: 422px; }
+  .sms-page .sms-send .pf-tabs__txt h3 { color: #fff; }
+  .sms-page .sms-send .pf-tabs__txt p { color: #D1D5DB; }
+  .sms-page .sms-send .pf-tabs__vis { background: none; padding: 0; align-items: flex-end; justify-content: center; min-height: 0; }
+  .sms-page .sms-send .pf-tabs__vis > img { width: 383px; max-width: none; }
+  @media (max-width: 900px) {
+    .sms-page .sms-send .pf-tabs__panel { min-height: 0; }
+    /* Figma mobile stacks the four tabs as full-width rows inside the grey frame (4px padding, ~40px rows, centred labels),
+       the selected one taking the white pill — the shared flex:1 + wrap rules would otherwise leave the 4th pill alone on its own row */
+    .sms-page .sms-send .hm-tabs { display: flex; flex-direction: column; }
+    .sms-page .sms-send .hm-tabs button { flex: none; width: 100%; text-align: center; }
+    /* No forced 420px well under the phone — the dark card is only as tall as its text plus the screenshot, phone still flush to the bottom */
+    .sms-page .sms-send .pf-tabs__vis { min-height: 0; }
+    .sms-page .sms-send .pf-tabs__vis > img { width: 300px; }
+  }
+
+  /* ===== 4 — Opt in or opt out at any time (Figma: 1280px light frame, 8px padding/gap, 2fr|3fr then 3fr|2fr rows, 44px pixel tiles) ===== */
+  .sms-page .sms-lio .hm-h2 i { font-style: normal; color: var(--green-500); }
+  .sms-page .sms-lio__grid { width: 100%; max-width: 1280px; box-sizing: border-box; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; background: #F0F2F1; border-radius: 20px; padding: 8px; }
+  .sms-page .sms-lio__card { grid-column: span 2; box-sizing: border-box; min-height: 243px; background: #FDFFFE; border-radius: 14px; padding: 40px; overflow: hidden; display: flex; flex-direction: column; }
+  .sms-page .sms-lio__card:nth-child(2), .sms-page .sms-lio__card:nth-child(3) { grid-column: span 3; }
+  /* Cards 2 and 3 are the flattened Figma art (keyboard keys / padlock), right-aligned so the subject bleeds off the card edge */
+  .sms-page .sms-lio__card--keys { background: #FDFFFE url('/assets/features/opt-in-last-sec-1.webp') right center / cover no-repeat; }
+  .sms-page .sms-lio__card--lock { background: #FDFFFE url('/assets/features/opt-in-last-sec-2.webp') right center / cover no-repeat; }
+  .sms-page .sms-lio__ic { flex: none; width: 44px; height: 44px; border-radius: 10px; background: #000407 url('/assets/features/color-pixel.webp') center / cover no-repeat; color: #fff; display: grid; place-items: center; }
+  .sms-page .sms-lio__card h3 { margin: 22px 0 0; font: 500 20px/1.2 var(--font-ui); letter-spacing: -.03em; color: #000407; }
+  .sms-page .sms-lio__card p { margin: 12px 0 0; max-width: 419px; font: 400 14px/1.3 var(--font-ui); letter-spacing: -.01em; color: #4B5563; }
+  .sms-page .sms-lio__card--keys p { max-width: 380px; }
+  .sms-page .sms-lio__card--lock p { max-width: 340px; }
+  .sms-page .sms-lio__card a { color: var(--green-800); text-decoration: underline; }
+  @media (max-width: 900px) {
+    .sms-page .sms-lio__grid { grid-template-columns: 1fr; padding: 8px; }
+    .sms-page .sms-lio__card, .sms-page .sms-lio__card:nth-child(2), .sms-page .sms-lio__card:nth-child(3) { grid-column: auto; min-height: 0; padding: 24px; }
+    .sms-page .sms-lio__card p { max-width: none; }
+    /* Figma mobile puts the keywords card first, then "When you opt in", then privacy, then rates */
+    .sms-page .sms-lio__card:nth-child(1) { order: 2; }
+    .sms-page .sms-lio__card:nth-child(2) { order: 1; }
+    .sms-page .sms-lio__card:nth-child(3) { order: 3; }
+    .sms-page .sms-lio__card:nth-child(4) { order: 4; }
+    /* Figma mobile keeps the flattened art at the card's TOP-RIGHT corner, bleeding off the top and right edges at roughly its own scale
+       (art region ~146x131 in a 343x227 card), so it is anchored right top at a fixed height instead of covering the card. */
+    .sms-page .sms-lio__card--keys.sms-lio__card, .sms-page .sms-lio__card--lock.sms-lio__card { background-position: right -18px; background-size: auto 132px; padding-bottom: 24px; }
+  }
+</style>
+</BaseLayout>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../components/sections/ArticleLayout.astro';
+import Cta from '../../components/sections/Cta.astro';
+import Button from '../../components/Button.astro';
+import '../../styles/pages.css';
+const title = 'Golf Simulator Business FAQ — Common Questions | Birdie';
+const description = 'Answers to the most common questions about starting and running a golf simulator business — cost, profitability, software, memberships, and more.';
+
+// [question, answer (plain), moreHref, moreLabel]
+const faqs: [string, string, string, string][] = [
+  ['How much does it cost to open a golf simulator business?', 'Startup costs typically run from the low six figures for a small studio to much more for a large multi-bay venue. The biggest drivers are how many bays you build and which equipment tier you choose, on top of buildout, lease, and working capital.', '/resources/startup-cost-calculator/', 'Estimate your cost'],
+  ['Is a golf simulator business profitable?', 'It can be, but not automatically. Simulator venues have high fixed costs and low variable costs, so profitability is almost entirely a function of utilization — how consistently you fill your bays. A well-run venue at healthy occupancy is very profitable; an underutilized one struggles.', '/resources/is-a-golf-simulator-business-profitable/', 'See the real numbers'],
+  ['How much revenue can a golf simulator make?', 'Revenue depends on your bay count, hourly rate, and utilization. A handful of well-utilized bays can generate strong monthly revenue, and memberships plus events add on top of hourly bookings.', '/resources/revenue-calculator/', 'Run the revenue calculator'],
+  ['How many bays should a golf simulator have?', 'Most successful independent venues run between two and eight bays. The right number is the one your market can keep busy — it is better to open with a count you can fill and expand once you are turning people away at peak.', '/resources/how-many-golf-simulator-bays/', 'How many bays to build'],
+  ['What software do golf simulator businesses use?', 'Simulator venues need purpose-built booking and management software that handles bay-based scheduling, hour-bank memberships, payments, and automated SMS — not a generic appointment tool. A dedicated platform manages the whole operation from one system.', '/best-golf-simulator-software/', 'Compare the software'],
+  ['Can I just use a generic booking tool like Calendly or Acuity?', 'Generic appointment tools are built for one-on-one appointments, not hourly bay rentals, memberships, or 24/7 access. Operators usually outgrow the workarounds fast, which is why simulator-specific booking software exists.', '/golf-simulator-booking-software/', 'Why simulator booking software'],
+  ['What is a good utilization rate for a golf simulator?', 'The average studio runs roughly 35–50% weekday occupancy, with higher rates on weekends. Because fixed costs are the same whether a bay is booked or empty, moving utilization up even 10–15 points has an outsized effect on profit.', '/resources/golf-simulator-utilization-rate/', 'Utilization benchmarks'],
+  ['How do golf simulator memberships work?', 'Memberships typically give members a monthly hour bank or unlimited access for a recurring fee, creating predictable revenue and stronger retention. Good software tracks the hour bank automatically and bills members on schedule.', '/resources/golf-simulator-membership-program/', 'Build a membership program'],
+  ['Can a golf simulator run 24/7 without staff?', 'Yes. With smart-lock door access integration, a customer books online and receives a time-gated unlock link at their reservation time — no staff required. This turns off-peak and overnight hours into sellable revenue.', '/blog/golf-simulator-door-access/', 'How 24/7 access works'],
+  ['How much space and ceiling height do I need?', 'Each bay needs enough ceiling height for a full driver swing plus room for the player, screen, and a safe buffer — which is why many venues are in warehouse or industrial spaces rather than standard offices. Confirm the dimensions before signing a lease.', '/resources/golf-simulator-room-requirements/', 'Room requirements'],
+  ['How do I finance a golf simulator business?', 'Common routes include SBA and bank loans, equipment financing (the simulators serve as collateral), investors, and bootstrapping by opening lean and reinvesting. Most operators use a mix.', '/resources/golf-simulator-financing/', 'Financing options'],
+  ['How do I fill slow weekday hours?', 'Target the weak slots directly with off-peak pricing, memberships, leagues, and corporate events rather than discounting across the board. Filling weekday capacity is the single highest-leverage move for profitability.', '/resources/how-to-fill-weekday-bays-golf-simulator/', 'How to fill weekday bays'],
+  ['How long does it take to get set up with software?', 'With a purpose-built platform and white-glove onboarding, a venue can be configured and taking bookings within about 24 hours — no developers or lengthy migration required.', '/golf-simulator-software/', 'See the platform'],
+  ['Do I need insurance and liability waivers?', 'Yes. General liability insurance and a signed waiver for every player are essential given the physical activity involved. The cleanest approach is a digital waiver captured as part of the booking flow.', '/resources/golf-simulator-business-insurance/', 'Insurance and waivers'],
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiegrow.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://www.birdiegrow.com/resources/' },
+      { '@type': 'ListItem', position: 3, name: 'Business FAQ', item: 'https://www.birdiegrow.com/resources/golf-simulator-business-faq/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  },
+];
+const intro = 'Straight answers to the questions people ask most about starting and running an indoor golf simulator venue. Each answer links to a deeper guide or free tool if you want to go further.';
+---
+
+<BaseLayout title={title} description={description} schema={schema} headerVariant="light">
+  <ArticleLayout kind="Resource" hubHref="/resources/" title="Golf Simulator Business FAQ" intro={intro} pubDate={new Date('2026-07-16')} minutes={6}>
+    <div class="hm-faqs__list" style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+      {faqs.map(([q, a, href, label], i) => (
+        <details class="hm-faq" open={i === 0}>
+          <summary><span>{q}</span><img class="ic e" src="/assets/home/faq-expand.svg" alt="" /><img class="ic c" src="/assets/home/faq-collapse.svg" alt="" /></summary>
+          <p>{a}</p>
+          <a class="pg-faqlink" href={href}>{label} →</a>
+        </details>
+      ))}
+    </div>
+    <div class="pg-more" slot="after">
+      <h2 class="hm-h2" style="font-size:32px">Go deeper</h2>
+      <p>These are the short answers. For the full walkthrough of planning, opening, operating, and growing a venue, read the <a href="/resources/golf-simulator-business-guide/">complete golf simulator business guide</a>, model your own numbers with the <a href="/resources/calculators/">free calculators</a>, or <a href="/demo/">book a demo</a> to see how Birdie runs the whole operation on one platform.</p>
+      <div class="hm-btns"><Button href="/demo/" mode="dark">Book a Demo</Button></div>
+    </div>
+  </ArticleLayout>
+  <Cta label="Book a Demo" />
+</BaseLayout>

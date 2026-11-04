@@ -1,0 +1,43 @@
+---
+/**
+ * Call to action band — Figma "Call to action" (Home 1440x635 / mobile). Shared by every redesigned page.
+ * Props: heading (trailing "." is added as the green dot unless the text already ends in punctuation),
+ * body, items (check list under the button), href/label (primary light button), secondary {label, href} (optional ghost button).
+ */
+import '../../styles/sections.css';
+import Button from '../Button.astro';
+import { SITE } from '../../consts';
+export interface Props {
+  heading?: string;
+  body?: string;
+  items?: string[];
+  label?: string;
+  href?: string;
+  secondary?: { label: string; href: string };
+  round?: boolean;
+}
+const {
+  heading = 'Serving golf simulator venues across the US & Canada',
+  body = 'From coast to coast — purpose-built booking, memberships, automated texts and emails, and 24/7 door access for indoor golf operators nationwide.',
+  items = ['Free walkthrough', 'No hard sales process', 'We handle setup', 'Live in 24 hours'],
+  label = 'Book a demo',
+  href = SITE.demoPath,
+  secondary,
+  round = true,
+} = Astro.props;
+const A = '/assets/home/';
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class={`hm-cta${round ? ' hm-round' : ''}`}>
+  <div class="hm-cta__img"><img src={`${A}cta-ball.webp`} alt="" loading="lazy" /></div>
+  <div class="hm-cta__hl"></div>
+  <div class="hm-cta__c">
+    <div class="hm-cta__copy">
+      <div><h2>{heading}{!endsPunct && <i>.</i>}</h2>{body && <p>{body}</p>}</div>
+      <div class="hm-btns"><Button href={href} mode="light">{label}</Button>{secondary && <Button href={secondary.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-dark">{secondary.label} <img src="/assets/home/arrow-right-light.svg" alt="" width="16" height="16" /></Button>}</div>
+    </div>
+    {items.length > 0 && <div class="hm-cta__items">
+      {items.map((it, i) => (<><span><img src={`${A}cta-check.svg`} alt="" />{it}</span>{i < items.length - 1 && <i class="sep"></i>}</>))}
+    </div>}
+  </div>
+</section>

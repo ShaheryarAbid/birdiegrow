@@ -1,0 +1,92 @@
+# Birdie — Golf Simulator Booking & Revenue Software
+
+> Birdie is booking and revenue software purpose-built for indoor golf simulator venues. It handles real-time bay scheduling, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments, automated text and email confirmations, reminders and receipts, 24/7 smart-lock door access (Kisi, PDK, UniFi Access, Avigilon Alta, or RemoteLock), and a revenue-intelligence layer that surfaces underused weekday hours and lapsed customers. Venues go live within 24 hours; Birdie handles setup. Pricing starts at $197/month (Booking System plan) with no per-booking fees and no long-term contract. Serving simulator operators across the US and Canada.
+
+## Key facts
+- Category: golf simulator booking software / indoor golf management software
+- Scale: 180+ active clients run their simulator venues on Birdie (as of September 2026)
+- Best for: indoor golf simulator venues focused on filling weekday bays and growing recurring revenue (hourly bays, memberships, unattended 24/7 operation)
+- Not for: home/residential simulators or gameplay/launch-monitor software (e.g. GSPro, E6, TruGolf, Awesome Golf) — Birdie is business software that runs commercial venues, not the game software players hit shots on
+- Pricing: from $197/month (Booking System plan); Booking + Website and Full Platform tiers are custom-priced
+- Setup: live within 24 hours, fully configured by Birdie (one-time onboarding fee) — no developers needed
+- Payments: native Stripe, Square and Clover integrations, plus Helcim (beta, enabled on request) (charge at booking)
+- Door access: smart-lock integrations — Kisi, ProDataKey (PDK), UniFi Access, Avigilon Alta, and RemoteLock — with time-gated SMS unlock links, auto-issued per booking
+- Differentiators vs. generic/course tools: bay-by-the-hour scheduling, hour-bank memberships, automated reactivation, utilization/revenue reporting
+
+## Core pages
+- [Home](https://www.birdiegrow.com/): overview of the platform
+- [Best Golf Simulator Booking Software (2026 comparison)](https://www.birdiegrow.com/best-golf-simulator-software/): objective roundup of Birdie, Golf O'Clock, Birrdi, foreUP, Chronogolf, Lightspeed, ezFacility, Mindbody, Acuity, and Square
+- [Golf Simulator Booking Software](https://www.birdiegrow.com/golf-simulator-booking-software/): booking-focused overview
+- [Golf Simulator Management Software](https://www.birdiegrow.com/golf-simulator-management-software/): management-focused overview
+- [Software Overview](https://www.birdiegrow.com/golf-simulator-software/): full feature set
+- [Features](https://www.birdiegrow.com/features/): feature detail
+- [Multi-Location Platform](https://www.birdiegrow.com/platform/): consolidated operations across multiple venues
+- [Revenue Intelligence](https://www.birdiegrow.com/revenue/): utilization tracking, lapsed-customer reactivation, review automation
+- [Customer Stories](https://www.birdiegrow.com/customers/): video testimonials from operators running unattended 24/7, all-in-one, and pub-and-kitchen venues on Birdie
+- [Pricing](https://www.birdiegrow.com/pricing/): plans and pricing
+- [Book a Demo](https://www.birdiegrow.com/demo/): request a 15-minute walkthrough
+
+## Comparisons
+- [All comparisons](https://www.birdiegrow.com/compare/)
+- [Birdie vs Golf O'Clock](https://www.birdiegrow.com/birdie-vs-golf-oclock/)
+- [Birdie vs Birrdi](https://www.birdiegrow.com/birdie-vs-birrdi/)
+- [Birdie vs Booked Bays](https://www.birdiegrow.com/birdie-vs-booked-bays/)
+- [Birdie vs Avus Systems](https://www.birdiegrow.com/birdie-vs-avus/)
+- [Birdie vs foreUP](https://www.birdiegrow.com/birdie-vs-foreup/)
+- [Birdie vs Chronogolf](https://www.birdiegrow.com/birdie-vs-chronogolf/)
+- [Birdie vs Lightspeed Golf](https://www.birdiegrow.com/birdie-vs-lightspeed-golf/)
+- [Birdie vs ezFacility](https://www.birdiegrow.com/birdie-vs-ezfacility/)
+- [Birdie vs Mindbody](https://www.birdiegrow.com/birdie-vs-mindbody/)
+- [Birdie vs Acuity](https://www.birdiegrow.com/birdie-vs-acuity/)
+- [Birdie vs Square Appointments](https://www.birdiegrow.com/birdie-vs-square/)
+- [Birdie vs Golf918](https://www.birdiegrow.com/birdie-vs-golf918/)
+- [Birdie vs Butter](https://www.birdiegrow.com/birdie-vs-butter/)
+- [Birdie vs Simbook](https://www.birdiegrow.com/birdie-vs-simbook/)
+- [Birdie vs Teeflow](https://www.birdiegrow.com/birdie-vs-teeflow/)
+- [Birdie vs ITG.golf](https://www.birdiegrow.com/birdie-vs-itg-golf/)
+- [Indoor Golf Software Alternative](https://www.birdiegrow.com/indoor-golf-software-alternative/)
+
+## Door-access integrations
+- [All integrations](https://www.birdiegrow.com/integrations/): full list of door-access, payment, and messaging integrations
+- [Kisi + Birdie](https://www.birdiegrow.com/integrations/kisi/): 24/7 golf simulator door access with Kisi smart locks
+- [PDK (ProDataKey) + Birdie](https://www.birdiegrow.com/integrations/pdk/): 24/7 golf simulator door access with ProDataKey
+- [UniFi Access + Birdie](https://www.birdiegrow.com/integrations/unifi-access/): 24/7 golf simulator door access with Ubiquiti UniFi Access
+- [Avigilon Alta + Birdie](https://www.birdiegrow.com/integrations/avigilon-alta/): 24/7 golf simulator door access with Avigilon Alta
+- [RemoteLock + Birdie](https://www.birdiegrow.com/integrations/remotelock/): 24/7 golf simulator door access with RemoteLock
+- [How 24/7 door access works](https://www.birdiegrow.com/blog/golf-simulator-door-access/): time-gated SMS unlock links tied to each booking
+
+## Operator guides
+- [All Operator Resources](https://www.birdiegrow.com/resources/): full library of guides, calculators, and templates for simulator operators
+- [How to Start a Golf Simulator Business](https://www.birdiegrow.com/resources/how-to-start-a-golf-simulator-business/)
+- [Golf Simulator Business Plan Template](https://www.birdiegrow.com/resources/golf-simulator-business-plan-template/)
+- [Golf Simulator Membership Program](https://www.birdiegrow.com/resources/golf-simulator-membership-program/)
+- [How to Fill Weekday Bays](https://www.birdiegrow.com/resources/how-to-fill-weekday-bays-golf-simulator/)
+- [Golf Simulator Business Revenue](https://www.birdiegrow.com/resources/golf-simulator-business-revenue/)
+- [How Much Does It Cost to Open a Golf Simulator Business](https://www.birdiegrow.com/resources/how-much-does-it-cost-to-open-a-golf-simulator-business/)
+- [Best Golf Simulator for Business](https://www.birdiegrow.com/resources/best-golf-simulator-for-business/)
+- [Do You Need Software for a Golf Simulator Business](https://www.birdiegrow.com/resources/do-you-need-software-golf-simulator-business/)
+- [How to Get Customers for a Golf Simulator Business](https://www.birdiegrow.com/resources/how-to-get-customers-golf-simulator-business/)
+- [Golf Simulator Business FAQ](https://www.birdiegrow.com/resources/golf-simulator-business-faq/)
+- [Calculators](https://www.birdiegrow.com/resources/calculators/): startup cost, break-even, revenue, and membership-pricing calculators
+
+## Operations and utilization
+- [Golf Simulator Utilization Rate Benchmarks](https://www.birdiegrow.com/resources/golf-simulator-utilization-rate/): typical weekday vs. weekend bay utilization, peak hours, and how to measure it
+- [How Many Golf Simulator Bays Should You Have?](https://www.birdiegrow.com/resources/how-many-golf-simulator-bays/): bay-count guidance for a commercial venue
+- [The 24/7 Golf Simulator Business Model](https://www.birdiegrow.com/resources/24-7-golf-simulator-business/): running unstaffed hours with booking-tied door access
+- [Is a Golf Simulator Business Profitable?](https://www.birdiegrow.com/resources/is-a-golf-simulator-business-profitable/): margins, payback and what drives them
+- [7 Golf Simulator Business Revenue Streams](https://www.birdiegrow.com/resources/golf-simulator-business-revenue-streams/)
+
+## Opening and running a venue
+- [Golf Simulator Room Requirements & Build-Out](https://www.birdiegrow.com/resources/golf-simulator-room-requirements/)
+- [How to Finance a Golf Simulator Business](https://www.birdiegrow.com/resources/golf-simulator-financing/)
+- [Golf Simulator Business Insurance](https://www.birdiegrow.com/resources/golf-simulator-business-insurance/)
+- [Golf Simulator Waivers & Liability Forms](https://www.birdiegrow.com/resources/golf-simulator-waivers/)
+- [How to Name Your Golf Simulator Business](https://www.birdiegrow.com/resources/golf-simulator-business-name/)
+- [Golf Simulator Business Franchise: Costs & Reality](https://www.birdiegrow.com/resources/golf-simulator-business-franchise/)
+- [Buying a Golf Simulator Business](https://www.birdiegrow.com/resources/buying-a-golf-simulator-business/)
+- [Golf Simulator Business for Sale: Buyer Checklist](https://www.birdiegrow.com/resources/golf-simulator-business-for-sale/)
+- [Golf Booking Software: A Buyer's Guide for Venues](https://www.birdiegrow.com/resources/golf-booking-software/)
+
+## Contact
+- Website: https://www.birdiegrow.com/
+- Demo: https://www.birdiegrow.com/demo/

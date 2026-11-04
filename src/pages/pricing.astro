@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Faq from '../components/sections/Faq.astro';
+import Cta from '../components/sections/Cta.astro';
+import Glance from '../components/sections/Glance.astro';
+import PricingCards from '../components/product/PricingCards.astro';
+import PlanPreview from '../components/product/PlanPreview.astro';
+import { SITE } from '../consts';
+import {
+  PRICING,
+  softwareApplicationSchema,
+} from '../data/product';
+
+const title = 'Birdie Pricing — Golf Simulator Booking Software';
+const description =
+  'Birdie pricing for golf simulator venues: from $197/mo flat for the booking system. No per-booking fees, no long-term contract, live in 24 hours.';
+
+// Every answer below restates a fact already published elsewhere on the site.
+// Do not add a claim here that isn't true on the product.
+const faqs: [string, string][] = [
+  [
+    'How much does Birdie cost?',
+    'The Booking System plan is flat-rate from $197 per month. That covers the bay booking calendar, hour-bank memberships, add-ons, automated text and email confirmations, reminders and receipts, Stripe, Square, Clover and Helcim (beta) payments, the customer database, and occupancy tracking. Booking + Website and Full Platform are quoted per venue because they include design, ad management, and ongoing SEO work.',
+  ],
+  [
+    'Does Birdie charge per booking or take a percentage of revenue?',
+    'No. Birdie is flat-rate. There are no per-booking fees, no per-bay charges, and no percentage of revenue taken. What you take at checkout is yours, minus your own payment processor’s standard rate.',
+  ],
+  [
+    'Is there a setup or onboarding fee?',
+    'Yes. Birdie charges a one-time onboarding fee, quoted during your free walkthrough. It covers done-for-you setup — Birdie configures your bays, pricing, memberships, and add-ons — so you need no developer and no implementation team. The fee is separate from the flat monthly rate.',
+  ],
+  [
+    'Is there a long-term contract?',
+    'No. Birdie is month-to-month with no long-term contract and no cancellation penalty.',
+  ],
+  [
+    'How long does it take to go live?',
+    'Most venues are live and taking bookings within about 24 hours of signing. Migration from an existing booking tool is handled as part of onboarding.',
+  ],
+  [
+    'Is there a free trial?',
+    'There is no self-serve free trial. Instead you get a free live walkthrough of the platform on your own bays and pricing, with no commitment and no hard sales process.',
+  ],
+  [
+    'What simulator hardware does Birdie work with?',
+    'All of it. Birdie is hardware-agnostic — it is the booking and revenue layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect, TruGolf and the rest. It does not replace your game software and does not require a particular brand of launch monitor. Birdie’s Bay Agent, a program on each simulator PC, detects the simulator software and launch monitors listed on the features page.',
+  ],
+];
+
+// "What the website adds" detail card — derived from the Booking + Website tier in PRICING (single source).
+const web = PRICING.find((t) => t.name === 'Booking + Website')!;
+const icons = ['icon-website', 'icon-mobile', 'icon-seo', 'icon-gbp', 'icon-layout'];
+const site = {
+  name: web.name,
+  blurb: web.blurb.replace(/^Your booking system with a conversion-ready site$/, web.blurb),
+  items: web.features.slice(1).map((label, i) => ({ label, icon: icons[i] })),
+};
+
+const schema = [
+  softwareApplicationSchema({
+    url: `${SITE.url}/pricing/`,
+    description,
+    offerUrl: `${SITE.url}/pricing/`,
+  }),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema} headerVariant="light">
+  <div class="hm">
+    <Hero
+      align="center"
+      h1={"Golf simulator\nbooking software pricing"}
+      leadHtml="Flat-rate from <strong>$197/month</strong>. No per-booking fees, no per-bay charges, no percentage of revenue, and no long-term contract. Setup is done for you (one-time onboarding fee, quoted on your walkthrough) and most venues are live within 24 hours."
+      primary={{ label: 'Book a demo', href: SITE.demoPath }}
+      secondary={{ label: 'See the booking system', href: '/golf-simulator-booking-software/' }}
+    />
+    <PricingCards tiers={PRICING} notes={['No long-term contracts', 'Live in 24 hours', 'We handle all setup']} id="plans" bg="/assets/home/glance-bg.webp" />
+
+    <PlanPreview
+      id="website"
+      heading="What the website adds"
+      sub="Booking + Website is your Birdie booking system with a professionally designed site for your venue around it. One link from Google to a booked bay, with no third-party booking page in between."
+      img="/assets/pricing/website-preview.webp"
+      imgMobile="/assets/pricing/website-preview-ui.webp"
+      imgAlt="Birdie booking flow on desktop and mobile, shown as part of a venue website"
+      name={site.name}
+      badge="Add-on"
+      blurb={site.blurb}
+      lead="Everything in Booking + Website +"
+      items={site.items}
+      priceHeading="Custom pricing"
+      priceNote="Quoted on your walkthrough"
+      cta={{ label: 'Book a demo', href: SITE.demoPath }}
+    />
+
+    <Glance flip />
+
+    <Faq heading="Pricing questions operators ask" items={faqs} open={1} balls />
+
+    <Cta
+      heading="See it priced against your own bays."
+      body=""
+      items={['Free walkthrough', 'No hard sales process', 'We handle setup', 'Live in 24 hours']}
+    />
+  </div>
+</BaseLayout>

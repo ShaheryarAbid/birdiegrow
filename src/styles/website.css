@@ -1,0 +1,46 @@
+/* Target section 2049:113176. Mobile structure comes from 2049:113767/CSS;
+   its screenshot could not be retrieved before the MCP quota was exhausted. */
+.ws-art { position: absolute; inset: 0; }
+.ws-art img { max-width: none; }
+.ws-art__room { position: absolute; left: 452.87px; top: 0; width: 987.13px; height: 832.52px; object-fit: cover; }
+.ws-art__back-screen, .ws-art__back-frame, .ws-art__front-shell, .ws-art__front-screen { position: absolute; display: flex; align-items: center; justify-content: center; }
+.ws-art__back-screen { left: 647.68px; top: -162.91px; width: 458.125px; height: 733.761px; }
+.ws-art__back-screen img { width: 313px; height: 680.8px; border-radius: 45.82px; transform: rotate(13deg); }
+.ws-art__back-frame { left: 630.6px; top: -179.06px; width: 493.717px; height: 761.69px; }
+.ws-art__back-frame img { width: 344.595px; height: 702.17px; transform: rotate(13deg); }
+.ws-art__front-shell { left: 346.16px; top: 32.78px; width: 1626.418px; height: 1086.502px; }
+.ws-art__front-shell > div { flex: none; width: 1506.256px; height: 847.269px; transform: rotate(9.6deg); mask: url(/assets/figma-2026/website-hero-context-imgFix.svg) 354.172px 97.215px / 918.162px 918.16px no-repeat; }
+.ws-art__front-shell img { width: 1506.256px; height: 847.269px; }
+.ws-art__front-screen { left: 824.42px; top: 146.79px; width: 679.732px; height: 869.345px; }
+.ws-art__front-screen > div { flex: none; width: 556.216px; height: 787.646px; transform: rotate(9.6deg); mask-image: url(/assets/figma-2026/website-hero-context-imgFix.svg), url(/assets/figma-2026/website-hero-context-img.png); mask-position: -124.095px -16.785px, -478.267px -114px; mask-size: 918.162px 918.16px, 1626.412px 1086.5px; mask-repeat: no-repeat; -webkit-mask-composite: source-in; mask-composite: intersect; }
+.ws-art__front-screen img { width: 556.216px; height: 787.646px; }
+.ws-art__shadow { position: absolute; left: 0; top: 0; width: 630.605px; height: 791px; background: linear-gradient(90deg, #000b00 59.232%, #000b0000); backdrop-filter: blur(6.5px); }
+.ws-intro { display: grid; grid-template-columns: minmax(0, 440fr) minmax(0, 800fr); gap: 40px; }
+.ws-intro__copy { display: flex; flex-direction: column; gap: 16px; }
+.ws-intro__copy ul { padding: 0; list-style: none; margin: 24px 0 0; }
+.ws-intro__copy li { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-border-light); font: 400 16px/1.32 var(--font-ui); }
+.ws-intro__copy li:first-child { padding-top: 0; }
+.ws-intro__copy li:last-child { border: 0; padding-bottom: 0; }
+.ws-intro__copy li > span { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; background: var(--color-bg); flex: none; }
+.ws-journey { position: relative; min-height: 557px; border-radius: 20px; background: #f2f2f2; overflow: hidden; display: grid; place-items: center; }
+.ws-journey__bg { position: absolute; width: 1100px; height: 1014px; object-fit: contain; left: -140px; top: -30px; opacity: .45; }
+.ws-journey ol { position: relative; list-style: none; display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 0 20px; margin: 0; }
+.ws-journey li { position: relative; display: flex; align-items: center; gap: 8px; padding: 12px; border: 1px solid #fff; border-radius: 12px; background: #fdfffecc; box-shadow: 0 8px 16px #0000000a; }
+.ws-journey li + li::before { content: ""; position: absolute; left: 50%; top: -28px; height: 24px; border-left: 1px solid #c9cdca; }
+.ws-journey__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: #000407; flex: none; }
+.ws-journey h3 { font: 500 16px/1 var(--font-ui); }
+.ws-journey p { margin-top: 4px; font: 400 14px/1.3 var(--font-ui); color: var(--color-text-secondary); }
+.ws-setup .hm-setup__txt h3 { white-space: normal; }
+.ws-price-head { padding-bottom: 40px; }
+.ws-price-head .bd-btn { margin-top: 16px; }
+.ws .cm-pricing { background: #fdfffe; padding-top: 0; }
+@media (max-width: 900px) {
+  .ws-intro { grid-template-columns: 1fr; gap: 40px; }
+  .ws-journey { min-height: 430px; }
+  .ws-journey__bg { left: -300px; }
+  .ws-journey li { max-width: 100%; }
+  .ws-journey ol { padding: 0 16px; }
+  .ws-art__shadow { display: none; }
+  .ws .pf-hero { min-height: 791px; }
+  .ws .pf-hero__art { pointer-events: none; }
+}

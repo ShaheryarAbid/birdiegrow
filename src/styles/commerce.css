@@ -1,0 +1,67 @@
+/* Commerce components — pricing cards + plan preview (Figma Commerce/Pricing-Cards, Pricing "Features / Option 4"). Prefix cm-. */
+.cm-pricing { display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 0 max(80px, calc((100% - 1280px) / 2)) 60px; background: #fdfffe; }
+.cm-plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 8px; background: var(--color-bg); border-radius: 20px; width: 100%; box-sizing: border-box; }
+.cm-plan { position: relative; overflow: hidden; background: #fdfffe; border-radius: 14px; padding: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); }
+.cm-plan.is-dark { background: radial-gradient(120% 55% at 100% 0%, rgba(20,110,90,.55) 0%, rgba(14,70,110,.35) 38%, rgba(0,4,7,0) 70%), radial-gradient(40% 25% at 96% 4%, rgba(34,197,94,.45), rgba(34,197,94,0) 100%), #000407; color: #fff; border: 1px solid rgba(255,255,255,.5); }
+.cm-plan__bg .hm-shader:not(:has(canvas)) .px { display: none; }
+.cm-plan > * { position: relative; z-index: 1; }
+.cm-plan__bg { position: absolute !important; inset: 0; z-index: 0 !important; pointer-events: none; overflow: hidden; }
+.cm-plan__bg > img { display: none; position: absolute; width: 980px; height: 560px; left: -300px; top: -200px; object-fit: cover; opacity: .87; }
+/* Pricing page: the dark card paints the shared ambient artwork (same image as the "at a glance" slider) instead of the CSS gradient placeholder.
+   cover + right top is Figma's framing: the artwork is scaled to the card height and its right edge is pinned to the card's right edge, so the corner glow lands top-right.
+   The card sits over #000407, so the artwork is dimmed to the brightness Figma exports (measured glow mean 6.8/45.5/49.1). */
+.cm-plan.is-bg { background: #000407; }
+.cm-plan.is-bg .cm-plan__bg > img { display: block; width: 100%; height: 100%; left: 0; top: 0; object-fit: cover; object-position: right top; opacity: .6; }
+.cm-plan header { display: flex; flex-direction: column; gap: 12px; }
+.cm-plan__top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.cm-plan h2 { font: 500 20px/1.2 var(--font-ui); letter-spacing: -0.03em; }
+.cm-plan__top p { font: 400 16px/1.32 var(--font-ui); color: var(--color-text-secondary); margin-top: 8px; max-width: 200px; }
+.cm-plan.is-dark .cm-plan__top p { color: var(--gray-300); }
+.cm-amt { font: 500 32px/1.2 var(--font-display); letter-spacing: -0.03em; }
+.cm-plan.is-dark .cm-amt { color: #fff; text-shadow: 0 0 14px rgba(34,197,94,.6), 0 0 2px rgba(34,197,94,.7); }
+.cm-amt i { font-style: normal; color: var(--green-500); }
+.cm-rule { width: 100%; height: 1px; }
+.cm-plan__list { display: flex; flex-direction: column; gap: 14px; }
+.cm-lead { font: 400 16px/1.32 var(--font-ui); color: var(--color-text-accent); }
+.cm-plan ul, .cm-pv ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.cm-plan li { display: flex; gap: 8px; align-items: flex-start; font: 400 16px/1.32 var(--font-ui); }
+.cm-plan li img { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.cm-badge { display: inline-flex; padding: 6px 14px; border-radius: 20px; background: #22c55e14; color: var(--color-text-accent); font: 400 14px/1.24 var(--font-ui); box-shadow: 0 8px 8px #00000008, 0 4px 4px #00000008; white-space: nowrap; flex: none; }
+.cm-plan.is-dark .cm-badge { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.25); }
+.cm-pricing .hm-benefits .ck { width: 16px; height: 16px; }
+
+.cm-pv { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; background: var(--color-bg); border-radius: 20px; width: 100%; box-sizing: border-box; }
+.cm-pv__art { position: relative; overflow: hidden; border-radius: 14px; background: #000; min-height: 476px; }
+.cm-pv__art .shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+.cm-pv__art .hm-shader { pointer-events: none; }
+.cm-pv__art picture { display: contents; }
+.cm-pv__card { background: #fdfffe; border-radius: 14px; padding: 32px; display: flex; flex-direction: column; gap: 24px; justify-content: space-between; }
+.cm-pv__card hr { border: 0; border-top: 1px solid var(--gray-200); margin: 0; width: 100%; }
+.cm-pv__head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.cm-pv__head h3 { font: 500 20px/1.2 var(--font-ui); }
+.cm-pv__head p, .cm-pv__price p { font: 400 16px/1.32 var(--font-ui); color: var(--color-text-secondary); margin-top: 8px; }
+.cm-pv__list { display: flex; flex-direction: column; gap: 14px; }
+.cm-pv li { display: flex; gap: 8px; align-items: center; font: 400 16px/1.32 var(--font-ui); }
+.cm-pv__price { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.cm-pv__price h3 { font: 500 32px/1.2 var(--font-display); letter-spacing: -0.03em; }
+
+@media (max-width: 900px) {
+  .cm-pricing { padding: 0 16px 32px; gap: 24px; }
+  .cm-plans { grid-template-columns: 1fr; }
+  .cm-plan { padding: 20px; }
+  .cm-plan__bg > img { left: -200px; }
+  .cm-pv { grid-template-columns: 1fr; }
+  .cm-pv__art { min-height: 0; aspect-ratio: 628 / 476; }
+  /* Figma mobile swaps the desktop+phone composition for the desktop UI alone, floated inside the ambient frame: 48px under the top edge and flush with the bottom edge. */
+  .cm-pv__art--inset { aspect-ratio: 342 / 405; display: flex; justify-content: center; align-items: flex-end; padding-top: 48px; background: #000 url(/assets/home/glance-bg.webp) right top / 32% auto no-repeat; }
+  .cm-pv__art--inset .shot { position: static; inset: auto; width: auto; height: 100%; object-fit: contain; margin: 0; }
+  .cm-pv__card { padding: 20px; }
+  .cm-pv__price { flex-direction: column; align-items: stretch; }
+  .cm-pv__price .bd-btn { width: 100%; justify-content: center; }
+}
+@media (max-width: 900px) { .cm-pricing .hm-benefits { align-items: center; } }
+
+/* global.css still sets a light h2/p colour for the legacy dark theme; plan cards must inherit their own */
+.cm-plan h2, .cm-plan li, .cm-plan .cm-amt { color: inherit; }
+.cm-plan .cm-lead { color: var(--color-text-accent); }
+.cm-plan__bg .hm-shader:not(:has(canvas)) ~ .hm-noise { display: none; }

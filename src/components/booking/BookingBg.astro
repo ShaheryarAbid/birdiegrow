@@ -1,0 +1,11 @@
+---
+/** Dark funnel backdrop — Figma "Booking System" hero (black stage, prismatic glow bottom-left, soft-light shader + noise). */
+import '../../styles/booking.css';
+import { SHADER_DARK } from '../../data/shader';
+---
+<div class="bk-bg" aria-hidden="true">
+  <img class="bk-bg__img" src="/assets/booking/bk-bg.webp" alt="" />
+  <div class="bk-bg__fade"></div>
+  <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+  <div class="hm-noise" style="background:#fdfffe"></div>
+</div>

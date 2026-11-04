@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalcShell from '../../components/calc/CalcShell.astro';
+import Stepper from '../../components/calc/Stepper.astro';
+const title = 'Golf Simulator Membership Pricing Calculator | Birdie';
+const description = 'Model your golf simulator membership program — monthly recurring revenue, effective member rate vs drop-in pricing, and bay-hours consumed.';
+
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiegrow.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://www.birdiegrow.com/resources/' },
+    { '@type': 'ListItem', position: 3, name: 'Membership Pricing Calculator', item: 'https://www.birdiegrow.com/resources/membership-pricing-calculator/' },
+  ],
+}];
+
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="light">
+  <CalcShell
+    h1="Golf Simulator Membership Pricing Calculator"
+    lead="Memberships are the most predictable revenue a simulator venue can build. Model a plan below to see your recurring revenue, what members effectively pay per hour, and how much bay capacity the program consumes."
+    crumb="Membership Pricing Calculator"
+    panelTitle="Your plan"
+    resultsTitle="Monthly recurring revenue"
+    ctaLabel="Run memberships on autopilot — book a demo"
+    explainer={{ heading: 'Getting membership pricing right', paras: ["A good membership price sits in the sweet spot where members feel they're getting a deal <em>and</em> your recurring revenue is healthy. The <strong>effective member rate</strong> — the monthly price divided by the included hours — is what members mentally compare against your drop-in rate. Land the discount around 20–35% and the offer is compelling without giving away margin. Price the discount too shallow and few people join; too deep and you erode the revenue per hour that makes the program worth running.", 'The other number to watch is <strong>bay-hours consumed</strong>. Memberships are most powerful when they fill hours that would otherwise sit empty — steer members toward weekday and off-peak time so the program grows revenue instead of crowding out full-price weekend demand. The operators who win with memberships treat them as a retention and utilization engine, not just a discount. For the full playbook, read <a href="/resources/golf-simulator-membership-program/">how to build a membership program that retains members</a>, and pair this with the <a href="/resources/break-even-calculator/">break-even calculator</a> and <a href="/resources/revenue-calculator/">revenue calculator</a> to see the whole picture.'] }}
+  >
+    <Fragment slot="inputs">
+      <Stepper id="members" label="Number of members" value={40} min={1} step={1} />
+      <Stepper id="price" label="Monthly membership price ($)" value={150} min={1} step={5} prefix="$" />
+      <Stepper id="incl" label="Included hours per member / month" value={8} min={1} step={1} hint="The hour-bank each member gets" />
+      <Stepper id="std" label="Standard drop-in rate ($/hr)" value={45} min={1} step={1} prefix="$" hint="What non-members pay per hour" />
+    </Fragment>
+    <Fragment slot="results">
+      <p class="cc-big"><span id="mrr">$0</span></p>
+      <p class="cc-sub"><span id="arr">$0</span> per year</p>
+      <div class="cc-rows">
+        <div><span>Effective member rate</span><strong id="eff">$0/hr</strong></div>
+        <div><span>Member discount vs drop-in</span><strong id="disc">0%</strong></div>
+        <div><span>Member bay-hours / month</span><strong id="consumed">0</strong></div>
+      </div>
+    </Fragment>
+  </CalcShell>
+
+  <script is:inline>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var money = function (n) { return '$' + Math.round(n).toLocaleString(); };
+      function calc() {
+        var members = +$('members').value || 0;
+        var price = +$('price').value || 0;
+        var incl = +$('incl').value || 0;
+        var std = +$('std').value || 0;
+
+        var mrr = members * price;
+        var arr = mrr * 12;
+        var eff = incl > 0 ? price / incl : 0;
+        var disc = std > 0 ? (1 - eff / std) * 100 : 0;
+        var consumed = members * incl;
+
+        $('mrr').textContent = money(mrr);
+        $('arr').textContent = money(arr);
+        $('eff').textContent = '$' + (Math.round(eff * 10) / 10) + '/hr';
+        $('disc').textContent = Math.round(disc) + '%';
+        $('consumed').textContent = Math.round(consumed).toLocaleString();
+      }
+      ['members', 'price', 'incl', 'std'].forEach(function (id) {
+        var el = $(id);
+        if (el) el.addEventListener('input', calc);
+      });
+      calc();
+    })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+/**
+ * Topic list left, item list right — Figma "Features / Option 5" and "And everything else Birdie does".
+ * Progressive enhancement: every group is in the HTML; JS turns the list into tabs.
+ * Props: heading, sub, id, groups [{label, title?, items: [title, text?][]}].
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/product.css';
+export interface Group { label: string; title?: string; items: [string, string?][]; }
+export interface Props { heading: string; sub?: string; id?: string; groups: Group[]; variant?: 'side' | 'pills'; }
+const { heading, sub, id, groups, variant = 'side' } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:640px">{sub}</p>}</div>
+  <div class={`pf-side${variant === 'pills' ? ' pf-side--pills' : ''}`} data-pf-side>
+    <div class="pf-side__nav" role="tablist" hidden>{groups.map((g, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''}>{g.label}</button>)}</div>
+    <div class="pf-side__panels">
+      {groups.map((g, i) => (
+        <div class={`pf-side__panel${i === 0 ? ' is-on' : ''}`} role="tabpanel">
+          <h3>{g.title ?? g.label}</h3>
+          <ul>{g.items.map(([t, d]) => <li><b>{t}</b>{d}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  import { setupTabs } from '../../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('[data-pf-side]').forEach((root) => {
+    const nav = root.querySelector<HTMLElement>('.pf-side__nav');
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('.pf-side__nav button'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.pf-side__panel'));
+    if (!nav || btns.length < 2) return;
+    setupTabs(root, nav, btns, panels, { vertical: !root.classList.contains('pf-side--pills') });
+  });
+</script>

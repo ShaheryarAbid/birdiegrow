@@ -1,0 +1,50 @@
+---
+/**
+ * Guide / blog article shell — Figma "Guides & Blogs Template" 302:14024 (800px article column with 40px padding, article-details rail on the right).
+ * Props: kind ('Resource' | 'Blog' — shown in the breadcrumb and as the Category), hubHref (breadcrumb link), title (H1), intro (description paragraph),
+ * pubDate, updatedDate?, minutes (reading time). Default slot = the rendered markdown body; slot "after" = content that stays inside the column (FAQ).
+ * Markdown typography lives in sections.css under .sx-prose.
+ */
+import '../../styles/sections.css';
+export interface Props { kind: string; hubHref: string; title: string; intro: string; pubDate: Date; updatedDate?: Date; minutes: number; }
+const { kind, hubHref, title, intro, pubDate, updatedDate, minutes } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const rail: { label: string; icon: string; value: string; iso?: string }[] = [
+  { label: 'Category', icon: 'M8 1.5a4.5 4.5 0 0 0-2.4 8.3V11a1 1 0 0 0 1 1h2.8a1 1 0 0 0 1-1V9.8A4.5 4.5 0 0 0 8 1.5ZM6.5 14h3', value: kind },
+  { label: 'Date', icon: 'M3 3.5h10v10H3zM3 6.5h10M5.5 1.5v3M10.5 1.5v3', value: fmt(pubDate), iso: pubDate.toISOString() },
+  ...(updatedDate ? [{ label: 'Updated', icon: 'M3 3.5h10v10H3zM3 6.5h10M5.5 1.5v3M10.5 1.5v3', value: fmt(updatedDate), iso: updatedDate.toISOString() }] : []),
+  { label: 'Reading time', icon: 'M2.5 3h4.2c.8 0 1.3.5 1.3 1.2V13c0-.7-.5-1-1.3-1H2.5zM13.5 3H9.3C8.5 3 8 3.5 8 4.2V13c0-.7.5-1 1.3-1h4.2z', value: `${minutes} min read` },
+];
+---
+<div class="sx-post">
+  <header class="sx-post__head">
+    <nav class="sx-post__crumb" aria-label="Breadcrumb"><a href={hubHref}>{kind}</a></nav>
+    <h1>{title}</h1>
+    <p class="sx-post__intro">{intro}</p>
+  </header>
+  <aside class="sx-post__rail" aria-label="Article details">
+    {rail.map((r) => (
+      <div class="sx-post__fact">
+        <span class="k"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={r.icon} /></svg>{r.label}</span>
+        {r.iso ? <time datetime={r.iso}>{r.value}</time> : <span class="v">{r.value}</span>}
+      </div>
+    ))}
+    <div class="sx-post__fact">
+      <span class="k"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8.5l5-2.8M5.5 7.5l5 2.8M12 3.5a1.5 1.5 0 1 1 0 .01M4 8a1.5 1.5 0 1 1 0 .01M12 12.5a1.5 1.5 0 1 1 0 .01" /></svg>Share</span>
+      <button type="button" class="v sx-post__copy" data-copy aria-label="Copy link to this article" aria-live="polite">Copy</button>
+    </div>
+  </aside>
+  <div class="sx-post__body">
+    <div class="sx-prose"><slot /></div>
+    <slot name="after" />
+  </div>
+</div>
+<script is:inline>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1800); };
+      var failed = function () { b.textContent = 'Copy unavailable'; setTimeout(function () { b.textContent = 'Copy'; }, 1800); };
+      try { navigator.clipboard.writeText(location.href).then(done, failed); } catch (e) { failed(); }
+    });
+  });
+</script>

@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import IntegrationHero from '../../components/sections/IntegrationHero.astro';
+import IntegrationFlow from '../../components/sections/IntegrationFlow.astro';
+import IntegrationSteps from '../../components/sections/IntegrationSteps.astro';
+import IntegrationCard from '../../components/sections/IntegrationCard.astro';
+import Faq from '../../components/sections/Faq.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { SITE } from '../../consts';
+import { INTEGRATIONS } from '../../data/integrations';
+
+export function getStaticPaths() {
+  // Slugs with a dedicated hand-written page (e.g. src/pages/integrations/remotelock.astro)
+  // are excluded here so the static route wins and we don't collide at build time.
+  // NOTE: getStaticPaths runs in an isolated scope — keep this list inside the function.
+  const DEDICATED = new Set(['remotelock']);
+  return INTEGRATIONS
+    .filter((i) => !DEDICATED.has(i.slug))
+    .map((i) => ({ params: { slug: i.slug }, props: { i } }));
+}
+
+const { i } = Astro.props as any;
+
+const title = `${i.name} Integration for Golf Simulators | Birdie`;
+const description = `Birdie integrates with ${i.vendor} for 24/7 golf simulator door access. ${i.tagline}`;
+
+const others = INTEGRATIONS.filter((x: any) => x.slug !== i.slug);
+const around = others.slice(0, 2).map((o: any) => o.name);
+
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Integrations', item: `${SITE.url}/integrations/` },
+      { '@type': 'ListItem', position: 3, name: `${i.name}`, item: `${SITE.url}/integrations/${i.slug}/` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: i.faqs.map(([q, a]: [string, string]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  },
+];
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
+  <IntegrationHero
+    variant="detail"
+    h1={`${i.name} + Birdie: 24/7 Golf Simulator Door Access`}
+    lead={i.intro}
+    primary={{ label: 'Book a demo', href: SITE.demoPath }}
+    secondary={{ label: 'All integrations', href: '/integrations/' }}
+    current={i.name}
+    around={around}
+    bg={i.heroBg}
+  />
+
+  <IntegrationFlow heading={`How the ${i.name} integration works`} how={i.how} flow={i.flow} />
+
+  <IntegrationSteps heading="Setup" steps={i.steps} note={`Birdie configures the ${i.name} integration for you during onboarding — most venues are live within 24 hours.`} />
+
+  <Faq
+    heading={`${i.name} door access — FAQ`}
+    items={i.faqs}
+    open={0}
+    openAll
+    round={false}
+    sub={`Quick answers to common questions about ${i.name} door integration and automated access.`}
+    link={i.vendorUrl ? { label: `Learn more about ${i.vendor}.`, href: i.vendorUrl } : undefined}
+  />
+
+  <section class="hm-sec hm-white hm-stack">
+    <div class="hm-intro"><h2 class="hm-h2">More integrations<i>.</i></h2></div>
+    <div class="sx-more">
+      <div class="sx-hub__grid sx-hub__grid--4">
+        {others.map((o: any) => (<IntegrationCard name={o.name} text={o.tagline} href={`/integrations/${o.slug}/`} />))}
+      </div>
+    </div>
+  </section>
+
+  <Cta heading={`Run your simulator 24/7 on ${i.name}`} body="" items={['Free walkthrough', 'We handle setup', 'Live in 24 hours']} label="Book a Demo" />
+</BaseLayout>
+
+<script>
+  import { initHomeInteractions } from '../../scripts/home';
+  initHomeInteractions();
+</script>

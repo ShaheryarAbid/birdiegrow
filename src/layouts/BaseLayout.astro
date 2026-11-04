@@ -1,0 +1,230 @@
+---
+/**
+ * BaseLayout — the SEO engine of the site.
+ *
+ * Every page renders through this. Because it's a static build, all of these
+ * tags land in the RAW HTML — the exact thing the Lovable SPA could not do.
+ *
+ * - canonical is derived automatically from the current URL (self-referential,
+ *   per-page — no more "everything canonicalizes to the homepage").
+ * - OG/Twitter URL + image are absolute, per-page.
+ * - JSON-LD is passed in per page and injected server-side.
+ */
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+import { SITE } from '../consts';
+import '../styles/global.css';
+import '../styles/tokens.css';
+import '../styles/ui.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  schema?: Record<string, unknown>[];
+  minimal?: boolean;
+  /** Redesign header: 'dark' (default, matches un-migrated dark pages) or 'light' for migrated light pages. */
+  headerVariant?: 'dark' | 'light';
+  headerOverlay?: boolean;
+  /** Funnel pages (/demo, /book-demo, ad LPs): the page renders its own top bar (BookingBar) instead of the site header. */
+  noHeader?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = SITE.ogImage,
+  type = 'website',
+  noindex = false,
+  schema = [],
+  minimal = false,
+  headerVariant = 'dark',
+  headerOverlay = false,
+  noHeader = false,
+} = Astro.props;
+
+// Cloudflare Pages sets CF_PAGES_BRANCH at build time. Any non-main branch build (the redesign
+// preview) is forced noindex; main/local builds are unaffected.
+const previewBranch = process.env.CF_PAGES_BRANCH;
+const isPreview = !!previewBranch && previewBranch !== 'main';
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+
+// Auto-generate BreadcrumbList JSON-LD from the URL path (skips the homepage).
+// Skip if the page already supplies its own BreadcrumbList in `schema` — otherwise
+// the page emits two competing Breadcrumb blocks.
+const crumbSegs = Astro.url.pathname.split('/').filter(Boolean);
+const titleCase = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const hasOwnBreadcrumb = schema.some((s) => s && s['@type'] === 'BreadcrumbList');
+let breadcrumbSchema: Record<string, unknown> | null = null;
+if (crumbSegs.length >= 1 && !hasOwnBreadcrumb) {
+  const items: Record<string, unknown>[] = [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+  ];
+  let acc = '';
+  crumbSegs.forEach((seg, i) => {
+    acc += `/${seg}`;
+    const isLast = i === crumbSegs.length - 1;
+    const name = isLast ? title.replace(/\s*\|\s*Birdie.*$/i, '').trim() : titleCase(seg);
+    items.push({ '@type': 'ListItem', position: i + 2, name, item: `${SITE.url}${acc}/` });
+  });
+  breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items };
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0b0a" />
+    <meta name="google-site-verification" content="W81VJKkSedFxwjaKFkREiFDB5Hi4ebU5MC9VyGrd1x4" />
+    <meta name="author" content="Birdie" />
+    <Analytics />
+    <!-- Ahrefs Web Analytics (privacy-friendly, cookieless) -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="aOgwWjUnEOIvjz7SpRa2wg" async is:inline></script>
+    <!-- Microsoft Clarity (heatmaps + session recordings) -->
+    <script is:inline type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "xm40odnhug");
+    </script>
+    <!--
+      Attribution capture (first-touch, cookieless). Determines whether a visitor
+      arrived via Organic, Paid – Google, Paid – Facebook, or Direct, plus the raw
+      utm/gclid/fbclid for per-campaign reporting. Persisted in localStorage so it
+      survives the wizard and the Calendly booking, then attached to /api/lead and
+      /api/booking submissions. Google auto-tags paid clicks with gclid and Meta
+      with fbclid, so paid detection works without manual UTM tagging.
+    -->
+    <script is:inline type="text/javascript">
+      (function () {
+        try {
+          var KEY = 'birdie_attr';
+          var qs = new URLSearchParams(location.search);
+          var g = function (k) { return (qs.get(k) || '').trim(); };
+          var lc = function (s) { return (s || '').toLowerCase(); };
+          var gclid = g('gclid') || g('gbraid') || g('wbraid');
+          var fbclid = g('fbclid');
+          var us = lc(g('utm_source')), um = lc(g('utm_medium'));
+          var paid = /(cpc|ppc|paid|paidsearch|paid_social|paidsocial|display)/.test(um);
+          var ref = document.referrer || '';
+          var refHost = ''; try { refHost = ref ? new URL(ref).host : ''; } catch (e) {}
+          var isSearch = /(google|bing|yahoo|duckduckgo|ecosia|brave)\./.test(refHost);
+          var src;
+          if (gclid || (us === 'google' && paid)) src = 'Paid – Google';
+          else if (fbclid || (/(facebook|fb|instagram|ig|meta)/.test(us) && paid)) src = 'Paid – Facebook';
+          else if (um === 'organic' || isSearch) src = 'Organic';
+          else if (refHost && refHost !== location.host) src = 'Organic';
+          else src = 'Direct';
+
+          var hasParams = !!(gclid || fbclid || us || um);
+          var next = {
+            lead_source: src,
+            utm_source: g('utm_source'), utm_medium: g('utm_medium'),
+            utm_campaign: g('utm_campaign'), utm_term: g('utm_term'), utm_content: g('utm_content'),
+            gclid: gclid, fbclid: fbclid,
+            landing_page: location.pathname + location.search,
+            first_seen: new Date().toISOString()
+          };
+          var stored = null; try { stored = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+          var storedIsPaid = stored && /^Paid/.test(stored.lead_source || '');
+          var storedHasParams = stored && !!(stored.gclid || stored.fbclid || stored.utm_source || stored.utm_medium);
+          // First touch wins, but a later paid/tagged click upgrades an untagged origin.
+          if (!stored || (hasParams && !storedHasParams) || (/^Paid/.test(src) && !storedIsPaid)) {
+            if (stored && stored.first_seen) next.first_seen = stored.first_seen;
+            localStorage.setItem(KEY, JSON.stringify(next));
+            stored = next;
+          }
+          var a = stored || next;
+          window.__birdieAttr = a;
+          window.__birdieAttrFields = function () {
+            return {
+              lead_source: a.lead_source || '', utm_source: a.utm_source || '',
+              utm_medium: a.utm_medium || '', utm_campaign: a.utm_campaign || '',
+              utm_term: a.utm_term || '', utm_content: a.utm_content || '',
+              gclid: a.gclid || '', fbclid: a.fbclid || '', landing_page: a.landing_page || ''
+            };
+          };
+          // Attach attribution to a FormData or a plain object before it's sent.
+          window.__birdieAttrApply = function (target) {
+            try {
+              var f = window.__birdieAttrFields();
+              if (target && typeof target.append === 'function') {
+                Object.keys(f).forEach(function (k) { target.append(k, f[k]); });
+              } else if (target && typeof target === 'object') {
+                Object.keys(f).forEach(function (k) { if (target[k] == null || target[k] === '') target[k] = f[k]; });
+              }
+            } catch (e) {}
+            return target;
+          };
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <link rel="dns-prefetch" href="https://calendly.com" />
+    <link rel="dns-prefetch" href="https://assets.calendly.com" />
+    <!-- YouTube thumbnail host for the /customers/ video facades. dns-prefetch (not
+         preconnect) deliberately: only one page uses it, so a full connection sitewide
+         would be wasted overhead. Added 2026-09-18 alongside the /customers/ LCP fix. -->
+    <link rel="dns-prefetch" href="https://i.ytimg.com" />
+    <!-- Self-hosted Inter (variable) — preloaded; @font-face lives in global.css (inlined). No render-blocking third-party font request. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-variable.woff2" crossorigin />
+    <!-- Redesign UI font (header/footer/buttons on every page). Source Serif 4 is NOT preloaded: only migrated pages use it. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-sans-latin-wght-normal.woff2" crossorigin />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={SITE.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@birdiegrowgolf" />
+    <meta name="twitter:creator" content="@birdiegrowgolf" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data (per page) -->
+    {
+      schema.map((s) => (
+        <script type="application/ld+json" set:html={JSON.stringify(s)} />
+      ))
+    }
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <a class="bd-skip" href="#main-content">Skip to content</a>
+    {minimal || noHeader ? null : <Header variant={headerVariant} overlay={headerOverlay} />}
+    <main id="main-content" tabindex="-1"><slot /></main>
+    {minimal ? null : <Footer />}
+    <script>import '../scripts/shader/init';</script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+---
+/**
+ * Number input row with - / + buttons — Figma "Inputs" 591:53930 (stepper). Renders the same <input type="number" id=...> the calculator script reads.
+ * Props: id, label, value, min, max, step, hint (small helper text), prefix ("$"), suffix ("%").
+ */
+export interface Props { id: string; label: string; value: number | string; min?: number | string; max?: number | string; step?: number | string; hint?: string; prefix?: string; suffix?: string; }
+const { id, label, value, min, max, step, hint, prefix, suffix } = Astro.props;
+---
+<div class={`cc-row${hint ? ' has-hint' : ''}`}>
+  <label class="cc-row__l" for={id}><span>{label}</span>{hint && <small>{hint}</small>}</label>
+  <div class="cc-step">
+    <button type="button" data-cc-step="-" data-target={id} aria-label={`Decrease ${label}`}><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+    <div class="cc-step__v">{prefix && <span class="ad">{prefix}</span>}<input id={id} type="number" value={value} min={min} max={max} step={step} inputmode="decimal" />{suffix && <span class="ad">{suffix}</span>}</div>
+    <button type="button" data-cc-step="+" data-target={id} aria-label={`Increase ${label}`}><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg></button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+---
+/**
+ * /lpadvertising — paid-traffic landing page (1:1 rebuild of the Lovable funnel
+ * at birdie-bay-boost.lovable.app/advertisinglp2).
+ *
+ * Qualify gate ("Are you a sim owner?") → 5-step wizard (name, business, zip,
+ * interests, contact) → Calendly booking. Leads POST to /api/lead (same fan-out
+ * as /demo) and fire the GA4 / Meta / Google Ads conversion on completion.
+ * noindex — this is an ad landing page, kept out of the sitemap.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookingWizard from '../components/booking/BookingWizard.astro';
+
+// This LP books its own Calendly event (not the shared /book-demo link). Colors baked in to match the white calendar card.
+const lpCalendly =
+  'https://calendly.com/jimmy-birdiegrow/demo-meeting?background_color=ffffff&text_color=1a1a1a&primary_color=1aa24c';
+
+const title = 'Fill Your Simulator Bays — Free Growth Audit | Birdie';
+const description =
+  'Replace your outdated system with a custom booking, membership, and 24/7 access solution built for golf simulator venues. Book a free 30-minute call.';
+---
+
+<BaseLayout title={title} description={description} minimal={true} noindex={true}>
+  <BookingWizard
+    h1={'The Booking System<br />Built to Fill Your Bays<span class="g">.</span>'}
+    sub="A Booking System that grows with your business."
+    formSource="booking-system-lp"
+    calendlyUrl={lpCalendly}
+  />
+</BaseLayout>

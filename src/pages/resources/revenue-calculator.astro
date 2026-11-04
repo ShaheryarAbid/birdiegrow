@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalcShell from '../../components/calc/CalcShell.astro';
+import Stepper from '../../components/calc/Stepper.astro';
+const title = 'Golf Simulator Revenue Calculator | Birdie';
+const description = 'Estimate your indoor golf simulator revenue by bay count, hourly rate, and utilization — and see how much weekday capacity you’re leaving on the table.';
+---
+<BaseLayout title={title} description={description} headerVariant="light">
+  <CalcShell
+    h1="Golf simulator revenue calculator"
+    lead="Estimate monthly revenue from your bays, then see the upside of filling weekday hours."
+    panelTitle="Your venue"
+    resultsTitle="Estimated monthly revenue"
+    ctaLabel="Book a Demo"
+  >
+    <Fragment slot="inputs">
+      <Stepper id="bays" label="Bays" value={4} min={1} />
+      <Stepper id="rate" label="Hourly rate ($)" value={40} min={1} prefix="$" />
+      <Stepper id="hours" label="Open hours/day" value={14} min={1} />
+      <Stepper id="util" label="Utilization (%)" value={40} min={1} max={100} suffix="%" />
+    </Fragment>
+    <Fragment slot="results">
+      <p class="cc-big"><strong id="out" style="font-weight:inherit">$0</strong></p>
+      <p class="cc-sub">At 60% utilization: <span id="out2">$0</span> — the weekday gap Birdie helps you close.</p>
+    </Fragment>
+  </CalcShell>
+
+  <script is:inline>
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n) => '$' + Math.round(n).toLocaleString();
+    function calc() {
+      const bays = +$('bays').value || 0, rate = +$('rate').value || 0, hours = +$('hours').value || 0, util = (+$('util').value || 0) / 100;
+      const monthly = bays * hours * 30 * rate * util;
+      const upside = bays * hours * 30 * rate * 0.6;
+      $('out').textContent = fmt(monthly);
+      $('out2').textContent = fmt(upside);
+    }
+    ['bays', 'rate', 'hours', 'util'].forEach((id) => $(id).addEventListener('input', calc));
+    calc();
+  </script>
+</BaseLayout>

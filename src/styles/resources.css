@@ -1,0 +1,45 @@
+/* Resources hub (Figma Resources 260:14589): dark hero + guide library. Prefix rs-. */
+.rs-hero { position: relative; background: #000; color: #fff; overflow: hidden; padding: 160px max(80px, calc((100% - 1280px) / 2)) 64px; }
+.rs-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+.rs-hero__bg > img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; opacity: .9; max-width: none; }
+.rs-hero__bg .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,11,0,0) 0%, rgba(0,11,0,.5) 53%, rgba(0,11,0,0) 100%); backdrop-filter: blur(6px); }
+.rs-hero__c { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
+.rs-hero__copy { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.rs-hero h1 { font: 600 64px/1 var(--font-display); letter-spacing: -0.03em; color: #fff; margin: 0; max-width: 760px; }
+.rs-hero h1 i { font-style: normal; color: var(--green-500); }
+.rs-hero .lead { font: 400 16px/1.32 var(--font-ui); color: var(--gray-300); max-width: 600px; margin: 0; }
+.rs-hero .note { font: 400 14px/1.24 var(--font-ui); color: var(--gray-300); max-width: 600px; margin: 0; }
+.rs-hero .note a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.rs-hero__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin-top: 40px; text-align: left; }
+.rs-hero__cards a { display: flex; flex-direction: column; gap: 16px; padding: 24px; border-radius: 14px; border: 1px solid rgba(209,255,226,.06); background: linear-gradient(180deg, rgba(40,51,38,.3), rgba(17,22,16,.3)); backdrop-filter: blur(12px); color: #fff; text-decoration: none; transition: border-color .15s; }
+.rs-hero__cards a:hover { border-color: rgba(209,255,226,.25); }
+.rs-hero__cards small { font: 600 16px/1.2 var(--font-display); color: var(--gray-300); }
+.rs-hero__cards h2 { font: 500 20px/1.2 var(--font-ui); letter-spacing: -0.03em; margin: 0; }
+.rs-hero__cards p { font: 400 16px/1.32 var(--font-ui); color: var(--gray-300); margin: 8px 0 0; }
+
+.rs-lib { display: grid; grid-template-columns: 290px 1fr; gap: 24px; align-items: start; }
+.rs-tabs { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 4px; padding: 4px; background: var(--color-bg); border-radius: 20px; }
+.rs-tabs a { padding: 12px 20px; border-radius: 16px; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); text-decoration: none; white-space: nowrap; }
+.rs-tabs a.is-on { background: #fdfffe; color: var(--color-text); border: 1px solid #fff; box-shadow: 0 20px 10px rgba(0,0,0,.03), 0 10px 5px rgba(0,0,0,.03); }
+.rs-groups { display: flex; flex-direction: column; gap: 60px; min-width: 0; }
+.rs-group { scroll-margin-top: 100px; display: flex; flex-direction: column; gap: 16px; }
+.rs-group h2 { font: 600 32px/1 var(--font-display); letter-spacing: -0.04em; margin: 0; color: var(--color-text); }
+.rs-group h2 i { font-style: normal; color: var(--green-500); }
+.rs-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+@media (max-width: 900px) {
+  .rs-hero { padding: 120px 16px 40px; }
+  .rs-hero h1 { font-size: 40px; }
+  .rs-hero .hm-btns { width: 100%; flex-direction: column; }
+  .rs-hero .hm-btns .bd-btn { width: 100%; justify-content: center; }
+  .rs-hero__cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin: 24px -16px 0; padding: 0 16px; width: auto; align-self: stretch; }
+  .rs-hero__cards a { flex: 0 0 85%; scroll-snap-align: start; }
+  .rs-lib { grid-template-columns: 1fr; gap: 24px; }
+  .rs-tabs { position: sticky; top: 64px; z-index: 5; flex-direction: row; overflow-x: auto; margin: 0 -16px; padding: 4px 16px; border-radius: 0; }
+  .rs-cards { grid-template-columns: 1fr; }
+}
+
+/* No-WebGPU / headless fallback: Figma hero is a dark green tint, not a bright blurred photo */
+.rs-hero__bg:not(:has(canvas)) > img { opacity: .22; }
+.rs-hero__bg:not(:has(canvas))::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 60% at 8% 100%, rgba(60,140,60,.35), transparent 70%), radial-gradient(40% 45% at 95% 80%, rgba(110,90,30,.22), transparent 70%), linear-gradient(180deg, #000 0%, rgba(0,8,0,.15) 100%); }

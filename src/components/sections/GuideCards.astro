@@ -1,0 +1,16 @@
+---
+/**
+ * Guide / article cards — Figma "Features / Option 7" 315:18408 (Content/Guide-Card).
+ * Props: heading, items [{title, desc, href, category?}], cta (link label). Thumbnail art cycles through the four Figma variants.
+ */
+import '../../styles/sections.css';
+import GuideCard from './GuideCard.astro';
+export interface Props { heading: string; items: { title: string; desc: string; href: string; category?: string }[]; cta?: string; id?: string; }
+const { heading, items, cta = 'Read guide', id } = Astro.props;
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2></div>
+  <div class="sx-gcards">
+    {items.map((it, i) => <GuideCard title={it.title} desc={it.desc} href={it.href} category={it.category} cta={cta} index={i} />)}
+  </div>
+</section>

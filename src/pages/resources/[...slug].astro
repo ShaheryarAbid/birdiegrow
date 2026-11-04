@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../components/sections/ArticleLayout.astro';
+import GuideCards from '../../components/sections/GuideCards.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('resources');
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await post.render();
+const faqs = post.data.faqs ?? [];
+const minutes = Math.max(1, Math.ceil(post.body.trim().split(/\s+/).length / 200));
+const related = (await getCollection('resources'))
+  .filter((p) => p.slug !== post.slug)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4)
+  .map((p) => ({ title: p.data.title, desc: p.data.description, href: `/resources/${p.slug}/`, category: 'Resource' }));
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Article',
+    headline: post.data.title, description: post.data.description,
+    image: new URL(SITE.ogImage, SITE.url).href,
+    datePublished: post.data.pubDate.toISOString(),
+    ...(post.data.updatedDate && { dateModified: post.data.updatedDate.toISOString() }),
+    author: { '@type': 'Organization', name: 'Birdie' },
+    publisher: { '@type': 'Organization', name: 'Birdie' },
+  },
+  ...(faqs.length ? [{
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  }] : []),
+];
+---
+<BaseLayout title={`${post.data.title} | Birdie`} description={post.data.description} type="article" schema={schema} headerVariant="light">
+  <ArticleLayout kind="Resource" hubHref="/resources/" title={post.data.title} intro={post.data.description} pubDate={post.data.pubDate} updatedDate={post.data.updatedDate} minutes={minutes}>
+    <Content />
+    {faqs.length > 0 && (
+      <section class="sx-post__faqs" slot="after">
+        <h2>Frequently asked questions</h2>
+        <div class="list">
+          {faqs.map((f, i) => (
+            <details class="hm-faq" open={i === 0}>
+              <summary><span>{f.q}</span><img class="ic e" src="/assets/home/faq-expand.svg" alt="" /><img class="ic c" src="/assets/home/faq-collapse.svg" alt="" /></summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+  </ArticleLayout>
+  {related.length > 0 && <GuideCards heading="Keep reading" items={related} />}
+  <Cta label="Book a Demo" />
+</BaseLayout>

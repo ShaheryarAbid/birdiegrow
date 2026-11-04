@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import IntegrationHero from '../../components/sections/IntegrationHero.astro';
+import IntegrationCard from '../../components/sections/IntegrationCard.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { SITE } from '../../consts';
+import { INTEGRATIONS, MORE_INTEGRATIONS } from '../../data/integrations';
+
+const title = 'Integrations — Door Access, Payments & More | Birdie';
+const description =
+  'Birdie connects to Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for door access, Stripe, Square, Clover and Helcim (beta) payments, and more.';
+
+// Normalize documented integrations (linked) and stubs (coming soon) into one
+// shape, then group by category so the hub lists everything Birdie supports.
+type HubItem = { name: string; tagline: string; href?: string; note?: string };
+
+const documented: HubItem[] = INTEGRATIONS.map((i) => ({
+  name: i.name,
+  tagline: i.tagline,
+  href: `/integrations/${i.slug}/`,
+}));
+const stubs: HubItem[] = MORE_INTEGRATIONS.map((s) => ({ name: s.name, tagline: s.tagline, note: s.note }));
+
+const byCategory: Record<string, HubItem[]> = {};
+for (const i of INTEGRATIONS) (byCategory[i.category] ||= []).push(documented.find((d) => d.name === i.name)!);
+for (const s of MORE_INTEGRATIONS) (byCategory[s.category] ||= []).push(stubs.find((d) => d.name === s.name)!);
+
+// Stable display order.
+const categoryOrder = ['Door access', 'Payments', 'Calendar', 'Tracking', 'Messaging & email'];
+const categories = categoryOrder.filter((c) => byCategory[c]);
+const slugify = (c: string) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+// The Door-access paragraph, one sentence per labelled block (Figma "Door access" panel). Every sentence is kept verbatim.
+// The design lays the four blocks out as two independent columns, so each column is its own stack.
+const doorBlocks: [string, string][][] = [
+  [
+    ['Automated Access & Time Window', 'Every booking gets an unlock link or PIN by text or email, valid from shortly before the session until shortly after it ends (the window is set per venue), so customers let themselves in and off-peak hours become revenue.'],
+    ['Compatibility', 'Bring the lock brand you already run.'],
+  ],
+  [
+    ['Reliability & Fallbacks', 'If a door doesn’t confirm it opened, the customer sees a fallback and you get an alert.'],
+    ['Hardware Integrations', 'Kisi unlocks through Kisi’s own page; RemoteLock can send a PIN.'],
+  ],
+];
+const tone = (note?: string) => (note && /beta/i.test(note) ? 'beta' : note && /available now/i.test(note) ? 'ok' : 'soft');
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Birdie integrations',
+    itemListElement: INTEGRATIONS.map((i, n) => ({
+      '@type': 'ListItem',
+      position: n + 1,
+      name: `${i.vendor} integration`,
+      url: `${SITE.url}/integrations/${i.slug}/`,
+    })),
+  },
+];
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
+  <IntegrationHero
+    variant="hub"
+    h1={"Birdie\nIntegrations"}
+    lead="Birdie connects to the tools your simulator venue already runs — smart locks for 24/7 access, payments, calendar sync, tracking and messaging — so every booking flows through one system. We wire it all up for you during setup."
+    primary={{ label: 'Book a demo', href: SITE.demoPath }}
+    secondary={{ label: 'See the platform', href: '/golf-simulator-software/' }}
+  />
+
+  <section class="hm-sec hm-white hm-stack" id="all-integrations">
+    <div class="sx-hub">
+      <nav class="sx-hub__tabs" aria-label="Integration categories">
+        {categories.map((cat, i) => (<a href={`#${slugify(cat)}`} class={i === 0 ? 'is-active' : undefined} aria-current={i === 0 ? 'true' : undefined}>{cat}</a>))}
+      </nav>
+      <div class="sx-hub__cats">
+        {categories.map((cat) => (
+          <section class="sx-hub__cat" id={slugify(cat)}>
+            <h2>{cat}</h2>
+            {cat === 'Door access' && (
+              <div class="sx-hub__blocks">
+                {doorBlocks.map((col) => (
+                  <div class="sx-hub__col">{col.map(([t, p]) => (<div><h3>{t}</h3><p>{p}</p></div>))}</div>
+                ))}
+              </div>
+            )}
+            <div class={`sx-hub__grid`}>
+              {byCategory[cat].map((i) => (
+                i.href
+                  ? <IntegrationCard name={i.name} text={i.tagline} href={i.href} />
+                  : <IntegrationCard name={i.name} text={i.tagline} status={i.note ?? 'Documentation coming soon'} tone={tone(i.note)} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta heading="Run your venue unattended, on the tools you already have" body="" items={['Free walkthrough', 'We handle setup', 'Live in 24 hours']} label="Book a Demo" />
+</BaseLayout>
+
+<script>
+  // Category rail: keep the white pill on whichever panel is under the header.
+  const links = [...document.querySelectorAll<HTMLElement>('.sx-hub__tabs a')];
+  const panels = links.map((a) => document.getElementById(a.hash.slice(1)));
+  const mark = (el?: HTMLElement | null) => {
+    if (!el) return;
+    links.forEach((a) => {
+      const on = a.hash === `#${el.id}`;
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  };
+  mark(panels[0]);
+  const spy = new IntersectionObserver(() => {
+    const line = window.innerHeight * 0.35;
+    let current = panels[0];
+    for (const p of panels) if (p && p.getBoundingClientRect().top <= line) current = p;
+    mark(current);
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: [0, 1] });
+  for (const p of panels) if (p) spy.observe(p);
+  addEventListener('scroll', () => spy.takeRecords(), { passive: true });
+</script>

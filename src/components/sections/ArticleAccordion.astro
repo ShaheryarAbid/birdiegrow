@@ -1,0 +1,42 @@
+---
+/**
+ * Dark long-form card with accordion — Figma "Price / Option 11" (371:22285). Left: heading + intro + CTA; right: sections as native <details>
+ * (all text stays in the DOM, works without JS). Section HTML may contain inline links.
+ * Props: heading, intro (HTML strings, one per paragraph), items [{title, html}], cta {label, href}, open (index opened first, default 0).
+ */
+import '../../styles/sections.css';
+import Button from '../Button.astro';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props {
+  heading: string;
+  intro: string[];
+  items: { title: string; html: string }[];
+  cta?: { label: string; href: string };
+  open?: number;
+  id?: string;
+}
+const { heading, intro, items, cta, open = 0, id = 'article' } = Astro.props;
+---
+<section class="hm-sec hm-white" id={id}>
+  <div class="sx-art">
+    <div class="sx-art__bg" aria-hidden="true">
+      <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+      <div class="hm-noise" style="background:#fdfffe"></div>
+    </div>
+    <div class="sx-art__l">
+      <div class="sx-art__intro">
+        <h2>{heading}</h2>
+        {intro.map((p) => <p set:html={p} />)}
+      </div>
+      {cta && <div class="hm-btns"><Button href={cta.href} mode="light">{cta.label}</Button></div>}
+    </div>
+    <div class="sx-art__r">
+      {items.map((it, i) => (
+        <details class="sx-art__item" name={id} open={i === open}>
+          <summary><h3>{it.title}</h3><svg class="chev" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
+          <div class="body" set:html={it.html} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

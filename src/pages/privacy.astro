@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/sections/LegalPage.astro';
+---
+<BaseLayout
+  title="Privacy Policy | Birdie"
+  description="How Birdie collects, uses, and protects data for golf simulator businesses, including our Google Calendar integration and user-data practices."
+  noindex={true}
+  headerVariant="light"
+>
+  <LegalPage>
+        <h1>Privacy Policy</h1>
+        <p class="muted">Last updated: May 23, 2026</p>
+
+        <p>Birdie ("Birdie," "we," "us," or "our") provides booking, membership, and revenue software for golf simulator and indoor golf businesses. This Privacy Policy explains what information we collect, how we use it, and the choices you have. It applies to birdiegrow.com and the Birdie application at app.birdiegrow.com.</p>
+
+        <h2>Information We Collect</h2>
+        <p><strong>Account information.</strong> When a venue operator creates a Birdie account, we collect name, email address, phone number, business name, and business address.</p>
+        <p><strong>Business and booking data.</strong> We process data that operators and their customers enter into Birdie, including bookings, membership records, customer contact details, and activity history, in order to provide the service.</p>
+        <p><strong>Payment information.</strong> Payments are processed by third-party payment processors. Birdie does not store full card numbers or bank account details.</p>
+        <p><strong>Usage data.</strong> We collect standard technical data such as device type, browser, and log information to operate and secure the service.</p>
+
+        <h2>Google User Data</h2>
+        <p>The Birdie Google Calendar integration is optional and is enabled only when a venue operator explicitly connects their Google account.</p>
+        <p>When you connect Google Calendar, Birdie requests access to the following Google data through the <code>https://www.googleapis.com/auth/calendar.events</code> scope:</p>
+        <ul>
+          <li>Your Google account email address, used to identify the connected account.</li>
+          <li>Permission to create, edit, and delete events on your Google Calendar.</li>
+        </ul>
+        <p><strong>How we use Google user data.</strong> Birdie uses this access for one purpose only: to keep your Google Calendar in sync with your Birdie bookings. When a booking is created, changed, or cancelled in Birdie, Birdie creates, updates, or deletes the corresponding event on your connected Google Calendar. The sync is one-way (from Birdie to Google); Birdie does not read or import events you create directly in Google Calendar.</p>
+        <p><strong>How we store Google user data.</strong> Birdie securely stores the OAuth access and refresh tokens needed to maintain the connection, the email address of the connected account, and an identifier that links each Birdie booking to its Google Calendar event. Tokens are stored securely and are never exposed to other users.</p>
+        <p><strong>Sharing and transfer.</strong> Birdie does not sell Google user data and does not share it with third parties. Birdie does not use Google user data for advertising and does not use it to develop, improve, or train generalized artificial intelligence or machine learning models.</p>
+        <p><strong>Limited Use disclosure.</strong> Birdie's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.</p>
+        <p><strong>Revoking access.</strong> You can disconnect Google Calendar at any time from Settings → Integrations in your Birdie dashboard, or by removing Birdie's access at <code>https://myaccount.google.com/permissions</code>. Disconnecting stops all future syncing.</p>
+
+        <h2>How We Use Information</h2>
+        <p>We use the information we collect to provide and maintain the Birdie service, process bookings and payments, communicate with operators and their customers, provide support, improve and secure the service, and comply with legal obligations.</p>
+
+        <h2>How We Share Information</h2>
+        <p>We share information only with service providers that help us operate Birdie — such as hosting, database, payment processing, messaging, and the Google Calendar integration described above — and only as needed to provide the service. We may also disclose information if required by law. We do not sell personal information.</p>
+
+        <h2>Data Retention</h2>
+        <p>We retain information for as long as an account is active or as needed to provide the service, and as required to meet legal, accounting, or reporting obligations. Operators may request deletion of their data as described below.</p>
+
+        <h2>Data Security</h2>
+        <p>We use industry-standard safeguards to protect information, including encryption in transit and access controls. No method of transmission or storage is completely secure, but we work to protect your information.</p>
+
+        <h2>Your Choices and Rights</h2>
+        <p>You may access, correct, or request deletion of your information by contacting us. You may disconnect optional integrations, including Google Calendar, at any time from your Birdie dashboard.</p>
+
+        <h2>Children's Privacy</h2>
+        <p>Birdie is intended for businesses and is not directed to children under 13. We do not knowingly collect personal information from children.</p>
+
+        <h2>Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Material changes will be reflected by updating the "Last updated" date above.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have questions about this Privacy Policy or your data, contact us at <a href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a>.</p>
+  </LegalPage>
+</BaseLayout>

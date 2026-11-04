@@ -1,0 +1,34 @@
+---
+/**
+ * Customer stories row — same markup as the Home "Owners who run on Birdie" section (uses hm-stories styles from home.css).
+ * Props: heading, sub, stories [name, byline, image][] (default: the four Home stories).
+ */
+import '../../styles/sections.css';
+import '../../styles/home.css';
+import Button from '../Button.astro';
+export interface Props { heading?: string; sub?: string; stories?: [string, string, string, string?, string?][]; }
+const DEFAULT: [string, string, string, string, string][] = [
+  ['Private Links Utah', 'Cody Barlow · Unattended 24/7', 'story-1.webp', 'Utah', 'Runs a fully unattended 24/7 members-only venue — bookings, memberships, and door access all handled automatically, with no full-time staff on site.'],
+  ['All Seasons Indoor Golf', 'Bryan Moore · All-in-one operation', 'story-2.webp', 'Kansas City, MO', 'Runs one of Kansas City’s top indoor golf destinations on Birdie — bookings, memberships, marketing, and reporting, all on one platform.'],
+  ['Fairways Pub Grub & Indoor Golf', 'Danny · Pub + kitchen + golf', 'story-3.webp', 'Lancaster, CA', 'Runs a hybrid pub, kitchen, and indoor golf venue — managing bookings, memberships, leagues, and event packages all in one place.'],
+  ['GoGolf Lounge', 'Deep · New venue · Onboarding to launch', 'story-4.webp', 'North Attleboro, MA', 'Deep is opening GoGolf Lounge, a new indoor golf simulator venue in North Attleboro. He shares his experience building the business on Birdie from onboarding through opening day.'],
+];
+const { heading = 'Owners who run on Birdie', sub = 'Customer stories. From unattended 24/7 clubs to full pub-and-kitchen venues — hear it from the owners.', stories = DEFAULT } = Astro.props;
+const A = '/assets/home/';
+---
+<section class="hm-sec hm-stories hm-stack pf-stories">
+  <div class="hm-stories__head">
+    <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2><p class="hm-sub">{sub}</p></div>
+    <Button href="/customers/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">See all customer stories <img src={`${A}arrow-right-dark.svg`} alt="" width="16" height="16" /></Button>
+  </div>
+  <div class="hm-stories__row">
+    {stories.map(([n, by, img, loc, desc]) => (
+      <a class="hm-story" href="/customers/">
+        <img class="bg" src={`${A}${img}`} alt="" loading="lazy" />
+        <span class="pin"><img src={`${A}icon-pin.svg`} alt="" />{loc}</span>
+        <span class="go bd-btn bd-btn--secondary-dark"><img src={`${A}icon-arrow-up-right.svg`} alt="" /></span>
+        <div><h3>{n}</h3><div class="by">{by}</div><p>{desc}</p></div>
+      </a>
+    ))}
+  </div>
+</section>

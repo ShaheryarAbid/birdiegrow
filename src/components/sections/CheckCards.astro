@@ -1,0 +1,22 @@
+---
+/**
+ * Checklist cards — 1-3 grey-framed cards, each with an optional title and a list of ticked items (SEO template list section).
+ * Props: heading, sub, groups [title | '', items[]][] (one group renders a single card with the list in two columns).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+export interface Props { heading: string; sub?: string; groups: [string, string[]][]; id?: string; }
+const { heading, sub, groups, id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub">{sub}</p>}</div>
+  <div class={`sx-ckw${groups.length === 1 ? ' one' : ''}`}>
+    {groups.map(([t, items]) => (
+      <div class="sx-ck">
+        {t && <h3>{t}</h3>}
+        <ul>{items.map((i) => <li>{i}</li>)}</ul>
+      </div>
+    ))}
+  </div>
+</section>

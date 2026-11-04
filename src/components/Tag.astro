@@ -1,0 +1,7 @@
+---
+/** Redesign tag/badge/status — Figma UI Kit "Tags & Labels" 585:48806. */
+export interface Props { kind?: 'tag' | 'badge' | 'status'; selected?: boolean; status?: 'available' | 'beta' | 'soon'; class?: string; }
+const { kind = 'tag', selected = false, status = 'soon', class: cls = '' } = Astro.props;
+const c = kind === 'tag' ? `bd-tag${selected ? ' is-selected' : ''}` : kind === 'badge' ? 'bd-badge' : `bd-status bd-status--${status === 'soon' ? 'soon' : status}`;
+---
+<span class={`${c} ${cls}`.trim()}>{kind === 'status' ? <span><slot /></span> : <slot />}</span>

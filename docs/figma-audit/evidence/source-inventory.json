@@ -1,0 +1,3080 @@
+[
+  {
+    "path": "src/components/Analytics.astro",
+    "lines": 119,
+    "imports": [
+      "../consts"
+    ],
+    "components": [],
+    "scripts": 4,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/booking/BookingBar.astro",
+    "lines": 22,
+    "imports": [
+      "../Button.astro",
+      "../../consts"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/booking/golf-ball.svg",
+      "/assets/ui/icon-account-dark.svg",
+      "/assets/ui/logo-header-dark.svg"
+    ]
+  },
+  {
+    "path": "src/components/booking/BookingBg.astro",
+    "lines": 11,
+    "imports": [
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/booking/bk-bg.webp"
+    ]
+  },
+  {
+    "path": "src/components/booking/BookingWizard.astro",
+    "lines": 259,
+    "imports": [
+      "./BookingBar.astro",
+      "./BookingBg.astro",
+      "../../consts"
+    ],
+    "components": [
+      "BookingBar",
+      "BookingBg"
+    ],
+    "scripts": 1,
+    "forms": 1,
+    "headings": [
+      "\n    ",
+      "Are you the owner of a golf simulator business?",
+      "{s.h}",
+      "You’re qualified"
+    ],
+    "staticAssets": [
+      "/assets/booking/arrow-left.svg",
+      "/assets/booking/arrow-right.svg",
+      "/assets/booking/check-circle.svg",
+      "/assets/booking/error.svg",
+      "/assets/booking/lock.svg"
+    ]
+  },
+  {
+    "path": "src/components/Button.astro",
+    "lines": 17,
+    "imports": [],
+    "components": [
+      "Tag"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/calc/CalcHub.astro",
+    "lines": 56,
+    "imports": [
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{h1}{!endsPunct && ",
+      "{name}",
+      "{explainer.heading}"
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-dark.svg",
+      "/assets/home/cta-image.webp",
+      "/assets/resources/"
+    ]
+  },
+  {
+    "path": "src/components/calc/CalcShell.astro",
+    "lines": 86,
+    "imports": [
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button",
+      "HTMLElement",
+      "HTMLInputElement"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{h1}{!endsPunct && ",
+      "{panelTitle}",
+      "{resultsTitle}",
+      "{explainer.heading}"
+    ],
+    "staticAssets": [
+      "/assets/home/compat-bg.webp",
+      "/assets/home/cta-image.webp"
+    ]
+  },
+  {
+    "path": "src/components/calc/RadioCards.astro",
+    "lines": 19,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/calc/Stepper.astro",
+    "lines": 16,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/FaqItem.astro",
+    "lines": 12,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/ui/chevron-down.svg"
+    ]
+  },
+  {
+    "path": "src/components/Footer.astro",
+    "lines": 79,
+    "imports": [
+      "../consts"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{title}"
+    ],
+    "staticAssets": [
+      "/assets/ui/logo-footer.svg"
+    ]
+  },
+  {
+    "path": "src/components/Header.astro",
+    "lines": 63,
+    "imports": [
+      "../consts",
+      "./Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/Icon.astro",
+    "lines": 7,
+    "imports": [
+      "../data/icons"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/FeatureTabs.astro",
+    "lines": 74,
+    "imports": [
+      "../../lib/gd",
+      "../../scripts/tabs"
+    ],
+    "components": [
+      "Fragment",
+      "HTMLButtonElement",
+      "HTMLElement"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/MediaCards.astro",
+    "lines": 29,
+    "imports": [
+      "../../lib/gd",
+      "../Icon.astro"
+    ],
+    "components": [
+      "Icon",
+      "Tag"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/PlanPreview.astro",
+    "lines": 40,
+    "imports": [
+      "../../lib/gd",
+      "../Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/PricingCards.astro",
+    "lines": 57,
+    "imports": [
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{t.name}"
+    ],
+    "staticAssets": [
+      "/assets/home/"
+    ]
+  },
+  {
+    "path": "src/components/product/ProductHero.astro",
+    "lines": 68,
+    "imports": [
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "\n    {lead && "
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-light.svg"
+    ]
+  },
+  {
+    "path": "src/components/product/SampleDashboard.astro",
+    "lines": 49,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}{!endsPunct && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/ShortAnswer.astro",
+    "lines": 46,
+    "imports": [
+      "../../lib/gd",
+      "../Icon.astro"
+    ],
+    "components": [
+      "Icon"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "\n      {body && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/SideTabs.astro",
+    "lines": 38,
+    "imports": [
+      "../../lib/gd",
+      "../../scripts/tabs"
+    ],
+    "components": [
+      "HTMLButtonElement",
+      "HTMLElement"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/SplitPanel.astro",
+    "lines": 44,
+    "imports": [
+      "../Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/home/check-dark.svg",
+      "/assets/home/check-feature.svg"
+    ]
+  },
+  {
+    "path": "src/components/product/StatGrid.astro",
+    "lines": 11,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/Stories.astro",
+    "lines": 34,
+    "imports": [
+      "../Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": [
+      "/assets/home/"
+    ]
+  },
+  {
+    "path": "src/components/product/Tiers.astro",
+    "lines": 17,
+    "imports": [
+      "../../lib/gd",
+      "../Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/product/Timeline.astro",
+    "lines": 35,
+    "imports": [
+      "../../lib/gd",
+      "../Button.astro",
+      "../Icon.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "\n    {sub && "
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-dark.svg"
+    ]
+  },
+  {
+    "path": "src/components/product/WebsiteHeroArt.astro",
+    "lines": 13,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/figma-2026/website-hero-context-"
+    ]
+  },
+  {
+    "path": "src/components/product/WeekCalendar.astro",
+    "lines": 31,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/ArticleAccordion.astro",
+    "lines": 42,
+    "imports": [
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/ArticleLayout.astro",
+    "lines": 50,
+    "imports": [],
+    "components": [],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{title}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/CheckCards.astro",
+    "lines": 22,
+    "imports": [
+      "../../lib/gd"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/ComparisonTable.astro",
+    "lines": 45,
+    "imports": [
+      "./Logo.astro",
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button",
+      "Logo"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": [
+      "/assets/sections/birdie-logo-white.svg",
+      "/assets/sections/check-circle.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/Cta.astro",
+    "lines": 47,
+    "imports": [
+      "../Button.astro",
+      "../../consts",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}{!endsPunct && "
+    ],
+    "staticAssets": [
+      "/assets/home/",
+      "/assets/home/arrow-right-light.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/CustomerStories.astro",
+    "lines": 75,
+    "imports": [
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/customers/",
+      "/assets/home/compat-bg.webp"
+    ]
+  },
+  {
+    "path": "src/components/sections/DarkHero.astro",
+    "lines": 43,
+    "imports": [
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{h1}{!endsPunct && ",
+      "{c.title}"
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-light.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/Faq.astro",
+    "lines": 52,
+    "imports": [
+      "../../lib/gd",
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "\n      {subHtml ? ",
+      "\n  )}\n  "
+    ],
+    "staticAssets": [
+      "/assets/home/"
+    ]
+  },
+  {
+    "path": "src/components/sections/FeatureGrid.astro",
+    "lines": 10,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/Glance.astro",
+    "lines": 113,
+    "imports": [
+      "../StatCounter.astro",
+      "../../data/proof",
+      "../../data/shader"
+    ],
+    "components": [
+      "HTMLElement",
+      "StatCounter"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": [
+      "/assets/home/"
+    ]
+  },
+  {
+    "path": "src/components/sections/GroupCards.astro",
+    "lines": 26,
+    "imports": [
+      "../../lib/gd"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/seo/arrow.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/GuideCard.astro",
+    "lines": 31,
+    "imports": [
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/home/cta-image.webp",
+      "/assets/sections/"
+    ]
+  },
+  {
+    "path": "src/components/sections/GuideCards.astro",
+    "lines": 16,
+    "imports": [
+      "./GuideCard.astro"
+    ],
+    "components": [
+      "GuideCard"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/GuideLibrary.astro",
+    "lines": 37,
+    "imports": [
+      "./GuideCard.astro"
+    ],
+    "components": [
+      "GuideCard",
+      "HTMLAnchorElement"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{g.label}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/Hero.astro",
+    "lines": 37,
+    "imports": [
+      "../Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{h1.split('\\n').map((l, i, a) => "
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-dark.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/IconCards.astro",
+    "lines": 35,
+    "imports": [
+      "../../lib/gd",
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/seo/"
+    ]
+  },
+  {
+    "path": "src/components/sections/IntegrationCard.astro",
+    "lines": 19,
+    "imports": [
+      "./IntegrationLogo.astro"
+    ],
+    "components": [
+      "IntegrationLogo"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/home/arrow-right-dark.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/IntegrationHero.astro",
+    "lines": 74,
+    "imports": [
+      "../Button.astro",
+      "./IntegrationLogo.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button",
+      "IntegrationLogo"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{h1}{!endsPunct && "
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-light.svg",
+      "/assets/integrations/greensward.webp",
+      "/assets/sections/birdie-logo-white.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/IntegrationLogo.astro",
+    "lines": 26,
+    "imports": [
+      "../../data/integrationLogos"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/IntegrationSteps.astro",
+    "lines": 28,
+    "imports": [
+      "../../lib/gd",
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": [
+      "/assets/home/setup-connector.webp",
+      "/assets/home/setup-step-image.webp"
+    ]
+  },
+  {
+    "path": "src/components/sections/LegalPage.astro",
+    "lines": 15,
+    "imports": [
+      "./Cta.astro"
+    ],
+    "components": [
+      "Cta"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/LinkCards.astro",
+    "lines": 20,
+    "imports": [
+      "../../lib/gd"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": [
+      "/assets/home/icon-arrow-up-right.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/Logo.astro",
+    "lines": 18,
+    "imports": [
+      "../../data/compareLogos"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/LogoPlates.astro",
+    "lines": 20,
+    "imports": [
+      "./Logo.astro"
+    ],
+    "components": [
+      "Logo"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/PairCards.astro",
+    "lines": 24,
+    "imports": [
+      "../../lib/gd"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{sub && "
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/SeoHero.astro",
+    "lines": 53,
+    "imports": [
+      "../Button.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{h1}{!endsPunct && ",
+      "{answerTitle}"
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-light.svg",
+      "/assets/seo/hero-preview.webp"
+    ]
+  },
+  {
+    "path": "src/components/sections/SoftwareTable.astro",
+    "lines": 23,
+    "imports": [
+      "../../lib/gd"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/sections/StatBand.astro",
+    "lines": 28,
+    "imports": [
+      "../../lib/gd",
+      "../../data/shader"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/seo/tile-art.webp"
+    ]
+  },
+  {
+    "path": "src/components/sections/StatCards.astro",
+    "lines": 40,
+    "imports": [
+      "../../data/shader"
+    ],
+    "components": [
+      "HTMLElement"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": [
+      "/assets/sections/bg-ellipse.svg",
+      "/assets/sections/leak-content.webp"
+    ]
+  },
+  {
+    "path": "src/components/sections/TextBlock.astro",
+    "lines": 20,
+    "imports": [
+      "../../lib/gd",
+      "../Button.astro"
+    ],
+    "components": [
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "\n    {paras.map((p) => "
+    ],
+    "staticAssets": [
+      "/assets/seo/arrow.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/VerdictCards.astro",
+    "lines": 39,
+    "imports": [
+      "./Logo.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Logo"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": [
+      "/assets/sections/birdie-logo-white.svg",
+      "/assets/sections/feature-artwork.webp",
+      "/assets/sections/minus.svg"
+    ]
+  },
+  {
+    "path": "src/components/sections/VersusCard.astro",
+    "lines": 26,
+    "imports": [
+      "./Logo.astro",
+      "../../data/shader"
+    ],
+    "components": [
+      "Logo"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/home/",
+      "/assets/sections/birdie-logo-dark.svg"
+    ]
+  },
+  {
+    "path": "src/components/StatCounter.astro",
+    "lines": 84,
+    "imports": [],
+    "components": [],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/Tag.astro",
+    "lines": 7,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/TestimonialStrip.astro",
+    "lines": 194,
+    "imports": [],
+    "components": [],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "{heading}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/components/TextLink.astro",
+    "lines": 6,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/ui/arrow-right.svg"
+    ]
+  },
+  {
+    "path": "src/consts.ts",
+    "lines": 46,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-business-tips.md",
+    "lines": 35,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-corporate-events.md",
+    "lines": 35,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-customer-retention.md",
+    "lines": 29,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-door-access.md",
+    "lines": 23,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-gift-cards.md",
+    "lines": 31,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-google-reviews.md",
+    "lines": 27,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-grand-opening.md",
+    "lines": 29,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-leagues.md",
+    "lines": 35,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-marketing-ideas.md",
+    "lines": 37,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-membership-software.md",
+    "lines": 27,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-no-shows.md",
+    "lines": 27,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-pricing.md",
+    "lines": 27,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-sms-marketing.md",
+    "lines": 27,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-staffing.md",
+    "lines": 31,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/golf-simulator-weekday-utilization.md",
+    "lines": 31,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/how-to-run-golf-simulator-24-7.md",
+    "lines": 23,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/blog/increase-golf-simulator-revenue.md",
+    "lines": 27,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/config.ts",
+    "lines": 18,
+    "imports": [
+      "astro:content"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/24-7-golf-simulator-business.md",
+    "lines": 34,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/best-golf-simulator-for-business.md",
+    "lines": 41,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/buying-a-golf-simulator-business.md",
+    "lines": 46,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/do-you-need-software-golf-simulator-business.md",
+    "lines": 48,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-booking-software.md",
+    "lines": 50,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-for-sale.md",
+    "lines": 38,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-franchise.md",
+    "lines": 36,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-insurance.md",
+    "lines": 50,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-name.md",
+    "lines": 38,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-plan-template.md",
+    "lines": 77,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-revenue-streams.md",
+    "lines": 52,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-business-revenue.md",
+    "lines": 66,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-financing.md",
+    "lines": 46,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-membership-program.md",
+    "lines": 51,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-room-requirements.md",
+    "lines": 46,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-utilization-rate.md",
+    "lines": 57,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/golf-simulator-waivers.md",
+    "lines": 40,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/how-many-golf-simulator-bays.md",
+    "lines": 44,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/how-much-does-it-cost-to-open-a-golf-simulator-business.md",
+    "lines": 59,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/how-to-fill-weekday-bays-golf-simulator.md",
+    "lines": 44,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/how-to-get-customers-golf-simulator-business.md",
+    "lines": 43,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/how-to-start-a-golf-simulator-business.md",
+    "lines": 104,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/is-a-golf-simulator-business-profitable.md",
+    "lines": 54,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/mobile-golf-simulator-business.md",
+    "lines": 49,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/content/resources/portable-golf-simulator-business.md",
+    "lines": 29,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/compareLogos.ts",
+    "lines": 41,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/compare/"
+    ]
+  },
+  {
+    "path": "src/data/comparisons.ts",
+    "lines": 688,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/featurePages.ts",
+    "lines": 32,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/features.ts",
+    "lines": 139,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/icons.ts",
+    "lines": 36,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/integrationLogos.ts",
+    "lines": 29,
+    "imports": [],
+    "components": [
+      "LogoPart"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/integrations/"
+    ]
+  },
+  {
+    "path": "src/data/integrations.ts",
+    "lines": 151,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/pages.ts",
+    "lines": 66,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/product.ts",
+    "lines": 145,
+    "imports": [
+      "../consts"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/proof.ts",
+    "lines": 25,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/shader.ts",
+    "lines": 22,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/softwareFaq.ts",
+    "lines": 8,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/data/stories.ts",
+    "lines": 58,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/layouts/BaseLayout.astro",
+    "lines": 230,
+    "imports": [
+      "../components/Header.astro",
+      "../components/Footer.astro",
+      "../components/Analytics.astro",
+      "../consts"
+    ],
+    "components": [
+      "Analytics",
+      "Footer",
+      "Header"
+    ],
+    "scripts": 6,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/lib/gd.ts",
+    "lines": 5,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/404.astro",
+    "lines": 28,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/Button.astro",
+      "../data/shader"
+    ],
+    "components": [
+      "BaseLayout",
+      "Button"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "We couldn't find that page"
+    ],
+    "staticAssets": [
+      "/assets/pages/404-hero.webp"
+    ]
+  },
+  {
+    "path": "src/pages/[slug].astro",
+    "lines": 169,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../consts",
+      "../data/pages",
+      "../data/comparisons",
+      "../data/product",
+      "astro:content",
+      "../components/sections/Hero.astro",
+      "../components/sections/VersusCard.astro",
+      "../components/sections/ComparisonTable.astro",
+      "../components/sections/Glance.astro",
+      "../components/sections/StatCards.astro",
+      "../components/sections/LogoPlates.astro",
+      "../components/sections/GuideCards.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/VerdictCards.astro",
+      "../components/sections/FeatureGrid.astro",
+      "../components/sections/Cta.astro",
+      "../components/TextLink.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "ComparisonTable",
+      "Cta",
+      "Faq",
+      "FeatureGrid",
+      "Fragment",
+      "Glance",
+      "GuideCards",
+      "Hero",
+      "LogoPlates",
+      "StatCards",
+      "TextLink",
+      "VerdictCards",
+      "VersusCard"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/best-golf-simulator-software.astro",
+    "lines": 132,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../consts",
+      "../components/sections/SeoHero.astro",
+      "../components/sections/FeatureGrid.astro",
+      "../components/sections/SoftwareTable.astro",
+      "../components/sections/GroupCards.astro",
+      "../components/sections/TextBlock.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/Cta.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "FeatureGrid",
+      "GroupCards",
+      "LinkCards",
+      "SeoHero",
+      "SoftwareTable",
+      "TextBlock"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/blog/[...slug].astro",
+    "lines": 37,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/ArticleLayout.astro",
+      "../../components/sections/GuideCards.astro",
+      "../../components/sections/Cta.astro",
+      "astro:content",
+      "../../consts"
+    ],
+    "components": [
+      "ArticleLayout",
+      "BaseLayout",
+      "Content",
+      "Cta",
+      "GuideCards"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/blog/index.astro",
+    "lines": 18,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/Hero.astro",
+      "../../components/sections/GuideCards.astro",
+      "../../components/sections/Cta.astro",
+      "astro:content"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "GuideCards",
+      "Hero"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/book-demo.astro",
+    "lines": 83,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/booking/BookingBg.astro",
+      "../components/booking/BookingBar.astro",
+      "../components/Button.astro",
+      "../consts"
+    ],
+    "components": [
+      "BaseLayout",
+      "BookingBar",
+      "BookingBg",
+      "Button"
+    ],
+    "scripts": 3,
+    "forms": 0,
+    "headings": [
+      "Grab a time"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/compare.astro",
+    "lines": 25,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../data/pages",
+      "../consts",
+      "../components/sections/Hero.astro",
+      "../components/sections/LogoPlates.astro",
+      "../components/TextLink.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "Hero",
+      "LogoPlates",
+      "TextLink"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/contact.astro",
+    "lines": 65,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/Button.astro",
+      "../consts",
+      "../data/shader"
+    ],
+    "components": [
+      "BaseLayout",
+      "Button",
+      "LinkCards"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "Let's talk about your simulator business",
+      "Book a demo",
+      "Email",
+      "Already on Birdie?"
+    ],
+    "staticAssets": [
+      "/assets/home/compat-bg.webp",
+      "/assets/pages/copy.svg",
+      "/assets/ui/arrow-right.svg"
+    ]
+  },
+  {
+    "path": "src/pages/customers.astro",
+    "lines": 60,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/sections/Hero.astro",
+      "../components/sections/Cta.astro",
+      "../components/sections/CustomerStories.astro",
+      "../consts",
+      "../data/stories"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "CustomerStories",
+      "Hero"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/demo.astro",
+    "lines": 227,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/booking/BookingBg.astro",
+      "../components/booking/BookingBar.astro",
+      "../components/sections/CustomerStories.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/Cta.astro",
+      "../components/Button.astro",
+      "../components/Icon.astro",
+      "../consts",
+      "../data/proof",
+      "../data/stories",
+      "../data/softwareFaq",
+      "../data/shader"
+    ],
+    "components": [
+      "BaseLayout",
+      "BookingBar",
+      "BookingBg",
+      "Button",
+      "Cta",
+      "CustomerStories",
+      "Faq",
+      "Icon"
+    ],
+    "scripts": 1,
+    "forms": 1,
+    "headings": [
+      "The Booking System Built to Fill Your Bays",
+      "Book Your Free Walkthrough",
+      "{t}",
+      "Trusted by venues like yours",
+      "What Happens on the Call"
+    ],
+    "staticAssets": [
+      "/assets/features/app-screens.webp",
+      "/assets/home/arrow-right-dark.svg",
+      "/assets/seo/tile-art.webp"
+    ]
+  },
+  {
+    "path": "src/pages/features/bay-booking.astro",
+    "lines": 172,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/product/ProductHero.astro",
+      "../../components/product/ShortAnswer.astro",
+      "../../components/product/SplitPanel.astro",
+      "../../components/product/FeatureTabs.astro",
+      "../../components/sections/LinkCards.astro",
+      "../../components/sections/ComparisonTable.astro",
+      "../../components/sections/Glance.astro",
+      "../../components/sections/Faq.astro",
+      "../../components/sections/Cta.astro",
+      "../../consts",
+      "../../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "ComparisonTable",
+      "Cta",
+      "Faq",
+      "FeatureTabs",
+      "Glance",
+      "LinkCards",
+      "ProductHero",
+      "ShortAnswer",
+      "SplitPanel"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/features/door-access.astro",
+    "lines": 143,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/product/ProductHero.astro",
+      "../../components/product/ShortAnswer.astro",
+      "../../components/product/Timeline.astro",
+      "../../components/product/SplitPanel.astro",
+      "../../components/product/MediaCards.astro",
+      "../../components/product/Stories.astro",
+      "../../components/sections/LinkCards.astro",
+      "../../components/sections/Glance.astro",
+      "../../components/sections/Faq.astro",
+      "../../components/sections/Cta.astro",
+      "../../consts",
+      "../../data/features",
+      "../../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "Glance",
+      "LinkCards",
+      "MediaCards",
+      "ProductHero",
+      "ShortAnswer",
+      "SplitPanel",
+      "Stories",
+      "Timeline"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/features/leagues-events.astro",
+    "lines": 152,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/product/ProductHero.astro",
+      "../../components/product/ShortAnswer.astro",
+      "../../components/product/SplitPanel.astro",
+      "../../components/product/FeatureTabs.astro",
+      "../../components/product/Timeline.astro",
+      "../../components/product/WeekCalendar.astro",
+      "../../components/sections/LinkCards.astro",
+      "../../components/sections/Glance.astro",
+      "../../components/sections/Faq.astro",
+      "../../components/sections/Cta.astro",
+      "../../consts",
+      "../../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "FeatureTabs",
+      "Glance",
+      "LinkCards",
+      "ProductHero",
+      "ShortAnswer",
+      "SplitPanel",
+      "Timeline",
+      "WeekCalendar"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/features/memberships.astro",
+    "lines": 156,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/product/ProductHero.astro",
+      "../../components/product/ShortAnswer.astro",
+      "../../components/product/Tiers.astro",
+      "../../components/product/FeatureTabs.astro",
+      "../../components/product/SideTabs.astro",
+      "../../components/sections/LinkCards.astro",
+      "../../components/sections/Glance.astro",
+      "../../components/sections/Faq.astro",
+      "../../components/sections/Cta.astro",
+      "../../consts",
+      "../../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "FeatureTabs",
+      "Glance",
+      "LinkCards",
+      "ProductHero",
+      "ShortAnswer",
+      "SideTabs",
+      "Tiers"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "Turn memberships into predictable revenue"
+    ],
+    "staticAssets": [
+      "/assets/features/",
+      "/assets/features/mem-rule-a.webp",
+      "/assets/features/mem-rule-b.webp",
+      "/assets/features/mem-rule-c.webp",
+      "/assets/features/mem-rule-d.webp"
+    ]
+  },
+  {
+    "path": "src/pages/features/mobile-app.astro",
+    "lines": 50,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/product/ProductHero.astro",
+      "../../components/product/SplitPanel.astro",
+      "../../components/product/MediaCards.astro",
+      "../../components/product/Tiers.astro",
+      "../../components/sections/Cta.astro",
+      "../../consts"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "ProductHero",
+      "SplitPanel",
+      "Tiers"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/features.astro",
+    "lines": 143,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/product/ProductHero.astro",
+      "../components/product/SplitPanel.astro",
+      "../components/product/SampleDashboard.astro",
+      "../components/product/FeatureTabs.astro",
+      "../components/product/SideTabs.astro",
+      "../components/product/MediaCards.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/Cta.astro",
+      "../consts",
+      "../data/features",
+      "../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "FeatureTabs",
+      "LinkCards",
+      "MediaCards",
+      "ProductHero",
+      "SampleDashboard",
+      "SideTabs"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "Every booking drop-off is revenue that walked away",
+      "{BAY_AGENT.heading}",
+      "{DOOR_ACCESS.heading}"
+    ],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/golf-simulator-booking-software.astro",
+    "lines": 143,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../consts",
+      "../components/sections/SeoHero.astro",
+      "../components/sections/Glance.astro",
+      "../components/sections/FeatureGrid.astro",
+      "../components/sections/CheckCards.astro",
+      "../components/sections/ComparisonTable.astro",
+      "../components/sections/StatBand.astro",
+      "../components/sections/TextBlock.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/Cta.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "CheckCards",
+      "ComparisonTable",
+      "Cta",
+      "Faq",
+      "FeatureGrid",
+      "Glance",
+      "LinkCards",
+      "SeoHero",
+      "StatBand",
+      "TextBlock"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/golf-simulator-management-software.astro",
+    "lines": 110,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../consts",
+      "../components/sections/SeoHero.astro",
+      "../components/sections/Glance.astro",
+      "../components/sections/CheckCards.astro",
+      "../components/sections/PairCards.astro",
+      "../components/sections/TextBlock.astro",
+      "../components/sections/ArticleAccordion.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/Cta.astro"
+    ],
+    "components": [
+      "ArticleAccordion",
+      "BaseLayout",
+      "CheckCards",
+      "Cta",
+      "Faq",
+      "Glance",
+      "LinkCards",
+      "PairCards",
+      "SeoHero",
+      "TextBlock"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/golf-simulator-software.astro",
+    "lines": 116,
+    "imports": [
+      "../data/softwareFaq",
+      "../layouts/BaseLayout.astro",
+      "../consts",
+      "../components/sections/SeoHero.astro",
+      "../components/sections/Glance.astro",
+      "../components/sections/IconCards.astro",
+      "../components/sections/ComparisonTable.astro",
+      "../components/sections/StatBand.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/ArticleAccordion.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/Cta.astro"
+    ],
+    "components": [
+      "ArticleAccordion",
+      "BaseLayout",
+      "ComparisonTable",
+      "Cta",
+      "Faq",
+      "Glance",
+      "IconCards",
+      "LinkCards",
+      "SeoHero",
+      "StatBand"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/index.astro",
+    "lines": 312,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/Button.astro",
+      "../components/TextLink.astro",
+      "../components/sections/Cta.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/Glance.astro",
+      "../consts",
+      "../data/product",
+      "../data/shader",
+      "../scripts/tabs"
+    ],
+    "components": [
+      "BaseLayout",
+      "Button",
+      "Cta",
+      "Faq",
+      "Glance",
+      "HTMLElement",
+      "TextLink"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "The booking ",
+      "Everything you need to run a golf",
+      "Your booking system shouldn’t be the reason you’re losing customers",
+      "Built around the three jobs of running a venue",
+      "Live in 24 Hours",
+      "Owners who run on Birdie",
+      "Start with Bookings",
+      "Works with the gear you already have"
+    ],
+    "staticAssets": [
+      "/assets/figma-2026/home-hero-desktop-imgHeroImage.webp",
+      "/assets/figma-2026/home-hero-mobile-imgHeroImage.webp",
+      "/assets/figma-2026/home-product-context-imgPasteYourContent1.webp",
+      "/assets/figma-2026/home-product-context-imgWhiteRight.webp",
+      "/assets/home/",
+      "/assets/ui/chevron-down.svg"
+    ]
+  },
+  {
+    "path": "src/pages/integrations/[slug].astro",
+    "lines": 90,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/IntegrationHero.astro",
+      "../../components/sections/IntegrationSteps.astro",
+      "../../components/sections/IntegrationCard.astro",
+      "../../components/sections/Faq.astro",
+      "../../components/sections/Cta.astro",
+      "../../data/shader",
+      "../../consts",
+      "../../data/integrations"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "IntegrationCard",
+      "IntegrationHero",
+      "IntegrationSteps"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "How the {i.name} integration works",
+      "More integrations"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/integrations/index.astro",
+    "lines": 94,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/IntegrationHero.astro",
+      "../../components/sections/IntegrationCard.astro",
+      "../../components/sections/Cta.astro",
+      "../../consts",
+      "../../data/integrations"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "IntegrationCard",
+      "IntegrationHero"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "{cat}"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/integrations/remotelock.astro",
+    "lines": 172,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../consts",
+      "../../data/integrations",
+      "../../components/sections/IntegrationHero.astro",
+      "../../components/sections/IntegrationSteps.astro",
+      "../../components/sections/IntegrationCard.astro",
+      "../../components/sections/ArticleAccordion.astro",
+      "../../components/sections/SoftwareTable.astro",
+      "../../components/sections/TextBlock.astro",
+      "../../components/sections/Faq.astro",
+      "../../components/sections/Cta.astro"
+    ],
+    "components": [
+      "ArticleAccordion",
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "IntegrationCard",
+      "IntegrationHero",
+      "IntegrationSteps",
+      "SoftwareTable",
+      "TextBlock"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "More integrations"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/lpadvertising.astro",
+    "lines": 30,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/booking/BookingWizard.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "BookingWizard"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/lpbookingsystem.astro",
+    "lines": 30,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/booking/BookingWizard.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "BookingWizard"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/platform.astro",
+    "lines": 82,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/Button.astro",
+      "../components/sections/Cta.astro",
+      "../consts"
+    ],
+    "components": [
+      "BaseLayout",
+      "Button",
+      "Cta"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "One Platform",
+      "One login across all your locations",
+      "Start with bookings"
+    ],
+    "staticAssets": [
+      "/assets/features/door-panel-bg.webp",
+      "/assets/home/"
+    ]
+  },
+  {
+    "path": "src/pages/pricing.astro",
+    "lines": 124,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/sections/Hero.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/Cta.astro",
+      "../components/sections/Glance.astro",
+      "../components/sections/TextBlock.astro",
+      "../components/product/PricingCards.astro",
+      "../components/product/PlanPreview.astro",
+      "../consts"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Faq",
+      "Glance",
+      "Hero",
+      "PlanPreview",
+      "PricingCards",
+      "TextBlock"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/pricing/website-preview.webp"
+    ]
+  },
+  {
+    "path": "src/pages/privacy.astro",
+    "lines": 60,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/sections/LegalPage.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "LegalPage"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "Privacy Policy",
+      "Information We Collect",
+      "Google User Data",
+      "How We Use Information",
+      "How We Share Information",
+      "Data Retention",
+      "Data Security",
+      "Your Choices and Rights",
+      "Children's Privacy",
+      "Changes to This Policy",
+      "Contact Us"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/resources/[...slug].astro",
+    "lines": 57,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/ArticleLayout.astro",
+      "../../components/sections/GuideCards.astro",
+      "../../components/sections/Cta.astro",
+      "astro:content",
+      "../../consts"
+    ],
+    "components": [
+      "ArticleLayout",
+      "BaseLayout",
+      "Content",
+      "Cta",
+      "GuideCards"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "Frequently asked questions"
+    ],
+    "staticAssets": [
+      "/assets/home/faq-collapse.svg",
+      "/assets/home/faq-expand.svg"
+    ]
+  },
+  {
+    "path": "src/pages/resources/break-even-calculator.astro",
+    "lines": 87,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/calc/CalcShell.astro",
+      "../../components/calc/Stepper.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "CalcShell",
+      "Fragment",
+      "Stepper"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/resources/calculators.astro",
+    "lines": 38,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/calc/CalcHub.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "CalcHub"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/resources/golf-simulator-business-faq.astro",
+    "lines": 63,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/ArticleLayout.astro",
+      "../../components/sections/Cta.astro",
+      "../../components/Button.astro"
+    ],
+    "components": [
+      "ArticleLayout",
+      "BaseLayout",
+      "Button",
+      "Cta"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "Go deeper"
+    ],
+    "staticAssets": [
+      "/assets/home/faq-collapse.svg",
+      "/assets/home/faq-expand.svg"
+    ]
+  },
+  {
+    "path": "src/pages/resources/golf-simulator-business-guide.astro",
+    "lines": 70,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/sections/ArticleLayout.astro",
+      "../../components/sections/Cta.astro",
+      "../../components/Button.astro"
+    ],
+    "components": [
+      "ArticleLayout",
+      "BaseLayout",
+      "Button",
+      "Cta"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "Is a golf simulator business worth it?",
+      "Planning and costs",
+      "Opening your venue",
+      "Operating the business",
+      "Growing revenue",
+      "Run it all on one platform"
+    ],
+    "staticAssets": [
+      "/assets/home/arrow-right-dark.svg"
+    ]
+  },
+  {
+    "path": "src/pages/resources/index.astro",
+    "lines": 44,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "astro:content",
+      "../../components/sections/DarkHero.astro",
+      "../../components/sections/GuideLibrary.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "DarkHero",
+      "GuideLibrary"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": [
+      "/assets/resources/hero.webp"
+    ]
+  },
+  {
+    "path": "src/pages/resources/membership-pricing-calculator.astro",
+    "lines": 74,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/calc/CalcShell.astro",
+      "../../components/calc/Stepper.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "CalcShell",
+      "Fragment",
+      "Stepper"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/resources/revenue-calculator.astro",
+    "lines": 41,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/calc/CalcShell.astro",
+      "../../components/calc/Stepper.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "CalcShell",
+      "Fragment",
+      "Stepper"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/resources/startup-cost-calculator.astro",
+    "lines": 95,
+    "imports": [
+      "../../layouts/BaseLayout.astro",
+      "../../components/calc/CalcShell.astro",
+      "../../components/calc/Stepper.astro",
+      "../../components/calc/RadioCards.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "CalcShell",
+      "Fragment",
+      "RadioCards",
+      "Stepper"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/revenue.astro",
+    "lines": 151,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/product/ProductHero.astro",
+      "../components/product/SplitPanel.astro",
+      "../components/product/Timeline.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/Cta.astro",
+      "../consts",
+      "../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "LinkCards",
+      "ProductHero",
+      "SplitPanel",
+      "Timeline"
+    ],
+    "scripts": 1,
+    "forms": 0,
+    "headings": [
+      "How much are empty weekdays actually costing you?"
+    ],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/sms-terms.astro",
+    "lines": 41,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/sections/LegalPage.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "LegalPage"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "SMS Terms &amp; Conditions",
+      "Program Description",
+      "Consent",
+      "Message Frequency",
+      "Opting Out",
+      "Help",
+      "Carriers",
+      "Privacy",
+      "Changes"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/sms.astro",
+    "lines": 101,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/product/ProductHero.astro",
+      "../components/product/ShortAnswer.astro",
+      "../components/product/SplitPanel.astro",
+      "../components/sections/LinkCards.astro",
+      "../components/sections/Cta.astro",
+      "../components/Icon.astro",
+      "../consts",
+      "../data/featurePages"
+    ],
+    "components": [
+      "BaseLayout",
+      "Cta",
+      "Icon",
+      "LinkCards",
+      "ProductHero",
+      "ShortAnswer",
+      "SplitPanel"
+    ],
+    "scripts": 1,
+    "forms": 1,
+    "headings": [
+      "Opt in or opt out at any time"
+    ],
+    "staticAssets": [
+      "/assets/features/"
+    ]
+  },
+  {
+    "path": "src/pages/terms.astro",
+    "lines": 56,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/sections/LegalPage.astro"
+    ],
+    "components": [
+      "BaseLayout",
+      "LegalPage"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "Terms of Service",
+      "1. The Service",
+      "2. Accounts and Eligibility",
+      "3. Acceptable Use",
+      "4. Operator Data and Customer Data",
+      "5. Fees and Payment",
+      "6. Third-Party Services and Integrations",
+      "7. Intellectual Property",
+      "8. Disclaimers",
+      "9. Limitation of Liability",
+      "10. Termination",
+      "11. Changes to These Terms",
+      "12. Governing Law",
+      "13. Contact Us"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/pages/venue-website.astro",
+    "lines": 93,
+    "imports": [
+      "../layouts/BaseLayout.astro",
+      "../components/product/ProductHero.astro",
+      "../components/product/WebsiteHeroArt.astro",
+      "../components/product/PricingCards.astro",
+      "../components/sections/ComparisonTable.astro",
+      "../components/sections/Glance.astro",
+      "../components/sections/Faq.astro",
+      "../components/sections/Cta.astro",
+      "../components/Button.astro",
+      "../data/product",
+      "../consts"
+    ],
+    "components": [
+      "BaseLayout",
+      "Button",
+      "ComparisonTable",
+      "Cta",
+      "Faq",
+      "Glance",
+      "PricingCards",
+      "ProductHero",
+      "WebsiteHeroArt"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      "The short answer",
+      "From walkthrough to a live site",
+      "Start with Bookings"
+    ],
+    "staticAssets": [
+      "/assets/figma-2026/website-intro-context-",
+      "/assets/home/setup-ball.webp"
+    ]
+  },
+  {
+    "path": "src/scripts/shader/effect.ts",
+    "lines": 1347,
+    "imports": [],
+    "components": [
+      "GradientStop",
+      "Particle"
+    ],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/scripts/shader/init.ts",
+    "lines": 4,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/scripts/shader/runtime.ts",
+    "lines": 191,
+    "imports": [
+      "./effect"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/scripts/tabs.ts",
+    "lines": 53,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/booking.css",
+    "lines": 130,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/calc.css",
+    "lines": 114,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/commerce.css",
+    "lines": 58,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/customers.css",
+    "lines": 45,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/global.css",
+    "lines": 159,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [
+      " (section labels need a real heading for\n   correct h1->h2->h3 order). line-height + margin-top are pinned so the two\n   render identically regardless of tag. */\n.eyebrow { text-transform: uppercase; letter-spacing: .09em; font-size: .72rem; color: var(--accent); font-weight: 600; margin-top: 0; margin-bottom: 14px; line-height: 1.6; }\n.btn { display: inline-block; padding: 12px 22px; border-radius: 10px; font-weight: 600; font-size: .98rem; border: 1px solid transparent; transition: background .18s ease, border-color .18s ease, transform .05s ease; cursor: pointer; }\n.btn:active { transform: translateY(1px); }\n.btn-primary { background: var(--brand); color: var(--brand-ink); }\n.btn-primary:hover { background: var(--brand-hover); }\n.btn-ghost { border-color: var(--line-2); color: var(--text); }\n.btn-ghost:hover { border-color: var(--muted); }\n.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }\n.grid { display: grid; gap: 18px; }\n.cols-2 { grid-template-columns: repeat(2, 1fr); }\n.cols-3 { grid-template-columns: repeat(3, 1fr); }\n.cols-4 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }\n@media (max-width: 860px) { .cols-2, .cols-3 { grid-template-columns: 1fr; } }\n.card { background: var(--panel-solid); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }\n.pill { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-ink); background: var(--brand); padding: 4px 10px; border-radius: 999px; }\n.check { color: var(--accent); margin-right: 8px; }\n.list-plain { list-style: none; padding: 0; margin: 0; }\n.list-plain li { padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--text-2); }\n.site-header { position: sticky; top: 0; z-index: 20; background: rgba(9,11,10,.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }\n.nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 22px; gap: 20px; }\n.nav-links { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; font-size: .95rem; color: var(--text-2); }\n.nav-links a:hover { color: var(--text); }\n.logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.01em; }\n.logo .dot { color: var(--brand); }\n@media (max-width: 620px) { .nav-links .hide-sm { display: none; } }\n.site-footer { border-top: 1px solid var(--line); padding: 48px 0 36px; color: var(--muted); background: var(--bg-2); }\n.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; }\n@media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }\n.footer-grid h2 { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 700; }\n.footer-grid a { color: var(--text-2); display: block; padding: 4px 0; font-size: .92rem; }\n.footer-grid a:hover { color: var(--text); }\narticle { max-width: 760px; margin: 0 auto; }\narticle h2 { margin-top: 1.6em; }\narticle p, article li { color: var(--text-2); }\narticle a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }\ntable { width: 100%; border-collapse: collapse; }\nth, td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--line); }\nth { color: var(--muted); font-weight: 600; font-size: .9rem; }\n.link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }\n.link-grid a { color: var(--text-2); padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: .92rem; }\n.link-grid a:hover { color: var(--text); border-color: var(--line-2); }\n\n/* Hero */\n.hero { position: relative; padding: 118px 0 96px; overflow: hidden; }\n.hero::before { content: \"\"; position: absolute; inset: 0; background: radial-gradient(58% 46% at 50% 26%, rgba(26,162,76,.20), transparent 72%); pointer-events: none; }\n.hero::after { content: \"\"; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 46px 46px; -webkit-mask-image: radial-gradient(66% 56% at 50% 28%, #000 40%, transparent 78%); mask-image: radial-gradient(66% 56% at 50% 28%, #000 40%, transparent 78%); pointer-events: none; }\n.hero .container { position: relative; z-index: 1; }\n.hero-h1 { font-size: clamp(2.3rem, 4.8vw, 3.25rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.08; margin: 0; }\n.hero-h1 .l1 { display: block; color: var(--text); }\n.hero-h1 .l2 { display: block; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }\n.headline-muted { color: var(--head-muted); }\n.text-gradient-green { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }\n\n/* Minimal header (landing pages) */\n.mini-header { padding: 22px 0; text-align: center; border-bottom: 1px solid var(--line); }\n.mini-header .logo { font-size: 1.5rem; }\n\n/* Forms */\n.field { margin-bottom: 15px; }\n.field label { display: block; font-size: .9rem; margin-bottom: 6px; color: var(--text-2); }\n.field label .req { color: var(--accent); }\n.field input {\n  width: 100%; background: #12160f14; background: rgba(255,255,255,.03);\n  border: 1px solid var(--line-2); border-radius: 10px; padding: 12px 14px;\n  color: var(--text); font-size: 1rem; font-family: inherit;\n}\n.field input::placeholder { color: #667069; }\n.field input:focus { outline: none; border-color: var(--brand); background: rgba(255,255,255,.05); }\n.btn-block { display: block; width: 100%; text-align: center; }\n\n/* Call steps */\n.step-icon { width: 46px; height: 46px; border-radius: 50%; background: rgba(26,162,76,.14); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }\n.step-icon svg { width: 22px; height: 22px; }\n.step-time { color: var(--muted); font-size: .85rem; margin: 0; }\n\n/* Product showcase */\n.tabs { margin-top: 18px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }\n.tab { padding: 6px 14px; border-radius: 999px; border: none; background: transparent; color: rgba(255,255,255,.55); font-size: .78rem; font-weight: 500; font-family: inherit; cursor: pointer; transition: background .15s ease, color .15s ease; }\n.tab:hover { color: #fff; }\n.tab.is-active { background: #16a34a; color: #fff; }\n\n/* Device frames (laptop on desktop, phone on mobile) */\n.showcase { position: relative; max-width: 1000px; margin: 30px auto 0; }\n.laptop { display: none; position: relative; }\n.phone { display: block; position: relative; width: min(320px, 80vw); margin: 0 auto; }\n@media (min-width: 1024px) { .laptop { display: block; } .phone { display: none; } }\n.laptop-shadow { position: absolute; left: 50%; transform: translateX(-50%); bottom: -30px; width: 85%; height: 60px; background: radial-gradient(rgba(0,0,0,.65), transparent 70%); filter: blur(12px); }\n.laptop-body { position: relative; background: linear-gradient(#2a2d33 0%, #1d1f24 100%); padding: 14px 14px 18px; border-radius: 18px 18px 6px 6px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 30px 60px rgba(0,0,0,.55); }\n.laptop-bezel { position: relative; background: #000; border-radius: 10px; padding: 18px 10px 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); }\n.laptop-cam { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: #2a2d33; }\n.laptop-screen { background: #0f0f0f; border-radius: 4px; overflow: hidden; }\n.laptop-screen img { display: block; width: 100%; height: auto; object-fit: cover; object-position: top; }\n.phone-shadow { position: absolute; left: 50%; transform: translateX(-50%); bottom: -24px; width: 80%; height: 40px; background: radial-gradient(rgba(0,0,0,.7), transparent 70%); filter: blur(10px); }\n.phone-body { position: relative; background: linear-gradient(145deg, #4a4d52 0%, #2c2e33 40%, #1a1c20 100%); padding: 6px; border-radius: 48px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 20px 40px rgba(0,0,0,.6); }\n.phone-rim { position: relative; background: #000; border-radius: 42px; padding: 4px; }\n.phone-screen { position: relative; border-radius: 38px; overflow: hidden; aspect-ratio: 9 / 19.5; background: #0f0f0f; }\n.phone-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }\n.phone-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 90px; height: 26px; background: #000; border-radius: 999px; z-index: 2; }\n.phone-btn { position: absolute; background: linear-gradient(#4a4d52, #2a2c30); }\n.phone-btn.r1 { right: -3px; top: 22%; width: 3px; height: 60px; border-radius: 0 2px 2px 0; }\n.phone-btn.r2 { right: -3px; top: 34%; width: 3px; height: 36px; border-radius: 0 2px 2px 0; }\n.phone-btn.l1 { left: -3px; top: 16%; width: 3px; height: 24px; border-radius: 2px 0 0 2px; }\n\n/* Calendly embed — responsive height (stacked/tall on mobile, compact 2-col on desktop) */\n.cal-embed { min-width: 320px; width: 100%; height: 1280px; border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden; background: var(--bg-2); }\n@media (min-width: 1024px) { .cal-embed { height: 820px; } }\n"
+    ],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/home.css",
+    "lines": 295,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/pages.css",
+    "lines": 149,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/product.css",
+    "lines": 526,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/resources.css",
+    "lines": 45,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/sections.css",
+    "lines": 647,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/tokens.css",
+    "lines": 90,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/ui.css",
+    "lines": 128,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "src/styles/website.css",
+    "lines": 46,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "functions/api/booking.js",
+    "lines": 222,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "functions/api/calendly-webhook.js",
+    "lines": 171,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "functions/api/lead.js",
+    "lines": 171,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "scripts/figma-audit.py",
+    "lines": 84,
+    "imports": [],
+    "components": [],
+    "scripts": 1,
+    "forms": 1,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "scripts/preview-guard.mjs",
+    "lines": 12,
+    "imports": [
+      "node:fs"
+    ],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  },
+  {
+    "path": "scripts/visual-qa.py",
+    "lines": 151,
+    "imports": [],
+    "components": [],
+    "scripts": 0,
+    "forms": 0,
+    "headings": [],
+    "staticAssets": []
+  }
+]

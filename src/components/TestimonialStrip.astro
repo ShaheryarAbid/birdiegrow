@@ -1,0 +1,194 @@
+---
+/**
+ * Reusable testimonial strip. Video thumbnails use a click-to-load facade
+ * (no iframe until clicked) so it's safe to drop on conversion pages without
+ * hurting LCP. Pass `ids` to choose which stories to show and in what order.
+ */
+export interface Props {
+  heading?: string;
+  sub?: string;
+  ids?: string[];
+  alt?: boolean;
+}
+
+const ALL = [
+  {
+    id: 'RrV9MwsPTCQ',
+    venue: 'Private Links Utah',
+    person: 'Cody Barlow',
+    location: 'Utah',
+    tag: 'Unattended 24/7',
+    summary:
+      'Runs a fully unattended 24/7 members-only venue — bookings, memberships, and door access all handled automatically, with no full-time staff on site.',
+  },
+  {
+    id: 'xUr1Iz2CFf4',
+    venue: 'All Seasons Indoor Golf',
+    person: 'Bryan Moore',
+    location: 'Kansas City, MO',
+    tag: 'All-in-one operation',
+    summary:
+      "Runs one of Kansas City's top indoor golf destinations on Birdie — bookings, memberships, marketing, and reporting, all on one platform.",
+  },
+  {
+    id: 'RYWszx_89r8',
+    venue: 'Fairways Pub Grub & Indoor Golf',
+    person: 'Danny',
+    location: 'Lancaster, CA',
+    tag: 'Pub + kitchen + golf',
+    summary:
+      'Runs a hybrid pub, kitchen, and indoor golf venue — managing bookings, memberships, leagues, and event packages all in one place.',
+  },
+  {
+    id: 'uBS3V5xzCGU',
+    venue: 'GoGolf Lounge',
+    person: 'Deep',
+    location: 'North Attleboro, MA',
+    tag: 'New venue launch',
+    summary:
+      'Building a brand-new indoor golf venue on Birdie from day one — through onboarding, setup, and opening day.',
+  },
+];
+
+const { heading = 'Operators who run on Birdie', sub, ids, alt = false } = Astro.props;
+const items = ids
+  ? (ids.map((id) => ALL.find((t) => t.id === id)).filter(Boolean) as typeof ALL)
+  : ALL;
+---
+
+<section class:list={['section', 'divider', alt && 'section--alt']}>
+  <div class="container center">
+    <p class="eyebrow center">Customer Stories</p>
+    <h2 class="headline-muted center">{heading}</h2>
+    {sub && <p class="lead mx-auto" style="text-align:center;margin-top:8px">{sub}</p>}
+    <div class="ts-grid" style="margin-top:34px">
+      {
+        items.map((t) => (
+          <article class="ts-card">
+            <div class="ts-video" data-video={t.id} role="button" tabindex="0" aria-label={`Play the ${t.venue} story`}>
+              <img
+                src={`https://i.ytimg.com/vi/${t.id}/hqdefault.jpg`}
+                alt={`${t.person} — ${t.venue}, Birdie customer story`}
+                loading="lazy"
+                width="480"
+                height="360"
+              />
+              <span class="ts-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              </span>
+            </div>
+            <div class="ts-meta">
+              <span class="pill">{t.location}</span>
+              <h3>{t.venue}</h3>
+              <p class="ts-name">{t.person} · {t.tag}</p>
+              <p class="muted">{t.summary}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <p style="margin-top:26px">
+      <a class="accent" href="/customers/" style="text-decoration:underline;text-underline-offset:2px">See all customer stories →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .ts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 20px;
+    text-align: left;
+  }
+  .ts-card {
+    background: var(--panel-solid);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .ts-card:hover {
+    border-color: var(--line-2);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+  }
+  .ts-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    cursor: pointer;
+    background: #000;
+    overflow: hidden;
+  }
+  .ts-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease, opacity 0.2s ease;
+  }
+  .ts-video:hover img,
+  .ts-video:focus-visible img {
+    transform: scale(1.05);
+    opacity: 0.82;
+  }
+  .ts-video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  .ts-play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(26, 162, 76, 0.92);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease, background 0.15s ease;
+    padding-left: 3px;
+  }
+  .ts-video:hover .ts-play,
+  .ts-video:focus-visible .ts-play {
+    transform: scale(1.08);
+    background: var(--brand);
+  }
+  .ts-meta { padding: 20px; }
+  .ts-meta h3 { margin: 12px 0 4px; font-size: 1.1rem; }
+  .ts-name {
+    color: var(--text);
+    font-weight: 600;
+    margin: 0 0 10px;
+    font-size: 0.92rem;
+  }
+  .ts-meta .muted { font-size: 0.92rem; margin: 0; }
+</style>
+
+<script is:inline>
+  (function () {
+    function load(el) {
+      var id = el.getAttribute('data-video');
+      if (!id || el.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      f.title = 'Birdie customer testimonial';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.setAttribute('allowfullscreen', '');
+      f.loading = 'lazy';
+      el.innerHTML = '';
+      el.appendChild(f);
+    }
+    document.querySelectorAll('.ts-video').forEach(function (el) {
+      el.addEventListener('click', function () { load(el); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(el); }
+      });
+    });
+  })();
+</script>

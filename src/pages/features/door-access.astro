@@ -1,0 +1,143 @@
+---
+/** 24/7 door access — /features/door-access/ (Figma "24/7 door access", node 274:14232). Facts match src/data/features.ts and the integration pages. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductHero from '../../components/product/ProductHero.astro';
+import ShortAnswer from '../../components/product/ShortAnswer.astro';
+import Timeline from '../../components/product/Timeline.astro';
+import SplitPanel from '../../components/product/SplitPanel.astro';
+import MediaCards from '../../components/product/MediaCards.astro';
+import Stories from '../../components/product/Stories.astro';
+import LinkCards from '../../components/sections/LinkCards.astro';
+import Glance from '../../components/sections/Glance.astro';
+import Faq from '../../components/sections/Faq.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { SITE } from '../../consts';
+import { BAY_AGENT } from '../../data/features';
+import { PRODUCT_LINKS } from '../../data/featurePages';
+
+const title = '24/7 Door Access for Golf Simulator Venues | Birdie';
+const description = 'Time-gated unlock links and PINs for every booking. Birdie works with Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock so a golf simulator venue can run unattended.';
+
+const faqs: [string, string][] = [
+  ['How do customers get into the building?', 'Every booking comes with an unlock link or PIN, sent by text or email. It works only around the customer\'s session.'],
+  ['Which smart locks does Birdie work with?', 'Kisi, PDK, UniFi Access, Avigilon Alta (formerly Openpath) and RemoteLock. Each has its own integration page with setup steps.'],
+  ['Do customers need an app?', 'No. The unlock link opens from the text or email, so there is no app to download.'],
+  ['When does the unlock link work?', 'From shortly before the session until shortly after it ends. The window is set per venue.'],
+  ['What happens if the door does not open?', 'If the door does not confirm it opened, the customer sees a fallback and the owner gets an alert.'],
+  ['Can I run my venue with no staff on site?', 'Yes. The door follows the calendar, Bay Agent starts and ends sessions on each simulator PC, and you get an alert if a door does not open or a bay goes offline.'],
+  ['Does door access work with my simulator?', 'Yes. Birdie is the booking layer above your simulators and works with any simulator hardware or game software.'],
+];
+const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
+
+const steps: [string, string][] = [
+  ['Booking made', 'A customer books Bay 2 for 11:50 PM from their phone and pays at checkout.'],
+  ['Link sent', 'The unlock link or PIN arrives by text or email with the confirmation.'],
+  ['Window opens', 'The link starts working shortly before the session. You set how early.'],
+  ['Door opens', 'They tap the link and walk in. If the door does not confirm it opened, they see a fallback and you get an alert.'],
+  ['Session starts', 'Bay Agent opens the simulator software and starts the session on the booked bay.'],
+  ['Out and back in', 'Grabbed something from the car? The same link opens the door again inside the window.'],
+  ['Ten minutes left', 'Bay Agent offers extra time in the bay, or they extend by text.'],
+  ['Window closes', 'The link stops working shortly after the session ends. Nobody had to be there.'],
+];
+const locks = [
+  { title: 'Kisi', text: 'Cloud access control that lets golf simulator customers in automatically.', icon: 'door', href: '/integrations/kisi/' },
+  { title: 'PDK', text: 'ProDataKey smart-lock entry, unlocked by SMS during the booking window.', icon: 'door', href: '/integrations/pdk/' },
+  { title: 'UniFi Access', text: 'Self-hosted UniFi Access door control, wired into every booking.', icon: 'door', href: '/integrations/unifi-access/' },
+  { title: 'RemoteLock', text: 'RemoteLock PIN and mobile credentials, auto-issued at booking.', icon: 'door', href: '/integrations/remotelock/' },
+  { title: 'Avigilon Alta', text: 'Avigilon Alta access control with a single pre-signed link.', icon: 'door', href: '/integrations/avigilon-alta/' },
+];
+const F = '/assets/features/';
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
+<div class="hm">
+  <ProductHero
+    crumb={['Product', '24/7 door access']}
+    h1={"Run your\nsimulator 24/7. Without hiring more staff."}
+    lead="Every booking comes with a time-gated unlock link or PIN, sent by text or email. Birdie works with Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock."
+    primary={{ label: 'Book a demo', href: SITE.demoPath }}
+    secondary={{ label: 'See how it works', href: '#whole-night' }}
+    bg={{ src: `${F}door-bg.webp`, left: 437, top: 0, width: 1003 }}
+    mobileX={-200}
+  />
+
+  <ShortAnswer
+    body="Birdie connects your smart lock to your bookings. When a customer books a bay, they receive an unlock link or PIN that works only around their session. If the door does not confirm it opened, the customer sees a fallback and you get an alert. Staffed or fully unattended, the door follows the calendar."
+    chips={['Five smart-lock brands', 'No app to download', 'Time-gated access', 'Fallback and owner alerts']}
+    flow={[
+      { title: 'Customer books a bay', text: 'It lands on your calendar like any other booking.' },
+      { title: 'They receive an unlock link or PIN', text: 'Works only around their session time.' },
+      { title: 'Door opens', text: 'Access granted for their session.' },
+      { title: 'Door not opened', text: 'Customer sees a fallback and you get an alert.', alert: true },
+    ]}
+  />
+
+  <div id="whole-night"></div>
+  <Timeline
+    heading="A whole night, nobody on site."
+    sub="This is what an unattended late-night booking looks like from the customer's side and from yours."
+    steps={steps}
+    icons={['calendar', 'mail', 'clock', 'door', 'bolt', 'refresh', 'bell', 'lock']}
+  />
+
+  <!-- Access window (interactive example) -->
+  <SplitPanel
+    id="access-window"
+    tone="light"
+    heading="You decide when the door opens."
+    body="The link works from shortly before the session until shortly after it ends. The window is set per venue. Try yours."
+  >
+    <div class="pf-eg" id="dw" style="width:100%;max-width:480px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">Example session · 11:30 PM</b><span id="dw-win">Door unlocks 11:00 PM – 2:00 AM</span></div>
+      <div class="pf-wintrack" aria-hidden="true"><div class="win" id="dw-w"></div><div class="ses" id="dw-s"></div></div>
+      <div class="pf-wintrack-l"><span>10 PM</span><span>11 PM</span><span>12 AM</span><span>1 AM</span><span>2 AM</span><span>3 AM</span></div>
+      <label class="pf-field">Opens before the session (min) <output id="dw-b-o">30</output><input id="dw-b" class="pf-range" type="range" min="0" max="60" step="5" value="30" /></label>
+      <label class="pf-field">Session length (min) <output id="dw-l-o">120</output><input id="dw-l" class="pf-range" type="range" min="30" max="180" step="15" value="120" /></label>
+      <label class="pf-field">Closes after it ends (min) <output id="dw-a-o">30</output><input id="dw-a" class="pf-range" type="range" min="0" max="60" step="5" value="30" /></label>
+      <p class="pf-eg__note">Example only. The window is set per venue.</p>
+    </div>
+  </SplitPanel>
+
+  <MediaCards
+    id="locks"
+    heading="Five locks. One booking flow."
+    sub="Birdie integrates with the leading smart lock providers so your doors unlock automatically, no matter your hardware."
+    cols={5}
+    cards={locks}
+  />
+
+  <SplitPanel
+    id="fallback"
+    heading="The door didn't open. You know first."
+    body="If the lock does not confirm it opened, the customer sees a fallback and you get an alert. The bay runs itself once they're in. Bay Agent is a program on each simulator PC that connects the booking to the bay."
+    items={[...BAY_AGENT.does.map(([t]) => t), "Provider differences. Kisi unlocks through Kisi's own page. RemoteLock can send a PIN."]}
+    bg={`${F}door-panel-bg.webp`}
+    img={`${F}door-phone.webp`}
+    imgAlt="Phone showing a door unlocked notification"
+    cta={{ label: 'See Bay Agent', href: '/features/#bay-agent' }}
+  />
+
+  <Stories />
+  <Glance />
+  <Faq heading="Questions owners ask about door access" items={faqs} open={1} />
+  <LinkCards heading="See the rest of Birdie" sub="Each part of the platform has its own page." items={[...PRODUCT_LINKS.filter(([, h]) => h !== '/features/door-access/'), ['All integrations', '/integrations/']]} />
+  <Cta heading="Open around the clock. Staff only when you want to." body="Free walkthrough. We connect your lock, set your access window and install Bay Agent." />
+</div>
+<script is:inline>
+  (function () {
+    var g = function (id) { return document.getElementById(id); };
+    if (!g('dw')) return;
+    var T0 = 22 * 60, SPAN = 330, S = 23 * 60 + 30; // axis starts 10:00 PM, spans 330 min; example session starts 11:30 PM
+    function fmt(m) { m = ((m % 1440) + 1440) % 1440; var h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? 'PM' : 'AM', h12 = h % 12 || 12; return h12 + ':' + (mm < 10 ? '0' : '') + mm + ' ' + ap; }
+    function run() {
+      var b = +g('dw-b').value, l = +g('dw-l').value, a = +g('dw-a').value;
+      g('dw-b-o').textContent = b; g('dw-l-o').textContent = l; g('dw-a-o').textContent = a;
+      var ws = S - b, we = S + l + a;
+      g('dw-w').style.left = ((ws - T0) / SPAN * 100) + '%'; g('dw-w').style.width = ((we - ws) / SPAN * 100) + '%';
+      g('dw-s').style.left = ((S - T0) / SPAN * 100) + '%'; g('dw-s').style.width = (l / SPAN * 100) + '%';
+      g('dw-win').textContent = 'Door unlocks ' + fmt(ws) + ' – ' + fmt(we);
+    }
+    ['dw-b', 'dw-l', 'dw-a'].forEach(function (id) { g(id).addEventListener('input', run); });
+    run();
+  })();
+</script>
+</BaseLayout>

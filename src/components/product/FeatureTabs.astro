@@ -1,0 +1,74 @@
+---
+/**
+ * Tabbed feature explainer — Figma "Features / Option 2/3/4" (pill tabs above a split card: copy left, visual right).
+ * Progressive enhancement: every panel's text is in the HTML (stacked), a small script adds .is-js and turns it into tabs.
+ * Props: heading, sub / subHtml, id, tabs [{label, title, text, items?, img?, alt?}]. The panel visual is the named slot `panel-{index}` (or `img`), up to 6 tabs.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/home.css';
+import '../../styles/product.css';
+export interface Tab { label: string; title: string; text?: string; items?: (string | [string, string?])[]; img?: string; alt?: string; }
+export interface Props { heading: string; sub?: string; subHtml?: string; id?: string; tabs: Tab[]; variant?: 'tabs' | 'cards'; split?: [number[], number[]]; }
+const { heading, sub, subHtml, id, tabs, variant = 'tabs', split } = Astro.props;
+const cards = variant === 'cards';
+const LEFT = split?.[0] ?? [1, 4, 2];
+const RIGHT = split?.[1] ?? [0, 3, 5];
+const sv = (d: string) => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000407" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICONS = [
+  sv('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+  sv('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M17 4.5a3.5 3.5 0 010 7M21.5 20c0-2.6-1.6-4.6-4-5.4"/>'),
+  sv('<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/>'),
+  sv('<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8"/>'),
+  sv('<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/>'),
+  sv('<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>'),
+  sv('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
+  sv('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M17 9l5 5M22 9l-5 5"/>'),
+  sv('<path d="M3 11v3l3 1 5 5V6L6 10z"/><path d="M15 9a4 4 0 010 6M18 6.5a8 8 0 010 11"/>'),
+  sv('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'),
+  sv('<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/>'),
+  sv('<path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/>'),
+];
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class={`hm-sec hm-white hm-stack pf-ft${cards ? ' pf-ft--cards' : ''}`} id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub">{sub}</p>}{subHtml && <p class="hm-sub" set:html={subHtml} />}</div>
+  <div class="pf-tabs" data-pf-tabs={cards ? undefined : ""}>
+    <div class="hm-tabs" role="tablist" hidden>{tabs.map((t, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''} data-i={i}>{t.label}</button>)}</div>
+    <div class="pf-tabs__panels">
+      {tabs.map((t, i) => (
+        <div class={`pf-tabs__panel${i === 0 ? ' is-on' : ''}${t.items ? ' pf-tabs__panel--trio' : ''}`} data-i={i} role="tabpanel">
+          {t.items ? (
+            <>
+              <div class="pf-trio__col">{LEFT.map((k) => t.items![k] && <div class="pf-trio__card"><span class="ic" set:html={ICONS[(i * 6 + k) % ICONS.length]} /><h3>{Array.isArray(t.items![k]) ? t.items![k][0] : t.items![k]}</h3>{Array.isArray(t.items![k]) && t.items![k][1] && <p>{t.items![k][1]}</p>}</div>)}</div>
+              <div class="pf-tabs__vis">
+                {t.img ? <img src={t.img} alt={t.alt ?? ''} loading="lazy" /> : <Fragment>{i === 0 && <slot name="panel-0" />}{i === 1 && <slot name="panel-1" />}{i === 2 && <slot name="panel-2" />}</Fragment>}
+              </div>
+              <div class="pf-trio__col">{RIGHT.map((k) => t.items![k] && <div class="pf-trio__card"><span class="ic" set:html={ICONS[(i * 6 + k) % ICONS.length]} /><h3>{Array.isArray(t.items![k]) ? t.items![k][0] : t.items![k]}</h3>{Array.isArray(t.items![k]) && t.items![k][1] && <p>{t.items![k][1]}</p>}</div>)}</div>
+            </>
+          ) : (
+            <>
+              <div class="pf-tabs__txt">
+                <h3>{t.title}</h3>
+                {t.text && <p>{t.text}</p>}
+              </div>
+              <div class="pf-tabs__vis">
+                {t.img ? <img src={t.img} alt={t.alt ?? ''} loading="lazy" /> : <Fragment>{i === 0 && <slot name="panel-0" />}{i === 1 && <slot name="panel-1" />}{i === 2 && <slot name="panel-2" />}{i === 3 && <slot name="panel-3" />}{i === 4 && <slot name="panel-4" />}{i === 5 && <slot name="panel-5" />}</Fragment>}
+              </div>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  import { setupTabs } from '../../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('[data-pf-tabs]').forEach((root) => {
+    const bar = root.querySelector<HTMLElement>('.hm-tabs');
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('.hm-tabs button'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.pf-tabs__panel'));
+    if (!bar || btns.length < 2) return;
+    setupTabs(root, bar, btns, panels);
+  });
+</script>

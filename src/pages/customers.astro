@@ -1,0 +1,60 @@
+---
+/**
+ * Customer Stories — video testimonials from real golf simulator operators.
+ * Videos use a lightweight click-to-load facade (YouTube thumbnail + play
+ * button) so the page stays fast; the iframe is only injected on click.
+ * Each video also emits VideoObject JSON-LD for video rich-result eligibility.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Cta from '../components/sections/Cta.astro';
+import CustomerStories from '../components/sections/CustomerStories.astro';
+import { SITE } from '../consts';
+import { TESTIMONIALS as testimonials } from '../data/stories';
+
+
+const schema = testimonials.map((t) => ({
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: t.schemaName,
+  description: t.summary,
+  uploadDate: t.date,
+  thumbnailUrl: [`https://i.ytimg.com/vi/${t.id}/hqdefault.jpg`],
+  embedUrl: `https://www.youtube.com/embed/${t.id}`,
+  contentUrl: `https://www.youtube.com/watch?v=${t.id}`,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Birdie',
+    logo: { '@type': 'ImageObject', url: 'https://www.birdiegrow.com/og-image.jpg' },
+  },
+}));
+
+const title = 'Customer Stories | Birdie Golf Simulator Software';
+const description =
+  'See how real indoor golf simulator operators run bookings, memberships, and 24/7 door access on Birdie — in their own words. Watch customer video stories.';
+
+// Local portrait/landscape thumbnails from the Figma customer-story frame (index = story order). The YouTube facade still loads the real video on click.
+const IMG = ['story-1', 'story-2', 'story-3', 'story-4', 'story-5'];
+const stories = testimonials.map((t, i) => ({ ...t, img: `/assets/customers/${IMG[i]}.webp` }));
+---
+
+<BaseLayout title={title} description={description} schema={schema} headerVariant="light">
+  <div class="hm">
+    <Hero
+      align="center"
+      h1={"Real venues.\nReal results on Birdie"}
+      lead="From unattended 24/7 members' clubs to full pub-and-kitchen golf venues — hear how operators across the country run bookings, memberships, and door access on Birdie."
+      primary={{ label: 'Book a demo', href: '/demo/' }}
+      secondary={{ label: 'Watch the stories', href: '#stories' }}
+    />
+    <CustomerStories stories={stories} />
+    <Cta
+      heading="Your venue could be the next story."
+      body="See how Birdie runs bookings, memberships, and 24/7 door access for venues like yours — live in 24 hours, we handle the setup."
+      items={[]}
+      label="Book a demo"
+      href="/demo/"
+      secondary={{ label: 'Compare the software', href: '/best-golf-simulator-software/' }}
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+/**
+ * Partner logo tile — Figma "Integration header / logo" (48px tile, glyph placed by the design's insets).
+ * Props: name (key of INTEGRATION_LOGOS), size (tile px, default 48), dark (render on a dark/glass tile: monochrome logos turn white).
+ * Renders nothing if the partner has no logo spec.
+ */
+import '../../styles/sections.css';
+import { INTEGRATION_LOGOS } from '../../data/integrationLogos';
+export interface Props { name: string; size?: number; dark?: boolean; }
+const { name, size = 48, dark = false } = Astro.props;
+const spec = INTEGRATION_LOGOS[name];
+const box = (i: string[]) => `top:${i[0]};right:${i[1]};bottom:${i[2]};left:${i[3]}`;
+---
+{spec && (
+  <span class={`sx-il sx-il--${spec.tile}${dark ? ' sx-il--dark' : ''}${spec.mono ? ' is-mono' : ''}`} style={`--t:${size}px`} aria-hidden="true">
+    <span class={`sx-il__box${spec.full ? ' is-full' : ''}`}>
+      {spec.wrap ? (
+        <span class="sx-il__wrap" style={box(spec.wrap)}>
+          {spec.parts.map((pt) => <img src={pt.src} alt="" loading="lazy" style={`${box(pt.inset)}${pt.opacity ? `;opacity:${pt.opacity}` : ''}`} class={pt.cover ? 'cv' : undefined} />)}
+        </span>
+      ) : (
+        spec.parts.map((pt) => <img src={pt.src} alt="" loading="lazy" style={`${box(pt.inset)}${pt.opacity ? `;opacity:${pt.opacity}` : ''}`} class={pt.cover ? 'cv' : undefined} />)
+      )}
+    </span>
+  </span>
+)}

@@ -1,0 +1,43 @@
+---
+/**
+ * Dark centered hero with a row of link cards — Figma Resources "V2" 260:15162 (photo background, soft shader, glass cards).
+ * Props: h1 (white, green "." appended), lead, noteHtml (small paragraph, may contain links), primary / secondary {label, href},
+ * cards [{kicker, title, text, href}], bg (image src). The page must use headerVariant="dark" headerOverlay.
+ */
+import '../../styles/sections.css';
+import '../../styles/resources.css';
+import Button from '../Button.astro';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props {
+  h1: string; lead?: string; noteHtml?: string;
+  primary?: { label: string; href: string }; secondary?: { label: string; href: string };
+  cards?: { kicker: string; title: string; text: string; href: string }[]; bg: string;
+}
+const { h1, lead, noteHtml, primary, secondary, cards = [], bg } = Astro.props;
+const endsPunct = /[.?!]$/.test(h1.trim());
+---
+<section class="rs-hero">
+  <div class="rs-hero__bg" aria-hidden="true">
+    <img src={bg} alt="" fetchpriority="high" />
+    <div class="shade"></div>
+    <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+  </div>
+  <div class="rs-hero__c">
+    <div class="rs-hero__copy">
+      <h1>{h1}{!endsPunct && <i>.</i>}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      {noteHtml && <p class="note" set:html={noteHtml} />}
+    </div>
+    {(primary || secondary) && (
+      <div class="hm-btns">
+        {primary && <Button href={primary.href} mode="light">{primary.label}</Button>}
+        {secondary && <Button href={secondary.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-dark">{secondary.label} <img src="/assets/home/arrow-right-light.svg" alt="" width="16" height="16" /></Button>}
+      </div>
+    )}
+    {cards.length > 0 && (
+      <div class="rs-hero__cards">
+        {cards.map((c) => <a href={c.href}><small>{c.kicker}</small><h2>{c.title}</h2><p>{c.text}</p></a>)}
+      </div>
+    )}
+  </div>
+</section>

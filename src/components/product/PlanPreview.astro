@@ -1,0 +1,43 @@
+---
+/**
+ * Plan preview — Figma "Features / Option 4" 246:12861 ("What the website adds"): product image left, plan detail card right.
+ * Props: heading, sub, img/imgAlt (dark framed visual; the Figma shader gradient is baked into the exported image), imgMobile (Figma mobile swaps the desktop+phone composition for the desktop UI alone, floated inside the ambient frame), name, badge, blurb, lead (green lead-in), items [{label, icon}] (icon = file name in /assets/pricing/ without .svg),
+ * priceHeading, priceNote, cta {label, href}, id.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/commerce.css';
+import Button from '../Button.astro';
+export interface Props {
+  heading: string; sub?: string; img: string; imgAlt?: string; imgMobile?: string;
+  name: string; badge?: string; blurb: string; lead?: string;
+  items: { label: string; icon: string }[];
+  priceHeading: string; priceNote?: string; cta: { label: string; href: string }; id?: string;
+}
+const { heading, sub, img, imgAlt = '', imgMobile, name, badge, blurb, lead, items, priceHeading, priceNote, cta, id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:700px">{sub}</p>}</div>
+  <div class="cm-pv">
+    <div class={`cm-pv__art${imgMobile ? ' cm-pv__art--inset' : ''}`}>
+      <picture>
+        {imgMobile && <source media="(max-width: 900px)" srcset={imgMobile} />}
+        <img class="shot" src={img} alt={imgAlt} loading="lazy" />
+      </picture>
+    </div>
+    <div class="cm-pv__card">
+      <div class="cm-pv__head"><div><h3>{name}</h3><p>{blurb}</p></div>{badge && <span class="cm-badge">{badge}</span>}</div>
+      <hr />
+      <div class="cm-pv__list">
+        {lead && <p class="cm-lead">{lead}</p>}
+        <ul>{items.map((it) => <li><img src={`/assets/pricing/${it.icon}.svg`} alt="" width="16" height="16" />{it.label}</li>)}</ul>
+      </div>
+      <hr />
+      <div class="cm-pv__price">
+        <div><h3>{priceHeading}</h3>{priceNote && <p>{priceNote}</p>}</div>
+        <Button href={cta.href} mode="dark">{cta.label}</Button>
+      </div>
+    </div>
+  </div>
+</section>

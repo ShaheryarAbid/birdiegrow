@@ -1,0 +1,20 @@
+---
+/**
+ * Centered statement block: heading, HTML paragraphs, optional text link and button (SEO template "callout" section).
+ * Props: heading, paras (HTML strings), link {label, href} (trailing "→" is stripped), cta {label, href}, tint (grey band).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import Button from '../Button.astro';
+export interface Props { heading: string; paras: string[]; link?: { label: string; href: string }; cta?: { label: string; href: string }; tint?: boolean; id?: string; }
+const { heading, paras, link, cta, tint = false, id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class={`hm-sec ${tint ? 'sx-tint' : 'hm-white'} hm-stack`} id={id}>
+  <div class="hm-intro sx-tb">
+    <h2 class="hm-h2" set:html={gd(heading)} />
+    {paras.map((p) => <p class="hm-sub" set:html={p} />)}
+    {link && <a class="sx-tb__link" href={link.href}>{link.label.replace(/\s*→\s*$/, '')}<img src="/assets/seo/arrow.svg" alt="" width="16" height="16" /></a>}
+    {cta && <div class="hm-btns"><Button href={cta.href} mode="dark">{cta.label}</Button></div>}
+  </div>
+</section>

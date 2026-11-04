@@ -1,0 +1,49 @@
+---
+/**
+ * Sample owner dashboard — Figma "Sample dashboard" (KPI tiles, weekday gap bar, bookings table). All figures are the
+ * illustrative example copy from the design and are labelled as such in the caption.
+ * Props: heading, sub, caption {title, text}, kpis [value, label, delta, negative?, sub][], gap {label, value, note}, table {title, rows}, id.
+ */
+import '../../styles/sections.css';
+import '../../styles/product.css';
+export interface Props {
+  heading: string;
+  sub?: string;
+  caption?: { title: string; text: string };
+  kpis: [string, string, string, boolean, string][];
+  gap?: { label: string; value: string; note: string };
+  table?: { title: string; head: string[]; rows: string[][] };
+  id?: string;
+}
+const { heading, sub, caption, kpis, gap, table, id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="pf-sd" id={id}>
+  <div class="pf-sd__bg" aria-hidden="true"></div>
+  <div class="pf-sd__in">
+    <div class="pf-sd__intro"><h2>{heading}{!endsPunct && <i>.</i>}</h2>{sub && <p>{sub}</p>}</div>
+    <div class="pf-sd__glass">
+      <div class="pf-sd__card">
+        {caption && <div class="pf-sd__cap"><b>{caption.title}</b><span>{caption.text}</span></div>}
+        <div class="pf-sd__kpis">
+          {kpis.map(([v, l, d, neg, s]) => <div class="pf-sd__kpi"><span class="l">{l}</span><div class="v"><b>{v}</b><small class={neg ? 'neg' : ''}>{d}</small></div><span class="s">{s}</span></div>)}
+        </div>
+        {gap && (
+          <div class="pf-sd__gap">
+            <p>{gap.label} · {gap.note} <em>{gap.value}</em></p>
+            <div class="bars" aria-hidden="true">{[36, 49, 43, 56, 52, 63, 59, 72, 67, 79, 74, 86].map((h) => <i style={`height:${h}px`}></i>)}</div>
+          </div>
+        )}
+        {table && (
+          <div class="pf-sd__table">
+            <p>{table.title}</p>
+            <table>
+              <thead><tr>{table.head.map((h) => <th>{h}</th>)}</tr></thead>
+              <tbody>{table.rows.map((r) => <tr>{r.map((c, i) => <td>{i === r.length - 1 ? <span class={`pf-sd__pill${c === 'Confirmed' ? '' : ' is-pending'}`}>{c}</span> : c}</td>)}</tr>)}</tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

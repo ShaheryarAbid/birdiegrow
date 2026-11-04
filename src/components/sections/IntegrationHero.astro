@@ -1,0 +1,74 @@
+---
+/**
+ * Integrations hero (dark) — Figma "Integrations / V2" 225:40830 (hub: logo-tile grid) and 235:45697 (detail: Birdie tile + partner tile).
+ * Props: variant 'hub' | 'detail', h1 (green "." appended unless punctuated), lead, primary/secondary {label, href}, crumbs [{label, href?}], eyebrow,
+ * current (detail: partner name), around (detail: partner names shown above/below),
+ * bg (detail: {desktop, mobile} flattened Figma export that already carries the tile cluster).
+ * Use with BaseLayout headerVariant="dark" headerOverlay.
+ */
+import '../../styles/sections.css';
+import Button from '../Button.astro';
+import IntegrationLogo from './IntegrationLogo.astro';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props {
+  variant?: 'hub' | 'detail';
+  h1: string;
+  lead?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  crumbs?: { label: string; href?: string }[];
+  eyebrow?: string;
+  current?: string;
+  around?: string[];
+  bg?: { desktop: string; mobile: string };
+}
+const { variant = 'hub', h1, lead, primary, secondary, crumbs = [], eyebrow, current, around = [], bg } = Astro.props;
+const endsPunct = /[.?!]$/.test(h1.trim());
+---
+<section class={`hm sx-ih sx-ih--${variant}${bg ? ' sx-ih--flat' : ''}`}>
+  <div class="sx-ih__bg" aria-hidden="true">
+    {variant === 'hub' || bg ? (
+      /* Hub and flattened detail heroes: photo, logo-tile grid and the green Birdie tile ship as one Figma export. */
+      <picture>
+        <source media="(max-width: 900px)" srcset={(bg || { mobile: '/assets/integrations/int-hero-mobile.webp' }).mobile} />
+        <img src={(bg || { desktop: '/assets/integrations/int-hero-desktop.webp' }).desktop} alt="" />
+      </picture>
+    ) : (
+      <>
+        <img src="/assets/integrations/greensward.webp" alt="" />
+        <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+        <div class="hm-noise" style="background:#fdfffe"></div>
+      </>
+    )}
+  </div>
+  <div class="sx-ih__in">
+    <div class="sx-ih__txt">
+      {crumbs.length > 0 && (
+        <nav class="sx-ih__crumb" aria-label="Breadcrumb">
+          {crumbs.map((c, i) => (<>{i > 0 && <span aria-hidden="true">/</span>}{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</>))}
+        </nav>
+      )}
+      <div class="sx-ih__copy">
+        {eyebrow && <p class="sx-ih__eyebrow">{eyebrow}</p>}
+        <h1>{h1.split('\n').map((line, i) => (<>{i > 0 && <br />}{line}</>))}{!endsPunct && <i>.</i>}</h1>
+        {lead && <p class="sx-ih__lead">{lead}</p>}
+      </div>
+      {(primary || secondary) && (
+        <div class="hm-btns">
+          {primary && <Button href={primary.href} mode="light">{primary.label}</Button>}
+          {secondary && <Button href={secondary.href} mode="dark" hierarchy="secondary">{secondary.label} <img src="/assets/home/arrow-right-light.svg" alt="" width="16" height="16" /></Button>}
+        </div>
+      )}
+    </div>
+    {variant === 'hub' || bg ? null : (
+      <div class="sx-ih__art sx-ih__art--detail" aria-hidden="true">
+        {around[0] && <span class="sx-ih__big"><IntegrationLogo name={around[0]} size={176} dark /></span>}
+        <div class="sx-ih__pill">
+          <div class="sx-ih__birdie sx-ih__birdie--sm"><span class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><span class="px" style="display:block"></span></span><img src="/assets/sections/birdie-logo-white.svg" alt="" width="113" height="30" /></div>
+          {current && <span class="sx-ih__big"><IntegrationLogo name={current} size={176} dark /></span>}
+        </div>
+        {around[1] && <span class="sx-ih__big"><IntegrationLogo name={around[1]} size={176} dark /></span>}
+      </div>
+    )}
+  </div>
+</section>

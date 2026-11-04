@@ -1,0 +1,138 @@
+---
+/**
+ * "Birdie at a glance" — dark fact carousel (left) + 4 stat tiles (right). Figma Home glance / compare "Product preview" 315:18330.
+ * Props: facts [label, text][]; labels select the matching heading and chips below.
+ * heading/sub, chips. The "Scale" slide appears automatically when PROOF has figures.
+ */
+import '../../styles/sections.css';
+import StatCounter from '../StatCounter.astro';
+import { PROOF } from '../../data/proof';
+export interface Props {
+  facts?: [string, string][];
+  heading?: string;
+  sub?: string;
+  chips?: string[];
+  id?: string;
+  /** remove the top padding so it butts against the previous white section (Home) */
+  flush?: boolean;
+  /** stats left, dark card right (Figma Pricing) */
+  flip?: boolean;
+}
+// Figma Home/Pricing wording (shorter than PRODUCT_FACTS); pages can still pass their own facts.
+const GLANCE_FACTS: [string, string][] = [
+  ['Best for', 'Simulator venues focused on weekday utilization and revenue growth — Birdie pairs bay booking with a revenue layer that surfaces underused hours and lapsed customers. Works for staffed venues and fully unmanned 24/7 operations.'],
+  ['Works with', 'Any simulator hardware or game software. Birdie is the booking layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
+  ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
+  ['Pricing', 'From $197/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
+  ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
+];
+const {
+  facts = GLANCE_FACTS,
+  heading = 'Birdie at a glance',
+  sub = 'The short version, for owners comparing booking systems.',
+  chips = ['TrackMan', 'GSPro', 'Foresight', 'E6 Connect', 'TruGolf', 'Uneekor'],
+  id = 'glance',
+  flush = false,
+  flip = false,
+} = Astro.props;
+const A = '/assets/home/';
+const hasScale = !!(PROOF.activeClients || PROOF.cumulativeBookings);
+const slideCount = facts.length + (hasScale ? 1 : 0);
+const first = 0;
+const presentations: Record<string, { title: string; chips: string[] }> = {
+  'Best for': { title: 'Weekday utilization and revenue growth', chips: ['Staffed venues', 'Unmanned 24/7'] },
+  'Works with': { title: 'Any simulator, any game software', chips },
+  'Integrations': { title: 'Payments, smart\nlocks and messaging', chips: ['Square', 'Stripe', 'Clover', 'Kisi', 'PDK', 'Telnyx', 'UniFi Access', 'Avigilon Alta', 'RemoteLock'] },
+  'Pricing': { title: 'One flat monthly price', chips: ['From $197/month', 'No per-booking fees'] },
+  'Setup': { title: 'Live in 24 hours', chips: ['Done-for-you setup', 'No developers needed'] },
+};
+---
+<section class="hm-sec hm-white hm-stack" style={flush ? 'padding-top:0' : undefined} id={id}>
+  <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2><p class="hm-sub">{sub}</p></div>
+  <div class={`hm-glance${flip ? " hm-glance--flip" : ""}`}>
+    <div class="hm-gl__dark" data-glance data-first={first} role="region" aria-roledescription="carousel" aria-label="Birdie product facts">
+      <div class="hm-gl__ambient" aria-hidden="true"></div>
+      <div class="hm-gl__top" aria-live="polite" aria-atomic="true">
+        {facts.map(([k, v], i) => (
+          <div class={`hm-gl__slide${i === first ? ' is-on' : ''}`} data-slide={i}>
+            <div>
+              <small>{k}</small>
+              <h3>{presentations[k]?.title ?? k}</h3>
+            </div>
+            {presentations[k] && <div class="hm-gl__chips">{presentations[k].chips.map((c) => <span>{c}</span>)}</div>}
+            <p>{v}</p>
+          </div>
+        ))}
+        {hasScale && (
+          <div class="hm-gl__slide" data-slide={facts.length}>
+            <div><small>Scale</small><h3>Built for real simulator venues</h3></div>
+            <div class="hm-gl__chips"><span>180+ venues</span></div>
+            <p>
+              {PROOF.activeClients && (<><StatCounter value={PROOF.activeClients} /> active clients run their simulator venues on Birdie. </>)}
+              {PROOF.cumulativeBookings && (<><StatCounter value={PROOF.cumulativeBookings} /> bookings processed to date. </>)}
+              As of {PROOF.asOf}.
+            </p>
+          </div>
+        )}
+      </div>
+      <div class="hm-gl__bot hm-gl__ctrl">
+        <div class="rule"></div>
+        <div class="hm-gl__nav">
+          <div class="hm-gl__dots">{Array.from({ length: slideCount }, (_, i) => <button class={i === first ? 'is-on' : ''} data-go={i} aria-label={`Show ${facts[i]?.[0] ?? 'Scale'}`}></button>)}</div>
+          <div class="hm-gl__arrows">
+            <button class="hm-gl__arrow" data-dir="-1" aria-label="Previous"><img src={`${A}chev-prev.svg`} alt="" /></button>
+            <button class="hm-gl__arrow" data-dir="1" aria-label="Next"><img src={`${A}chev-next.svg`} alt="" /></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hm-gl__stats">
+      <div class="hm-stat"><b>180<i>+</i></b><span>simulator venues run on Birdie</span></div>
+      <div class="hm-stat"><b><i>+</i>27%</b><span>more weekday bookings in the first 60 days</span></div>
+      <div class="hm-stat"><b><i>&lt;</i>30s</b><span>from opening the page to a confirmed bay</span></div>
+      <div class="hm-stat"><b><i>$</i>3,150</b><span>average monthly revenue gap Birdie finds</span></div>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-glance]').forEach((gl) => {
+    const slides = gl.querySelectorAll<HTMLElement>('.hm-gl__slide');
+    const dots = gl.querySelectorAll<HTMLElement>('[data-go]');
+    let cur = Number(gl.dataset.first || 0);
+    const go = (n: number) => {
+      cur = Math.max(0, Math.min(n, slides.length - 1));
+      gl.dataset.active = String(cur);
+      slides.forEach((s, i) => {
+        s.classList.toggle('is-on', i === cur);
+        s.hidden = i !== cur;
+        s.setAttribute('role', 'group');
+        s.setAttribute('aria-label', `${i + 1} of ${slides.length}`);
+      });
+      dots.forEach((d, i) => { d.classList.toggle('is-on', i === cur); d.setAttribute('aria-pressed', String(i === cur)); });
+      gl.querySelectorAll<HTMLButtonElement>('[data-dir]').forEach((button) => {
+        // Keep focus on the control at either end; aria-disabled prevents further movement.
+        button.setAttribute('aria-disabled', String(Number(button.dataset.dir) < 0 ? cur === 0 : cur === slides.length - 1));
+      });
+    };
+    gl.querySelectorAll<HTMLElement>('[data-dir]').forEach((b) => b.addEventListener('click', () => go(cur + Number(b.dataset.dir))));
+    dots.forEach((d) => d.addEventListener('click', () => go(Number(d.dataset.go))));
+    gl.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      go(event.key === 'Home' ? 0 : event.key === 'End' ? slides.length - 1 : cur + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    let start: { x: number; y: number } | null = null;
+    gl.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch') start = { x: event.clientX, y: event.clientY };
+    });
+    gl.addEventListener('pointercancel', () => { start = null; });
+    gl.addEventListener('pointerup', (event) => {
+      if (!start) return;
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
+      start = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1));
+    });
+    go(cur);
+  });
+</script>

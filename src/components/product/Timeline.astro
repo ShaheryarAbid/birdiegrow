@@ -1,0 +1,35 @@
+---
+/**
+ * Numbered timeline — Figma "Setup steps" / "Progress/Process" (alternating rows around a dashed line; reuses the Home hm-setup geometry).
+ * Props: heading, sub / subHtml, steps [title, text, note?][] (numbered 01..), icons (optional icon name per step), id, cta {label, href}.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/home.css';
+import '../../styles/product.css';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+export interface Props {
+  heading: string;
+  sub?: string;
+  subHtml?: string;
+  steps: [string, string, string?][];
+  icons?: string[];
+  id?: string;
+  cta?: { label: string; href: string };
+}
+const { heading, sub, subHtml, steps, icons = [], id, cta } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white pf-tl pf-tl2" id={id}>
+  <div class="pf-tl2__head">
+    <h2 class="hm-h2" set:html={gd(heading)} />
+    {sub && <p class="hm-sub">{sub}</p>}{subHtml && <p class="hm-sub" set:html={subHtml} />}
+    {cta && <Button href={cta.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">{cta.label} <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>}
+  </div>
+  <ol class="pf-tl2__list">
+    {steps.map(([t, d, note], i) => (
+      <li class={i === 0 ? 'is-on' : ''}><span class="n">{String(i + 1).padStart(2, '0')}</span><div class="c"><h3>{t}</h3><p>{d}</p>{note && <p class="pf-note">{note}</p>}</div></li>
+    ))}
+  </ol>
+</section>

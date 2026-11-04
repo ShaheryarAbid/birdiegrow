@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import GuideCards from '../../components/sections/GuideCards.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const title = 'Golf Simulator Business Blog | Birdie';
+const description = 'Practical playbooks for golf simulator operators — booking software, memberships, pricing, no-shows, 24/7 door access, reviews, and weekday utilization.';
+const items = posts.map((p) => ({ title: p.data.title, desc: p.data.description, href: `/blog/${p.slug}/`, category: 'Blog' }));
+---
+<BaseLayout title={title} description={description} headerVariant="light">
+  <div class="hm">
+    <Hero align="center" eyebrow="Blog" h1="Golf Simulator Business Blog" lead={description} />
+    <GuideCards heading="All articles" items={items} cta="Read article" />
+    <Cta label="Book a Demo" />
+  </div>
+</BaseLayout>

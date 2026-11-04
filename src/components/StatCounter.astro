@@ -1,0 +1,84 @@
+---
+/**
+ * StatCounter — an animated count-up that is NOT dependent on JavaScript.
+ *
+ * WHY IT IS BUILT THIS WAY (do not "simplify" this):
+ * The final, true value is server-rendered into the HTML as the element's text
+ * content. The script only animates a number that is already in the DOM. AI
+ * crawlers (ChatGPT, Gemini, Perplexity) and Googlebot parse raw HTML at load
+ * time — a figure injected by JS is frequently invisible to them. That is the
+ * same failure mode that left the ProDataKey partner link uncrawlable for weeks.
+ * The whole point of publishing a proof-of-scale number is that machines can
+ * extract it, so the number must never depend on the script running.
+ *
+ * If JS is disabled, fails, or the visitor prefers reduced motion, the correct
+ * value is simply displayed statically. That is the intended fallback.
+ */
+interface Props {
+  /** The true value. Rendered into the HTML verbatim. */
+  value: number;
+  /** Appended after the number, e.g. '+'. */
+  suffix?: string;
+}
+
+const { value, suffix = '+' } = Astro.props;
+const display = `${value.toLocaleString('en-US')}${suffix}`;
+---
+<span class="stat-counter" data-stat-to={String(value)} data-stat-suffix={suffix}>{display}</span>
+
+<script is:inline>
+  (() => {
+    // The component may appear more than once on a page; only bind listeners once.
+    if (window.__statCounterInit) return;
+    window.__statCounterInit = true;
+
+    const run = () => {
+      const els = document.querySelectorAll('.stat-counter');
+      if (!els.length) return;
+
+      // Respect reduced motion, and bail on anything without IntersectionObserver.
+      // In both cases the server-rendered value is already correct on screen.
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced || !('IntersectionObserver' in window)) return;
+
+      const fmt = (n) => n.toLocaleString('en-US');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          observer.unobserve(el);
+
+          const target = parseInt(el.getAttribute('data-stat-to') || '0', 10);
+          const suffix = el.getAttribute('data-stat-suffix') || '';
+          if (!target || target < 0) return;
+
+          const duration = 1100;
+          const start = performance.now();
+
+          const tick = (now) => {
+            const p = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            if (p < 1) {
+              el.textContent = fmt(Math.round(target * eased)) + suffix;
+              requestAnimationFrame(tick);
+            } else {
+              // Always land exactly on the true value.
+              el.textContent = fmt(target) + suffix;
+            }
+          };
+
+          requestAnimationFrame(tick);
+        });
+      }, { threshold: 0.4 });
+
+      els.forEach((el) => observer.observe(el));
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', run);
+    } else {
+      run();
+    }
+  })();
+</script>

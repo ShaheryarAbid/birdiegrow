@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalcShell from '../../components/calc/CalcShell.astro';
+import Stepper from '../../components/calc/Stepper.astro';
+import RadioCards from '../../components/calc/RadioCards.astro';
+const title = 'Golf Simulator Startup Cost Calculator | Birdie';
+const description = 'Estimate what it costs to open a golf simulator business — equipment, buildout, lease, and working capital — with a live, customizable breakdown.';
+
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiegrow.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://www.birdiegrow.com/resources/' },
+    { '@type': 'ListItem', position: 3, name: 'Startup Cost Calculator', item: 'https://www.birdiegrow.com/resources/startup-cost-calculator/' },
+  ],
+}];
+
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="light">
+  <CalcShell
+    h1="Golf Simulator Startup Cost Calculator"
+    lead="Opening an indoor golf simulator venue? Adjust the inputs below to estimate your all-in startup cost — equipment, buildout, lease, and working capital — and see where the money actually goes."
+    crumb="Startup Cost Calculator"
+    panelTitle="Your assumptions"
+    resultsTitle="Estimated startup cost"
+    ctaLabel="See how Birdie runs it — book a demo"
+    explainer={{ heading: 'What goes into the cost of opening a golf simulator business', paras: ['Startup costs for an indoor golf simulator venue fall into four big buckets, and the number moves most with two decisions: how many bays you build and which equipment tier you choose. <strong>Equipment</strong> is usually the single largest line — a commercial launch monitor, enclosure, impact screen, projector, PC, and hitting mat run anywhere from roughly $9,000 to $50,000 per bay depending on the tier. <strong>Buildout</strong> covers construction, flooring, lighting, and framing to turn raw space into playable bays. <strong>Lease costs</strong> are the rent and deposit you pay before revenue ramps — plan for a few months of runway, not just month one. And <strong>working capital</strong> — software, furniture, permits, branding, marketing, and a cash cushion — is the bucket new operators most often underestimate.', 'This calculator gives you a realistic all-in estimate, but the levers that decide whether the business is <em>profitable</em> are what happens after you open: bay utilization, memberships, and how well you fill weekday hours. For the full breakdown of costs by venue size, read <a href="/resources/how-much-does-it-cost-to-open-a-golf-simulator-business/">How much does it cost to open a golf simulator business</a>, and once you\'re modeling revenue, use the <a href="/resources/revenue-calculator/">revenue calculator</a> to size the other side of the equation.'] }}
+  >
+    <Fragment slot="inputs">
+      <Stepper id="bays" label="Number of bays" value={3} min={1} max={20} />
+      <RadioCards id="equip" label="Equipment tier (per bay)" selected="22000" options={[
+        { value: '9000', text: 'Budget — launch monitor + basic setup (~$9k)' },
+        { value: '22000', text: 'Mid-range — commercial sim + enclosure (~$22k)' },
+        { value: '50000', text: 'Premium — high-end commercial (~$50k)' },
+      ]} />
+      <Stepper id="buildout" label="Buildout per bay ($)" value={15000} min={0} step={1000} prefix="$" hint="Construction, flooring, lighting, enclosure framing" />
+      <Stepper id="rent" label="Monthly rent ($)" value={4500} min={0} step={100} prefix="$" />
+      <Stepper id="months" label="Months of rent upfront" value={3} min={0} max={12} hint="Deposit + first months before revenue ramps" />
+      <Stepper id="other" label="Other startup costs ($)" value={25000} min={0} step={1000} prefix="$" hint="Software, furniture, permits, branding, marketing, working capital" />
+    </Fragment>
+    <Fragment slot="results">
+      <p class="cc-big"><span id="total">$0</span></p>
+      <p class="cc-sub">Typical range: <span id="range">$0–$0</span></p>
+      <div id="breakdown" class="cc-rowlist2"></div>
+    </Fragment>
+  </CalcShell>
+
+  <script is:inline>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var fmt = function (n) { return '$' + Math.round(n).toLocaleString(); };
+      function calc() {
+        var bays = +$('bays').value || 0;
+        var equip = +$('equip').value || 0;
+        var buildout = +$('buildout').value || 0;
+        var rent = +$('rent').value || 0;
+        var months = +$('months').value || 0;
+        var other = +$('other').value || 0;
+
+        var equipTotal = bays * equip;
+        var buildoutTotal = bays * buildout;
+        var leaseTotal = rent * months;
+        var total = equipTotal + buildoutTotal + leaseTotal + other;
+
+        $('total').textContent = fmt(total);
+        $('range').textContent = fmt(total * 0.85) + '–' + fmt(total * 1.15);
+
+        var rows = [
+          ['Equipment', equipTotal, '#1aa24c'],
+          ['Buildout', buildoutTotal, '#3b82f6'],
+          ['Lease upfront', leaseTotal, '#f59e0b'],
+          ['Other / working capital', other, '#a78bfa'],
+        ];
+        var html = '';
+        rows.forEach(function (r) {
+          var pct = total > 0 ? Math.round((r[1] / total) * 100) : 0;
+          html += '<div class="cc-bar">' +
+            '<div class="cc-bar__h">' +
+              '<span>' + r[0] + '</span><b>' + fmt(r[1]) + ' <span>(' + pct + '%)</span></b>' +
+            '</div>' +
+            '<div class="cc-bar__t">' +
+              '<i style="width:' + pct + '%"></i>' +
+            '</div>' +
+          '</div>';
+        });
+        $('breakdown').innerHTML = html;
+      }
+      ['bays', 'equip', 'buildout', 'rent', 'months', 'other'].forEach(function (id) {
+        var el = $(id);
+        if (el) el.addEventListener('input', calc);
+      });
+      calc();
+    })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,25 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "https://www.birdiegrow.com/",
+        "https://www.birdiegrow.com/golf-simulator-booking-software/",
+        "https://www.birdiegrow.com/compare/",
+        "https://www.birdiegrow.com/resources/golf-simulator-membership-program/"
+      ],
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "categories:performance": ["warn", { "minScore": 0.9 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "meta-description": "error",
+        "document-title": "error",
+        "canonical": "error",
+        "is-crawlable": "error"
+      }
+    },
+    "upload": { "target": "temporary-public-storage" }
+  }
+}

@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+import { STATES, PROVINCES, COMPARISONS, HEADTERMS, CORE_FEATURES } from '../data/pages';
+import { COMPARISON_CONTENT, DEFAULT_COMP } from '../data/comparisons';
+import { PRODUCT_FACTS, FACTS, softwareApplicationSchema } from '../data/product';
+import { getCollection } from 'astro:content';
+import Hero from '../components/sections/Hero.astro';
+import VersusCard from '../components/sections/VersusCard.astro';
+import ComparisonTable from '../components/sections/ComparisonTable.astro';
+import Glance from '../components/sections/Glance.astro';
+import StatCards from '../components/sections/StatCards.astro';
+import LogoPlates from '../components/sections/LogoPlates.astro';
+import GuideCards from '../components/sections/GuideCards.astro';
+import Faq from '../components/sections/Faq.astro';
+import VerdictCards from '../components/sections/VerdictCards.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import Cta from '../components/sections/Cta.astro';
+import TextLink from '../components/TextLink.astro';
+
+export async function getStaticPaths() {
+  const paths: any[] = [];
+
+  // Per-state location pages were removed (thin, near-duplicate content).
+  // Their old slugs 301-redirect to /golf-simulator-software via public/_redirects.
+
+  for (const c of COMPARISONS)
+    paths.push({ params: { slug: c.slug }, props: { kind: 'comparison', competitor: c.name } });
+  paths.push({ params: { slug: 'indoor-golf-software-alternative' }, props: { kind: 'alternative' } });
+
+  for (const h of HEADTERMS)
+    paths.push({ params: { slug: h.slug }, props: { kind: 'headterm', ...h } });
+
+  return paths;
+}
+
+const p = Astro.props as any;
+const { slug } = Astro.params;
+const comp = p.kind === 'comparison' ? (COMPARISON_CONTENT[slug!] ?? DEFAULT_COMP) : null;
+
+let title = SITE.title;
+let description = SITE.description;
+let h1 = '';
+let intro = '';
+if (p.kind === 'location') {
+  title = `Golf Simulator Software in ${p.place} | Birdie`;
+  description = `Booking, memberships, Stripe, Square, Clover and Helcim (beta) payments, and 24/7 door access for golf simulator venues in ${p.place}. Live in 24 hours.`;
+  h1 = `Golf simulator software in ${p.place}`;
+  intro = `Purpose-built booking and revenue software for indoor golf simulator operators across ${p.place}. Fill weekday bays, run memberships, automate SMS, and open 24/7 with PDK door access — live in 24 hours.`;
+} else if (p.kind === 'comparison') {
+  title = comp?.metaTitle ?? `Birdie vs ${p.competitor} for Simulators | Birdie`;
+  description = comp?.metaDescription ?? `How Birdie compares to ${p.competitor} for golf simulator venues — built for simulator bays, memberships, revenue tracking, and 24/7 door access.`;
+  h1 = `Birdie vs ${p.competitor}: A Straight Comparison for Simulator Owners`;
+  intro = comp?.tagline ?? 'Both handle booking. Only one handles your whole business.';
+} else if (p.kind === 'alternative') {
+  title = 'The Indoor Golf Software Alternative for Simulators | Birdie';
+  description = 'Looking for an indoor golf software alternative? Birdie is purpose-built for simulator venues — bays, memberships, door access, and revenue tools.';
+  h1 = 'The indoor golf software alternative built for simulators';
+  intro = 'Generic scheduling tools and golf-course software weren’t designed for hourly bays, memberships, and unattended access. Birdie is the alternative built for how simulator venues run.';
+} else if (p.kind === 'headterm') {
+  title = p.title; description = p.description; h1 = p.h1;
+  intro = p.description;
+} else if (p.kind === 'demo') {
+  title = 'Book a Demo | Birdie';
+  description = 'See Birdie live in a free walkthrough. No commitment, no hard sales — and we handle all the setup so you’re live in 24 hours.';
+  h1 = 'Book a free demo';
+  intro = 'See the platform live. We’ll walk you through bays, pricing, memberships, and door access — then handle the setup so you’re live within 24 hours.';
+}
+
+// Comparison and alternative pages are product-intent pages, so they carry
+// SoftwareApplication + Offer schema. Previously they shipped with BreadcrumbList only,
+// which is why AI assistants cited Birdie as an explainer rather than listing it as a
+// product row alongside the competitors these pages are about.
+const isProductPage = p.kind === 'comparison' || p.kind === 'alternative';
+
+// Every answer restates a fact published elsewhere on the site. The questions are the
+// ones buyers actually ask about a switch; the answers are deliberately self-contained
+// so they can be quoted without a click.
+const compFaqs: [string, string][] =
+  p.kind === 'comparison'
+    ? [
+        [
+          `How much does Birdie cost compared to ${p.competitor}?`,
+          'Birdie is flat-rate from $197 per month for the booking system, published openly at birdiegrow.com/pricing. There are no per-booking fees, no per-bay charges, no percentage of revenue, and no long-term contract, so you can compare the real total cost before you talk to anyone.',
+        ],
+        [
+          `Is Birdie a good ${p.competitor} alternative for a golf simulator venue?`,
+          `${comp?.tagline ?? ''} Birdie is purpose-built for simulator venues specifically — hourly bays rather than tee times, hour-bank memberships, automated texts and emails, 24/7 smart-lock door access, and a revenue layer that surfaces underused weekday hours and lapsed customers.`,
+        ],
+        [
+          'What simulator hardware does Birdie work with?',
+          FACTS.hardware,
+        ],
+        [
+          `How long does it take to switch from ${p.competitor} to Birdie?`,
+          'Most venues are live and taking bookings within about 24 hours of signing. Birdie configures your bays, pricing, memberships, and add-ons for you, and migration from an existing booking tool is handled as part of onboarding — no developers and no downtime.',
+        ],
+      ]
+    : [];
+
+const schema = [
+  ...(isProductPage
+    ? [
+        softwareApplicationSchema({
+          url: new URL(`/${slug}/`, SITE.url).href,
+          description,
+        }),
+      ]
+    : []),
+  ...(compFaqs.length
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: compFaqs.map(([q, a]) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a },
+          })),
+        },
+      ]
+    : []),
+];
+
+const compareRows = [
+  'Purpose-built for golf simulators',
+  '24/7 smart-lock door access',
+  'Memberships with hour banks',
+  'Automated text and email confirmations, reminders and receipts',
+  'Revenue intelligence layer',
+  'Live in 24 hours',
+];
+
+// Related-resource cards (same three links the page always carried) + the roundup, as guide cards.
+const resourceDocs = await getCollection('resources');
+const relatedSlugs = ['golf-simulator-membership-program', 'how-to-fill-weekday-bays-golf-simulator', 'how-to-start-a-golf-simulator-business'];
+const guideItems = [
+  ...relatedSlugs.map((rs) => resourceDocs.find((d) => d.slug === rs)).filter(Boolean).map((d) => ({ title: d!.data.title, desc: d!.data.description, href: `/resources/${d!.slug}/`, category: 'Guide' })),
+  { title: 'Best Golf Simulator Booking Software (2026)', desc: 'Compare the best golf simulator software for 2026 — Birdie, Golf O’Clock, foreUP, Lightspeed, Mindbody, Square and more, with a clear pick for simulator venues.', href: '/best-golf-simulator-software/', category: 'Comparison' },
+];
+const otherPlates = COMPARISONS.filter((x) => x.slug !== slug).map((x) => ({ slug: x.slug, name: x.name, href: `/${x.slug}/` }));
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="light">
+<div class="hm">
+  {p.kind === 'comparison' && comp ? (
+    <Fragment>
+      <Hero h1={h1} lead={intro} primary={{ label: 'Book a Demo', href: SITE.demoPath }} secondary={{ label: comp.secondaryBtn, href: '/pricing/' }}>
+        <VersusCard slug={slug!} name={p.competitor} />
+      </Hero>
+      <ComparisonTable heading={`Birdie vs ${p.competitor}`} slug={slug!} name={p.competitor} rows={comp.rows} />
+      <Glance facts={PRODUCT_FACTS} />
+      <StatCards heading={comp.cardsEyebrow} items={comp.cards} note="Most operators are live and taking bookings within 24 hours of signup." />
+      <LogoPlates heading="Compare Birdie to other platforms" items={otherPlates}>
+        <TextLink href="/best-golf-simulator-software/">Best Golf Simulator Booking Software (2026)</TextLink>
+      </LogoPlates>
+      <GuideCards heading="Keep reading" items={guideItems} />
+      {compFaqs.length > 0 && <Faq heading={`Birdie vs ${p.competitor}: common questions`} items={compFaqs} open={1} round={false} />}
+      {comp.verdict && comp.verdict.length > 0 && <VerdictCards heading={`Verdict: Birdie vs ${p.competitor}`} slug={slug!} name={p.competitor} paragraphs={comp.verdict} />}
+      <Cta heading={comp.ctaHeading} body={comp.ctaBody} label="Book a Free Demo" round={false} />
+    </Fragment>
+  ) : (
+    <Fragment>
+      <Hero align="center" h1={h1} lead={intro} primary={{ label: 'Book a Demo', href: SITE.demoPath }} secondary={{ label: 'See the platform', href: '/golf-simulator-software/' }} />
+      {p.kind !== 'demo' && <FeatureGrid heading="What you get with Birdie" items={CORE_FEATURES} />}
+      <Cta heading={p.kind === 'location' ? `Ready to fill more bays in ${p.place}?` : 'See Birdie built for your venue.'} body="Free walkthrough · No hard sales process · We handle setup · Live in 24 hours" round={false} />
+    </Fragment>
+  )}
+</div>
+</BaseLayout>

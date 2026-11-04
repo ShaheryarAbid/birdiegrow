@@ -1,0 +1,10 @@
+---
+/** Simple grid of title + text cards (3 columns by default, 1 on mobile). Props: heading, sub (plain) or subHtml (inline links), items [title, text][], cols (2|3). */
+import '../../styles/sections.css';
+export interface Props { heading: string; sub?: string; subHtml?: string; items: [string, string][]; id?: string; cols?: 2 | 3; }
+const { heading, sub, subHtml, items, id, cols = 3 } = Astro.props;
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2>{subHtml ? <p class="hm-sub sx-tb" set:html={subHtml} /> : sub && <p class="hm-sub">{sub}</p>}</div>
+  <div class={`sx-fgrid${cols === 2 ? ' sx-fgrid--2' : ''}`}>{items.map(([t, d]) => <div class="sx-fcard"><h3>{t}</h3><p>{d}</p></div>)}</div>
+</section>

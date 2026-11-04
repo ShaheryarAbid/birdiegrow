@@ -1,0 +1,15 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Figma exports the featured setup tile as a plain black plate; the plug glyph sits on top of it.
+     Drawn upright, then rotated 45deg so the prongs point to the upper-right exactly like the design. -->
+<g transform="rotate(45 40 40)" fill="#4B5563">
+  <rect x="30" y="21" width="4.5" height="11" rx="2.25" />
+  <rect x="45.5" y="21" width="4.5" height="11" rx="2.25" />
+  <rect x="26" y="31" width="28" height="8.5" rx="4.25" />
+  <rect x="26" y="41.5" width="28" height="8.5" rx="4.25" />
+  <rect x="37.5" y="49" width="5" height="12" rx="2.5" />
+  <rect x="15.5" y="32" width="7" height="4" rx="2" />
+  <rect x="15.5" y="44" width="7" height="4" rx="2" />
+  <rect x="57.5" y="32" width="7" height="4" rx="2" />
+  <rect x="57.5" y="44" width="7" height="4" rx="2" />
+</g>
+</svg>

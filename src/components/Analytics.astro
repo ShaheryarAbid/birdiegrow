@@ -1,0 +1,119 @@
+---
+import { ANALYTICS } from '../consts';
+const { metaPixelId, ga4Id, googleAdsId, redditPixelId } = ANALYTICS;
+---
+{/* Google Analytics 4 + Google Ads (gtag.js) */}
+{(ga4Id || googleAdsId) && (
+  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId || ga4Id}`}></script>
+  <script is:inline define:vars={{ ga4Id, googleAdsId }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    if (ga4Id) gtag('config', ga4Id);
+    if (googleAdsId) gtag('config', googleAdsId);
+  </script>
+)}
+
+{/*
+  Meta (Facebook) Pixel — deferred load for INP.
+  The fbq stub + init + PageView run immediately, so events queue right away
+  (fbclid attribution is captured by the first-touch script regardless). The
+  heavy fbevents.js (~160KB) that keeps the main thread busy is injected only on
+  the first user interaction or on idle, so early interactions aren't blocked.
+  A timer fallback guarantees the queued PageView still fires for sessions that
+  never interact. Google Ads / GA4 gtag is intentionally NOT deferred — the lead
+  conversion on /demo submit must stay immediate.
+*/}
+{metaPixelId && (
+  <script is:inline define:vars={{ metaPixelId }}>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[]}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', metaPixelId);
+    fbq('track', 'PageView');
+    (function () {
+      var done = false;
+      var evts = ['pointerdown', 'keydown', 'scroll', 'touchstart', 'mousemove'];
+      function load() {
+        if (done) return; done = true;
+        evts.forEach(function (ev) { window.removeEventListener(ev, load, { passive: true }); });
+        var t = document.createElement('script'); t.async = !0;
+        t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      }
+      evts.forEach(function (ev) { window.addEventListener(ev, load, { passive: true }); });
+      if ('requestIdleCallback' in window) { requestIdleCallback(load, { timeout: 4000 }); }
+      else { setTimeout(load, 3500); }
+    })();
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`} alt="" />
+  </noscript>
+)}
+
+{/*
+  Reddit Pixel — deferred load, same INP-safe pattern as Meta above.
+  The rdt stub + init + PageVisit run immediately (events queue); the heavy
+  pixel.js is injected only on first interaction or idle. The /demo submit fires
+  a Lead conversion (see demo.astro). Renders nothing until redditPixelId is set.
+*/}
+{redditPixelId && (
+  <script is:inline define:vars={{ redditPixelId }}>
+    !function (w, d) {
+      if (!w.rdt) {
+        var p = w.rdt = function () { p.sendEvent ? p.sendEvent.apply(p, arguments) : p.callQueue.push(arguments); };
+        p.callQueue = [];
+      }
+    }(window, document);
+    /* Advanced matching. Per Reddit's docs these values are read ONLY from the
+       init call, and only from the FIRST init on the page — they cannot be
+       attached to a later rdt('track', ...). So they must be resolved here.
+         externalId — stable per-browser ID, no PII, lets Reddit stitch an ad
+                      click to a conversion that happens on a later visit.
+         email      — only present if this visitor already submitted the demo
+                      form this session (set by demo.astro). That makes the
+                      /book-demo/ pageview right after a submit match on email.
+                      Reddit hashes it client-side before transmission.
+       Email/phone on the Lead event itself must come from the Conversions API —
+       at init time on /demo the visitor hasn't typed anything yet. */
+    var __rdtExtId = '';
+    try {
+      __rdtExtId = localStorage.getItem('birdie_ext_id') || '';
+      if (!__rdtExtId) {
+        __rdtExtId = (window.crypto && crypto.randomUUID)
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(36).slice(2);
+        localStorage.setItem('birdie_ext_id', __rdtExtId);
+      }
+    } catch (e) {}
+    var __rdtMatch = {};
+    if (__rdtExtId) __rdtMatch.externalId = __rdtExtId;
+    try {
+      var __lead = JSON.parse(sessionStorage.getItem('birdie_lead') || '{}');
+      if (__lead && __lead.email) __rdtMatch.email = __lead.email;
+    } catch (e) {}
+    rdt('init', redditPixelId, __rdtMatch);
+    rdt('track', 'PageVisit');
+    (function () {
+      var done = false;
+      var evts = ['pointerdown', 'keydown', 'scroll', 'touchstart', 'mousemove'];
+      function load() {
+        if (done) return; done = true;
+        evts.forEach(function (ev) { window.removeEventListener(ev, load, { passive: true }); });
+        var t = document.createElement('script'); t.async = !0;
+        t.src = 'https://www.redditstatic.com/ads/pixel.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      }
+      evts.forEach(function (ev) { window.addEventListener(ev, load, { passive: true }); });
+      if ('requestIdleCallback' in window) { requestIdleCallback(load, { timeout: 4000 }); }
+      else { setTimeout(load, 3500); }
+    })();
+  </script>
+)}

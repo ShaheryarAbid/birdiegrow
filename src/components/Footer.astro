@@ -1,0 +1,70 @@
+---
+/** Redesign footer — Figma "Navigation & Footer" 585:50409 (Desktop 479:147, Mobile 497:32). */
+import { SITE } from '../consts';
+const year = new Date().getFullYear();
+type L = [string, string, string?];
+// Product feature pages (batch d).
+const product: L[] = [
+  ['Product overview', '/features/'],
+  ['Bay booking & waivers', '/features/bay-booking/'],
+  ['Memberships & passes', '/features/memberships/'],
+  ['Leagues & events', '/features/leagues-events/'],
+  ['24/7 door access', '/features/door-access/'],
+  ['Payments & revenue', '/revenue/'],
+  ['SMS & marketing', '/sms/'],
+  ['Integrations', '/integrations/'],
+  ['Pricing', '/pricing/'],
+];
+const compare: L[] = [
+  ['All comparisons', '/compare/'],
+  ["Birdie vs Golf O'Clock", '/birdie-vs-golf-oclock/'],
+  ['Birdie vs foreUP', '/birdie-vs-foreup/'],
+  ['Birdie vs Lightspeed Golf', '/birdie-vs-lightspeed-golf/'],
+  ['Birdie vs Chronogolf', '/birdie-vs-chronogolf/'],
+  ['Birdie vs Mindbody', '/birdie-vs-mindbody/'],
+  ['Birdie vs Square Appointments', '/birdie-vs-square/'],
+];
+const resources: L[] = [
+  ['Guides', '/resources/'],
+  ['Calculators', '/resources/calculators/'],
+  ['Blog', '/blog/'],
+  ['Business guide', '/resources/golf-simulator-business-guide/'],
+  ['Business FAQ', '/resources/golf-simulator-business-faq/'],
+];
+// Client login points at the Birdie app on its own host — nothing for a crawler, so nofollow.
+const company: L[] = [
+  ['Customers', '/customers/'],
+  ['Book a demo', SITE.demoPath],
+  ['Contact', '/contact/'],
+  ['Client login', SITE.appUrl, 'noopener nofollow'],
+  ['Privacy Policy', '/privacy/'],
+  ['Terms of Service', '/terms/'],
+  ['SMS Terms', '/sms-terms/'],
+];
+// Not in the Figma footer. Added at Luke's request (2026-10-29) so the SEO landing pages keep
+// sitewide internal links now that the design's footer columns no longer list them.  
+const groups: [string, L[]][] = [['Product', product], ['Compare', compare], ['Resources', resources], ['Company', company]];
+---
+<footer class="bd-footer">
+  <div class="bd-footer__top">
+    <div class="bd-footer__cols">
+      <div class="bd-footer__brand">
+        <a href="/" aria-label="Birdie home"><img src="/assets/ui/logo-footer.svg" alt="Birdie" width="121" height="32" /></a>
+        <p>Booking and revenue for golf simulator venues.</p>
+      </div>
+      <div class="bd-footer__groups">
+        {groups.map(([title, links]) => (
+          <div class="bd-footer__group">
+            <h2>{title}</h2>
+            <div class="bd-footer__links">{links.map(([l, h, rel]) => <a href={h} rel={rel}>{l}</a>)}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+<hr class="bd-footer__rule" />
+  <div class="bd-footer__legal">
+    <p>Serving simulator venues across the US and Canada.</p>
+    <p class="bd-footer__copy">© {year} Birdie. All rights reserved.</p>
+  </div>
+</footer>

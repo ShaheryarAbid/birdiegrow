@@ -1,0 +1,31 @@
+---
+/**
+ * Illustrative week calendar — Figma "Weekly booking calendar" (Leagues & events). Totals and the legend are computed from the days
+ * passed in, so the numbers always agree with what is drawn.
+ * Props: title, days [{day, slots:[{time, label, kind}]}], bays (number of bays, default 4).
+ */
+import '../../styles/product.css';
+export type Kind = 'league' | 'event' | 'package' | 'lesson' | 'regular';
+export interface Props {
+  title?: string;
+  bays?: number;
+  days: { day: string; slots: { time: string; label: string; kind: Kind }[] }[];
+}
+const { title = 'This week', bays = 4, days } = Astro.props;
+const total = days.reduce((n, d) => n + d.slots.length, 0);
+const cap = days.length * bays;
+const pct = Math.round((total / cap) * 100);
+const count = (k: Kind) => days.reduce((n, d) => n + d.slots.filter((s) => s.kind === k).length, 0);
+const legend: [Kind, string][] = [['league', 'League-night bay hold'], ['package', 'Bookable package'], ['event', 'Event (camp, clinic or tournament)'], ['lesson', 'Lesson'], ['regular', 'Regular booking']];
+---
+<div class="pf-cal">
+  <div class="pf-cal__h"><b>{title}</b><span>{total} of {cap} slots booked · {pct}% (illustrative)</span></div>
+  <div class="pf-cal__grid">
+    {days.map((d) => (
+      <div class="pf-cal__day"><b>{d.day}</b><small>{d.slots.length}/{bays} booked</small>
+        {d.slots.map((s) => <div class={`pf-cal__slot pf-cal__slot--${s.kind}`}>{s.time}<em>{s.label}</em></div>)}
+      </div>
+    ))}
+  </div>
+  <div class="pf-cal__legend">{legend.map(([k, l]) => <span><i class={`pf-cal__slot--${k}`}></i>{l} {count(k)}</span>)}</div>
+</div>

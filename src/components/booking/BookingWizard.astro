@@ -1,0 +1,259 @@
+---
+/**
+ * Booking wizard — Figma "Booking System / Step 0..5 + Error states + Calendly" (558:22400 … 558:36200, mobile 577:88504 …).
+ * Qualify gate ("Are you the owner of a golf simulator business?") -> 5-step form -> inline Calendly. Used by the ad landing pages
+ * (/lpbookingsystem, /lpadvertising). Behaviour is the previous landing-page wizard unchanged: honeypot (company_website), per-step validation,
+ * phone/zip masks, POST /api/lead (FormData + attribution), GA4/Meta/Google Ads Lead conversion only when a destination accepted the lead,
+ * Calendly embed prefilled with name/email, POST /api/booking on calendly.event_scheduled.
+ * Props: h1 (HTML, may contain <span class="g">…</span> for the green accent), sub, formSource (hidden form_source), calendlyUrl.
+ */
+import '../../styles/booking.css';
+import BookingBar from './BookingBar.astro';
+import BookingBg from './BookingBg.astro';
+import { ANALYTICS } from '../../consts';
+export interface Props { h1: string; sub: string; formSource: string; calendlyUrl: string; }
+const { h1, sub, formSource, calendlyUrl } = Astro.props;
+const steps = [
+  { n: 1, eyebrow: "Let's get started", h: "What's your first name?" },
+  { n: 2, eyebrow: 'Your business', h: 'What is the name of your golf sim business?' },
+  { n: 3, eyebrow: 'Your location', h: 'What zip code is your business in?' },
+  { n: 4, eyebrow: 'Tell us more', h: 'What are you interested in?' },
+  { n: 5, eyebrow: 'Almost done', h: 'Best way to reach you?' },
+];
+const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
+const badges = ['Done For You', '30-Min Call', 'Sim Owners Only', 'No Commitment'];
+---
+<div class="bk">
+  <BookingBg />
+  <BookingBar />
+
+  <!-- ===== SCREEN: qualify / hero ===== -->
+  <section id="scr-hero" class="bk-screen bk-hero is-active">
+    <h1 class="bk-h1" set:html={h1} />
+    <p class="bk-sub">{sub}</p>
+    <div class="bk-frame">
+      <div class="bk-card">
+        <h2 class="bk-q">Are you the owner of a golf simulator business?</h2>
+        <div class="bk-choices">
+          <button type="button" class="bk-choice bk-choice--yes" id="qualify-yes">Yes, I am</button>
+          <button type="button" class="bk-choice" id="qualify-no">No</button>
+        </div>
+        <p class="bk-priv"><img src="/assets/booking/lock.svg" alt="" width="16" height="16" /> Your info is private and never sold.</p>
+      </div>
+    </div>
+    <ul class="bk-badges">
+      {badges.map((b, i) => (<><li><img src="/assets/booking/check-circle.svg" alt="" width="18" height="18" />{b}</li>{i < badges.length - 1 && <li class="sep" aria-hidden="true"></li>}</>))}
+    </ul>
+  </section>
+
+  <!-- ===== SCREEN: wizard ===== -->
+  <section id="scr-wizard" class="bk-screen bk-wizard">
+    <div class="bk-progress-head">
+      <button type="button" id="wiz-back" class="bk-back"><img src="/assets/booking/arrow-left.svg" alt="" width="16" height="16" /> Back</button>
+      <span class="bk-stepcount">Step <span id="wiz-num">1</span> of 5</span>
+    </div>
+    <div class="bk-progress"><div id="wiz-fill" class="bk-progress-fill"></div></div>
+
+    <div class="bk-frame">
+      <form id="bk-form" class="bk-card" method="post" action="/api/lead" novalidate>
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="bk-honey" />
+        <input type="hidden" name="form_source" value={formSource} />
+        <input type="hidden" name="interests" id="f-interests" />
+
+        {steps.map((s) => (
+          <div class="bk-step" data-step={s.n} hidden={s.n !== 1}>
+            <div class="bk-steph"><p class="bk-eyebrow">{s.eyebrow}</p><h2>{s.h}</h2></div>
+
+            {s.n === 1 && (<input class="bk-input" type="text" name="first_name" id="f-first" placeholder="e.g. John" autocomplete="given-name" aria-label="First name" />)}
+            {s.n === 2 && (<input class="bk-input" type="text" name="business_name" id="f-business" placeholder="e.g. Bogey Box Golf" autocomplete="organization" aria-label="Business name" />)}
+            {s.n === 3 && (<input class="bk-input" type="text" name="zip" id="f-zip" inputmode="numeric" maxlength="5" placeholder="e.g. 60601" autocomplete="postal-code" aria-label="Zip code" />)}
+            {s.n === 4 && <p class="bk-selecthint">Select all that apply</p>}
+            {s.n === 4 && (
+              <div class="bk-opts">
+                {interests.map((i) => (<button type="button" class="bk-opt" data-val={i} aria-pressed="false"><span class="bk-box" aria-hidden="true"></span>{i}</button>))}
+              </div>
+            )}
+            {s.n === 5 && (
+              <div class="bk-contact">
+                <label class="bk-lbl" for="f-phone">Phone</label>
+                <input class="bk-input" type="tel" name="phone" id="f-phone" inputmode="numeric" maxlength="14" placeholder="(555)-123-4567" autocomplete="tel" />
+                <label class="bk-lbl" for="f-email">Email</label>
+                <input class="bk-input" type="email" name="email" id="f-email" placeholder="you@yoursim.com" autocomplete="email" />
+              </div>
+            )}
+            {s.n === 5 && (<p id="bk-error" class="bk-err" role="alert"><img src="/assets/booking/error.svg" alt="" width="16" height="16" /><span>Something went wrong — please try again, or email <a href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a>.</span></p>)}
+            <button type="button" class="bk-cta" data-cta={s.n}>
+              {s.n === 5 ? 'See Available Times' : 'Continue'} <img src="/assets/booking/arrow-right.svg" alt="" width="16" height="16" />
+            </button>
+          </div>
+        ))}
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN: booking ===== -->
+  <section id="scr-book" class="bk-screen bk-book">
+    <h2 class="bk-bookh">You’re qualified<i>.</i></h2>
+    <p class="bk-sub">Pick a time that works for you.</p>
+    <div class="bk-calwrap"><div id="cal-embed" class="bk-cal"></div></div>
+  </section>
+</div>
+
+  <script is:inline define:vars={{ adsLabel: ANALYTICS.googleAdsLeadLabel, calendlyUrl }}>
+    (function () {
+      var hero = document.getElementById('scr-hero');
+      var wizard = document.getElementById('scr-wizard');
+      var book = document.getElementById('scr-book');
+      var form = document.getElementById('bk-form');
+      if (!form) return;
+
+      var TOTAL = 5;
+      var cur = 1;
+      var picked = [];
+
+      function show(el) { [hero, wizard, book].forEach(function (s) { s.classList.remove('is-active'); }); el.classList.add('is-active'); window.scrollTo(0, 0); }
+      function stepEl(n) { return form.querySelector('.bk-step[data-step="' + n + '"]'); }
+
+      function renderStep() {
+        for (var i = 1; i <= TOTAL; i++) { var e = stepEl(i); if (e) e.hidden = i !== cur; }
+        document.getElementById('wiz-num').textContent = cur;
+        document.getElementById('wiz-fill').style.width = (cur / TOTAL * 100) + '%';
+        refreshCta();
+        var input = stepEl(cur) && stepEl(cur).querySelector('.bk-input');
+        if (input) setTimeout(function () { input.focus(); }, 60);
+      }
+
+      // ---- validation per step ----
+      function stepValid(n) {
+        if (n === 1) return form.first_name.value.trim().length > 0;
+        if (n === 2) return form.business_name.value.trim().length > 0;
+        if (n === 3) return /^\d{5}$/.test(form.zip.value.trim());
+        if (n === 4) return true; // optional
+        if (n === 5) {
+          var phoneOk = form.phone.value.replace(/\D/g, '').length === 10;
+          var emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.value.trim());
+          return phoneOk && emailOk;
+        }
+        return false;
+      }
+      function refreshCta() {
+        var cta = stepEl(cur) && stepEl(cur).querySelector('.bk-cta');
+        if (!cta) return;
+        var ok = stepValid(cur);
+        cta.classList.toggle('is-ready', ok);
+        cta.classList.toggle('is-off', !ok);
+        cta.setAttribute('aria-disabled', String(!ok));
+      }
+
+      // ---- qualify ----
+      document.getElementById('qualify-yes').addEventListener('click', function () { show(wizard); renderStep(); });
+      document.getElementById('qualify-no').addEventListener('click', function () { this.classList.add('is-no'); });
+
+      // ---- inputs ----
+      var phoneEl = document.getElementById('f-phone');
+      if (phoneEl) {
+        phoneEl.setAttribute('pattern', '\\(\\d{3}\\)-\\d{3}-\\d{4}');
+        phoneEl.addEventListener('input', function () {
+          var d = phoneEl.value.replace(/\D/g, '');
+          if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+          d = d.slice(0, 10);
+          var out = '';
+          if (d.length === 0) out = '';
+          else if (d.length < 4) out = '(' + d;
+          else if (d.length < 7) out = '(' + d.slice(0, 3) + ')-' + d.slice(3);
+          else out = '(' + d.slice(0, 3) + ')-' + d.slice(3, 6) + '-' + d.slice(6);
+          phoneEl.value = out;
+        });
+      }
+      var zipEl = document.getElementById('f-zip');
+      if (zipEl) { zipEl.setAttribute('pattern', '\\d{5}'); zipEl.addEventListener('input', function () { zipEl.value = zipEl.value.replace(/\D/g, '').slice(0, 5); }); }
+      form.querySelectorAll('.bk-input').forEach(function (inp) { inp.addEventListener('input', refreshCta); inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); advance(); } }); });
+
+      // ---- interests multi-select ----
+      form.querySelectorAll('.bk-opt').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          var v = opt.getAttribute('data-val');
+          var idx = picked.indexOf(v);
+          if (idx === -1) { picked.push(v); opt.classList.add('is-sel'); }
+          else { picked.splice(idx, 1); opt.classList.remove('is-sel'); }
+          opt.setAttribute('aria-pressed', String(idx === -1));
+          document.getElementById('f-interests').value = picked.join(', ');
+        });
+      });
+
+      // ---- nav ----
+      function advance() {
+        if (!stepValid(cur)) { refreshCta(); return; }
+        if (cur < TOTAL) { cur++; renderStep(); }
+        else submit();
+      }
+      form.querySelectorAll('.bk-cta').forEach(function (b) { b.addEventListener('click', advance); });
+      document.getElementById('wiz-back').addEventListener('click', function () {
+        if (cur > 1) { cur--; renderStep(); } else { show(hero); }
+      });
+
+      // ---- submit ----
+      function fireConversions() {
+        try { if (window.fbq) fbq('track', 'Lead'); } catch (e) {}
+        try { if (window.gtag) gtag('event', 'generate_lead', { currency: 'USD', value: 0 }); } catch (e) {}
+        try { if (window.gtag && adsLabel) gtag('event', 'conversion', { send_to: adsLabel, value: 1.0, currency: 'USD' }); } catch (e) {}
+      }
+      function loadCalendly() {
+        var wrap = document.getElementById('cal-embed');
+        var url = calendlyUrl;
+        try {
+          var nm = (form.first_name || {}).value || '';
+          var em = (form.email || {}).value || '';
+          var u = new URL(calendlyUrl);
+          if (nm) u.searchParams.set('name', nm);
+          if (em) u.searchParams.set('email', em);
+          url = u.toString();
+        } catch (e) {}
+        wrap.innerHTML = '<div class="calendly-inline-widget" data-url="' + url + '" style="min-width:320px;height:700px"></div>';
+        var s = document.createElement('script');
+        s.src = 'https://assets.calendly.com/assets/external/widget.js'; s.async = true;
+        document.body.appendChild(s);
+      }
+      var submitting = false;
+      function submit() {
+        if (submitting) return; submitting = true;
+        var errorEl = document.getElementById('bk-error');
+        errorEl.classList.remove('show');
+        var cta = stepEl(5).querySelector('.bk-cta');
+        var original = cta.innerHTML; cta.innerHTML = 'See Available Times <span class="bk-spin" aria-hidden="true"></span>'; cta.classList.add('is-off');
+
+        var fd = new FormData(form);
+        if (window.__birdieAttrApply) window.__birdieAttrApply(fd);
+        fetch('/api/lead', { method: 'POST', body: fd })
+          .then(function (r) { return r.json().catch(function () { return { ok: r.ok }; }); })
+          .then(function (data) {
+            if (data && data.ok) {
+              // Only count a Lead if a destination actually accepted it (a
+              // honeypot-dropped bot returns ok:true with no cc/ghl).
+              if (data.cc || data.ghl) fireConversions();
+              show(book); loadCalendly();
+            } else { throw new Error('failed'); }
+          })
+          .catch(function () {
+            submitting = false;
+            errorEl.classList.add('show');
+            cta.innerHTML = original; cta.classList.remove('is-off');
+          });
+      }
+
+      // When the embedded Calendly booking completes, notify Command Center + Slack.
+      // Re-send the funnel details (still in the form) so the alert is populated.
+      var booked = false;
+      window.addEventListener('message', function (e) {
+        if (e.origin !== 'https://calendly.com') return;
+        if (!e.data || e.data.event !== 'calendly.event_scheduled' || booked) return;
+        booked = true;
+        var bfd = new FormData(form);
+        if (window.__birdieAttrApply) window.__birdieAttrApply(bfd);
+        try { var u = e.data.payload && e.data.payload.event && e.data.payload.event.uri; if (u) bfd.append('calendly_event_uri', u); } catch (x) {}
+        try { fetch('/api/booking', { method: 'POST', body: bfd }); } catch (err) {}
+      });
+
+      renderStep();
+    })();
+  </script>

@@ -1,0 +1,255 @@
+---
+/**
+ * Product overview — the /features/ hub (Figma "Product overview", node 134:19566). Every section of the previous page is kept
+ * (sample booking flow, drop-off copy, sample dashboard, booking/revenue lists, Bay Agent, door access, full inventory, layers, CTA).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import SplitPanel from '../components/product/SplitPanel.astro';
+import SampleDashboard from '../components/product/SampleDashboard.astro';
+import FeatureTabs from '../components/product/FeatureTabs.astro';
+import SideTabs from '../components/product/SideTabs.astro';
+import MediaCards from '../components/product/MediaCards.astro';
+import Cta from '../components/sections/Cta.astro';
+import { SITE } from '../consts';
+import { BAY_AGENT, DOOR_ACCESS, FEATURE_GROUPS } from '../data/features';
+import { DASH_KPIS, DASH_GAP, DASH_TABLE } from '../data/featurePages';
+
+const title = 'Features | Bay Booking, Memberships & Door Access | Birdie';
+const description = 'From the booking flow your customers see to the owner dashboard you manage — every Birdie feature is purpose-built for golf simulator venues.';
+
+const timeSlots = [['2:00 PM', '$38/hr', false], ['5:00 PM', '$52/hr', false], ['6:00 PM', '$68/hr', true], ['8:00 PM', '$62/hr', false]];
+const booking: [string, string][] = [['Bay-Based Scheduling', 'Real-time availability across all bays'], ['Membership Plans', 'Hour banks, bay restrictions, advance booking windows'], ['Add-Ons at Checkout', 'BYOB, guests, custom items priced inline'], ['Automated text and email confirmations, reminders and receipts', 'Instant booking confirmation + pre-session reminders'], ['Stripe, Square, Clover & Helcim (beta) Payments', 'Built into the booking flow, no redirect. Helcim is in beta and enabled on request.'], ['Mobile-Optimized', 'Full booking flow works in under 30 seconds on any device']];
+const revenue: [string, string][] = [['Weekday Utilization Tracking', 'See exactly which days and times are underperforming'], ['Lapsed Customer Identification', 'Auto-segments customers inactive 60+ days'], ['One-Click Reactivation Campaigns', 'Targeted SMS/email to bring back lapsed customers'], ['Google Review Automation', 'Automated post-session SMS prompts build your reputation'], ['Owner Dashboard', 'Every booking, bay status, revenue, and occupancy in real time'], ['Multi-Location Support', 'One login across all your locations with a location switcher']];
+const layers = [
+  { title: 'Booking Engine', text: 'Purpose-built for bays, hourly blocks, and group-based reservations. Captures every booking and the data behind it.', icon: 'calendar' },
+  { title: 'Revenue Intelligence', text: "Reveals occupancy gaps, booking trends, and the exact revenue you're leaving on the table during slow periods.", icon: 'chart' },
+  { title: 'Customer Operations', text: 'Tracks who booked, how often they return, what they spend — and flags who needs to come back.', icon: 'users' },
+];
+const F = '/assets/features/';
+---
+<BaseLayout title={title} description={description} headerVariant="dark" headerOverlay>
+<div class="hm pf-po">
+  <ProductHero
+    h1="Everything your venue needs. Nothing you don't."
+    lead="From the booking flow your customers see, to the dashboard you manage — purpose-built for golf simulator venues."
+    primary={{ label: 'Book a demo', href: SITE.demoPath }}
+    secondary={{ label: 'See how it works', href: '#product-tour' }}
+    shadow={false}
+    extraClass="pf-hero--po"
+  />
+
+  <!-- Every booking drop-off + journey preview -->
+  <section class="pf-pv hm-round" id="product-tour">
+    <div class="pf-pv__intro">
+      <h2>Every booking drop-off is revenue that walked away<i>.</i></h2>
+      <p>Built for how simulator venues actually sell time. Under 30 seconds from landing to confirmed booking.</p>
+    </div>
+    <div class="pf-pv__card">
+      <h3>Clunky booking flows cost you customers — and you never see it happen. Birdie provides a fast, clean way to reserve a bay.</h3>
+      <div class="pf-pv__flow">
+        <img class="pf-pv__frame" src={`${F}pv-frame.webp`} alt="Birdie booking flow connector" width="573" height="186" loading="lazy" />
+        <ol class="pf-pv__steps">
+          <li><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span>Select bay</li>
+          <li><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Choose time</li>
+          <li><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Confirmed</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample dashboard -->
+  <SampleDashboard
+    id="sample-dashboard"
+    heading="Most operators don't realize the size of the gap until they see it"
+    sub="Birdie reveals exactly where revenue disappears — by bay, by day, by hour. Once you see it, the fix becomes obvious."
+    caption={{ title: 'Sample dashboard', text: 'Illustrative figures from an example venue — not Birdie averages or customer data.' }}
+    kpis={DASH_KPIS}
+    gap={DASH_GAP}
+    table={DASH_TABLE}
+  />
+
+  <!-- Booking system / revenue intelligence -->
+  <FeatureTabs
+    id="feature-tabs"
+    heading="Everything you need to run and grow your simulator business"
+    subHtml={'The booking system handles your day-to-day. The intelligence layer shows you where to grow. Running more than one site? See how the <a class="bd-link" href="/platform/" style="text-decoration:underline">multi-location platform</a> consolidates every venue into one dashboard.'}
+    split={[[0, 1, 2], [3, 4, 5]]}
+    tabs={[
+      { label: 'Booking System', title: 'Booking System', items: booking, img: `${F}ov-tab-phone.webp`, alt: 'Birdie booking flow on a phone' },
+      { label: 'Revenue intelligence', title: 'Revenue intelligence', items: revenue },
+    ]}
+  >
+    <div slot="panel-1" class="pf-vis-card">
+      <div class="pf-vis-card__in">
+        <div class="pf-vis-card__cap"><b>Sample dashboard</b><span>Illustrative figures from an example venue — not Birdie averages or customer data.</span></div>
+        <div class="pf-vis-card__grid">
+          {DASH_KPIS.map(([v, l, d, neg, s]) => (
+            <div class="pf-vis-kpi"><span class="l">{l}</span><div class="v"><b>{v}</b><small class={neg ? 'neg' : 'up'}>{d}</small></div><span class="s">{s}</span></div>
+          ))}
+        </div>
+        <div class="pf-vis-gap"><span>{DASH_GAP.label}</span><em class="up">{DASH_GAP.value}</em><small>{DASH_GAP.note}</small></div>
+      </div>
+    </div>
+  </FeatureTabs>
+
+  <!-- Bay Agent -->
+  <section class="pf-ba" id="bay-agent">
+    <div class="pf-ba__intro">
+      <h2>{BAY_AGENT.heading}<i>.</i></h2>
+      <p>{BAY_AGENT.lead} {BAY_AGENT.note}</p>
+    </div>
+    <div class="pf-ba__panel">
+      <div class="pf-ba__left">
+        <h3>What it does</h3>
+        <ul>{BAY_AGENT.does.map(([t]) => <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#d1d5db" stroke-width="1.2"/><path d="M5 8.2l2 2 4-4.4" stroke="#d1d5db" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>{t}</span></li>)}</ul>
+      </div>
+      <div class="pf-ba__right">
+        <div class="pf-ba__grp"><h3>Simulator software it detects</h3><ul class="chips">{BAY_AGENT.software.map((t) => <li>{t}</li>)}</ul></div>
+        <div class="pf-ba__grp"><h3>Launch monitors it detects</h3><ul class="chips">{BAY_AGENT.monitors.map((t) => <li>{t}</li>)}</ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Door access -->
+  <section class="pf-door" id="door-access">
+    <div class="pf-door__intro">
+      <h2>{DOOR_ACCESS.heading}<i>.</i></h2>
+      <p>{DOOR_ACCESS.lead}</p>
+      <a class="pf-door__btn" href="/integrations/">All integrations</a>
+    </div>
+    <div class="pf-door__cards">
+      {[1, 3, 2, 0].map((k, n) => (
+        <div class="pf-door__card"><img src={`${F}door-card-${n + 1}.webp`} alt="" width="302" height="362" loading="lazy" /><h3>{DOOR_ACCESS.items[k][0]}</h3>{DOOR_ACCESS.items[k][1] && <p>{DOOR_ACCESS.items[k][1]}</p>}</div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Full feature inventory -->
+  <SideTabs
+    id="all-features"
+    heading="And everything else Birdie does for your venue"
+    sub="Pricing, memberships, leagues, lessons, marketing, operations and reporting, all in one system."
+    groups={FEATURE_GROUPS.map((g) => ({ label: g.eyebrow, items: g.items }))}
+  />
+
+  <!-- Layers -->
+  <MediaCards
+    id="layers"
+    heading="Most tools stop at reservations. Birdie doesn't."
+    sub="Generic booking tools manage reservations. Birdie manages revenue — from the first booking to the repeat visit you didn't know you were missing."
+    cols={3}
+    cards={layers}
+  />
+
+  <Cta heading="Ready to see it live?" body="Free walkthrough. No commitment. We handle all setup." />
+</div>
+</BaseLayout>
+<style is:global>
+  /* Item 2 — hero: full-bleed Figma art, phones baked on the right, dark left for the copy */
+  .pf-po .pf-hero--po { background: #000 url(/assets/features/po-hero-desktop.webp) right center / cover no-repeat; }
+  .pf-po .pf-hero--po .pf-hero__art { display: none; }
+
+  /* Hero actions — Figma "Hero Actions": 16px gap, centered, 48px buttons, soft shadow on both */
+  .pf-po .pf-hero .hm-btns { align-items: center; gap: 16px; }
+  .pf-po .pf-hero .hm-btns .bd-btn { box-sizing: border-box; height: 48px; border: 0; box-shadow: 0 20px 20px rgba(0, 0, 0, 0.03), 0 10px 10px rgba(0, 0, 0, 0.03); }
+  .pf-po .pf-hero .hm-btns .bd-btn--light { background: #ffffff; color: #000407; }
+  .pf-po .pf-hero .hm-btns .bd-btn--secondary-dark { background: #1d261d; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.18); padding: 15px 24px; }
+  .pf-po .pf-hero .hm-btns .bd-btn--secondary-dark:hover { background: #263026; }
+
+  /* Req 2 — booking drop-off: flat Figma texture + Figma 'Frame 2147231848' (Birdie tile + connector lines) with the step pills rendered as HTML below */
+  .pf-po #product-tour .pf-pv__card { background: url(/assets/features/pv-bg.webp) center / 100% 100% no-repeat; }
+  .pf-po #product-tour .pf-pv__flow { position: relative; width: 573px; max-width: 100%; margin: 28px auto 0; }
+  .pf-po #product-tour .pf-pv__frame { display: block; width: 100%; height: auto; }
+  .pf-po #product-tour .pf-pv__steps { width: 100%; margin-top: -4px; gap: 16px; }
+  .pf-po #product-tour .pf-pv__steps li { flex: 1 1 0; justify-content: center; box-shadow: 0 1px 2px rgba(0, 4, 7, 0.08); }
+  .pf-po #product-tour .pf-pv__steps .ic { background: url(/assets/features/color-pixel.webp) center / cover no-repeat; }
+
+  /* Item 5 / Req 3 — sample dashboard section background + Figma "Option 3" colours */
+  .pf-po #sample-dashboard .pf-sd__bg { background: url(/assets/features/sd-bg.webp) center / cover no-repeat; opacity: 1; }
+  .pf-po #sample-dashboard .pf-sd__card { background: linear-gradient(180deg, rgba(40, 51, 38, 0.3), rgba(17, 22, 16, 0.3)); border: 1px solid rgba(209, 255, 226, 0.06); backdrop-filter: blur(10px); }
+  .pf-po #sample-dashboard .pf-sd__kpi { background: rgba(12, 17, 13, 0.4); }
+  .pf-po #sample-dashboard .pf-sd__kpi .l { font: 500 13px/17px var(--font-ui); color: #d1d5db; }
+  .pf-po #sample-dashboard .pf-sd__kpi b { font: 600 28px/32px var(--font-ui); letter-spacing: -0.02em; color: #ffffff; }
+  .pf-po #sample-dashboard .pf-sd__kpi small { font: 600 13px/17px var(--font-ui); color: #22c55e; }
+  .pf-po #sample-dashboard .pf-sd__kpi .s { font: 400 13px/1.1 var(--font-ui); letter-spacing: -0.02em; color: #d1d5db; }
+  .pf-po #sample-dashboard .pf-sd__cap span { color: #4b5563; }
+  .pf-po #sample-dashboard .pf-sd__gap .bars i { border-radius: 3px 3px 0 0; }
+
+  /* Item 6 / Req 4 — feature tabs middle black card hugs content, phone image flush to the bottom, shorter cards */
+  .pf-po #feature-tabs .pf-tabs__panel--trio .pf-tabs__vis { background: #000407 url(/assets/features/nav-bg.webp) center / cover no-repeat; align-items: flex-end; justify-content: center; min-height: 0; }
+  .pf-po #feature-tabs .pf-tabs__panel--trio .pf-tabs__vis > img { margin: 0; width: 345px; max-width: none; }
+  .pf-po #feature-tabs .pf-tabs__panel--trio .pf-trio__card { padding: 18px 20px; }
+  .pf-po .pf-vis-card { position: relative; z-index: 1; width: 100%; max-width: 380px; margin: 40px auto; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .5); border-radius: 19px; padding: 8px; backdrop-filter: blur(12px); color: #fff; }
+  .pf-po .pf-vis-card__in { background: linear-gradient(180deg, rgba(40, 51, 38, 0.3), rgba(17, 22, 16, 0.3)); border: 1px solid rgba(209, 255, 226, 0.06); border-radius: 14px; padding: 22px 18px; backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 16px; }
+  .pf-po .pf-vis-card__cap { display: flex; flex-direction: column; gap: 6px; }
+  .pf-po .pf-vis-card__cap b { font: 500 20px/1.2 var(--font-ui); letter-spacing: -0.03em; color: #fff; }
+  .pf-po .pf-vis-card__cap span { font: 400 13px/1.4 var(--font-ui); color: #9ca3af; }
+  .pf-po .pf-vis-card__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pf-po .pf-vis-kpi { background: rgba(12,17,13,.5); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .pf-po .pf-vis-kpi .l { font: 400 12px/1.2 var(--font-ui); color: #e5e7eb; }
+  .pf-po .pf-vis-kpi .v { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; }
+  .pf-po .pf-vis-kpi b { font: 500 26px/1 var(--font-display); letter-spacing: -0.03em; color: #fff; }
+  .pf-po .pf-vis-kpi small { font: 500 12px/1 var(--font-ui); }
+  .pf-po .pf-vis-kpi small.up { color: #22c55e; }
+  .pf-po .pf-vis-kpi small.neg { color: #ef6b6b; }
+  .pf-po .pf-vis-kpi .s { font: 400 11px/1.3 var(--font-ui); color: #9ca3af; }
+  .pf-po .pf-vis-gap { background: rgba(12,17,13,.5); border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; }
+  .pf-po .pf-vis-gap span { font: 400 14px/1.2 var(--font-ui); color: #e5e7eb; }
+  .pf-po .pf-vis-gap em { font-style: normal; font: 500 16px/1 var(--font-ui); color: #22c55e; justify-self: end; }
+  .pf-po .pf-vis-gap small { grid-column: 1 / -1; font: 400 12px/1.3 var(--font-ui); color: #9ca3af; }
+
+  /* Item 7 — Bay Agent panel background */
+  .pf-po #bay-agent .pf-ba__panel { background: #000407 url(/assets/features/ba-bg.webp) center / cover no-repeat; }
+
+  /* Req 5 — 'What it does' right column: use the baked Figma chips image (icons + labels) on desktop, hide the text list */
+  @media (min-width: 901px) {
+    .pf-po #bay-agent .pf-ba__right { padding: 0; background: url(/assets/features/ba-right.webp) center / 100% 100% no-repeat; }
+    .pf-po #bay-agent .pf-ba__right .pf-ba__grp { visibility: hidden; }
+  }
+
+  /* Req 6 — 'Most tools stop' layer icons: same Color-Pixel dark tile filling the whole tile (like the homepage) */
+  .pf-po #layers .pf-mc__ic { background: url(/assets/features/color-pixel.webp) center / cover no-repeat; }
+
+  /* Req 7 — 'everything else' panel cards: single flat 'Option 4' background */
+  .pf-po #all-features .pf-side__panels { background: #000407 url(/assets/features/option4.webp) center / 100% 100% no-repeat; }
+
+  @media (max-width: 900px) {
+    .pf-po .pf-hero--po { background: #000 url(/assets/features/po-hero-mobile.webp) center bottom / cover no-repeat; min-height: 860px; }
+    .pf-po .pf-vis-card { margin: 24px auto; }
+    /* Req 4 — feature tabs middle dark card hugs content on mobile too */
+    .pf-po #feature-tabs .pf-tabs__panel--trio .pf-tabs__vis { min-height: 0; }
+    /* Req 2 — flow scales down; connector is baked in the image, pills stack below */
+    .pf-po #product-tour .pf-pv__flow { width: 100%; }
+    .pf-po #product-tour .pf-pv__steps { flex-direction: column; gap: 12px; margin-top: 8px; }
+    .pf-po #product-tour .pf-pv__steps li { width: 100%; }
+    /* Req 5 — Bay Agent right column uses the dedicated mobile chips image */
+    .pf-po #bay-agent .pf-ba__right { padding: 20px 16px; }
+    .pf-po #bay-agent .pf-ba__right .pf-ba__grp { display: none; }
+    .pf-po #bay-agent .pf-ba__right::before { content: ""; display: block; width: 100%; aspect-ratio: 722 / 1323; background: url(/assets/features/ba-right-mob.webp) center top / contain no-repeat; }
+
+    /* Mobile Req 1 — third section (sample dashboard): use the Figma 'Option 9' mobile background so it matches the design */
+    .pf-po #sample-dashboard .pf-sd__bg { background: url(/assets/features/opt9-mob.webp) center bottom / cover no-repeat; }
+    /* Mobile Req 2 — feature tabs: kill the 80px desktop gutters (full width) and drop the middle dark card to the very bottom */
+    .pf-po #feature-tabs { padding-left: 16px; padding-right: 16px; }
+    .pf-po #feature-tabs .pf-tabs__panel--trio .pf-tabs__vis { order: 3; }
+    /* Mobile Req 3 — Bay Agent card: use the Figma 'Product previews' mobile background */
+    .pf-po #bay-agent .pf-ba__panel { background: #000407 url(/assets/features/ba-panel-mob.webp) center top / cover no-repeat; }
+    /* Mobile Req 4 — 'everything else' side tabs: render the nav as a vertical list, no horizontal scroller */
+    .pf-po #all-features .pf-side__nav { flex-direction: column; overflow: visible; padding: 8px; }
+    .pf-po #all-features .pf-side__nav button { white-space: normal; }
+
+    /* Mobile Req 5 — third section: drop the 'Upcoming Bookings' table, end the card at the green bars with breathing room so the bars aren't cut */
+    .pf-po #sample-dashboard .pf-sd__table { display: none; }
+    .pf-po #sample-dashboard .pf-sd__card { padding-bottom: 22px; }
+    .pf-po #sample-dashboard .pf-sd__in { margin-bottom: -70px; }
+    /* Mobile Req 6 — feature-tab cards: move the icon to the right of the text (Figma 'Stat' row layout) */
+    .pf-po #feature-tabs .pf-trio__card { display: grid; grid-template-columns: 1fr auto; column-gap: 16px; row-gap: 6px; align-items: start; padding: 16px; }
+    .pf-po #feature-tabs .pf-trio__card .ic { grid-column: 2; grid-row: 1 / span 2; margin-bottom: 0; align-self: start; }
+    .pf-po #feature-tabs .pf-trio__card h3 { grid-column: 1; grid-row: 1; }
+    .pf-po #feature-tabs .pf-trio__card p { grid-column: 1; grid-row: 2; }
+    /* Mobile Req 7 — black visual card: add a top gap so the phone image / sample dashboard isn't flush to the top */
+    .pf-po #feature-tabs .pf-tabs__panel--trio .pf-tabs__vis { padding-top: 40px; }
+    .pf-po #feature-tabs .pf-tabs__panel--trio .pf-tabs__vis > img { width: 300px; }
+  }
+</style>

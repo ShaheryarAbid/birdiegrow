@@ -1,0 +1,12 @@
+---
+/** Redesign accordion row — Figma UI Kit "Accordion-Item" 585:48778. Native <details>: works without JS. */
+export interface Props { question: string; open?: boolean; class?: string; }
+const { question, open = false, class: cls = '' } = Astro.props;
+---
+<details class={`bd-faq ${cls}`.trim()} open={open}>
+  <summary>
+    <span>{question}</span>
+    <span class="bd-faq__chev"><img src="/assets/ui/chevron-down.svg" alt="" width="10" height="10" /></span>
+  </summary>
+  <div class="bd-faq__body"><slot /></div>
+</details>

@@ -1,0 +1,24 @@
+---
+/**
+ * Problem / solution pairs in a 2-column card grid (SEO template).
+ * Props: heading, sub, items [problem, solution][], labels (default Problem / Solution).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+export interface Props { heading: string; sub?: string; items: [string, string][]; labels?: [string, string]; id?: string; }
+const { heading, sub, items, labels = ['Problem', 'Solution'], id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:760px">{sub}</p>}</div>
+  <div class="sx-fgrid sx-fgrid--2">
+    {items.map(([p, s]) => (
+      <div class="sx-fcard sx-pair">
+        <small>{labels[0]}</small>
+        <h3>{p}</h3>
+        <small class="sol">{labels[1]}</small>
+        <p>{s}</p>
+      </div>
+    ))}
+  </div>
+</section>

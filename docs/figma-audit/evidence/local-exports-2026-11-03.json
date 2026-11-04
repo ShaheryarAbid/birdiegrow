@@ -1,0 +1,1592 @@
+[
+  {
+    "path": "design-references/Aqua Honeycomb Sphere and Glass Ribbon.png",
+    "bytes": 1321764,
+    "sha256": "962039962d5c8057cc037c65dc54d74b46d8e856cd8362b399aae5442445ebce",
+    "width": 1600,
+    "height": 983
+  },
+  {
+    "path": "design-references/Asset.png",
+    "bytes": 147773,
+    "sha256": "655ca1d256a16f666942be75037bc1243fb2c318bd772410af25f3d403c3387d",
+    "width": 730,
+    "height": 212
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/24/7 door access-1.png",
+    "bytes": 1301935,
+    "sha256": "78cd6322b9ee8a924a26682dfdc8ea262639a391d186c2bee9af892227eccc95",
+    "width": 393,
+    "height": 10993
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/24/7 door access.png",
+    "bytes": 3923898,
+    "sha256": "9635ab198cfb12c7830478dc483239e85e511b6a85fc17f15aac295152d0a019",
+    "width": 1440,
+    "height": 8370
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/24/Birdie Hero Concept 1-1.png",
+    "bytes": 161757,
+    "sha256": "9915c870c411db924fc561353fd32ecad12cff553b73dde7483e5c837a8c1e25",
+    "width": 393,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/24/Birdie Hero Concept 1.png",
+    "bytes": 925750,
+    "sha256": "d4159e3ffbb3e21ab05880e6f3671b7015e6db83e1dc35e4f230fad8369e8d94",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/24/Small Widgets-1.png",
+    "bytes": 230755,
+    "sha256": "61fb0f40ff5d455416149628c51f2baee8b57a0455e010bc65523c0a91ecc5e2",
+    "width": 522,
+    "height": 566
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/24/Small Widgets.png",
+    "bytes": 337684,
+    "sha256": "c4f73388b794281c2804ef2f294df980b70181c2616ad08347e32d45ec08751c",
+    "width": 695,
+    "height": 730
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/404_/Birdie Hero Concept 1.png",
+    "bytes": 78540,
+    "sha256": "cf5b6a3efd89912b826673bc24e04f2727eb7e8801dbce934611a88953fd6f2a",
+    "width": 393,
+    "height": 675
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/404_/Mobile.png",
+    "bytes": 131511,
+    "sha256": "c0a20e52c1683b6f8999d5e3a983c813661a8425e2e88a970d0fd84e4973d4ec",
+    "width": 393,
+    "height": 1684
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/405.png",
+    "bytes": 322483,
+    "sha256": "9849564c96858525e8181835f9e50bc61baf0631854b073fc645c908078d57b3",
+    "width": 1440,
+    "height": 1379
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Add Extras_/Added_/Dark Mode-1.png",
+    "bytes": 2760539,
+    "sha256": "9a6ea0838c23a5378635f970b726822459ab5a2832be43ed175cb509a512b0d8",
+    "width": 1853,
+    "height": 2287
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Add Extras_/Added_/Dark Mode-2.png",
+    "bytes": 889958,
+    "sha256": "e88e3f8bfeda4c2c5b2902cf8919b5e49c0f5ab07024af7ddc7e730aa9b2a9d6",
+    "width": 918,
+    "height": 1470
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Add Extras_/Added_/Dark Mode.png",
+    "bytes": 3623103,
+    "sha256": "044d6f796cb5aa3510048d9bf278432f4791aab6b64afdd0bb506949350a8a91",
+    "width": 1853,
+    "height": 2287
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay Agent.png",
+    "bytes": 3122092,
+    "sha256": "e0aaf9eccd08ef06e5d1643a58368a9c2419a1730b82e90d23bb97f3c31b911b",
+    "width": 1440,
+    "height": 8682
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay Agent_/Birdie Hero Concept 1.png",
+    "bytes": 176974,
+    "sha256": "602ecb4eb404a6c7a731d1fdcd05b9e038f16322808341d4c2f2522712f13df4",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay Agent_/Features_/Screen.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay Agent_/Mobile.png",
+    "bytes": 1343062,
+    "sha256": "f9352b07329c15a18ef2529ab27ee36a259672e3f9f2ff27fc26bd149b6096e4",
+    "width": 393,
+    "height": 12340
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay Agent_/pic.png",
+    "bytes": 139580,
+    "sha256": "d814be9b0634ce43342a67f51b69911dc56f528bc9ce3f657b2a046201ea7d37",
+    "width": 393,
+    "height": 474
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay booking & waivers.png",
+    "bytes": 3413635,
+    "sha256": "d85715118f1531c0fe9858e0e6a76643f255169ec5dd90adc4c9bb41bd277f4a",
+    "width": 1440,
+    "height": 8639
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay booking & waivers_/Birdie Hero Concept 1.png",
+    "bytes": 176994,
+    "sha256": "f5ec2b62dbda25f8b49e94c040f8b842f126b9251d4917975c7a0e97c742a645",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay booking & waivers_/Features_/Screen.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay booking & waivers_/Mobile.png",
+    "bytes": 1663170,
+    "sha256": "09281be0686ddeebf3b133e8f894edc66afc949ca4ddc33c9e35d8aadeb206a9",
+    "width": 393,
+    "height": 12396
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Bay booking & waivers_/pic.png",
+    "bytes": 139668,
+    "sha256": "37203faae5d914a4e0a3104830c52f4bbd02f11fabad7454c53128f412209233",
+    "width": 393,
+    "height": 474
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1-1.png",
+    "bytes": 324271,
+    "sha256": "94c9a4aeb9a7ab3f38a920878efb28b31d653ebe1c9bb73caad0e6f6edab765d",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1-2.png",
+    "bytes": 75587,
+    "sha256": "a764c843a6f755085466ab5e05f57203017482ad64290219611e6faa8e378fe0",
+    "width": 393,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1-3.png",
+    "bytes": 876032,
+    "sha256": "e5ba32ef6940938a12f49d292e76e1209bdc72927fabbc91e0e0e42081e02618",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1-4.png",
+    "bytes": 228988,
+    "sha256": "b54493d02e3fee2f66b7ae82b890b6a15392efa7738d882c0540e9ef03b786d8",
+    "width": 393,
+    "height": 846
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1-5.png",
+    "bytes": 172789,
+    "sha256": "8c79e155315925942f97a848c223c2b4629f9d6c2f6fb51707995ebe63a7d97d",
+    "width": 393,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1-6.png",
+    "bytes": 167559,
+    "sha256": "3961f076bb0fbcd050e96e69b38d896891d39577138e5d8cfd5f0c0253c219e2",
+    "width": 393,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 1.png",
+    "bytes": 967643,
+    "sha256": "d2c6ade6b7a8e9d0d30e645c66bb45eecc3379c9b755b29248b791b9eb2adc6f",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 2-1.png",
+    "bytes": 694003,
+    "sha256": "cb83ad8e78310a3102a38a85b3aa9b8be90c431e8d1eed9877bb12a5955796b5",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 2-2.png",
+    "bytes": 954746,
+    "sha256": "4e1fee0493e174ca5f667ca3f649a24d1d0abf16a51d88262da883fd6e61f1a4",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 2.png",
+    "bytes": 696434,
+    "sha256": "c2435dd1c27d9a027155d2d69d5efdcc130ab922dac6a116fd42dcb9e30b44d9",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Birdie Hero Concept 3.png",
+    "bytes": 734255,
+    "sha256": "ff0b6e7c976420e7d42f585e13dec662c55ad5933f923a001f87a6242bb5aa97",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Blog Hub.png",
+    "bytes": 1984132,
+    "sha256": "b5d9a82fedbe3ffca63b50f9de7d16812ccca479d54c538e12dad37e69f24c47",
+    "width": 1440,
+    "height": 4610
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Blog Hub_/Hero.png",
+    "bytes": 150808,
+    "sha256": "a7a53e3ff20fde3c1a70a566a42c7a696ff451e88cbe3fb4c85f639693581231",
+    "width": 393,
+    "height": 811
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Blog Hub_/Mobile.png",
+    "bytes": 1390955,
+    "sha256": "821ae741c46bec711935eb80e9f8dd3dc857287dbec5b7d7452525cf245dd132",
+    "width": 393,
+    "height": 9820
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Blog Hub_/pic.png",
+    "bytes": 79751,
+    "sha256": "c868417d3b95ada963819ccb0637799609b4b66333fa87e8a7555cb2b47edb24",
+    "width": 393,
+    "height": 378
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Blog Template.png",
+    "bytes": 1240878,
+    "sha256": "22331bc68069ba83c04f8818dd5add8107149abb1a7449b2b13a9dee8ae0bd36",
+    "width": 1440,
+    "height": 4075
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Blog Template_/Mobile.png",
+    "bytes": 788587,
+    "sha256": "a26a299b7863b1c06dd5e44028cbe988ea56fc95c5192f6bd894b2eb56459f2a",
+    "width": 393,
+    "height": 6234
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Book a Demo.png",
+    "bytes": 670602,
+    "sha256": "d48c74828b45f1aa374044b72412af415a17eb85defe25f2bbeb096121484b6d",
+    "width": 1440,
+    "height": 2810
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Book a Demo_/Error State.png",
+    "bytes": 682505,
+    "sha256": "2016f3537b450868ef531e12b6e101b74421dd08e64ce4cf8024c943bd863155",
+    "width": 1440,
+    "height": 2810
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Book a Demo_/Error State_/Mobile.png",
+    "bytes": 675440,
+    "sha256": "aab2c7c0ed18ad42bc9a111c6536959dd9664d840fb58c043c04590c256516d6",
+    "width": 393,
+    "height": 5369
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Book a Demo_/Mobile.png",
+    "bytes": 665777,
+    "sha256": "7d72fdff847be6d57ed44ac13f881b5613419798b70913aab5d822d7adbea245",
+    "width": 393,
+    "height": 5288
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Calendly-1.png",
+    "bytes": 54110,
+    "sha256": "5e5db07fd52baee1029b95739c3b12733eec9eaa569437d3405312851f71947b",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Calendly.png",
+    "bytes": 478999,
+    "sha256": "fd854de881671de9846c142a7b9600371e7e2e23d34f8c4bc43f61c44e1eccc8",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 0.png",
+    "bytes": 479819,
+    "sha256": "dd7af822dbfd711896db0f1428d559451859874ccb520d44b29b909f96c4ddf5",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 0_/Birdie Hero Concept 1.png",
+    "bytes": 166569,
+    "sha256": "861a99f6e7cb753b786be28ddfce87bb1267853585ad69e37b6773c6e4ba19c8",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 0_/Mobile.png",
+    "bytes": 166569,
+    "sha256": "861a99f6e7cb753b786be28ddfce87bb1267853585ad69e37b6773c6e4ba19c8",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 1.png",
+    "bytes": 462431,
+    "sha256": "ce350bd55416abd11e198d71d98396c400fc9f6da3334f11a7b1b70578d3381b",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 1_/Birdie Hero Concept 1.png",
+    "bytes": 161216,
+    "sha256": "57588f838e08a42aa9e7da0bd41a79094277265da17ec362651b042a82950a45",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 1_/Mobile.png",
+    "bytes": 161216,
+    "sha256": "57588f838e08a42aa9e7da0bd41a79094277265da17ec362651b042a82950a45",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 2.png",
+    "bytes": 465649,
+    "sha256": "f555d8050f7cc9752049cf4942a398da343d4ed8b5a6470cdf1a585449645384",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 2_/Birdie Hero Concept 1.png",
+    "bytes": 163055,
+    "sha256": "dc1e46fad862c289fbdb3c8d6cbf4d82308dcd387a8c362063dcec52357aaa24",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 2_/Mobile.png",
+    "bytes": 163055,
+    "sha256": "dc1e46fad862c289fbdb3c8d6cbf4d82308dcd387a8c362063dcec52357aaa24",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 3.png",
+    "bytes": 463783,
+    "sha256": "887df66615f7e4ccba799d2c6c5b3425b3b827b7dd3036a15343dc33288f9dac",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 3_/Birdie Hero Concept 1.png",
+    "bytes": 161294,
+    "sha256": "1476649bd664af59451bfd5661f807d079d94905253250125ccd04af28b1e4af",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 3_/Mobile.png",
+    "bytes": 161294,
+    "sha256": "1476649bd664af59451bfd5661f807d079d94905253250125ccd04af28b1e4af",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 4.png",
+    "bytes": 438016,
+    "sha256": "32f42441c0159e2777dd39f41e9413cb331fb87dd30b2a676f7cb30a9517256b",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 4_/Birdie Hero Concept 1.png",
+    "bytes": 151262,
+    "sha256": "14929e8b2cb158ce45e6ad92551e775a144d256d1b5791ef90bc36348f043305",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 4_/Mobile.png",
+    "bytes": 151262,
+    "sha256": "14929e8b2cb158ce45e6ad92551e775a144d256d1b5791ef90bc36348f043305",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5.png",
+    "bytes": 437530,
+    "sha256": "3f86a371d2c9c76317266ac66049ef011886d8cff69bfb631bdefce9a2d450ea",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Birdie Hero Concept 1.png",
+    "bytes": 151781,
+    "sha256": "d27423a89121a1f95b2c9b6a934de8461ca8bf801a4ad843e1e801c16ae2cf31",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Error-1.png",
+    "bytes": 438004,
+    "sha256": "7776d305d463bc5afaa31ddec2290bdac73ce21140f45251a7b61879bee3f592",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Error.png",
+    "bytes": 429939,
+    "sha256": "e5041506ae5edbb3c9768e43c6f774eda3ee7cc3aeef8a14d2cfb20c73e437ad",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Error_/Birdie Hero Concept 1-1.png",
+    "bytes": 133771,
+    "sha256": "fcd7c4c02457049ee26441af77ac2bd77ff93efcafdd1b898f6bf23330bed0c7",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Error_/Birdie Hero Concept 1.png",
+    "bytes": 130199,
+    "sha256": "263cf00c2c8162d85e8c78e753e437cbab871f2f78ad9b34a25b0ee705480c3a",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Error_/Mobile-1.png",
+    "bytes": 133771,
+    "sha256": "fcd7c4c02457049ee26441af77ac2bd77ff93efcafdd1b898f6bf23330bed0c7",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Error_/Mobile.png",
+    "bytes": 130199,
+    "sha256": "263cf00c2c8162d85e8c78e753e437cbab871f2f78ad9b34a25b0ee705480c3a",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Booking System_/Step 5_/Mobile.png",
+    "bytes": 151781,
+    "sha256": "d27423a89121a1f95b2c9b6a934de8461ca8bf801a4ad843e1e801c16ae2cf31",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Break-Even Calculator_/Mobile.png",
+    "bytes": 272074,
+    "sha256": "16159015c785e2ff84809caa4dfc1b446525997a750ece696cd105a4b4688a6b",
+    "width": 393,
+    "height": 3585
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Break-Even Calculator_/Other Parameters_/Mobile.png",
+    "bytes": 264730,
+    "sha256": "1a95570a2e79074ef56525b2f4a2d3f3328fc8de032d6b3c0d77cffad9630465",
+    "width": 393,
+    "height": 3503
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators-1.png",
+    "bytes": 218506,
+    "sha256": "e99d8b60bca464b6f0335102ae67fe5a67af3334e275bcf13d57bfdb69c3c6a6",
+    "width": 393,
+    "height": 3354
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators.png",
+    "bytes": 273052,
+    "sha256": "2868b1602d3979cd7061accd6725f3f05fea207ea00c9268ec61cf71183a24c8",
+    "width": 1440,
+    "height": 1976
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Break-Even Calculator.png",
+    "bytes": 478728,
+    "sha256": "59fcabe1f19a1cef46a85ec664c27d8062be50c7acf3b37e93a2314a047ce772",
+    "width": 1440,
+    "height": 2120
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Calculators_/Break-Even Calculator_/Other Parameters.png",
+    "bytes": 476192,
+    "sha256": "134f8b27fb6af9a3800c92c2971f3a555c04913c201821146e2ceb1e99b34b80",
+    "width": 1440,
+    "height": 2120
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Membership Pricing Calculator.png",
+    "bytes": 360315,
+    "sha256": "dfd2ecf87a3806a73c5aedcd307deae541a63d9716b2331431acf772036b3532",
+    "width": 1440,
+    "height": 2019
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Membership Pricing Calculator_/Other Parameters.png",
+    "bytes": 357560,
+    "sha256": "42e8f875f2c7ac47f204367ca48ee7e781b1294918c4a934896d77756323adea",
+    "width": 1440,
+    "height": 2019
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Revenue Calculator.png",
+    "bytes": 262530,
+    "sha256": "8894d9698cb025e85170a33e44d7298a71027e3e44ae0b6ffcd5d3e6f6dd6b72",
+    "width": 1440,
+    "height": 1504
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Revenue Calculator_/Mobile.png",
+    "bytes": 165093,
+    "sha256": "c502050fe2a94a80e6d7eba3826e2edb533af549391ffe384c5f6a3f66a84903",
+    "width": 393,
+    "height": 2371
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Startup Cost Calculator -1.png",
+    "bytes": 612370,
+    "sha256": "615116af594d3b73864761ab0f905b256fe815f7d0ade555eac13440019acac9",
+    "width": 1440,
+    "height": 2419
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Calculators_/Startup Cost Calculator .png",
+    "bytes": 308457,
+    "sha256": "1e928c6859a23a583e7a258a81be544f6321df6f6e15b78d44f5cb9ec720a6fd",
+    "width": 393,
+    "height": 3957
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Compare_/Compare Hub-1.png",
+    "bytes": 176866,
+    "sha256": "9e319172b9f1408391bd7d73c73aa528dcd5164317c4586e78c59c83bd28cc64",
+    "width": 1440,
+    "height": 1474
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Compare_/Compare Hub-2.png",
+    "bytes": 1996864,
+    "sha256": "c445628b65b44c87f1b9500fd89a81702730ad4125abc8c873a39efb39b0d8c0",
+    "width": 1440,
+    "height": 7569
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Compare_/Compare Hub-3.png",
+    "bytes": 1285214,
+    "sha256": "de142f1875c1e380424ee8ec56158d8016b34093a3f494ac5012c4c677e46f9f",
+    "width": 393,
+    "height": 11808
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Compare_/Compare Hub.png",
+    "bytes": 161910,
+    "sha256": "e5925155dc6ca95fa0e4cbba94f7501b3d427dc5ae8afe8ecbda59e958e4c143",
+    "width": 393,
+    "height": 2513
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Contact.png",
+    "bytes": 222048,
+    "sha256": "1f57988ec938e0c07fa5741b1c08479b2cf550f639f843a57244e183ac2c4de4",
+    "width": 1440,
+    "height": 1622
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Contact_/Mobile.png",
+    "bytes": 183258,
+    "sha256": "51ad5b176ac95c5e23cf0a62b93b705c35ccfbbdfd5cdd4d1c4f39138b49de4e",
+    "width": 393,
+    "height": 3028
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Content/Layout/Layout/Image/Compatibility-background.png",
+    "bytes": 274257,
+    "sha256": "5108f7f738132ea8be9541d6f255a646ca322af0af82150815a884409d4b514d",
+    "width": 960,
+    "height": 821
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Content/Layout/Layout/Image/Compatibility-image.png",
+    "bytes": 109940,
+    "sha256": "cb4c9aabe603bc20806b28f1d7734005d5f1d4a8fb4430f717ab672249dffab6",
+    "width": 495,
+    "height": 480
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Customers-1.png",
+    "bytes": 1570703,
+    "sha256": "17b3212cba5f9e4ac2edae5835191fdcc9ab432e443a13d5039da79c8c844934",
+    "width": 393,
+    "height": 6348
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Customers.png",
+    "bytes": 2292871,
+    "sha256": "baf24394ee569ee3183e10f6b58f780282b5e353930d756ed95001a6daac8922",
+    "width": 1440,
+    "height": 3582
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Decorative ball-1.png",
+    "bytes": 123294,
+    "sha256": "9374d5359b83582b3c4b7ca5f3394424fd0dd9fa17a4af4396eaf08bb4595fb2",
+    "width": 480,
+    "height": 295
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Decorative ball.png",
+    "bytes": 57412,
+    "sha256": "0072f8a08df85dc2c2744265cc5789ec41c1598f0c5cca7c33f54464ee2a14a8",
+    "width": 497,
+    "height": 212
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Demo_/Birdie Hero Concept 1.png",
+    "bytes": 82573,
+    "sha256": "bdb07808cfcf4d97ea696083f1b521147768133ef8a583f4f18acc014194f777",
+    "width": 393,
+    "height": 1312
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Demo_/Features_/Book a Bay Session_/Long_/Dark Mode.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Demo_/Mobile.png",
+    "bytes": 1497801,
+    "sha256": "c606de6ce025c94bd282f959b2af478166c217425f17d8f70aa01ae0539a7ac3",
+    "width": 393,
+    "height": 8300
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Feature card.png",
+    "bytes": 8389,
+    "sha256": "16e42962ad480eb176a20ac048d8f8378a3a0d676ea73e5f600eaec8fbc97620",
+    "width": 432,
+    "height": 101
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Feature cards.png",
+    "bytes": 153565,
+    "sha256": "e60eaa0c335075f0a56c41fc3ae189ff1bd634e9525942e6d453dd425791bf81",
+    "width": 1440,
+    "height": 532
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Account_/Dashboard_/Portal_/Account_/My Plans_/Active_/Mobile_/Plan Image-1.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Account_/Dashboard_/Portal_/Account_/My Plans_/Active_/Mobile_/Plan Image-2.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Account_/Dashboard_/Portal_/Account_/My Plans_/Active_/Mobile_/Plan Image-3.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Account_/Dashboard_/Portal_/Account_/My Plans_/Active_/Mobile_/Plan Image.png",
+    "bytes": 3036,
+    "sha256": "0c14f4f035924ce7fe8ba071e2bb712d8b64e390bd67c83b6283121dfae52d91",
+    "width": 60,
+    "height": 60
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Account_/Dashboard_/Portal_/Account_/Overview_/Full Page_/Mobile_/Plan Image-1.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Account_/Dashboard_/Portal_/Account_/Overview_/Full Page_/Mobile_/Plan Image.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Book a Bay Session_/Long_/Dark Mode.png",
+    "bytes": 65337,
+    "sha256": "4680eeb689d308f9ff7ed8ac3cc7d037c08a6dd23a9d238b050d7d52012efd41",
+    "width": 295,
+    "height": 504
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Booking_/Primary Flow_/Bay Session_/Date & Time_/Full Page_/Mobile_/Dark.png",
+    "bytes": 66297,
+    "sha256": "1b5f50615abd8fcdeb70b489c59d68a7bd400d6955a8a74d1388628225259de2",
+    "width": 294,
+    "height": 520
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Booking_/Primary Flow_/Contact Details_/New User_/Filled_/Alternative A_/Mobile_/Dark.png",
+    "bytes": 40433,
+    "sha256": "a11f6ccfd85b49f80302465a6f8a2939d6ff44960fa77ff36ed4f6a2c37e9399",
+    "width": 294,
+    "height": 520
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Feature background.png",
+    "bytes": 163225,
+    "sha256": "5f32f2ea0d06938a6521e83d924fd0a2c9d6d503b8d90e770574db1e64abc6b8",
+    "width": 899,
+    "height": 421
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Feature image.png",
+    "bytes": 173533,
+    "sha256": "cb950157419fa3607bd4202a72e78d004e6cf5c715e838d78dad47b9707d6263",
+    "width": 747,
+    "height": 421
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Leagues_/Reference_/League_/About_/Mobile_/League image.png",
+    "bytes": 110040,
+    "sha256": "771d6285dfd3efc476c934ffdd5c407fecbfbf9a02dc6a2e146718ff5771f699",
+    "width": 294,
+    "height": 240
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Noise.png",
+    "bytes": 636286,
+    "sha256": "f177279ea332ee00c35272f6c4825376c7d782c313e2afb1e30a726b83059a6b",
+    "width": 960,
+    "height": 421
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Option 2.pdf",
+    "bytes": 2946411,
+    "sha256": "8d53099236450ec2df4e3053727923d1293845b8649590a621b355265b252e05"
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Pixels.png",
+    "bytes": 2579,
+    "sha256": "9e56fa61a1c8f9fa8ffc013bd97526f7119dfd851240427e93b818748545ebc3",
+    "width": 960,
+    "height": 421
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Preview overlay.png",
+    "bytes": 322230,
+    "sha256": "12dd3827ffae605ac6804f225f0fe2a53b40669b24352a03eb96be40da4f4a7d",
+    "width": 960,
+    "height": 421
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Product previews.png",
+    "bytes": 6445533,
+    "sha256": "19e028f05f60cb76308ee374be094081713f613ca7e4bf2b409ce0984c6c6976",
+    "width": 3844,
+    "height": 1688
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Team Details \u2013 Mobile \u2013 Default.png",
+    "bytes": 34499,
+    "sha256": "372c87a6ec47413b96f56e36d67f8152ee9ba2f0bb6eb87273325d4d016361e6",
+    "width": 294,
+    "height": 520
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Features_/Team Roster \u2013 Mobile \u2013 Minimum players not met.png",
+    "bytes": 22738,
+    "sha256": "2810f24c80cd1b81016b8d6553a045beddcc70072c57db4274d271bfc04ff16a",
+    "width": 158,
+    "height": 520
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Golf Simulator Software (SEO landing template).png",
+    "bytes": 2049638,
+    "sha256": "c99bcd36b04353745e1889e653657df5ec2550f882912d29b85a1cab43889287",
+    "width": 1440,
+    "height": 7174
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Guide Template.png",
+    "bytes": 1456473,
+    "sha256": "bb6f4476aa0d01222b5de341dd4400370fa43600f94d1f6b11d173d5cb63bf72",
+    "width": 1440,
+    "height": 5412
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Guide Template_/Mobile.png",
+    "bytes": 950968,
+    "sha256": "8e840995d440ba5b39cafd588418b65a01523ebee9d8fe1c05aab9e65459d03f",
+    "width": 393,
+    "height": 7913
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Hero Image.png",
+    "bytes": 364156,
+    "sha256": "9385391c18a8b68603b371127dcf7d8510b58f44f85082f8b673e083163afcc8",
+    "width": 984,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Hero-1.png",
+    "bytes": 141092,
+    "sha256": "6125ce06c3b5d75ce067ac5a211c78d4640a5ebb21462a72429b627e17e40efc",
+    "width": 393,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Hero.png",
+    "bytes": 525556,
+    "sha256": "8ebbaae240dc39f50c485ea934e34d8bb1749afed89c2ff6ec76b8f617513ab0",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Home-1.png",
+    "bytes": 4018621,
+    "sha256": "640e172488437057617c4b9f8067c12f07e21d0c0cda2188802bd61d6d09fa77",
+    "width": 786,
+    "height": 23435
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Home.png",
+    "bytes": 10719963,
+    "sha256": "1f2af0e4db83edafe2e1dee0a2b82327f66f0fb1d26462182bfcafe540a07ea5",
+    "width": 2880,
+    "height": 18729
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Integrations-1.png",
+    "bytes": 584382,
+    "sha256": "fbc47cdc0b1e7fde834123fd2976f68cd023bcf1982afa16ccfa183da08ee2cc",
+    "width": 393,
+    "height": 6364
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Integrations-2.png",
+    "bytes": 1192791,
+    "sha256": "d259db6432ddf73f8cf0a53d1133d65f184b9aae940447b3ddb4446aa217ee24",
+    "width": 1440,
+    "height": 4323
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Integrations-3.png",
+    "bytes": 531184,
+    "sha256": "43d6473c1f1384f1682e32b76c95aa6b6b67ecd7d61116bfc89f65fc438f978a",
+    "width": 393,
+    "height": 5630
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Integrations.png",
+    "bytes": 1158668,
+    "sha256": "f0fc35354da057b183f67cac7e9089525c1dbb803d5c835b57c2944d43690224",
+    "width": 1440,
+    "height": 4192
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Leagues & events.png",
+    "bytes": 2433775,
+    "sha256": "8b9cd76cb1cccc600448dc290ddd2379010dcc675b08585eec8519c2143b313b",
+    "width": 1440,
+    "height": 6763
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Leagues & events_/Birdie Hero Concept 1.png",
+    "bytes": 94629,
+    "sha256": "eb313333c5fa7fe9edf6a2e19e4ca241e49ca942b75e68ac8196a4e41e059fed",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Leagues & events_/Mobile.png",
+    "bytes": 1079297,
+    "sha256": "0a7bcead90ba0a0dcb3187658f8ae822dd1eb31ce5197a935e2f6dd89e9fce15",
+    "width": 393,
+    "height": 9479
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Membership Pricing Calculator_/Mobile.png",
+    "bytes": 265652,
+    "sha256": "49b3ceccba62fa338d6419b5f9e8cacf0c290712bb9eb17e63ff8ea761e4eacb",
+    "width": 393,
+    "height": 3394
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Membership Pricing Calculator_/Other Paramete_/Mobile.png",
+    "bytes": 265820,
+    "sha256": "c624854762033c3be9d59e57459191e93fc8236bd38265bd13e30dba2661b153",
+    "width": 393,
+    "height": 3394
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Memberships & passes_/Birdie Hero Concept 1.png",
+    "bytes": 153599,
+    "sha256": "337abb41d573f90500716f476335da72bf55c2b06af820d1cac9cbf37183e168",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Memberships & passes_/Mobile.png",
+    "bytes": 1404776,
+    "sha256": "466a1d9f225188ef99a49f6a3d4df615dec39b5feefde1ca24353414b7668646",
+    "width": 393,
+    "height": 10975
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page .png",
+    "bytes": 2026222,
+    "sha256": "4c00c67e8a28e334645b6178ede4a1a01bb67425a3693811d15cbb93ac70d004",
+    "width": 1440,
+    "height": 3927
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page _/Add Extras_/Added_/Dark Mode.png",
+    "bytes": 1348752,
+    "sha256": "36a4b54df1619425d02b2451caeb649d7163f816cc14aa87d70602a4c037d9a1",
+    "width": 917,
+    "height": 1470
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page _/Birdie Hero Concept 2.png",
+    "bytes": 256674,
+    "sha256": "e4eb74342e5f332052815ac11e3e1d5a45a39e7110ba2bbd1b4c3773abdcbfa2",
+    "width": 393,
+    "height": 846
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page _/Features_/Booking_/Primary Flow_/Bay Session_/Date & Time_/Full Page_/Mobile_/Dark.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page _/Features_/Booking_/Primary Flow_/Contact Details_/New User_/Filled_/Alternative A_/Mobile_/Dark.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page _/Mobile.png",
+    "bytes": 688539,
+    "sha256": "722975358d911b86c025c0a382e2efce0a33561c274d17673f08cbb10b760ff8",
+    "width": 393,
+    "height": 4929
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Mobile app_ feature page _/pic.png",
+    "bytes": 222018,
+    "sha256": "754d1c54436b7fdd0571511ba0ee556fca60d0eb38be05c31c2d85bdb81de038",
+    "width": 393,
+    "height": 507
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Noise.png",
+    "bytes": 1170196,
+    "sha256": "a7c7e6f2e8c641d17f912801542e962f78c1e8451a1bc3c3725fceeb7d1eb2ad",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Payments & revenue-1.png",
+    "bytes": 901070,
+    "sha256": "ebcd2075be3a0ed17646661f9feae77f3a5e34821adaf1ed05da1c00bd22baae",
+    "width": 393,
+    "height": 7033
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Payments & revenue.png",
+    "bytes": 2213054,
+    "sha256": "1e9b35d584fb44a2a18e301f44585c649af3b687bd93bffd3a1c4a1dc00e4bd0",
+    "width": 1440,
+    "height": 5558
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/pic-1.png",
+    "bytes": 121602,
+    "sha256": "6ffeb0811cd09af176180c59069a311434f2b263cb6914c8fa272081cf3b29a0",
+    "width": 393,
+    "height": 402
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/pic-2.png",
+    "bytes": 112656,
+    "sha256": "6d26dbfbae0fe9c056568f060634e26c5320e4d7596ee4ce71f73282762b76ec",
+    "width": 393,
+    "height": 378
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/pic-3.png",
+    "bytes": 100724,
+    "sha256": "f9e3f94e37e945e6c90979a204de55439ce461c1bd5dc8ab16e6d10b86636f7a",
+    "width": 393,
+    "height": 378
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/pic.png",
+    "bytes": 194281,
+    "sha256": "1b8d96432037b4f8369f06ee008f095fbfc774b7971797a3d1f7aa24696ad750",
+    "width": 393,
+    "height": 507
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Pixels.png",
+    "bytes": 6290,
+    "sha256": "f6115fae9b4d19f8e2ce40e35ab56690c7929ebd241c1c5220f0fcac49ba936c",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Platform.png",
+    "bytes": 1108861,
+    "sha256": "d6d68d5ead035a31ccd9d4520f3846c9d1f8d313da29757a65c5d3b14d200b1f",
+    "width": 1440,
+    "height": 3135
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Platform_/Mobile.png",
+    "bytes": 606297,
+    "sha256": "ff7c91d73669abf344765f6824f095961ba55dc340d4d18a09db425c2905b59a",
+    "width": 393,
+    "height": 4835
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Pricing-1.png",
+    "bytes": 626929,
+    "sha256": "8284545b6f8e4eb828cc6bd94e374186c789fcd8f1901578bc4a26ae014a38aa",
+    "width": 393,
+    "height": 6942
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Pricing.png",
+    "bytes": 1239400,
+    "sha256": "536ae709cdbf9a19dd1b0b107291ac9d775893bfbb291f0ce0252309a485f6ae",
+    "width": 1440,
+    "height": 4778
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Privacy Policy.png",
+    "bytes": 824972,
+    "sha256": "3b202e0efa4820917f47fd4cf1dff76366bdfb119dac3232171ca8966b9ce7ef",
+    "width": 1440,
+    "height": 4006
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Privacy Policy_/Mobile.png",
+    "bytes": 549938,
+    "sha256": "27017629c9cb5a9044e2fa279f9e6a44c7e764790fe1f88cdf54b0eb5be18489",
+    "width": 393,
+    "height": 5540
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product overview-1.png",
+    "bytes": 1921588,
+    "sha256": "8708258573e7ce385b580475fc3a13974c1490b20a95129d0fbde7a2882c062e",
+    "width": 393,
+    "height": 11881
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product overview.png",
+    "bytes": 3887805,
+    "sha256": "dd0a2154d9ef43e2929af0112d253ac9be7d8781dbb55310a2750a98b2f822b9",
+    "width": 1440,
+    "height": 7740
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview.png",
+    "bytes": 187914,
+    "sha256": "b1e84f19b567a19c04253cac44f4695c7fd56040634ac97859999015aa6e9a75",
+    "width": 1440,
+    "height": 828
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview_/Screen-1.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview_/Screen-2.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview_/Screen-3.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview_/Screen.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview_/Step illustration.png",
+    "bytes": 56277,
+    "sha256": "a8b301565968534f4b2caeb3af03be413c757a7585385679d492468999f85b4c",
+    "width": 221,
+    "height": 221
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Product preview_/Step image.png",
+    "bytes": 6977,
+    "sha256": "b3e9f73cbaa885f5730f84ea3b5b225424dd8e0404ec817f3d620d5e62532658",
+    "width": 73,
+    "height": 73
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/02.png",
+    "bytes": 1671761,
+    "sha256": "a61f671e28e40ece97d073c9f4acc893cce1aa427cc25ff181d3862706f34fea",
+    "width": 2924,
+    "height": 852
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/Image/Booking-instructions/Asset.png",
+    "bytes": 147773,
+    "sha256": "655ca1d256a16f666942be75037bc1243fb2c318bd772410af25f3d403c3387d",
+    "width": 730,
+    "height": 212
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/Layout/Booking-instructions/Content-Container.png",
+    "bytes": 7061,
+    "sha256": "f1135790b9f15f5ca45a0918de9c45e926a1e38c44aa33b762bb9e69ea691567",
+    "width": 666,
+    "height": 46
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/Layout/Booking-instructions/Content-Empty-weekday-bays.png",
+    "bytes": 11095,
+    "sha256": "e16e22decb881c5a0c89fa1a889f890340e7e398d8f95867547a000eec330fa9",
+    "width": 666,
+    "height": 79
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/Shape/Booking-instructions/Ellipse.png",
+    "bytes": 18687,
+    "sha256": "48b63029890bc0bcb08e544f34458ed1541df148dce62e9d1aaa93fd659ea6d0",
+    "width": 604,
+    "height": 80
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/Texture/Booking-instructions/Noise.png",
+    "bytes": 244937,
+    "sha256": "8b37e37d450b8c0c1067ae7ab1be511e3ddd83c1cd5ce74b3d40b866dfe49139",
+    "width": 730,
+    "height": 212
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Instance/Progress/Process/Step/Layout/Booking-instructions/Texture/Booking-instructions/Pixel-Pattern.png",
+    "bytes": 1194,
+    "sha256": "1b589c5cdae2f5a10d9e6863ea60b0f3dc833aa35a85b8cd0dbee314b5e5e5e2",
+    "width": 730,
+    "height": 212
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Setup/Layout/Instance/Progress/Setup/Step/Layout/Instance/Decorative/Icon-Background/Color-Pixel-Dark_Size-80px.png",
+    "bytes": 11468,
+    "sha256": "033ee92653776d9c06b4743f06d436b74a30aa8e54fe62375e380e412b49d096",
+    "width": 101,
+    "height": 80
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Setup/Layout/Instance/Progress/Setup/Step/Layout/Instance/Decorative/Icon-Background/Icons/40x40px/Time-and-Scheduling/Play-Calendar.png",
+    "bytes": 663,
+    "sha256": "19f6babe01ef63b00cffccec4f4ab6ffcbc9d9a71fccdb1404ea12560bcf624e",
+    "width": 40,
+    "height": 40
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Setup/Layout/Instance/Progress/Setup/Step/Layout/Instance/Decorative/Icon-Background/Image/Step-image.png",
+    "bytes": 9329,
+    "sha256": "f9218291b1293d69e8da8d020da41af9b6d801b66049539ddc342b21cd7295b3",
+    "width": 80,
+    "height": 80
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Setup/Layout/Instance/Progress/Setup/Step/Layout/Instance/Decorative/Icon-Background/Texture/Icon-Background-Pixel-Dark-80px/Noise.png",
+    "bytes": 11371,
+    "sha256": "9d82d9334fa8694cccab3bae416265f397d38dbfd64aa72cb21150a7da3803ff",
+    "width": 80,
+    "height": 80
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Progress/Setup/Layout/Instance/Progress/Setup/Step/Layout/Instance/Decorative/Icon-Background/Texture/Icon-Background-Pixel-Dark-80px/Pixel-Pattern.png",
+    "bytes": 310,
+    "sha256": "a140c50a5591698fa058712d9b78d21e358c4fbf293e7937bdf8f35c2f23393e",
+    "width": 80,
+    "height": 80
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Resources Hub.png",
+    "bytes": 1997955,
+    "sha256": "1596703913b99cd77c88f274b71c75ae8c75ab15a0606161f04c44e769da73ff",
+    "width": 1440,
+    "height": 6287
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Resources Hub_/Hero.png",
+    "bytes": 150795,
+    "sha256": "b3f50354239f92041c5a56ff298b39d5bc78adc59d4a58e7679f691e4fc7a540",
+    "width": 393,
+    "height": 811
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Resources Hub_/Mobile.png",
+    "bytes": 1957320,
+    "sha256": "0bc47447b0d06be8f6e2984c1f43fabf4e55a4604ee6992d502676851e48881d",
+    "width": 393,
+    "height": 13372
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Resources Hub_/pic.png",
+    "bytes": 79719,
+    "sha256": "86ea9229036531294918a1e2b50d22dd2343b8c5659334cb6a4ee9ce1844ec1e",
+    "width": 393,
+    "height": 378
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Screen-1.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Screen.png",
+    "bytes": 159,
+    "sha256": "06c8edc17122b1dbff43fb2435dc6cd438094aa7fdf5438491a801d8e70cf9f6",
+    "width": 32,
+    "height": 32
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/SEO landing template_/Birdie Hero Concept 1.png",
+    "bytes": 222480,
+    "sha256": "bf4f48df97269a76ec6a83a65e586dd911940e6cd06ed4e99b8a9d685fab4ca6",
+    "width": 393,
+    "height": 988
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/SEO landing template_/Mobile.png",
+    "bytes": 854513,
+    "sha256": "63c321353e3ca13eef657891beee1f68ec17ec8e2a9104f25cf425a3a702e952",
+    "width": 393,
+    "height": 8266
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Shadow.png",
+    "bytes": 665779,
+    "sha256": "1d77fc16597f44a4f454249c23ced0bd4c78a43345192dd7942bd6895141b4a6",
+    "width": 1174,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/SMS & marketing-1.png",
+    "bytes": 641220,
+    "sha256": "f5ef5b03b352784836b571269a71a8e411104958ed8f416524a6f4d978ec7c72",
+    "width": 393,
+    "height": 5463
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/SMS & marketing.png",
+    "bytes": 1468955,
+    "sha256": "666536fa161ce11c1c2a09a10028bf04e1a50109b5465f80349d7746bb360365",
+    "width": 1440,
+    "height": 3876
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/State 10.png",
+    "bytes": 673159,
+    "sha256": "483bbf3ee88ac882590dad5f58844a0e22d9f2e9853d0033dda8e94d74fd6f5a",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/State 11.png",
+    "bytes": 661274,
+    "sha256": "287f352cf23ceb4649cab33e8d24c445c56f059d9de937f96b779a24ae90e624",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Terms of Service.png",
+    "bytes": 767419,
+    "sha256": "ce3e167bbf5fc595fa3d891a200a5f83357ad405a0b6f6447c7cfc8aeb9cdedf",
+    "width": 1440,
+    "height": 4368
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Terms of Service_/Mobile.png",
+    "bytes": 517641,
+    "sha256": "24effe7cf2827546258c54c4b7d3a66bad405670152a53e0199c6de12e7d0815",
+    "width": 393,
+    "height": 6242
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-1.png",
+    "bytes": 1104358,
+    "sha256": "0ed7b56cf346dba9d2b13e3c77bcf49cec8cb4871ce1720a0d2ffc23f472a6c9",
+    "width": 1440,
+    "height": 1180
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-2.png",
+    "bytes": 495495,
+    "sha256": "45df539734ec5e00c107e3ed490b8f8e54eaf490c2ac6fdfbaee4fce18ba49dd",
+    "width": 1440,
+    "height": 823
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-3.png",
+    "bytes": 751407,
+    "sha256": "cbf7af64777aade430e085f32f8e4a990703104f0c912c6dfdaaf081fc33cce9",
+    "width": 1440,
+    "height": 823
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-4.png",
+    "bytes": 273061,
+    "sha256": "e1cfc282bac12c7d082ed9934abbb1b921041b63d9cb8d359224b84e6300d5f7",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-5.png",
+    "bytes": 177432,
+    "sha256": "72553fb8765e54d4871054795705f184d5ae51bdb5b1bc4b2e1e4d7aea6b2f95",
+    "width": 1440,
+    "height": 446
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-6.png",
+    "bytes": 587425,
+    "sha256": "fd90433fcfb2069d9a868c9516e724de24e9498d36a715a437ebb01730ea6cd2",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2-7.png",
+    "bytes": 515455,
+    "sha256": "d6f286ec7c8f8309525084b5048f0ffc4cb3c70c22806db90986a4ce95b6dfeb",
+    "width": 1440,
+    "height": 791
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/V2.png",
+    "bytes": 879140,
+    "sha256": "3ba172fcc59d9e8d1fdb6346cff32c645d4df8cfd5f88c1356c8c027389ac294",
+    "width": 1440,
+    "height": 823
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Venue website add-on.png",
+    "bytes": 2565594,
+    "sha256": "902562e5394223d059576cd5d123eddb60c5f59f2df4851ad0f06093233c1e4c",
+    "width": 1440,
+    "height": 7181
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Venue website add-on_/Birdie Hero Concept 1.png",
+    "bytes": 237314,
+    "sha256": "1a3d821eefd798073448d10e5a785d9323608f3ed7380136e5c0dcf33f67a8a0",
+    "width": 393,
+    "height": 844
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Venue website add-on_/Mobile.png",
+    "bytes": 1015303,
+    "sha256": "9afcaca8a119ed7d2299b6ed72071249ad498d68baa234f7ba0959be6af24672",
+    "width": 393,
+    "height": 9497
+  },
+  {
+    "path": "design-references/Birdie Website Redesign (5)/Venue website add-on_/pic.png",
+    "bytes": 194966,
+    "sha256": "5820fc6d6240ab471bfb50bcc01d85e694e45d54d60a833e54ae0a982788b8ed",
+    "width": 393,
+    "height": 474
+  },
+  {
+    "path": "design-references/Color-Pixel-Dark_Size-80px.png",
+    "bytes": 11735,
+    "sha256": "c69b082b5a497843d9cba1318bffd6cf7f8bdfa3f4ab2a711eedf935d21fbce2",
+    "width": 101,
+    "height": 80
+  },
+  {
+    "path": "design-references/Compatibility-background.png",
+    "bytes": 274257,
+    "sha256": "5108f7f738132ea8be9541d6f255a646ca322af0af82150815a884409d4b514d",
+    "width": 960,
+    "height": 821
+  },
+  {
+    "path": "design-references/Compatibility-image.png",
+    "bytes": 109940,
+    "sha256": "cb4c9aabe603bc20806b28f1d7734005d5f1d4a8fb4430f717ab672249dffab6",
+    "width": 495,
+    "height": 480
+  },
+  {
+    "path": "design-references/css.txt",
+    "bytes": 14151766,
+    "sha256": "fe5547fc58b98f1c2d9473bce555925a7089861050d60a588c35c06f77344843"
+  },
+  {
+    "path": "design-references/Dashboard-navigation.png",
+    "bytes": 260464,
+    "sha256": "b2d8f414d6c3c7389320cd84349bc77333a5877773bcc6a9a14c687f2cdc3e2d",
+    "width": 962,
+    "height": 910
+  },
+  {
+    "path": "design-references/Futuristic Dark Glass Rainbow Panel.png",
+    "bytes": 1089025,
+    "sha256": "9fe723d70a135f7d2206f21ba3ec39cff679798e4385cf1ac694b1c0dba14a98",
+    "width": 2172,
+    "height": 724
+  },
+  {
+    "path": "design-references/hero-bg.png",
+    "bytes": 3914318,
+    "sha256": "83a283892337f2250eebdef546cc46b1438ae2b63e314ad9e9c9eb24356791df",
+    "width": 5760,
+    "height": 3164
+  },
+  {
+    "path": "design-references/hero-mobile-whole-bg.png",
+    "bytes": 75495,
+    "sha256": "0f4c9d8942582c4a88655f3f32e78f917fde63ab8102ce15de483d1fe3229585",
+    "width": 786,
+    "height": 1582
+  },
+  {
+    "path": "design-references/Home-desktop.png",
+    "bytes": 10719963,
+    "sha256": "1f2af0e4db83edafe2e1dee0a2b82327f66f0fb1d26462182bfcafe540a07ea5",
+    "width": 2880,
+    "height": 18729
+  },
+  {
+    "path": "design-references/Home-mobile.png",
+    "bytes": 4018621,
+    "sha256": "640e172488437057617c4b9f8067c12f07e21d0c0cda2188802bd61d6d09fa77",
+    "width": 786,
+    "height": 23435
+  },
+  {
+    "path": "design-references/Mobile previews-1.png",
+    "bytes": 742819,
+    "sha256": "0a9180b4cd548d1cd4effc99a880cd86be92b59174d7d044759dab1eb574d906",
+    "width": 1240,
+    "height": 1190
+  },
+  {
+    "path": "design-references/Mobile previews.png",
+    "bytes": 442462,
+    "sha256": "aaa770b86eb5aaa015d0600c82fda51a2e17e10c544bfbe1afc170a8a43b3ab1",
+    "width": 1240,
+    "height": 1190
+  },
+  {
+    "path": "design-references/Moody Glass Gradient Wallpaper.png",
+    "bytes": 1240230,
+    "sha256": "6553527234f590353026f0a1f8bc624382591aa497ebe5b530fabc541b81686e",
+    "width": 2172,
+    "height": 724
+  },
+  {
+    "path": "design-references/Neon Rim-Lit Golf Ball on Tee.png",
+    "bytes": 1073640,
+    "sha256": "bdbc9b238e618d422ffaca993bae36ef660b65a0aa26a0ec77356fa3d8d3159e",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "path": "design-references/Noise.png",
+    "bytes": 244937,
+    "sha256": "8b37e37d450b8c0c1067ae7ab1be511e3ddd83c1cd5ce74b3d40b866dfe49139",
+    "width": 730,
+    "height": 212
+  },
+  {
+    "path": "design-references/Phone preview.png",
+    "bytes": 374476,
+    "sha256": "57644c0a205afb7ae9383cf1cdc209e24b764c59081249270cb5a59bffb481c2",
+    "width": 1240,
+    "height": 1190
+  },
+  {
+    "path": "design-references/Product previews.png",
+    "bytes": 6445527,
+    "sha256": "a61bf76c47faa10743a9fdb8556f7eebf16bc07d9cc00e4f30a9d5c25a6e6a45",
+    "width": 3844,
+    "height": 1688
+  },
+  {
+    "path": "design-references/product-previews-bg.png",
+    "bytes": 8433446,
+    "sha256": "edf941ed7460a392a003b61584a31227ecc6ea66dad7f33e9d5105c746def140",
+    "width": 3844,
+    "height": 1688
+  },
+  {
+    "path": "design-references/Step illustration.png",
+    "bytes": 56277,
+    "sha256": "a8b301565968534f4b2caeb3af03be413c757a7585385679d492468999f85b4c",
+    "width": 221,
+    "height": 221
+  },
+  {
+    "path": "design-references/venue-page-mobile-full-page.pdf",
+    "bytes": 10021167,
+    "sha256": "b6bab7090e4084651f301273caff386f6d1a3208f2dde624bc8d72f9ffb740c9"
+  },
+  {
+    "path": "design-references/venue-page-mobile-full-page.png",
+    "bytes": 1015303,
+    "sha256": "9afcaca8a119ed7d2299b6ed72071249ad498d68baa234f7ba0959be6af24672",
+    "width": 393,
+    "height": 9497
+  }
+]

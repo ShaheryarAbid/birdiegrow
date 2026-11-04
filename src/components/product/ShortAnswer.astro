@@ -1,0 +1,46 @@
+---
+/**
+ * "The short answer." section — copy + chips on the left, a visual on the right (Figma Door access / Memberships / Leagues).
+ * Props: heading, body / bodyHtml, chips (string[]), items [icon, title, text][] (renders 2x2 mini cards), flow [{title,text,alert?}][] (numbered
+ * vertical flow card). Default slot replaces the right-hand visual.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/product.css';
+import Icon from '../Icon.astro';
+export interface Props {
+  heading?: string;
+  body?: string;
+  bodyHtml?: string;
+  chips?: string[];
+  items?: [string, string, string][];
+  flow?: { title: string; text: string; alert?: boolean }[];
+  id?: string;
+  variant?: 'minis' | 'stack';
+}
+const { heading = 'The short answer', body, bodyHtml, chips = [], items = [], flow = [], id, variant = 'minis' } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white" id={id}>
+  <div class={`pf-short${variant === 'stack' ? ' pf-short--stack' : ''}`}>
+    <div class="pf-short__copy">
+      <h2 class="hm-h2" set:html={gd(heading)} />
+      {body && <p class="hm-sub">{body}</p>}
+      {bodyHtml && <p class="hm-sub" set:html={bodyHtml} />}
+      {chips.length > 0 && <ul class={`pf-chips${variant === 'stack' ? ' pf-chips--rows' : ''}`}>{chips.map((c) => <li>{c}</li>)}</ul>}
+    </div>
+    <div>
+      {items.length > 0 && (
+        <div class={`pf-minis${variant === 'stack' ? ' pf-minis--stack' : ''}`}>{items.map(([ic, t, d]) => (
+          <div class="pf-mini"><span class="pf-mini__ic"><Icon name={ic} size={20} /></span><h3>{t}</h3><p>{d}</p></div>
+        ))}</div>
+      )}
+      {flow.length > 0 && (
+        <div class="pf-flow">{flow.map((f, i) => (
+          <div class={f.alert ? 'is-alert' : ''}><span class="pf-flow__n">{String(i + 1).padStart(2, '0')}</span><div><b>{f.title}</b><span class="t">{f.text}</span></div></div>
+        ))}</div>
+      )}
+      <slot />
+    </div>
+  </div>
+</section>

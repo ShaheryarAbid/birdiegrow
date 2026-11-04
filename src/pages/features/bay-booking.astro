@@ -1,0 +1,172 @@
+---
+/** Bay booking & waivers — /features/bay-booking/ (Figma "Bay booking & waivers", node 546:20535). Copy is the design's; facts match src/data/features.ts. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductHero from '../../components/product/ProductHero.astro';
+import ShortAnswer from '../../components/product/ShortAnswer.astro';
+import SplitPanel from '../../components/product/SplitPanel.astro';
+import FeatureTabs from '../../components/product/FeatureTabs.astro';
+import LinkCards from '../../components/sections/LinkCards.astro';
+import ComparisonTable from '../../components/sections/ComparisonTable.astro';
+import Glance from '../../components/sections/Glance.astro';
+import Faq from '../../components/sections/Faq.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { SITE } from '../../consts';
+import { PRODUCT_LINKS } from '../../data/featurePages';
+
+const title = 'Bay Booking & Waivers for Golf Simulator Venues | Birdie';
+const description = 'Hourly bay pricing, deposits, built-in payments and online waivers in one booking flow built for golf simulator venues. Customers book on a phone with no app download.';
+
+const faqs: [string, string][] = [
+  ['How does pricing work for simulator bays?', 'You set rates per bay and by time of day: peak, off-peak and time-of-day rates, with optional surge (demand) pricing that raises rates automatically at busy times. Birdie can also suggest prices, which you review and apply in one click.'],
+  ['How long does it take a customer to book a bay?', 'Under 30 seconds on a phone: pick a bay and a time, choose the group size and add-ons, and pay. No app download is needed.'],
+  ['Can I take a deposit instead of full payment?', 'Yes. You set the rule per booking type: full payment, a deposit, reserve with card (the card is saved and nothing is charged now), or pay at venue.'],
+  ['Which payment processors does Birdie support?', 'Stripe, Square, Clover and Helcim (beta). Helcim is in beta and enabled on request. Payment runs inside the booking flow, with no redirect.'],
+  ['Are waivers built in?', 'Yes. Waivers and membership agreements are signed online, with versions. Customers sign as part of booking or from their customer portal, and every signature is tied to the waiver version the customer agreed to.'],
+  ['How should I handle minors?', 'If you allow players under 18, a parent or guardian must sign on their behalf.'],
+  ['What happens when a time is fully booked?', 'Birdie can keep a booking waitlist for full times.'],
+];
+const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
+
+const rates: [string, number, string][] = [['2 PM', 38, ''], ['3 PM', 38, ''], ['4 PM', 38, ''], ['5 PM', 52, ''], ['6 PM', 68, 'pk'], ['7 PM', 68, 'pk'], ['8 PM', 62, ''], ['9 PM', 62, '']];
+const payRules = [
+  { label: 'Full payment', title: 'Full payment', text: 'Peak hours and group bookings. No-shows cost you nothing.', now: '$120.00', venue: '$120.00', note: 'If the group doesn’t show up you keep the full amount.' },
+  { label: 'Deposit', title: 'Deposit', text: 'Events and first-time customers. You set the amount.', now: '$60.00', venue: '$60.00', note: 'If the group doesn’t show up you keep the deposit and collect the rest at the venue.' },
+  { label: 'Reserve with card', title: 'Reserve with card', text: 'Card saved at booking, nothing charged now.', now: '$0.00', venue: '$120.00', note: 'Nothing is held, but the saved card lets you charge a no-show fee under your own policy.' },
+  { label: 'Pay at venue', title: 'Pay at venue', text: 'Members and regulars you trust to show up.', now: '$0.00', venue: '$120.00', note: 'Nothing is held. The whole amount is collected at the venue.' },
+];
+const players: [string, string, string, string, boolean][] = [
+  ['Jake M.', 'Booker', 'Waiver v3 · signed at checkout', 'Signed', true],
+  ['Sarah C.', 'Guest', 'Waiver v3 · signed from the link', 'Signed', true],
+  ['Leo M.', 'Guest', 'Waiver v3 · signed from the link', 'Signed', true],
+  ['Mike T.', 'Guest', 'Awaiting signature', 'Link sent', false],
+];
+const rows: [string, string, string][] = [
+  ['Bay-based scheduling', 'Yes', 'No'],
+  ['Simulator memberships with hour banks', 'Yes', 'No'],
+  ['Built for simulators', 'Yes', 'No'],
+  ['Automated SMS confirmations', 'Yes', 'Limited'],
+  ['24/7 smart-lock door access', 'Yes', 'No'],
+  ['Built-in payments', 'Stripe, Square, Clover, Helcim (beta)', 'Varies'],
+  ['Weekday utilization tracking', 'Yes', 'No'],
+  ['Lapsed customer reactivation', 'Yes', 'No'],
+  ['Setup time', '24 hours', 'Weeks'],
+];
+const F = '/assets/features/';
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
+<div class="hm">
+  <ProductHero
+    crumb={['Product', 'Bay booking & waivers']}
+    h1="Bay booking and waivers, built for simulators."
+    lead="Hourly bays, group sizes, deposits and signed waivers in one booking flow. Customers book on a phone in under 30 seconds, with no app download."
+    primary={{ label: 'Book a demo', href: SITE.demoPath }}
+    secondary={{ label: 'See how it works', href: '#pricing-by-hour' }}
+    bg={{ src: `${F}bay-bg.webp`, left: 453, top: 0, width: 988 }}
+    layers={[{ src: `${F}bay-phone-a.webp`, left: 588, top: 0, width: 494 }, { src: `${F}bay-phone-b.webp`, left: 566, top: 162, width: 797, z: 3 }]}
+    mobileX={-276}
+  />
+
+  <ShortAnswer variant="stack"
+    body="Customers pick a bay and a time, choose the group size and add-ons, and pay inside the booking flow, with no redirect and no app download. You set the price of every hour, the payment rule per booking type, and the waiver step. Length, timing and block-time rules run on every booking."
+    chips={['Priced by the hour', 'Deposits or full payment', 'Versioned waivers', 'Block time']}
+    items={[
+      ['clock', 'Priced by the hour', 'Every slot is priced by its window and by the size of the group.'],
+      ['card', 'Four ways to get paid', 'Full payment, deposit, reserve with card or pay at venue.'],
+      ['check', 'Signed waivers', 'Waivers are signed online, with versions, before tee time.'],
+      ['calendar', 'Rules that protect the calendar', 'Pricing, length and timing rules run on every booking.'],
+    ]}
+  />
+
+  <SplitPanel
+    id="pricing-by-hour"
+    tone="light"
+    heading="Priced by the hour. Not by the appointment."
+    body="Bay time is worth more at 6 PM on a Friday than at 2 PM on a Tuesday. Birdie prices every slot by its window and by the size of the group."
+    cta={{ label: 'Book a demo', href: SITE.demoPath }}
+  >
+    <div class="pf-eg" style="width:100%;max-width:440px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">Sample booking flow</b><span>Friday · rate by hour</span></div>
+      <div class="pf-bars" role="img" aria-label="Example hourly rates on a Friday, from $38 at 2 PM to $68 at 6 PM">
+        {rates.map(([, v, c]) => <span class={c} style={`height:${Math.round((v / 68) * 100)}%`} title={`$${v}`}></span>)}
+      </div>
+      <div class="pf-bars-l">{rates.map(([h]) => <span>{h}</span>)}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="pf-eg__row"><span>2 PM<small>Off-peak</small></span><b>$38</b></div>
+        <div class="pf-eg__row"><span>5 PM<small>Evening</small></span><b>$52</b></div>
+        <div class="pf-eg__row is-on"><span>6 PM<small>Peak</small></span><b>$68</b></div>
+        <div class="pf-eg__row"><span>8 PM<small>Late</small></span><b>$62</b></div>
+      </div>
+      <div class="pf-eg__row"><span>Friday · 2:00 PM – 3:00 PM · 1 hour · 4 players</span><b>$67</b></div>
+      <p class="pf-eg__note">Example pricing — you set your own rates.</p>
+    </div>
+  </SplitPanel>
+
+  <SplitPanel
+    id="waivers"
+    heading="Four players. Four signatures. Before tee time."
+    body="Waivers and membership agreements are signed online, with versions. Customers sign as part of booking or from their customer portal."
+    items={['Versioned. Every signature is tied to the waiver version the customer agreed to.', 'Customer portal. Sign in with a one-time code to book, check hours and balances, update cards and sign waivers.', 'Minors. If you allow players under 18, a parent or guardian must sign on their behalf.']}
+    bg={`${F}door-panel-bg.webp`}
+  >
+    <div class="pf-eg" style="width:100%;max-width:420px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">Bay 1 · Fri 6:00 PM</b><span>3 of 4 signed · 1 waiver missing</span></div>
+      {players.map(([n, r, s, st, ok]) => (
+        <div class="pf-eg__row"><span>{n} <small style="display:inline">· {r}</small><small>{s}</small></span><span class={`pf-pill${ok ? '' : ' pf-pill--pending'}`}>{st}</span></div>
+      ))}
+    </div>
+  </SplitPanel>
+
+  <FeatureTabs
+    id="payments"
+    heading="One booking. Four ways to get paid."
+    sub="Set the rule per booking type. Payment runs inside the booking flow through Stripe, Square or Clover, with Helcim in beta. No redirect."
+    tabs={payRules.map((r) => ({ label: r.label, title: r.title, text: `${r.text} ${r.note}` }))}
+  >
+    <div slot="panel-0" class="pf-eg" style="width:100%;max-width:360px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">{payRules[0].title}</b><span>Example amounts</span></div>
+      <div class="pf-kv"><div>Now<b>{payRules[0].now}</b></div><div>Venue<b>{payRules[0].venue}</b></div></div>
+      <p class="pf-eg__note">Example amounts. Deposit size and rules are yours.</p>
+    </div>
+    <div slot="panel-1" class="pf-eg" style="width:100%;max-width:360px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">{payRules[1].title}</b><span>Example amounts</span></div>
+      <div class="pf-kv"><div>Now<b>{payRules[1].now}</b></div><div>Venue<b>{payRules[1].venue}</b></div></div>
+      <p class="pf-eg__note">Example amounts. Deposit size and rules are yours.</p>
+    </div>
+    <div slot="panel-2" class="pf-eg" style="width:100%;max-width:360px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">{payRules[2].title}</b><span>Example amounts</span></div>
+      <div class="pf-kv"><div>Now<b>{payRules[2].now}</b></div><div>Venue<b>{payRules[2].venue}</b></div></div>
+      <p class="pf-eg__note">Example amounts. Deposit size and rules are yours.</p>
+    </div>
+    <div slot="panel-3" class="pf-eg" style="width:100%;max-width:360px">
+      <div class="pf-eg__h"><b style="color:var(--color-text)">{payRules[3].title}</b><span>Example amounts</span></div>
+      <div class="pf-kv"><div>Now<b>{payRules[3].now}</b></div><div>Venue<b>{payRules[3].venue}</b></div></div>
+      <p class="pf-eg__note">Example amounts. Deposit size and rules are yours.</p>
+    </div>
+  </FeatureTabs>
+
+  <SplitPanel
+    id="rules"
+    heading="Rules that protect the calendar."
+    body="Pricing, length and timing rules run on every booking, so the busy hours earn more and the quiet ones still fill."
+    items={['Time-of-day and surge pricing. Peak and off-peak rates set per bay, raised automatically when demand is high.', 'AI pricing suggestions', 'Booking length rules and short-booking fee', 'Block Time', 'Session extensions', 'Booking waitlist for full times']}
+    bg={`${F}door-panel-bg.webp`}
+    img={`${F}bay-rules-phone.webp`}
+    imgAlt="Birdie bay calendar on a phone"
+    cta={{ label: 'Book a demo', href: SITE.demoPath }}
+  />
+
+  <ComparisonTable
+    heading="Built for bays. Not haircuts."
+    sub="Appointment software sells a person’s time in fixed slots. A simulator venue sells a room by the hour, to a group, at a price that changes through the day."
+    cta={{ label: 'All comparisons', href: '/compare/' }}
+    colLabel="Generic tools"
+    name="generic booking tools"
+    rows={rows}
+  />
+
+  <Glance />
+  <Faq heading="Questions owners ask about booking" items={faqs} open={1} />
+  <LinkCards heading="See the rest of Birdie" sub="Each part of the platform has its own page." items={PRODUCT_LINKS.filter(([, h]) => h !== '/features/bay-booking/')} />
+  <Cta heading="See your booking flow, set up for your bays." body="Free walkthrough. We configure your bays, pricing windows, add-ons and waiver step." />
+</div>
+</BaseLayout>

@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+import SeoHero from '../components/sections/SeoHero.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import SoftwareTable from '../components/sections/SoftwareTable.astro';
+import GroupCards from '../components/sections/GroupCards.astro';
+import TextBlock from '../components/sections/TextBlock.astro';
+import Faq from '../components/sections/Faq.astro';
+import LinkCards from '../components/sections/LinkCards.astro';
+import Cta from '../components/sections/Cta.astro';
+
+const title = 'Best Golf Simulator Software (2026 Comparison) | Birdie';
+const description = 'Compare the best golf simulator software for 2026 — Birdie, Golf O’Clock, foreUP, Lightspeed, Mindbody, Square and more, with a clear pick for simulator venues.';
+
+// Answer-first summary an AI engine can lift verbatim.
+const quickAnswer = 'For an indoor golf simulator venue, the best booking software is one built for bay-based operations — real-time bay scheduling, hour-bank memberships, automated texts and emails, and 24/7 door access. Birdie is purpose-built for exactly this and pairs it with a revenue layer (utilization tracking + lapsed-customer reactivation). Golf O’Clock and Birrdi are the closest simulator-specific alternatives. Golf-course tools (foreUP, Chronogolf, Lightspeed) and general schedulers (Square, Acuity, Mindbody, ezFacility) can be made to work but weren’t designed for hourly simulator bays.';
+
+const needs = [
+  ['Bay-level scheduling', 'Real-time availability per bay/room by the hour — not generic 1:1 appointment slots or golf-course tee times.'],
+  ['Hour-bank memberships', 'Tiered plans that draw down hours, restrict bays/times, and rebill automatically.'],
+  ['Automated SMS', 'Confirmations, pre-session reminders, and lapsed-customer reactivation without manual work.'],
+  ['24/7 door access', 'Time-gated unlock links (e.g. PDK) so customers can book and enter unattended.'],
+  ['Revenue intelligence', 'Utilization by day/bay, membership vs. walk-in split, and who hasn’t returned.'],
+  ['Payments built in', 'Charge at booking (Square, etc.) to cut no-shows — not a bolted-on redirect.'],
+];
+
+const software = [
+  { name: 'Birdie', cat: 'Golf simulator platform', sim: 'Yes', booking: 'Bay-level, hourly', memberships: 'Hour-bank tiers', revenue: 'Yes', door: 'Yes (PDK)', bestFor: 'Indoor simulator venues', href: null },
+  { name: 'Golf O’Clock', cat: 'Indoor-golf booking', sim: 'Yes', booking: 'Bay-level', memberships: 'Yes', revenue: 'Basic', door: 'Partial', bestFor: 'Simulator/indoor booking', href: '/birdie-vs-golf-oclock/' },
+  { name: 'Birrdi', cat: 'Simulator management', sim: 'Yes', booking: 'Bay-level', memberships: 'Yes', revenue: 'Basic', door: 'Partial', bestFor: 'Simulator management', href: '/birdie-vs-birrdi/' },
+  { name: 'foreUP', cat: 'Golf-course software', sim: 'No', booking: 'Tee times', memberships: 'Course-style', revenue: 'POS reports', door: 'No', bestFor: 'Outdoor courses', href: '/birdie-vs-foreup/' },
+  { name: 'Chronogolf', cat: 'Golf-course booking', sim: 'No', booking: 'Tee times', memberships: 'Course', revenue: 'Basic', door: 'No', bestFor: 'Course tee-time booking', href: '/birdie-vs-chronogolf/' },
+  { name: 'Lightspeed Golf', cat: 'Golf-course POS', sim: 'No', booking: 'Tee times', memberships: 'Course', revenue: 'Yes (course)', door: 'No', bestFor: 'Course operations', href: '/birdie-vs-lightspeed-golf/' },
+  { name: 'ezFacility', cat: 'Multi-sport facility', sim: 'Partial', booking: 'General resource', memberships: 'Basic', revenue: 'Basic', door: 'No', bestFor: 'Multi-sport facilities', href: '/birdie-vs-ezfacility/' },
+  { name: 'Mindbody', cat: 'Fitness & wellness', sim: 'No', booking: 'Classes/appts', memberships: 'Gym-style', revenue: 'Basic', door: 'No', bestFor: 'Studios & gyms', href: '/birdie-vs-mindbody/' },
+  { name: 'Acuity', cat: 'Appointment scheduler', sim: 'No', booking: 'Appointments', memberships: 'No', revenue: 'No', door: 'No', bestFor: 'Solo/small service', href: '/birdie-vs-acuity/' },
+  { name: 'Square Appts', cat: 'Payments + booking', sim: 'No', booking: 'Appointments', memberships: 'No', revenue: 'Sales reports', door: 'No', bestFor: 'Retail / early-stage', href: '/birdie-vs-square/' },
+];
+
+const groups = [
+  {
+    label: 'Built for golf simulators',
+    items: [
+      ['Birdie', 'Purpose-built for indoor simulator venues. Real-time bay scheduling, hour-bank memberships, automated texts and emails, Stripe, Square, Clover and Helcim (beta) payments, and 24/7 smart-lock door access in one platform — plus a revenue layer that flags underused hours and lapsed customers. Live in 24 hours, we handle setup.', null],
+      ['Golf O’Clock', 'A simulator/indoor-golf booking tool with bay scheduling and memberships. The closest category alternative to Birdie; the main gap most operators cite is a built-in revenue/reactivation layer and unattended-access depth.', '/birdie-vs-golf-oclock/'],
+      ['Birrdi', 'Simulator management software with bay booking and membership support. Solid for scheduling; where operators tend to want more is automated re-engagement and utilization reporting.', '/birdie-vs-birrdi/'],
+    ],
+  },
+  {
+    label: 'Golf-course software (repurposed for sims)',
+    items: [
+      ['foreUP', 'A leading tee-sheet and pro-shop POS for outdoor courses. Excellent for tee times, but it isn’t designed around hourly simulator bays, hour-bank memberships, or unattended access — simulator operators usually outgrow the workarounds.', '/birdie-vs-foreup/'],
+      ['Chronogolf', 'Golf-course tee-time booking (part of Lightspeed). Strong for course reservations; the same tee-time model doesn’t map cleanly to bay-by-the-hour simulator scheduling.', '/birdie-vs-chronogolf/'],
+      ['Lightspeed Golf', 'Full course management and POS. Powerful for a golf course’s retail and tee sheet, but heavier and course-oriented rather than simulator-native.', '/birdie-vs-lightspeed-golf/'],
+    ],
+  },
+  {
+    label: 'General scheduling & booking tools',
+    items: [
+      ['ezFacility', 'Broad multi-sport facility management. It can schedule resources, but simulator-specific workflows (hour banks, utilization, reactivation) need heavy configuration.', '/birdie-vs-ezfacility/'],
+      ['Mindbody', 'The market leader for gyms and studios. Great class/membership tooling for fitness, but no bay-level logic or utilization tracking and priced for larger studios.', '/birdie-vs-mindbody/'],
+      ['Acuity Scheduling', 'A clean, affordable appointment scheduler. Fine as a stopgap for a brand-new venue, but no memberships, SMS reactivation, or revenue dashboard for a growing operation.', '/birdie-vs-acuity/'],
+      ['Square Appointments', 'Payments-first with basic booking layered on. Popular early because it’s cheap to start, but no memberships, utilization, or automated re-engagement — friction grows as you scale.', '/birdie-vs-square/'],
+    ],
+  },
+];
+
+const faqs = [
+  ["What is the best booking software for a golf simulator business?", 'For an indoor golf simulator venue, Birdie is purpose-built for the job: real-time bay scheduling, hour-bank memberships, automated texts and emails, Stripe, Square, Clover and Helcim (beta) payments, and 24/7 smart-lock door access, plus a revenue layer that surfaces underused hours and lapsed customers. Golf O’Clock and Birrdi are the closest simulator-specific alternatives. Golf-course platforms (foreUP, Chronogolf, Lightspeed) and general schedulers (Square, Acuity, Mindbody) can be forced to work but weren’t built for hourly simulator bays.'],
+  ['What should golf simulator booking software be able to do?', 'At minimum: schedule specific bays by the hour (not generic appointment slots or tee times), manage hour-bank memberships with automatic billing, send automated text and email confirmations, reminders and receipts, collect payment at booking to cut no-shows, and ideally support 24/7 door access and utilization/revenue reporting so you can fill weekday hours.'],
+  ['Can I use foreUP or golf-course software for a simulator venue?', 'You can, but it’s a repurposing. foreUP, Chronogolf, and Lightspeed are built around tee sheets and pro-shop POS for outdoor courses. They lack the bay-by-the-hour scheduling, hour-bank membership tracking, and automated re-engagement simulator venues rely on, so many operators switch within the first year.'],
+  ['Is Square or Acuity enough to run a golf simulator business?', 'They’re fine to start and cheap upfront, but both are general tools: no hour-bank memberships, no utilization tracking, and no automated reactivation. They tend to create manual overhead and no-shows as the venue grows, which is why operators move to purpose-built software.'],
+  ['How much does golf simulator booking software cost?', 'It varies. Birdie starts at $197/month (Booking System plan) with no per-booking fees. Golf-course systems (foreUP, Lightspeed) usually use custom pricing in the low hundreds per month; Mindbody scales from about $139 to $500+/month; Square and Acuity are cheapest upfront but need add-ons to cover memberships and reminders. Book a demo for exact Birdie pricing for your bay count.'],
+];
+
+const keepReading: [string, string][] = [
+  ['Golf Simulator Software', '/golf-simulator-software/'],
+  ['Golf Simulator Booking, Reservation & Scheduling Software', '/golf-simulator-booking-software/'],
+  ['Golf Simulator Management Software', '/golf-simulator-management-software/'],
+  ['All Birdie comparisons', '/compare/'],
+  ['Membership Program Guide', '/resources/golf-simulator-membership-program/'],
+  ['Fill Weekday Bays', '/resources/how-to-fill-weekday-bays-golf-simulator/'],
+  ['Start a Simulator Business', '/resources/how-to-start-a-golf-simulator-business/'],
+];
+const tOk = '<span class="sx-ok">✓</span>';
+const tNo = '<span aria-label="No">—</span>';
+const tableRows = software.map((s) => [
+  s.href ? `<a href="${s.href}">${s.name}</a>` : s.name,
+  s.cat,
+  s.sim === 'Yes' ? tOk : s.sim === 'Partial' ? '~' : tNo,
+  s.booking,
+  s.memberships,
+  s.revenue === 'Yes' ? tOk : s.revenue,
+  s.door === 'Yes (PDK)' ? tOk : s.door,
+  s.bestFor,
+]);
+
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Birdie',
+    applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'Golf Simulator Booking Software',
+    operatingSystem: 'Web',
+    description: 'Booking, memberships, Stripe, Square, Clover and Helcim (beta) payments, 24/7 door access, and revenue intelligence purpose-built for indoor golf simulator venues.',
+    url: `${SITE.url}/`,
+    offers: {
+      '@type': 'Offer',
+      price: '197',
+      priceCurrency: 'USD',
+      priceValidUntil: '2026-12-31',
+      availability: 'https://schema.org/InStock',
+      url: `${SITE.url}/pricing/`,
+      priceSpecification: { '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD', unitText: 'MONTH' },
+      description: 'Booking System plan, from $197/mo. No per-booking fees.',
+    },
+  },
+];
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
+  <SeoHero crumb="Best Golf Simulator Software" eyebrow="Buyer’s guide · updated 2026" h1="The Best Golf Simulator Software in 2026" leadHtml="A straight comparison of the software that actually runs a simulator business — booking, memberships, payments, door access, and revenue. (Note: E6 Connect, GSPro, and TGC2 are simulation <em>engines</em> for the bays; this page is about the <em>operations</em> software.)" primary={{ label: 'Book a Demo', href: SITE.demoPath }} secondary={{ label: 'See pricing', href: '/pricing/' }}>{quickAnswer}</SeoHero>
+  <FeatureGrid heading="How we compared these tools" subHtml={'The six criteria we used to compare every tool below. For a full breakdown of how bay-based scheduling works, see our guide to <a href="/golf-simulator-booking-software/">golf simulator booking software</a>. If your priority is day-to-day operations rather than reservations, start with <a href="/golf-simulator-management-software/">golf simulator bay management software</a>. Running more than one site? See <a href="/platform/">golf simulator multi-location software</a>.'} items={needs as [string, string][]} />
+  <SoftwareTable hl heading="Every tool compared, side by side" headers={['Software', 'Category', 'Sim-built?', 'Booking', 'Memberships', 'Revenue tools', '24/7 door', 'Best for']} rows={tableRows} note="Compare Birdie head-to-head with any tool via the linked names above." />
+  <GroupCards heading="Breakdown by category" groups={groups.map((g) => ({ label: g.label, items: g.items as [string, string, string | null][] }))} />
+  <TextBlock heading="Our pick for simulator venues" paras={['If you run an indoor golf simulator business, choose software built for hourly bays — memberships, automated texts and emails, payments, 24/7 access, and revenue reporting in one place. That’s what Birdie is for. If you’re a golf <em>course</em>, a tee-sheet tool like foreUP or Lightspeed fits better; if you’re a gym or a solo service, Mindbody or Acuity will do. But for filling weekday bays and running an unattended simulator operation, purpose-built wins.', '<strong>Birdie pricing starts at $197/mo</strong> (Booking System plan — no per-booking fees, no long-term contract).']} cta={{ label: 'See Birdie in a free demo', href: SITE.demoPath }} />
+  <Faq heading="Frequently asked questions" items={faqs as [string, string][]} open={0} />
+  <LinkCards heading="Keep reading" items={keepReading} />
+  <Cta heading="Run your venue on software built for it." body="Bay booking, memberships, payments, 24/7 door access, and revenue tracking — in one platform. Live in 24 hours." items={[]} label="Book a Free Demo" />
+</BaseLayout>

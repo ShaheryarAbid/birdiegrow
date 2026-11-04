@@ -1,0 +1,11 @@
+---
+/**
+ * Stat tiles row. Props: items [value, label, delta?, negative?][], inside (render without a section wrapper, e.g. inside a dashboard).
+ */
+import '../../styles/product.css';
+export interface Props { items: [string, string, string?, boolean?][]; }
+const { items } = Astro.props;
+---
+<div class="pf-stats">
+  {items.map(([v, l, d, neg]) => <div class="pf-stat"><span>{l}</span><b>{v}</b>{d && <small class={neg ? 'neg' : ''}>{d}</small>}</div>)}
+</div>

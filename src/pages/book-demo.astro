@@ -1,0 +1,83 @@
+---
+/** /book-demo/ — Calendly scheduler. Figma "Booking System / Calendly" 558:36200 (dark stage, "You're qualified." + calendar card). Calendly embed, prefill and booking conversions unchanged. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookingBg from '../components/booking/BookingBg.astro';
+import BookingBar from '../components/booking/BookingBar.astro';
+import Button from '../components/Button.astro';
+import '../styles/booking.css';
+import { SITE, CALENDLY, ANALYTICS } from '../consts';
+const title = 'Book Your Demo Call | Birdie';
+const description = 'See Birdie live — bay scheduling, memberships, payments, and 24/7 door access for golf simulator venues. No commitment, done-for-you setup.';
+const calendlyUrl = CALENDLY.url;
+---
+<BaseLayout title={title} description={description} minimal={true}>
+  <div class="bk">
+    <BookingBg />
+    <BookingBar />
+    <section class="bk-screen bk-book is-active">
+      <h1 class="bk-bookh" id="bk-h1"><span id="bk-h1-t">Schedule Your Demo Call</span><i>.</i></h1>
+      <p class="bk-sub" id="bk-sub">Pick a time below. We'll walk you through the platform live — no commitment, no sales pressure.</p>
+      <div class="bk-calwrap">
+        {calendlyUrl ? (
+          <>
+            <div class="bk-cal"><div class="calendly-inline-widget" data-url={calendlyUrl}></div></div>
+            {/* Prefill name/email from the /demo funnel (if present) before Calendly initializes. */}
+            <script is:inline>
+              (function () {
+                try {
+                  var lead = JSON.parse(sessionStorage.getItem('birdie_lead') || '{}');
+                  var el = document.querySelector('.calendly-inline-widget');
+                  if (el && (lead.first_name || lead.email)) {
+                    var u = new URL(el.getAttribute('data-url'));
+                    if (lead.first_name) u.searchParams.set('name', lead.first_name);
+                    if (lead.email) u.searchParams.set('email', lead.email);
+                    el.setAttribute('data-url', u.toString());
+                    // Arrived from the /demo form: use the Figma "qualified" heading.
+                    var t = document.getElementById('bk-h1-t'), s = document.getElementById('bk-sub');
+                    if (t) t.textContent = 'You\u2019re qualified';
+                    if (s) s.textContent = 'Pick a time that works for you.';
+                  }
+                } catch (e) {}
+              })();
+            </script>
+            <script is:inline async src="https://assets.calendly.com/assets/external/widget.js"></script>
+          </>
+        ) : (
+          <div class="bk-card" style="text-align:center;align-items:center">
+            <h2 class="bk-q" style="font-size:28px">Grab a time</h2>
+            <p style="margin:0;color:var(--color-text-secondary)">Our live scheduler is loading here. In the meantime, you can request your walkthrough and we'll confirm a time within one business day.</p>
+            <Button href={SITE.demoPath} mode="dark">Request My Free Demo →</Button>
+          </div>
+        )}
+      </div>
+      <p class="bk-sub" style="margin-top:24px">30-minute walkthrough · We handle all setup · Live in 24 hours</p>
+    </section>
+  </div>
+
+  {/* Fire conversions when a demo is actually booked through Calendly. */}
+  <script is:inline define:vars={{ adsLabel: ANALYTICS.googleAdsLeadLabel }}>
+    (function () {
+      var fired = false;
+      window.addEventListener('message', function (e) {
+        if (e.origin !== 'https://calendly.com') return;
+        if (!e.data || typeof e.data !== 'object') return;
+        if (e.data.event !== 'calendly.event_scheduled') return;
+        if (fired) return;
+        fired = true;
+        try { if (window.fbq) fbq('track', 'Lead'); } catch (err) {}
+        try { if (window.fbq) fbq('track', 'Schedule'); } catch (err) {}
+        try { if (window.gtag) gtag('event', 'generate_lead', { currency: 'USD', value: 0 }); } catch (err) {}
+        try { if (window.gtag && adsLabel) gtag('event', 'conversion', { send_to: adsLabel, value: 1.0, currency: 'USD' }); } catch (err) {}
+        // Notify Command Center + Slack (the call is with Jimmy), using the /demo funnel details if present.
+        try {
+          var lead = {};
+          try { lead = JSON.parse(sessionStorage.getItem('birdie_lead') || '{}'); } catch (e2) {}
+          lead.form_source = 'demo';
+          if (window.__birdieAttrApply) window.__birdieAttrApply(lead);
+          try { var u = e.data.payload && e.data.payload.event && e.data.payload.event.uri; if (u) lead.calendly_event_uri = u; } catch (x) {}
+          fetch('/api/booking', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(lead) });
+        } catch (err) {}
+      });
+    })();
+  </script>
+</BaseLayout>

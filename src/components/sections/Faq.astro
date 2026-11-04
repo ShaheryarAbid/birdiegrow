@@ -1,0 +1,49 @@
+---
+/**
+ * FAQ section — Figma "Feature cards" (heading left, accordion right). Native <details>, works without JS.
+ * Props: heading, items [question, answer][] (answer is plain text unless html=true), open (index opened by default, -1 none), openAll (every panel expanded),
+ * sub/subHtml (small paragraph under the heading), link (text link under the sub), balls (decorative golf-ball art, Home only), round (rounded top corners stacked over the previous section).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import TextLink from '../TextLink.astro';
+import { SHADER_LIGHT } from '../../data/shader';
+export interface Props {
+  heading: string;
+  items: [string, string][];
+  open?: number;
+  openAll?: boolean;
+  balls?: boolean;
+  round?: boolean;
+  html?: boolean;
+  id?: string;
+  sub?: string;
+  subHtml?: string;
+  link?: { label: string; href: string };
+}
+const { heading, items, open = 0, openAll = false, balls = false, round = true, html = false, id, sub, subHtml, link } = Astro.props;
+const A = '/assets/home/';
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class={`hm-sec hm-faqs${round ? ' hm-round' : ''}`} id={id}>
+  {balls && (
+    <div class="fb"><img src={`${A}faq-ball.webp`} alt="" width="1600" height="983" loading="lazy" /></div>
+  )}
+  {(sub || subHtml || link) ? (
+    <div class="hm-faqs__head">
+      <h2 class="hm-h2" set:html={gd(heading)} />
+      {subHtml ? <p class="hm-sub" set:html={subHtml} /> : sub && <p class="hm-sub">{sub}</p>}
+      {link && <TextLink href={link.href} rel="noopener noreferrer">{link.label}</TextLink>}
+    </div>
+  ) : (
+    <h2 class="hm-h2" set:html={gd(heading)} />
+  )}
+  <div class="list">
+    {items.map(([q, a], i) => (
+      <details class="hm-faq" open={openAll || i === open}>
+        <summary><span>{q}</span><img class="ic e" src={`${A}faq-expand.svg`} alt="" /><img class="ic c" src={`${A}faq-collapse.svg`} alt="" /></summary>
+        {html ? <p set:html={a}></p> : <p>{a}</p>}
+      </details>
+    ))}
+  </div>
+</section>

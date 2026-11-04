@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../consts';
+import { INTEGRATIONS } from '../../data/integrations';
+import IntegrationHero from '../../components/sections/IntegrationHero.astro';
+import IntegrationSteps from '../../components/sections/IntegrationSteps.astro';
+import IntegrationCard from '../../components/sections/IntegrationCard.astro';
+import ArticleAccordion from '../../components/sections/ArticleAccordion.astro';
+import SoftwareTable from '../../components/sections/SoftwareTable.astro';
+import TextBlock from '../../components/sections/TextBlock.astro';
+import Faq from '../../components/sections/Faq.astro';
+import Cta from '../../components/sections/Cta.astro';
+
+// This page is excluded from [slug].astro (see DEDICATED there), so it must
+// render the shared FAQ copy and emit FAQPage schema itself. Sourced from
+// integrations.ts so the two stay in sync rather than diverging.
+const faqs = INTEGRATIONS.find((i) => i.slug === 'remotelock')?.faqs ?? [];
+
+// Sibling access-control pages, for the "More integrations" cross-link grid.
+// [slug].astro renders this automatically; this hand-written page has to do it
+// itself, and without it RemoteLock was the only integration page with no
+// outbound links to the other four.
+const others = INTEGRATIONS.filter((i) => i.slug !== 'remotelock');
+
+const title = 'RemoteLock Integration for Golf Simulators | Birdie';
+const description =
+  'Birdie integrates with RemoteLock to give indoor golf simulator customers one-tap door access per booking, with per-booking credentials and auto-revocation.';
+
+// Dashboard login for venue owners (Birdie venue management app).
+const DASHBOARD_URL = 'https://app.birdiegrow.com';
+
+// The 7 required certification-checklist items.
+const techItems: { id: string; title: string; body: string }[] = [
+  {
+    id: 'api-gateway',
+    title: 'API Gateway',
+    body:
+      "All traffic routes through RemoteLock's documented Connect API at connect.remotelock.com/api/v2 via a single shared client wrapper. Every request — token exchange, device discovery, access-person and credential management — passes through that one wrapper. There are no direct-server calls and no deprecated endpoints.",
+  },
+  {
+    id: 'oauth',
+    title: 'OAuth 2.0 Authorization Code Grant',
+    body:
+      'We implement the full authorization-code flow with an HMAC-signed state parameter (nonced, 10-minute expiry) for CSRF protection, and request the explicit minimum-necessary scopes. Token exchange is form-urlencoded per RFC 6749. Refresh tokens auto-rotate when fewer than 30 minutes remain, so a venue connection never lapses mid-session.',
+  },
+  {
+    id: 'device-discovery',
+    title: 'Device Discovery & Mapping',
+    body:
+      "On connect, Birdie fetches the venue's device list — name, type, ID, and online status — and persists it to our canonical door-mapping table. Operators assign each device a friendly name and map it to a specific bay from their Birdie dashboard. A re-sync reconciles added and removed devices and flags orphaned mappings so nothing silently breaks.",
+  },
+  {
+    id: 'access-person',
+    title: 'Access Person Creation & PIN Retrieval',
+    body:
+      'Each customer becomes a RemoteLock access person on their first booking, and that identity is cached against their Birdie customer record for reuse on later visits. Credentials are issued per booking as a PIN or a mobile (BLE) credential, returned to Birdie, and delivered to the customer through their unlock link. There is no shared code and no manual hand-off.',
+  },
+  {
+    id: 'access-assignment',
+    title: 'Access Assignment to Devices',
+    body:
+      "Credentials are scoped at issue time to the specific device backing the customer's booked bay. A customer holding a lesson-bay booking cannot unlock a simulator bay they did not book. Access is granted to exactly the door required — nothing wider.",
+  },
+  {
+    id: 'reservation-changes',
+    title: 'Reservation Change Handling',
+    body:
+      'Cancellations revoke the credential immediately. Reschedules and extensions re-window the credential — revoking and reissuing if the provider dropped the credential in the interim. Membership and plan changes recompute door eligibility. A prebuild CI guard fails our deploy if any new booking-mutation code path skips this revoke/reissue fan-out, so the door state can never drift from the reservation state.',
+  },
+  {
+    id: 'support-docs',
+    title: 'Support Documentation',
+    body:
+      'This page is the public reference. Inside every Birdie venue account there is also an in-product setup guide at Settings → Door Access → RemoteLock that walks an operator through connecting their account, mapping devices, and testing a live unlock.',
+  },
+];
+
+// Honest support matrix for RemoteLock's optional certification items.
+const optional: { feature: string; status: 'Supported' | 'Roadmap' | 'Not offered'; notes: string }[] = [
+  { feature: 'Webhooks for access events', status: 'Roadmap', notes: 'Owner-facing access log is on the roadmap when operators request it.' },
+  { feature: 'Door groups', status: 'Not offered', notes: 'Our multi-door fan-out at the booking level achieves the same outcome.' },
+  { feature: 'readyPIN (offline devices)', status: 'Not offered', notes: 'Our model requires online devices for real-time unlock.' },
+  { feature: 'BLE mobile credentials', status: 'Supported', notes: 'Delivered via the same unlock link — no separate app install required.' },
+  { feature: 'Card numbers', status: 'Not offered', notes: 'Our UX is link-based, not fob-based.' },
+  { feature: 'Retroactive guest backfill', status: 'Not offered', notes: 'We sync forward-only from the integration connect date.' },
+  { feature: 'First-class access schedules', status: 'Not offered', notes: 'Per-booking, time-bounded credentials give equivalent control.' },
+];
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Integrations', item: `${SITE.url}/integrations/` },
+      { '@type': 'ListItem', position: 3, name: 'RemoteLock', item: `${SITE.url}/integrations/remotelock/` },
+    ],
+  },
+  ...(faqs.length
+    ? [{
+        '@context': 'https://schema.org', '@type': 'FAQPage',
+        mainEntity: faqs.map(([q, a]: [string, string]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+      }]
+    : []),
+];
+---
+<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
+  <IntegrationHero
+    variant="detail"
+    eyebrow="Door access · Partner integration"
+    h1="RemoteLock + Birdie: 24/7 Golf Simulator Door Access"
+    lead="Birdie is booking and venue-management software for indoor golf simulator businesses, and RemoteLock is one of five smart-lock providers we integrate for automated door access. A customer books a bay, receives a link, clicks it, and the door unlocks — the same experience across every provider we support. Members and one-time guests both use the identical flow, with no app to install and no code for staff to hand out."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Integrations', href: '/integrations/' }, { label: 'RemoteLock' }]}
+    current="RemoteLock"
+    around={others.slice(0, 2).map((o: any) => o.name)}
+  />
+
+  <IntegrationSteps
+    heading="Customer Experience"
+    sub="Here is exactly what an end customer sees, start to finish:"
+    steps={[
+      "Books a bay on their venue's Birdie site.",
+      'Receives a confirmation with a one-tap unlock link (email, and optionally SMS).',
+      'At their session time, clicks the link — RemoteLock issues a time-bounded PIN or mobile credential.',
+      'Enters the venue.',
+      'Access expires automatically at session end.',
+    ]}
+    note="No app install required. No fob. No schedule to configure."
+  />
+
+  <ArticleAccordion
+    heading="Technical Implementation"
+    intro={["Each of RemoteLock's seven required certification items, with the specific implementation detail."]}
+    items={techItems.map((t, n) => ({ title: `${n + 1}. ${t.title}`, html: `<p>${esc(t.body)}</p>` }))}
+    id="technical"
+  />
+
+  <SoftwareTable
+    heading="Optional Functionality"
+    headers={['Optional Feature', 'Status', 'Notes']}
+    rows={optional.map((o) => [esc(o.feature), `<span class="sx-st ${o.status === 'Supported' ? 'sx-st--ok' : o.status === 'Roadmap' ? 'sx-st--road' : 'sx-st--no'}">${o.status}</span>`, esc(o.notes)])}
+    note="Which optional RemoteLock items we support, and which we intentionally don't."
+  />
+
+  <TextBlock
+    heading="For Venue Owners"
+    tint
+    paras={[`If you run a venue and want to enable RemoteLock at your location, log into your <a href="${DASHBOARD_URL}" rel="noopener">Birdie dashboard</a> and go to <strong>Settings → Door Access</strong>, where you can connect Avigilon Alta, RemoteLock, Kisi, PDK, or UniFi Access. Map each device to a bay and Birdie handles credential issuance, delivery, and expiry on every booking from that point on.`]}
+  />
+
+  {faqs.length > 0 && (
+    <Faq heading="RemoteLock door access — FAQ" items={faqs as [string, string][]} open={0} round={false} />
+  )}
+
+  <section class="hm-sec hm-white hm-stack">
+    <div class="hm-intro"><h2 class="hm-h2">More integrations<i>.</i></h2></div>
+    <div class="sx-hub__grid sx-hub__grid--4" style="width:100%">
+      {others.map((o: any) => (<IntegrationCard name={o.name} text={o.tagline} href={`/integrations/${o.slug}/`} cta={`${o.name} door access`} />))}
+    </div>
+  </section>
+
+  <TextBlock
+    heading="For RemoteLock Partners & Certification Reviewers"
+    paras={[
+      'For certification questions, integration technical questions, or partnership inquiries, email <a href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a>. Birdie is a live production platform with active venues running on Avigilon Alta, PDK, UniFi Access, and Kisi, and we are onboarding our first RemoteLock production venue this month.',
+      '<a href="/integrations/">← All Birdie integrations</a>',
+    ]}
+  />
+
+  <Cta heading="Run your simulator 24/7 on RemoteLock" body="" items={['Free walkthrough', 'We handle setup', 'Live in 24 hours']} label="Book a Demo" />
+</BaseLayout>

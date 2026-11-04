@@ -1,0 +1,50 @@
+---
+/**
+ * Mobile app feature page — /features/mobile-app/ (Figma "Mobile app: feature page", node 558:36707).
+ * NOT LINKED, NOT INDEXED: the mobile app is deliberately absent from src/data/features.ts (not verified as offered), the Figma
+ * store buttons have no real URLs and the Figma prices are not on the site. The page is built so it can go live once confirmed:
+ * remove `noindex`, add the store URLs to `badges`, and drop the sitemap exclusion in astro.config.mjs.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductHero from '../../components/product/ProductHero.astro';
+import SplitPanel from '../../components/product/SplitPanel.astro';
+import MediaCards from '../../components/product/MediaCards.astro';
+import Tiers from '../../components/product/Tiers.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { SITE } from '../../consts';
+
+const title = 'Mobile App for Golf Simulator Venues | Birdie';
+const description = 'The Birdie mobile app puts your venue on every golfer’s phone: book bays, join leagues and manage an account, with the same bays, prices and rules as your booking page.';
+const F = '/assets/features/';
+const tiers: [string, string, string][] = [
+  ['Booking System + Mobile app', 'Everything you need, plus your app. Bay booking calendar, membership plans with hour tracking, add-ons (BYOB, guests, custom items), automated text and email confirmations, reminders and receipts, Stripe, Square, Clover and Helcim (beta) payments, customer database and occupancy tracking.', 'Book a demo for pricing'],
+  ['Booking + Website', 'Your booking system with a conversion-ready site. Added to your current plan: an iOS and Android app for your golfers, with bay booking, leagues and profile in the app, on the same bays, prices and rules as your booking page. No long-term contracts. Live in 24 hours. We handle all setup.', 'Book a demo for pricing'],
+];
+---
+<BaseLayout title={title} description={description} noindex headerVariant="dark" headerOverlay>
+<div class="hm">
+  <ProductHero
+    crumb={['Product', 'Mobile app']}
+    h1="Your venue. In every golfer’s pocket."
+    lead="The Birdie mobile app for iOS and Android. Golfers book bays, join leagues and manage their account — your venue, one tap away."
+    primary={{ label: 'Book a demo', href: SITE.demoPath }}
+    bg={{ src: `${F}app-bg.webp`, left: 493, top: 0, width: 947 }}
+    layers={[{ src: `${F}app-phone-a.webp`, left: 628, top: 0, width: 499 }, { src: `${F}app-phone-b.webp`, left: 606, top: 162, width: 837, z: 3 }]}
+    badges={[{ small: 'Download on the', label: 'App Store' }, { small: 'GET IT ON', label: 'Google Play' }]}
+    mobileX={-276}
+  />
+
+  <SplitPanel
+    heading="What golfers see."
+    body="The same bays, prices and rules you set in Birdie — in an app on your customers’ phones. Three things they do most."
+    items={['Book a bay', 'Join a league', 'Profile']}
+    img={`${F}app-screens.webp`}
+    imgAlt="Book a bay, add extras and contact details screens in the Birdie app"
+    bg={`${F}door-panel-bg.webp`}
+  />
+
+  <Tiers heading="Add the app to your plan." sub="Two ways to get it. Add the app to the Booking System you already run, or start on the plan that includes it." cols={2} tiers={tiers} cta={{ label: 'Book a demo', href: SITE.demoPath }} />
+
+  <Cta heading="Put your venue on their home screen." body="Free walkthrough. No commitment. We handle all setup." items={[]} />
+</div>
+</BaseLayout>

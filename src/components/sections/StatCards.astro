@@ -1,0 +1,40 @@
+---
+/**
+ * Expanding stat cards — Figma "Product preview" 327:23942 ("How the two actually compare"). One card open at a time (first by default);
+ * all text stays in the DOM. Stacks vertically on mobile. Props: heading, items [title, text][].
+ */
+import '../../styles/sections.css';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props { heading: string; items: [string, string][]; id?: string; note?: string; }
+const { heading, items, id = 'acc', note } = Astro.props;
+const icons = ['icon-bill', 'icon-door', 'icon-trophy'];
+---
+<section class="hm-sec hm-white hm-stack">
+  <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2></div>
+  <div class="sx-acc" data-acc>
+    {items.map(([t, d], i) => (
+      <article class={`sx-acc__card${i === 0 ? ' is-open' : ''}`}>
+        <div class="sx-acc__art"><img class="leak" src="/assets/sections/leak-content.webp" alt="" loading="lazy" /><img class="ell" src="/assets/sections/bg-ellipse.svg" alt="" loading="lazy" /><div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div><div class="hm-noise"></div></div>
+        <button class="sx-tile" type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`${id}-${i}`} aria-label={t}>
+          <img class="leak" src="/assets/sections/leak-content.webp" alt="" loading="lazy" />
+          <span class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><span class="px" style="display:block"></span></span>
+          <span class="hm-noise" style="background:#fdfffe"></span>
+          <img class="glyph" src={`/assets/sections/${icons[i % icons.length]}.svg`} alt="" />
+        </button>
+        <div class="sx-acc__body" id={`${id}-${i}`}><h3>{t}</h3><p>{d}</p></div>
+      </article>
+    ))}
+  </div>
+  {note && <p class="hm-sub">{note}</p>}
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-acc]').forEach((root) => {
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('.sx-acc__card'));
+    const open = (c: HTMLElement) => cards.forEach((x) => {
+      const on = x === c;
+      x.classList.toggle('is-open', on);
+      x.querySelector('.sx-tile')?.setAttribute('aria-expanded', String(on));
+    });
+    cards.forEach((c) => c.addEventListener('click', () => open(c)));
+  });
+</script>

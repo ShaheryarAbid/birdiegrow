@@ -1,0 +1,19 @@
+---
+/**
+ * Integration card — Figma "Integration card" (logo + name, description, divider + link OR status tag).
+ * Props: name, text, href (linked card: shows "See how it works →"), status (label for non-linked cards), tone ('soft' | 'ok' | 'beta'), cta (link label).
+ */
+import '../../styles/sections.css';
+import IntegrationLogo from './IntegrationLogo.astro';
+export interface Props { name: string; text: string; href?: string; status?: string; tone?: 'soft' | 'ok' | 'beta'; cta?: string; }
+const { name, text, href, status, tone = 'soft', cta = 'See how it works' } = Astro.props;
+---
+<article class="sx-icard">
+  <div class="sx-icard__h"><IntegrationLogo name={name} /><h3>{name}</h3></div>
+  <p>{text}</p>
+  {href ? (
+    <a class="sx-icard__go" href={href}>{cta}<img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></a>
+  ) : (
+    status && <span class={`sx-tag sx-tag--${tone}`}>{status}</span>
+  )}
+</article>

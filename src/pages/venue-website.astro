@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import WebsiteHeroArt from '../components/product/WebsiteHeroArt.astro';
+import PricingCards from '../components/product/PricingCards.astro';
+import ComparisonTable from '../components/sections/ComparisonTable.astro';
+import Glance from '../components/sections/Glance.astro';
+import Faq from '../components/sections/Faq.astro';
+import Cta from '../components/sections/Cta.astro';
+import Button from '../components/Button.astro';
+import { PRICING, softwareApplicationSchema } from '../data/product';
+import { SITE } from '../consts';
+import '../styles/home.css';
+import '../styles/website.css';
+
+const title = 'Websites for Golf Simulator Venues | Birdie';
+const description = 'A professionally designed venue website with Birdie booking built in. One link from Google to a booked bay, without a third-party booking page in between.';
+const A = '/assets/figma-2026/website-intro-context-';
+const benefits = [
+  ['ProfessionallyDesignedWebsite', 'Professionally designed website'],
+  ['MobileOptimized', 'Mobile-optimized & fast'],
+  ['SeoOptimizedStructure', 'SEO-optimized structure'],
+  ['GoogleBusinessProfile', 'Google Business Profile integration'],
+];
+const flow = [
+  ['Found on Google', 'Your profile links to your own site.'],
+  ['Your venue website', 'Bays, memberships, leagues and events.'],
+  ['Pick a Bay & Time', 'Booking runs inside the site, no redirect.'],
+  ['Booked', 'Confirmation and receipt by text.'],
+];
+const steps = [
+  ['Book a free walkthrough', 'See the platform live. No commitment.', 'calendar'],
+  ['We design your site', 'Pages, photos, bays and pricing built around your Birdie booking.', 'sliders'],
+  ['Google points to it', 'Your Google Business Profile links straight to your site and booking.', 'phone'],
+  ['Golfers book in one link', 'From search to a booked bay without leaving your site.', 'grid'],
+];
+const rows: [string, string, string][] = [
+  ['Professionally designed website', 'Yes', 'No'],
+  ['Booking inside your site, no redirect', 'Yes', 'No'],
+  ['Google Business Profile integration', 'Yes', 'Varies'],
+  ['SEO-optimized structure', 'Yes', 'Limited'],
+  ['Mobile-optimized & fast', 'Yes', 'Varies'],
+  ['Bay-based scheduling', 'Yes', 'No'],
+  ['Simulator memberships with hour banks', 'Yes', 'No'],
+  ['Conversion-focused layout', 'Yes', 'No'],
+];
+const faqs: [string, string][] = [
+  ['How much does Birdie cost?', 'The Booking System plan starts from $197 per month. Booking + Website and Full Platform are quoted per venue because they include design and management work.'],
+  ['Is there a setup or onboarding fee?', 'Yes. A one-time onboarding fee covers done-for-you setup and is quoted during your free walkthrough. Website design is scoped for your venue.'],
+  ['Is there a long-term contract?', 'No. Birdie is month-to-month with no long-term contract.'],
+  ['Is there a free trial?', 'Start with a free live walkthrough of the platform on your own bays and pricing. There is no commitment.'],
+  ['What simulator hardware does Birdie work with?', 'Birdie is hardware-agnostic. It is the booking and revenue layer above your simulator software, and does not replace your game engine.'],
+];
+---
+<BaseLayout title={title} description={description} headerVariant="dark" headerOverlay schema={[softwareApplicationSchema({ url: `${SITE.url}/venue-website/`, description })]}>
+  <div class="hm ws">
+    <ProductHero h1={'Your site.\nYour bookings.\nOne link.'} lead="Booking + Website is your Birdie booking system with a professionally designed site for your venue around it. One link from Google to a booked bay, with no third-party booking page in between." primary={{ label: 'Book a demo', href: SITE.demoPath }} shadow={false} mobileScale={0.6} mobileX={-470} mobileY={20}>
+      <WebsiteHeroArt />
+    </ProductHero>
+
+    <section class="hm-sec hm-white hm-round ws-intro" style="--prev:#000b00">
+      <div class="ws-intro__copy">
+        <h2 class="hm-h2">The short answer<i>.</i></h2>
+        <p class="hm-sub">Booking + Website is a professionally designed website for golf simulator venues with the Birdie booking system built in. Golfers find you on Google, land on your own site and book a bay in the same place — no third-party booking page in between. It is quoted per venue because it includes design work.</p>
+        <ul>{benefits.map(([icon, label]) => <li><span><img src={`${A}imgIcons16X16PxFeatures${icon}.svg`} alt="" width="18" height="18" /></span>{label}</li>)}</ul>
+      </div>
+      <div class="ws-journey">
+        <img class="ws-journey__bg" src={`${A}imgImage97.png`} alt="" loading="lazy" />
+        <ol>{flow.map(([heading, text], i) => <li><span class="ws-journey__icon"><img src={`/assets/home/setup-icon-${steps[i][2]}.svg`} alt="" width="24" height="24" /></span><div><h3>{heading}</h3><p>{text}</p></div></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="hm-sec hm-white hm-stack">
+      <div class="hm-intro"><h2 class="hm-h2">From walkthrough to a live site<i>.</i> Zero technical overhead<i>.</i></h2><p class="hm-sub">Birdie handles the build and the setup, so you can keep running your venue.<br />No developers, no plugins to maintain.</p></div>
+      <div class="hm-setup ws-setup">
+        <div class="hm-setup__line"></div>
+        {steps.map(([heading, text, icon], index) => <div class={`hm-setup__row${index === 0 ? ' feat' : ''}`}>
+          <div class="hm-setup__side a">{index % 2 === 0 ? <div class={`hm-setup__tile${index === 0 ? ' k' : ''}`}><img class="ic" src={`/assets/home/setup-icon-${icon}.svg`} alt="" width="32" height="32" /></div> : <div class="hm-setup__txt"><h3>{heading}</h3><p>{text}</p></div>}</div>
+          <div class="hm-setup__mark">{index === 0 ? <img src="/assets/home/setup-ball.webp" alt="" width="40" height="40" /> : String(index + 1).padStart(2, '0')}</div>
+          <div class="hm-setup__side b">{index % 2 === 0 ? <div class="hm-setup__txt"><h3>{heading}</h3><p>{text}</p></div> : <div class="hm-setup__tile"><img class="ic" src={`/assets/home/setup-icon-${icon}.svg`} alt="" width="32" height="32" /></div>}</div>
+        </div>)}
+      </div>
+    </section>
+
+    <ComparisonTable heading="Your own site. Not someone else’s booking page." sub="A third-party booking page sends golfers off your site at the moment they decide to book. Booking + Website keeps the whole visit — and the customer — on yours." colLabel="Third-party booking page" rows={rows} cta={{ label: 'All comparisons', href: '/compare/' }} />
+
+    <section class="hm-sec hm-white ws-price-head"><div class="hm-intro"><h2 class="hm-h2">Start with Bookings<i>.</i> Scale When Ready<i>.</i></h2><p class="hm-sub">Start with the booking system, add website and ads when you’re ready to grow.</p><Button href={SITE.demoPath}>Book a demo</Button></div></section>
+    <PricingCards tiers={PRICING} highlight={1} highlightBadge="This add-on" notes={['No long-term contracts', 'Live in 24 hours', 'We handle all setup']} />
+    <Glance />
+    <Faq heading="Questions owners ask about booking." items={faqs} open={0} balls round={false} />
+    <Cta heading="See it priced against your own bays." body="" items={[]} secondary={{ label: 'See how it works', href: '/#how-it-works' }} />
+  </div>
+</BaseLayout>

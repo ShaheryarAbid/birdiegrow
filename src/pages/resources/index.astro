@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import DarkHero from '../../components/sections/DarkHero.astro';
+import GuideLibrary from '../../components/sections/GuideLibrary.astro';
+const posts = (await getCollection('resources')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const title = 'Resources & Guides for Golf Simulator Operators | Birdie';
+const description = 'Operator-focused guides on pricing, memberships, weekday utilization, and the numbers behind a profitable indoor golf simulator business.';
+
+// Topic grouping from the Figma Resources frame (Features / Option 6). Slugs not listed here fall into the last group so no guide is ever dropped.
+const TOPICS: { id: string; label: string; slugs: string[] }[] = [
+  { id: 'start-a-business', label: 'Start a business', slugs: ['how-to-start-a-golf-simulator-business', 'mobile-golf-simulator-business', 'portable-golf-simulator-business', 'golf-simulator-business-franchise', 'buying-a-golf-simulator-business', 'golf-simulator-business-for-sale', 'golf-simulator-business-name'] },
+  { id: 'plan-finance-risk', label: 'Plan, finance & risk', slugs: ['golf-simulator-business-plan-template', 'how-much-does-it-cost-to-open-a-golf-simulator-business', 'golf-simulator-financing', 'golf-simulator-business-insurance', 'golf-simulator-waivers', 'is-a-golf-simulator-business-profitable'] },
+  { id: 'setup-software', label: 'Setup & software', slugs: ['golf-simulator-room-requirements', 'how-many-golf-simulator-bays', 'best-golf-simulator-for-business', 'do-you-need-software-golf-simulator-business', 'golf-booking-software'] },
+  { id: 'revenue-growth', label: 'Revenue & growth', slugs: ['golf-simulator-business-revenue-streams', 'golf-simulator-business-revenue', 'golf-simulator-membership-program', 'golf-simulator-utilization-rate', 'how-to-fill-weekday-bays-golf-simulator', 'how-to-get-customers-golf-simulator-business', '24-7-golf-simulator-business'] },
+];
+const bySlug = new Map(posts.map((p) => [p.slug, p]));
+const listed = new Set(TOPICS.flatMap((t) => t.slugs));
+const groups = TOPICS.map((t) => ({
+  id: t.id,
+  label: t.label,
+  items: t.slugs.map((s) => bySlug.get(s)).filter((p): p is NonNullable<typeof p> => !!p).map((p) => ({ title: p.data.title, desc: p.data.description, href: `/resources/${p.slug}/` })),
+}));
+const extra = posts.filter((p) => !listed.has(p.slug));
+groups[groups.length - 1].items.push(...extra.map((p) => ({ title: p.data.title, desc: p.data.description, href: `/resources/${p.slug}/` })));
+---
+<BaseLayout title={title} description={description} headerVariant="dark" headerOverlay>
+  <div class="hm">
+    <DarkHero
+      h1="Learn how operators run profitable simulator venues"
+      lead={description}
+      noteHtml={'New to the category? Begin with our guide to <a href="/resources/how-to-start-a-golf-simulator-business/">starting a golf simulator business</a>, then build your <a href="/resources/golf-simulator-business-plan-template/">indoor golf business plan</a> and line up <a href="/resources/golf-simulator-business-insurance/">golf simulator business insurance</a>.'}
+      primary={{ label: 'Start here: the complete guide', href: '/resources/golf-simulator-business-guide/' }}
+      secondary={{ label: 'Free calculators', href: '/resources/calculators/' }}
+      bg="/assets/resources/hero.webp"
+      cards={[
+        { kicker: 'Start-to-finish guide', title: 'How to Start a Golf Simulator Business', text: 'The full operator playbook — costs, location, bay count, and the systems that separate thriving venues from the ones that struggle.', href: '/resources/how-to-start-a-golf-simulator-business/' },
+        { kicker: 'Free tools', title: 'Golf simulator business calculators', text: 'Estimate startup cost, break-even utilization, membership pricing, and monthly revenue.', href: '/resources/calculators/' },
+        { kicker: 'Free template', title: 'Golf simulator business plan template', text: 'A lender-ready plan that models revenue, startup costs, and break-even for an indoor golf simulator business.', href: '/resources/golf-simulator-business-plan-template/' },
+      ]}
+    />
+    <GuideLibrary groups={groups} />
+  </div>
+</BaseLayout>

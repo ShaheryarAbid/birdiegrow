@@ -1,0 +1,128 @@
+/* Redesign shared components (prefix bd-). Kept separate from legacy .btn/.card/.pill
+   so un-migrated pages are untouched. Figma refs in comments. */
+
+/* Button — UI Kit "Buttons" 585:45924 (Actions/Button 395:15546) */
+.bd-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 24px; border-radius: var(--radius-btn); border: 1px solid transparent; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; white-space: nowrap; cursor: pointer; box-shadow: var(--shadow-btn); transition: background .18s ease, border-color .18s ease, color .18s ease; text-decoration: none; }
+.bd-btn img, .bd-btn svg { width: 16px; height: 16px; flex: none; }
+.bd-btn:focus-visible { outline: 2px solid var(--green-600); outline-offset: 2px; }
+.bd-btn--dark { background: var(--color-btn-dark); color: var(--color-text-inverse); }
+.bd-btn--dark:hover { background: var(--color-btn-dark-hover); }
+.bd-btn--light { background: var(--color-btn-light); color: var(--color-text); }
+.bd-btn--light:hover { background: var(--color-btn-light-hover); }
+.bd-btn--secondary-dark { background: var(--color-btn-secondary); color: var(--color-text-inverse); box-shadow: var(--shadow-btn-soft); }
+.bd-btn--secondary-dark:hover { background: var(--color-btn-secondary-hover); }
+.bd-btn--secondary-light { background: transparent; color: var(--color-text); border-color: var(--color-border-light); box-shadow: none; }
+.bd-btn--secondary-light:hover { background: var(--color-btn-light-hover); }
+.bd-btn[aria-disabled="true"], .bd-btn:disabled { pointer-events: none; }
+.bd-btn--dark[aria-disabled="true"], .bd-btn--dark:disabled { background: var(--color-btn-dark-disabled); }
+.bd-btn--light[aria-disabled="true"], .bd-btn--light:disabled { background: var(--color-btn-light-disabled); color: var(--color-text-disabled); }
+.bd-btn--icon { width: 48px; height: 48px; padding: 0; }
+.bd-btn--icon img { width: 24px; height: 24px; }
+
+/* Text link — "Text-Link" 585:46144 */
+.bd-link { display: inline-flex; align-items: center; gap: 8px; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-link); text-decoration: none; }
+.bd-link:hover { color: var(--color-link-hover); }
+.bd-link:focus-visible { outline: 1px solid var(--green-600); }
+.bd-link[aria-disabled="true"] { color: var(--color-link-disabled); pointer-events: none; }
+.bd-link img { width: 16px; height: 16px; }
+
+/* Tags & labels — "Tags & Labels" 585:48806 */
+.bd-tag { display: inline-flex; padding: 12px 20px; border-radius: var(--radius-pill); font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; background: var(--gray-100); color: var(--color-text-secondary); border: 0; cursor: pointer; }
+.bd-tag.is-selected, .bd-tag[aria-pressed="true"] { background: var(--color-btn-dark); color: var(--color-text-inverse); }
+.bd-badge { display: inline-flex; padding: 6px 14px; border-radius: 20px; background: #22c55e14; color: var(--color-text-accent); font: 400 14px/1.24 var(--font-ui); letter-spacing: -0.03em; box-shadow: 0 8px 8px #00000008, 0 4px 4px #00000008; }
+.bd-status { display: inline-flex; align-items: center; padding: 6px 8px; border-radius: 14px; border: .5px solid #0000001f; background: #2b2b2b0a; color: var(--color-text-secondary); font: 500 12px/1.2 var(--font-ui); letter-spacing: -0.03em; }
+.bd-status > span { opacity: .75; }
+.bd-status--available { background: #73d68d29; border-color: #73d68d33; color: var(--color-text-accent); }
+.bd-status--beta { background: #7392d629; border-color: #7392d633; color: #3b64be; }
+
+/* FAQ / accordion item — "Accordion-Item" 585:48778 */
+.bd-faq { background: #fdfffe; border-radius: var(--radius-pill); padding: 16px; transition: border-radius .15s ease; }
+.bd-faq[open] { border-radius: 16px; }
+.bd-faq > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; list-style: none; cursor: pointer; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+.bd-faq > summary::-webkit-details-marker { display: none; }
+.bd-faq .bd-faq__chev { flex: none; width: 24px; height: 24px; border-radius: 99px; background: #e9ebeb; display: grid; place-items: center; }
+.bd-faq .bd-faq__chev img { width: 10px; height: 10px; transition: transform .15s ease; }
+.bd-faq[open] .bd-faq__chev img { transform: rotate(180deg); }
+.bd-faq__body { margin-top: 8px; font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); }
+
+/* Header — "Navigation/Header" (Desktop/Mobile × Dark/Light), kit node 585:50409 */
+.bd-header { position: sticky; top: 0; z-index: 30; font-family: var(--font-ui); }
+.bd-header--dark { background: rgba(0, 4, 7, .78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.bd-header--light { background: rgba(253, 255, 254, .92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.bd-header--overlay { position: absolute; left: 0; right: 0; background: linear-gradient(180deg, rgba(0, 4, 7, .92) 0%, rgba(0, 4, 7, .55) 55%, rgba(0, 4, 7, 0) 100%); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.bd-header__bar { display: flex; align-items: center; justify-content: space-between; padding: 5px 80px 20px; min-height: 88px; }
+.bd-header__brand { display: flex; align-items: center; gap: 64px; }
+.bd-header__logo img { display: block; width: 90.667px; height: 24px; }
+.bd-header__nav { display: flex; align-items: center; gap: 32px; }
+.bd-header__nav a { font: 400 16px/1.24 var(--font-ui); letter-spacing: -0.03em; white-space: nowrap; text-decoration: none; }
+.bd-header--dark .bd-header__nav a { color: var(--color-btn-light); }
+.bd-header--light .bd-header__nav a { color: var(--color-link); }
+.bd-header__nav a:hover { opacity: .75; }
+.bd-header__actions { display: flex; align-items: center; gap: 12px; }
+.bd-header__menu { display: none; }
+.bd-header__panel { display: none; }
+.bd-header--dark.is-menu-open { background: #000407; }
+.bd-header--light.is-menu-open { background: #fdfffe; }
+@media (max-width: 899px) {
+  .bd-header__bar { padding: 16px; min-height: 80px; }
+  .bd-header__nav, .bd-header__account { display: none; }
+  .bd-header__actions { gap: 8px; }
+  .bd-header__menu { display: inline-flex; }
+  .bd-header__panel { display: none; padding: 8px 16px 24px; flex-direction: column; gap: 4px; }
+  .bd-header__panel.is-open { display: flex; }
+  .bd-header__panel a { padding: 14px 4px; font: 400 18px/1.24 var(--font-ui); letter-spacing: -0.03em; text-decoration: none; border-top: 1px solid #ffffff1a; }
+  .bd-header--light .bd-header__panel a { border-top-color: var(--color-border-light); color: var(--color-link); }
+  .bd-header--dark .bd-header__panel a { color: var(--color-btn-light); }
+}
+
+/* Footer — "Navigation & Footer" 585:50409 (Desktop 479:147 / Mobile 497:32) */
+.bd-footer { background: var(--color-accent-on); color: var(--color-text-inverse-secondary); padding: 80px 80px 32px; font-family: var(--font-ui); }
+.bd-footer__top { display: flex; padding-bottom: 0; min-height: 431px; }
+.bd-footer__cols { display: flex; flex: 1; gap: 39px; }
+.bd-footer__brand { width: 316px; display: flex; flex-direction: column; gap: 22px; }
+.bd-footer__brand img { width: 120.889px; height: 32px; }
+.bd-footer__brand p { margin: 0; font: 400 14px/1.3 var(--font-ui); letter-spacing: -0.03em; max-width: 24ch; }
+.bd-footer__group { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.bd-footer__group h2 { margin: 0; font: 400 14px/1.3 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-inverse); text-transform: uppercase; }
+.bd-footer__links { display: flex; flex-direction: column; gap: 14px; }
+.bd-footer__links a { font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-inverse-secondary); text-decoration: none; max-width: 202px; }
+.bd-footer__links a:hover { color: var(--color-text-inverse); }
+.bd-footer__more { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 0 0 28px; }
+.bd-footer__more a { font: 400 14px/1.3 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-inverse-secondary); text-decoration: none; }
+.bd-footer__more a:hover { color: var(--color-text-inverse); }
+.bd-footer__rule { height: 1px; background: #ffffff1f; margin: 0; border: 0; }
+.bd-footer__legal { display: flex; justify-content: space-between; align-items: center; padding-top: 26px; font: 400 14px/1.3 var(--font-ui); letter-spacing: -0.03em; }
+.bd-footer__legal p { margin: 0; }
+@media (max-width: 899px) {
+  .bd-footer { padding: 48px 16px 32px; }
+  .bd-footer__top { min-height: 0; padding-bottom: 40px; }
+  .bd-footer__cols { flex-direction: column; gap: 40px; }
+  .bd-footer__brand { width: 100%; }
+  .bd-footer__groups { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+  .bd-footer__groups .bd-footer__group { flex: none; }
+  .bd-footer__links a { max-width: none; }
+  .bd-footer__legal { flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 24px; }
+  .bd-footer__copy { order: -1; }
+}
+@media (min-width: 900px) { .bd-footer__groups { display: contents; } }
+
+/* Legacy global.css centers every <article> at 760px; redesigned sections size their own articles. */
+article { max-width: none; margin-left: 0; margin-right: 0; }
+
+/* Every page is on the light redesign canvas now; the legacy dark body background showed through translucent headers. */
+body { background: var(--color-bg); color: var(--color-text); }
+
+/* Shared interaction foundations, including pages that do not import section CSS. */
+[hidden] { display: none !important; }
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--green-700);
+  outline-offset: 4px;
+}
+#main-content:focus { outline: none; }
+.bd-skip { position: fixed; left: 16px; top: 12px; z-index: 100; transform: translateY(-180%); padding: 12px 20px; border-radius: 12px; background: #fff; color: #000407; font: 500 16px/1.3 var(--font-ui); }
+.bd-skip:focus { transform: none; }
+.bd-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,37 @@
+---
+/**
+ * Page hero — Figma "Features / Option 3". `align="split"`: copy left + visual (slot) right; `align="center"`: centered copy (hubs).
+ * Props: h1 (a green "." is appended unless it already ends in punctuation), lead, primary/secondary {label, href},
+ * leadHtml (HTML string used instead of lead), eyebrow (optional small label above the H1). Default slot = visual (split) or extra content under the buttons (center).
+ */
+import '../../styles/sections.css';
+import Button from '../Button.astro';
+export interface Props {
+  h1: string;
+  lead?: string;
+  leadHtml?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  eyebrow?: string;
+  align?: 'split' | 'center';
+}
+const { h1, lead, leadHtml, primary, secondary, eyebrow, align = 'split' } = Astro.props;
+const endsPunct = /[.?!]$/.test(h1.trim());
+const hasSlot = Astro.slots.has('default');
+---
+<section class={`hm sx-hero${align === 'center' ? ' sx-hero--center' : ''}`}>
+  <div class="sx-hero__txt">
+    <div class="sx-hero__copy">
+      {eyebrow && <p class="sx-hero__eyebrow">{eyebrow}</p>}
+      <h1>{h1.split('\n').map((l, i, a) => <>{l}{i < a.length - 1 && <>{" "}<br /></>}</>)}{!endsPunct && <i>.</i>}</h1>
+      {leadHtml ? <p class="sx-hero__lead" set:html={leadHtml} /> : lead && <p class="sx-hero__lead">{lead}</p>}
+    </div>
+    {(primary || secondary) && (
+      <div class="hm-btns">
+        {primary && <Button href={primary.href} mode="dark">{primary.label}</Button>}
+        {secondary && <Button href={secondary.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">{secondary.label} <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>}
+      </div>
+    )}
+  </div>
+  {hasSlot && <div class="sx-hero__vis"><slot /></div>}
+</section>

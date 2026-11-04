@@ -1,0 +1,22 @@
+---
+/**
+ * Funnel top bar — Figma "Navigation" on the Booking System / Calendly frames (logo left, "Golf Sims Only" tag right) and on /demo
+ * (logo left, account + "Book a demo" right). variant "tag" | "actions". The logo links home.
+ */
+import '../../styles/booking.css';
+import Button from '../Button.astro';
+import { SITE } from '../../consts';
+export interface Props { variant?: 'tag' | 'actions'; }
+const { variant = 'tag' } = Astro.props;
+---
+<header class="bk-bar">
+  <a class="bk-bar__logo" href="/" aria-label="Birdie home"><img src="/assets/ui/logo-header-dark.svg" alt="Birdie" width="91" height="24" /></a>
+  {variant === 'tag' ? (
+    <span class="bk-tag"><img src="/assets/booking/golf-ball.svg" alt="" width="12" height="12" />Golf Sims Only</span>
+  ) : (
+    <div class="bk-bar__act">
+      <Button class="bk-bar__acct" icon hierarchy="secondary" mode="dark" href={SITE.appUrl} rel="noopener nofollow" aria-label="Client login"><img src="/assets/ui/icon-account-dark.svg" alt="" width="24" height="24" /></Button>
+      <Button mode="light" href={SITE.demoPath}>Book a demo</Button>
+    </div>
+  )}
+</header>

@@ -1,0 +1,29 @@
+---
+/**
+ * Heading + a row of cards (image or icon, title, text) — Figma "Integration cards" / "Feature cards".
+ * Props: heading, sub, cards [{title, text, img?, alt?, icon?, href?}], cols (2|3|4), id. A card with href renders as a link.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/product.css';
+import Icon from '../Icon.astro';
+export interface Card { title: string; text?: string; img?: string; alt?: string; icon?: string; href?: string; }
+export interface Props { heading: string; sub?: string; cards: Card[]; cols?: 2 | 3 | 4 | 5; id?: string; }
+const { heading, sub, cards, cols = 4, id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:640px">{sub}</p>}</div>
+  <div class={`pf-mc${cols === 3 ? ' pf-mc--3' : cols === 2 ? ' pf-mc--2' : cols === 5 ? ' pf-mc--5' : ''}`}>
+    {cards.map((c) => {
+      const Tag = c.href ? 'a' : 'div';
+      return (
+        <Tag class={`pf-mc__card${c.href ? ' pf-mc__card--link' : ''}`} href={c.href}>
+          {c.img && <div class="pf-mc__img"><img src={c.img} alt={c.alt ?? ''} loading="lazy" /></div>}
+          {!c.img && c.icon && <span class="pf-mc__ic"><Icon name={c.icon} size={20} /></span>}
+          <div class="pf-mc__body"><h3>{c.title}</h3>{c.text && <p>{c.text}</p>}</div>
+        </Tag>
+      );
+    })}
+  </div>
+</section>

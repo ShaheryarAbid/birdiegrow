@@ -1,0 +1,86 @@
+---
+/**
+ * Calculator page shell — Figma calculator pages (Startup Cost 272:24946, Revenue 272:26027, Break-Even 272:26304, Membership 272:27226).
+ * Header (H1 left, intro right) + a two-panel card (light inputs panel / dark results panel with shader) + optional dark explainer band.
+ * The calculator markup and its inline script live in the page; this component only provides layout and the +/- stepper wiring.
+ * Props: h1, lead, crumb (label of the last breadcrumb item; omit to hide the breadcrumb), panelTitle (inputs card heading), resultsTitle (dark card heading),
+ *        ctaLabel/ctaHref (button at the bottom of the results card), explainer {heading, paras (HTML strings)}.
+ * Slots: "inputs" (Stepper / RadioCards rows) and "results" (cc-* classes: .cc-big, .cc-sub, .cc-rows, .cc-row ...).
+ */
+import '../../styles/sections.css';
+import '../../styles/calc.css';
+import Button from '../Button.astro';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props {
+  h1: string; lead: string; crumb?: string; panelTitle: string; resultsTitle: string;
+  ctaLabel?: string; ctaHref?: string;
+  explainer?: { heading: string; paras: string[] };
+}
+const { h1, lead, crumb, panelTitle, resultsTitle, ctaLabel = 'Book a demo', ctaHref = '/demo/', explainer } = Astro.props;
+const endsPunct = /[.?!]$/.test(h1.trim());
+---
+<div class="hm cc">
+  <section class="cc-head">
+    {crumb && <p class="cc-crumb"><a href="/">Home</a> · <a href="/resources/">Resources</a> · {crumb}</p>}
+    <div class="cc-head__row">
+      <h1>{h1}{!endsPunct && <i>.</i>}</h1>
+      <p class="cc-lead">{lead}</p>
+    </div>
+  </section>
+  <section class="cc-sec">
+    <div class="cc-card">
+      <div class="cc-in">
+        <h2>{panelTitle}</h2>
+        <div class="cc-rowlist"><slot name="inputs" /></div>
+      </div>
+      <div class="cc-out">
+        <div class="cc-out__bg" aria-hidden="true">
+          <img src="/assets/home/compat-bg.webp" alt="" loading="lazy" />
+          <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+          <div class="hm-noise" style="background:#fdfffe"></div>
+        </div>
+        <div class="cc-out__c">
+          <h2>{resultsTitle}</h2>
+          <div class="cc-out__body"><slot name="results" /></div>
+          <Button href={ctaHref} mode="light" class="cc-out__cta">{ctaLabel}</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+  {explainer && (
+    <section class="cc-sec cc-sec--last">
+      <div class="cc-explain">
+        <div class="cc-explain__bg" aria-hidden="true">
+          <img src="/assets/home/cta-image.webp" alt="" loading="lazy" />
+          <div class="fade"></div>
+          <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+        </div>
+        <div class="cc-explain__h">
+          <h2>{explainer.heading}</h2>
+          <Button href="/demo/" mode="light">Book a demo</Button>
+        </div>
+        <div class="cc-explain__t">{explainer.paras.map((p) => <p set:html={p} />)}</div>
+      </div>
+    </section>
+  )}
+</div>
+<script>
+  // +/- steppers: nudge the real <input type="number"> and fire "input" so each calculator's own script recalculates.
+  document.querySelectorAll<HTMLElement>('[data-cc-step]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target!) as HTMLInputElement | null;
+      if (!input) return;
+      if (btn.dataset.ccStep === '+') input.stepUp(); else input.stepDown();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+  // Radio cards mirror a real <select>: choosing a card sets the select value and fires "input".
+  document.querySelectorAll<HTMLInputElement>('[data-cc-radio]').forEach((r) => {
+    r.addEventListener('change', () => {
+      const sel = document.getElementById(r.dataset.target!) as HTMLSelectElement | null;
+      if (!sel || !r.checked) return;
+      sel.value = r.value;
+      sel.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+</script>

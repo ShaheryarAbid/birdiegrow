@@ -1,0 +1,69 @@
+---
+/**
+ * Product page hero — Figma "Birdie Hero Concept 1/2/3" (791px) and the centered Memberships / Leagues variant (823px).
+ * A dark stage (1440x791 design coordinates) holds a background photo plus absolutely positioned phone/screen layers,
+ * with the soft shader (mandatory where Figma has ShaderEffect) and noise on top. On mobile the stage is scaled down.
+ * Props: h1 (green "." appended unless it ends in punctuation), lead, crumb (["Product", "Leagues & events"]),
+ * primary/secondary {label, href}, center (centered copy), tall (823px), bg {src,left,top,width}, layers [{src,left,top,width}],
+ * badges [{label, small, href}] (store buttons) + badgeNote, stats [value, label][] (small stat row under the buttons), stats = [], mobileX / mobileScale (stage offset/scale under 900px).
+ * Default slot: extra stage content (rendered inside the stage, e.g. a calendar widget).
+ */
+import '../../styles/sections.css';
+import '../../styles/product.css';
+import Button from '../Button.astro';
+import { SHADER_DARK } from '../../data/shader';
+export interface Layer { src: string; left: number; top: number; width: number; z?: number; }
+export interface Props {
+  h1: string;
+  lead?: string;
+  crumb?: string[];
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  center?: boolean;
+  tall?: boolean;
+  bg?: Layer;
+  layers?: Layer[];
+  badges?: { label: string; small: string; href?: string }[];
+  badgeNote?: string;
+  stats?: [string, string][];
+  mobileX?: number;
+  mobileScale?: number;
+  mobileY?: number;
+  wide?: boolean;
+  shadow?: boolean;
+  extraClass?: string;
+}
+const { h1, lead, crumb, primary, secondary, center = false, tall = false, bg, layers = [], badges = [], badgeNote, stats = [], mobileX, mobileScale, mobileY, wide = false, shadow = true, extraClass = '' } = Astro.props;
+const endsPunct = /[.?!]$/.test(h1.trim());
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const h1html = esc(h1).replace(/\s*\n\s*/g, ' <br class="d-br">').replace(/\.(\s|$)/g, '<i>.</i>$1') + (!endsPunct ? '<i>.</i>' : '');
+const style = [mobileX !== undefined ? `--pf-x:${mobileX}px` : '', mobileScale !== undefined ? `--pf-s:${mobileScale}` : '', mobileY !== undefined ? `--pf-y:${mobileY}px` : ''].filter(Boolean).join(';');
+---
+<section class={`pf-hero${tall ? ' pf-hero--tall' : ''}${center ? ' pf-hero--center' : ''}${wide ? ' pf-hero--wide' : ''}${extraClass ? ` ${extraClass}` : ''}`}>
+  <div class="pf-hero__content">
+    {crumb && <div class="pf-hero__crumb">{crumb.map((c, i) => <><span>{c}</span>{i < crumb.length - 1 && <span aria-hidden="true">/</span>}</>)}</div>}
+    <h1 set:html={h1html} />
+    {lead && <p class="pf-hero__lead">{lead}</p>}
+    {(primary || secondary) && (
+      <div class="hm-btns">
+        {primary && <Button href={primary.href} mode="light">{primary.label}</Button>}
+        {secondary && <Button href={secondary.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-dark">{secondary.label} <img src="/assets/home/arrow-right-light.svg" alt="" width="16" height="16" /></Button>}
+      </div>
+    )}
+    {badges.length > 0 && (
+      <div class="pf-hero__badges">{badges.map((b) => <a href={b.href ?? '#'} aria-disabled={b.href ? undefined : 'true'}><span><small>{b.small}</small>{b.label}</span></a>)}</div>
+    )}
+    {badgeNote && <p class="pf-hero__badge-note">{badgeNote}</p>}
+    {stats.length > 0 && <div class="pf-hero__stats">{stats.map(([v, l]) => <div><b>{v}</b><span>{l}</span></div>)}</div>}
+  </div>
+  <div class="pf-hero__art">
+    <div class="pf-hero__stage" style={style || undefined}>
+      {bg && <img src={bg.src} alt="" width={bg.width} style={`left:${bg.left}px;top:${bg.top}px;width:${bg.width}px;opacity:.95`} fetchpriority="high" />}
+      {shadow && <div class="pf-hero__shadow"></div>}
+      {layers.map((l) => <img src={l.src} alt="" width={l.width} style={`left:${l.left}px;top:${l.top}px;width:${l.width}px;z-index:${l.z ?? 2}`} loading="lazy" />)}
+      <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+      <div class="hm-noise"></div>
+      <slot />
+    </div>
+  </div>
+</section>

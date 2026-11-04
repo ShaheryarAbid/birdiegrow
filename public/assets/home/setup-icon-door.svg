@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="31.6667" height="35" viewBox="0 0 31.6667 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask/Door-Access/Shape-Group">
+<mask id="mask0_0_164" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="35">
+<g id="Mask/Door-Access/Shape-Group_2">
+<path id="Artwork/Door-Access/Glyph-Path" d="M4.16667 2.5C4.16667 1.83696 4.43006 1.20107 4.8989 0.732233C5.36774 0.263392 6.00363 0 6.66667 0H25C25.663 0 26.2989 0.263392 26.7678 0.732233C27.2366 1.20107 27.5 1.83696 27.5 2.5V31.6667H30C30.442 31.6667 30.866 31.8423 31.1785 32.1548C31.4911 32.4674 31.6667 32.8913 31.6667 33.3333C31.6667 33.7754 31.4911 34.1993 31.1785 34.5118C30.866 34.8244 30.442 35 30 35H1.66667C1.22464 35 0.800716 34.8244 0.488155 34.5118C0.175595 34.1993 0 33.7754 0 33.3333C0 32.8913 0.175595 32.4674 0.488155 32.1548C0.800716 31.8423 1.22464 31.6667 1.66667 31.6667H4.16667V2.5Z" fill="white"/>
+<g id="Artwork/Door-Access/Shape-Group">
+<path id="Artwork/Door-Access/Glyph-Path_2" d="M15.832 19C18.0412 19 19.832 17.2091 19.832 15C19.832 12.7909 18.0412 11 15.832 11C13.6229 11 11.832 12.7909 11.832 15C11.832 17.2091 13.6229 19 15.832 19Z" fill="black"/>
+<path id="Artwork/Door-Access/Glyph-Path/02" d="M14.1667 17.5H17.5L18.6667 25H13L14.1667 17.5Z" fill="black"/>
+</g>
+</g>
+</mask>
+<g mask="url(#mask0_0_164)">
+<path id="Artwork/Door-Access/Glyph-Path_3" d="M35.832 -2.5H-4.16797V37.5H35.832V-2.5Z" fill="white"/>
+</g>
+</g>
+</svg>

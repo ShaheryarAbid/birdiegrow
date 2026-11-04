@@ -1,0 +1,32 @@
+---
+/**
+ * "How the X integration works" — Figma 173/256: serif heading left, numbered rail+card rows right,
+ * the row nearest the viewport centre flips dark. Same pattern as the homepage Problems section
+ * (hm-proc / hm-pstep), minus the action row.
+ * Props: heading, how (fallback paragraph, split per sentence when flow is absent), flow [{t,d}].
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/home.css';
+import '../../styles/sections.css';
+export interface Props { heading: string; how: string; flow?: { t: string; d: string }[]; id?: string; }
+const { heading, how, flow, id } = Astro.props;
+const rows = (flow && flow.length
+  ? flow.map((f) => [f.t, f.d] as [string, string])
+  : how.split(/(?<=\.)\s+/).filter(Boolean).map((d) => ['', d] as [string, string])
+).map(([t, d], i) => [String(i + 1).padStart(2, '0'), t, d]);
+---
+<section class="hm-sec hm-white" id={id}>
+  <div class="hm-proc sx-flow">
+    <div class="hm-proc__head"><h2 class="hm-h2" set:html={gd(heading)} /></div>
+    <div class="hm-proc__list" data-scroll-cards>
+      {rows.map(([n, t, d], i) => (
+        <div class={`hm-pstep${i === 0 ? ' is-dark' : ''}`}>
+          <div class="hm-pstep__rail"><span class="n">{n}</span></div>
+          <div class="hm-pstep__card">
+            <div class="txt">{t && <h3>{t}</h3>}<p>{d}</p></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

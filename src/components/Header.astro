@@ -1,0 +1,63 @@
+---
+/**
+ * Redesign header — Figma "Navigation/Header" (Desktop 1440 / Mobile 393, Dark + Light).
+ * variant="dark"  → white text over dark (hero) / un-migrated dark pages
+ * variant="light" → dark text on the light #f0f2f1 canvas
+ * overlay         → absolutely positioned over a hero (home, batch b)
+ * The account-icon button is the existing "Client Login" link (app.birdiegrow.com).
+ */
+import { SITE, NAV } from '../consts';
+import Button from './Button.astro';
+export interface Props { variant?: 'dark' | 'light'; overlay?: boolean; }
+const { variant = 'dark', overlay = false } = Astro.props;
+const logo = `/assets/ui/logo-header-${variant}.svg`;
+const acct = `/assets/ui/icon-account-${variant}.svg`;
+const menu = `/assets/ui/icon-menu-${variant}.svg`;
+---
+<header class={`bd-header bd-header--${variant}${overlay ? ' bd-header--overlay' : ''}`}>
+  <div class="bd-header__bar">
+    <div class="bd-header__brand">
+      <a class="bd-header__logo" href="/" aria-label="Birdie home"><img src={logo} alt="Birdie" width="91" height="24" /></a>
+      <nav class="bd-header__nav" aria-label="Primary">
+        {NAV.map((item) => <a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
+      </nav>
+    </div>
+    <div class="bd-header__actions">
+      <Button class="bd-header__account" icon hierarchy="secondary" mode={variant} href={SITE.appUrl} rel="noopener nofollow" aria-label="Client login"><img src={acct} alt="" width="24" height="24" /></Button>
+      <Button mode={variant === 'dark' ? 'light' : 'dark'} href={SITE.demoPath}>Book a demo</Button>
+      <Button class="bd-header__menu" icon hierarchy="secondary" mode={variant} type="button" aria-label="Menu" aria-expanded="false" aria-controls="bd-menu" data-bd-menu><img src={menu} alt="" width="24" height="24" /></Button>
+    </div>
+  </div>
+  <nav class="bd-header__panel" id="bd-menu" aria-label="Mobile" hidden>
+    {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+    <a href={SITE.appUrl} rel="noopener nofollow">Client login</a>
+  </nav>
+</header>
+<script is:inline>
+  (function () {
+    var b = document.querySelector('[data-bd-menu]'), p = document.getElementById('bd-menu');
+    if (!b || !p) return;
+    var header = b.closest('header');
+    function setOpen(open) {
+      p.hidden = !open;
+      p.classList.toggle('is-open', open);
+      header.classList.toggle('is-menu-open', open);
+      b.setAttribute('aria-expanded', String(open));
+      b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    b.addEventListener('click', function () {
+      setOpen(b.getAttribute('aria-expanded') !== 'true');
+    });
+    p.addEventListener('click', function (event) { if (event.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !p.hidden) { setOpen(false); b.focus(); }
+    });
+    document.addEventListener('click', function (event) {
+      if (!p.hidden && !header.contains(event.target)) setOpen(false);
+    });
+    header.addEventListener('focusout', function () {
+      requestAnimationFrame(function () { if (!header.contains(document.activeElement)) setOpen(false); });
+    });
+    matchMedia('(min-width: 900px)').addEventListener('change', function (event) { if (event.matches) setOpen(false); });
+  })();
+</script>

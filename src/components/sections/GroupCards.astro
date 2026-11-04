@@ -1,0 +1,26 @@
+---
+/**
+ * Grouped cards: each group has a small label and a row of cards (title, text, optional link) — SEO template "category breakdown".
+ * Props: heading, groups [{label, items: [title, text, href?][]}], linkLabel (fn-free: prefix, default "Birdie vs").
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+export interface Props { heading: string; groups: { label: string; items: [string, string, (string | null)?][] }[]; linkPrefix?: string; id?: string; }
+const { heading, groups, linkPrefix = 'Birdie vs', id } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} /></div>
+  <div class="sx-gr">
+    {groups.map((g) => (
+      <div class="sx-gr__g">
+        <h3 class="sx-gr__l">{g.label}</h3>
+        <div class="sx-fgrid">
+          {g.items.map(([t, d, href]) => (
+            <div class="sx-fcard"><h4>{t}</h4><p>{d}</p>{href && <a class="sx-ic__link" href={href}>{linkPrefix} {t}<img src="/assets/seo/arrow.svg" alt="" width="16" height="16" /></a>}</div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

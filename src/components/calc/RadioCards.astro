@@ -1,0 +1,19 @@
+---
+/**
+ * Select rendered as radio cards — Figma "Radio-Card" 552:21085. The real <select id=...> stays in the DOM (visually hidden) and remains the source of truth for the calculator script;
+ * the cards set its value and fire "input" (wired in CalcShell). Option text "Title — description" is split into the card title + description.
+ * Props: id, label, options [{value, text}], selected (value).
+ */
+export interface Props { id: string; label: string; options: { value: string; text: string }[]; selected?: string; }
+const { id, label, options, selected } = Astro.props;
+const split = (t: string) => { const [a, ...b] = t.split(' — '); const d = b.join(' — '); return [a, d ? d.charAt(0).toUpperCase() + d.slice(1) : '']; };
+---
+<div class="cc-row cc-row--radios">
+  <label class="cc-row__l" for={id}><span>{label}</span></label>
+  <select id={id} class="cc-sr">{options.map((o) => <option value={o.value} selected={o.value === selected}>{o.text}</option>)}</select>
+  <div class="cc-radios" role="radiogroup" aria-label={label}>
+    {options.map((o) => { const [t, d] = split(o.text); return (
+      <label class="cc-radio"><input type="radio" name={`${id}-r`} value={o.value} data-cc-radio data-target={id} checked={o.value === selected} /><span class="cc-radio__t"><b>{t}</b>{d && <small>{d}</small>}</span><i class="dot" aria-hidden="true"></i></label>
+    ); })}
+  </div>
+</div>

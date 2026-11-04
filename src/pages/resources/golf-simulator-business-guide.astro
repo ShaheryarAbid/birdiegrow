@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../components/sections/ArticleLayout.astro';
+import Cta from '../../components/sections/Cta.astro';
+import Button from '../../components/Button.astro';
+import '../../styles/pages.css';
+const title = 'Golf Simulator Business Guide (2026) | Birdie';
+const description = 'The complete guide to the golf simulator business — how to plan, open, operate, and grow a profitable indoor simulator venue, with tools and deep-dive guides.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiegrow.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://www.birdiegrow.com/resources/' },
+      { '@type': 'ListItem', position: 3, name: 'Golf Simulator Business Guide', item: 'https://www.birdiegrow.com/resources/golf-simulator-business-guide/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'Article',
+    headline: 'Golf Simulator Business Guide',
+    description: description,
+    image: 'https://www.birdiegrow.com/og-image.jpg',
+    author: { '@type': 'Organization', name: 'Birdie' },
+    publisher: { '@type': 'Organization', name: 'Birdie' },
+    datePublished: '2026-07-16',
+  },
+];
+const intro = "Everything it takes to plan, open, operate, and grow a profitable indoor golf simulator venue — organized as a journey, with a free tool or deep-dive guide for every step. Whether you're researching your first location or optimizing an existing venue, start here.";
+const minutes = 3; // ~662 words / 200 wpm
+---
+<BaseLayout title={title} description={description} type="article" schema={schema} headerVariant="light">
+  <ArticleLayout kind="Resource" hubHref="/resources/" title="The Golf Simulator Business Guide" intro={intro} pubDate={new Date('2026-07-16')} minutes={minutes}>
+    <nav class="pg-toc" aria-label="On this page">
+      <a href="#is-it-worth-it">Is it worth it?</a>
+      <a href="#planning">Planning &amp; costs</a>
+      <a href="#opening">Opening your venue</a>
+      <a href="#operating">Operating the business</a>
+      <a href="#growing">Growing revenue</a>
+    </nav>
+
+        <h2 id="is-it-worth-it">Is a golf simulator business worth it?</h2>
+        <p>Indoor golf has grown into a year-round entertainment category, and simulator venues sit at the intersection of golf, social outings, and experiential entertainment. The model is appealing because it has high fixed costs and low variable costs — which means once you clear break-even, additional bookings are highly profitable. The flip side is that profitability lives and dies by utilization, so success is less about the equipment and more about how consistently you fill your bays. Before anything else, get honest about the numbers: read <a href="/resources/is-a-golf-simulator-business-profitable/">is a golf simulator business profitable</a> and look at realistic <a href="/resources/golf-simulator-business-revenue/">per-bay revenue</a>.</p>
+
+        <h2 id="planning">Planning and costs</h2>
+        <p>The planning phase is where you decide how much to invest and prove the model works on paper. Start by sizing the investment with the <a href="/resources/startup-cost-calculator/">startup cost calculator</a>, then read the full <a href="/resources/how-much-does-it-cost-to-open-a-golf-simulator-business/">cost breakdown</a> to understand each line. Two decisions drive the budget most: <a href="/resources/how-many-golf-simulator-bays/">how many bays to build</a> and the space itself — confirm any location can physically hold quality bays using the <a href="/resources/golf-simulator-room-requirements/">room requirements</a> guide before you sign a lease.</p>
+        <p>With a number in hand, put it on paper. A <a href="/resources/golf-simulator-business-plan-template/">golf simulator business plan template</a> forces you to model revenue, costs, and break-even, and it's what lenders and investors expect — see <a href="/resources/golf-simulator-financing/">how to finance the build</a> for the funding options. Finally, pressure-test your assumptions with the <a href="/resources/break-even-calculator/">break-even calculator</a> so you know exactly what utilization you need to cover costs.</p>
+
+        <h2 id="opening">Opening your venue</h2>
+        <p>If you want the whole sequence in one place before drilling into the details below, our complete guide on <a href="/resources/how-to-start-a-golf-simulator-business/">how to start a golf simulator business</a> walks through all nine steps end to end — market validation, location, bay count, equipment, revenue model, software, launch, optimization, and staffing.</p>
+        <p>Once the plan is funded, opening is a checklist of getting the details right. Pick a name that's memorable and available with the <a href="/resources/golf-simulator-business-name/">naming guide</a>, and protect the business before you take a single booking: line up <a href="/resources/golf-simulator-business-insurance/">business insurance</a> and a proper <a href="/resources/golf-simulator-waivers/">liability waiver</a>. Choose equipment that fits your market and budget — our <a href="/resources/best-golf-simulator-for-business/">best simulators for a commercial business</a> ranks them by ROI, not just specs. Then make the launch count: a well-run <a href="/blog/golf-simulator-grand-opening/">grand opening</a> fills your calendar for weeks and seeds the reviews that drive local search.</p>
+
+        <h2 id="operating">Operating the business</h2>
+        <p>Day-to-day, the venue runs on systems. The core is your <a href="/golf-simulator-booking-software/">golf simulator booking software</a> — bay-based scheduling, deposits, and automated confirmations — which for most operators lives inside broader <a href="/golf-simulator-management-software/">golf simulator management software</a> that also handles memberships, payments, and reporting. If you're comparing options, the <a href="/best-golf-simulator-software/">2026 software roundup</a> lays them out side by side. The biggest operational unlock is running lean: automated booking and <a href="/blog/golf-simulator-door-access/">24/7 PDK door access</a> let you sell unattended hours and <a href="/blog/golf-simulator-staffing/">staff the venue efficiently</a>, so labor tracks revenue instead of sitting idle.</p>
+
+        <h2 id="growing">Growing revenue</h2>
+        <p>A profitable venue is a well-utilized one, so most growth work is about filling hours and deepening customer value. Attack the weakest slots first — the tactics in <a href="/resources/how-to-fill-weekday-bays-golf-simulator/">filling weekday bays</a> and understanding your <a href="/resources/golf-simulator-utilization-rate/">utilization rate</a> move the number that matters most. Build recurring revenue with a <a href="/resources/golf-simulator-membership-program/">membership program</a> (model the pricing with the <a href="/resources/membership-pricing-calculator/">membership calculator</a>), and layer on higher-margin revenue through <a href="/blog/golf-simulator-corporate-events/">corporate events</a>, <a href="/blog/golf-simulator-leagues/">leagues</a>, and <a href="/blog/golf-simulator-gift-cards/">gift cards</a>.</p>
+        <p>Underpinning all of it is keeping the customers you already have. Strong <a href="/blog/golf-simulator-customer-retention/">retention</a>, automated <a href="/blog/golf-simulator-sms-marketing/">SMS marketing</a>, and a steady stream of <a href="/blog/golf-simulator-google-reviews/">Google reviews</a> compound over time — turning first-timers into members and members into referrals. For the full marketing picture, see <a href="/blog/golf-simulator-marketing-ideas/">marketing ideas that fill bays</a>.</p>
+
+        <h2>Run it all on one platform</h2>
+        <p>The guides above cover the strategy; the day-to-day execution is where a purpose-built platform pays off. Birdie brings booking, memberships, payments, automated SMS, 24/7 door access, and revenue reporting into one system built specifically for indoor golf simulator venues — live in 24 hours, month-to-month. When you're ready to see it on your own bays and pricing, book a walkthrough.</p>
+      
+    <div class="hm-btns" slot="after" style="margin-top:32px">
+      <Button href="/demo/" mode="dark">Book a Demo</Button>
+      <Button href="/resources/calculators/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">Free calculators <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>
+      <Button href="/resources/golf-simulator-business-faq/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">Common questions <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>
+    </div>
+  </ArticleLayout>
+  <Cta label="Book a Demo" />
+</BaseLayout>

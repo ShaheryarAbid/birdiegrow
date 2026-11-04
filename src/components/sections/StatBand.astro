@@ -1,0 +1,28 @@
+---
+/**
+ * Dark statement card + 3 stat tiles — Figma "Why simulator owners switch" 371:21986.
+ * Props: heading, title/text (dark card), stats [value, label][] (a value like "24 hours" renders the number large and the unit in green).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import { SHADER_DARK } from '../../data/shader';
+export interface Props { heading: string; title?: string; text: string; stats: [string, string][]; id?: string; }
+const { heading, title, text, stats, id } = Astro.props;
+const split = (v: string) => { const m = v.match(/^(\S+)\s+(.+)$/); return m ? { n: m[1], u: m[2] } : { n: v, u: '' }; };
+const endsPunct = /[.?!]$/.test(heading.trim());
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} /></div>
+  <div class="sx-sb">
+    <div class="sx-sb__dark">
+      <img class="art" src="/assets/seo/tile-art.webp" alt="" loading="lazy" />
+      <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+      <div class="hm-noise" style="background:#fdfffe"></div>
+      <div class="in">{title && <h3>{title}</h3>}<p>{text}</p></div>
+    </div>
+    {stats.map(([v, l]) => {
+      const { n, u } = split(v);
+      return (<div class="sx-sb__stat"><b class={u ? 'has-u' : ''}>{n}{u && <> <span>{u}</span></>}</b><span class="l">{l}</span></div>);
+    })}
+  </div>
+</section>

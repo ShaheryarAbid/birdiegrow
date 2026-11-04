@@ -1,0 +1,126 @@
+# Cloudflare Pages redirects. Format: /from  /to  [status]
+#
+# Path-level 301s: map any OLD Lovable URLs that change to their new slugs here,
+# so you keep ranking equity during the migration. Example:
+# /old-pricing-page   /#pricing   301
+#
+# Host canonicalization (www <-> apex) and http->https are best set as a
+# Cloudflare "Redirect Rule" in the dashboard, not here — see the README.
+#
+# NOTE: the current live site canonicalizes to www.birdiegrow.com. Decide the
+# canonical host BEFORE cutover and 301 the other host to it consistently.
+
+# Serve the Astro-generated sitemap index at the conventional /sitemap.xml path
+/sitemap.xml   /sitemap-index.xml   200
+
+# NOTE: the build uses `format: 'directory'`, so every real route ends in a
+# trailing slash. Redirect TARGETS must include it, or each redirect becomes a
+# 301 -> 301 chain (fixed 2026-09-09).
+
+# Removed thin per-state location pages — 301 the old slugs to the software pillar
+/golf-simulator-software-*   /golf-simulator-software/   301
+
+# IMPORTANT (2026-09-10): an exact rule written WITHOUT a trailing slash does NOT
+# match the trailing-slash request. The build uses format: 'directory', so every
+# indexed URL ends in "/" — a slash-less rule alone means the canonical form 404s.
+# Verified: /resources/golf-simulator-startup-costs 301'd correctly, but
+# /resources/golf-simulator-startup-costs/ returned "Page not found".
+# So EVERY exact path below is listed in both forms. (Wildcard rules like /pdk/*
+# and /golf-simulator-software-* already cover both and need no twin.)
+
+# Old pre-rebuild URLs that returned 404 in GSC (2026-08-07) — 301 to live equivalents
+# Legacy PDK microsite → the current PDK integration page (also preserves the ProDataKey backlink)
+/pdk            /integrations/pdk/   301
+/pdk/*          /integrations/pdk/   301
+# Old Golf O'Clock comparison slugs → the current comparison page
+/golf-o-clock-alternative         /birdie-vs-golf-oclock/   301
+/golf-o-clock-alternative/        /birdie-vs-golf-oclock/   301
+/resources/birdie-vs-golf-oclock  /birdie-vs-golf-oclock/   301
+/resources/birdie-vs-golf-oclock/ /birdie-vs-golf-oclock/   301
+# Old door-access page → the integrations hub (24/7 door access overview)
+/24-7-door-access    /integrations/   301
+/24-7-door-access/   /integrations/   301
+# Old startup-costs resource slug → the current cost guide
+/resources/golf-simulator-startup-costs    /resources/how-much-does-it-cost-to-open-a-golf-simulator-business/   301
+/resources/golf-simulator-startup-costs/   /resources/how-much-does-it-cost-to-open-a-golf-simulator-business/   301
+
+# Consolidation 2026-09-10: /resources/indoor-golf-simulator-business-plan/ was a
+# strict subset of the template page (same 8 sections, same figures, no PDF, no
+# startup-cost table) and split "golf simulator business plan" four ways — that
+# term regressed 26.9 -> 46.1 over six weeks. Merged into the template page.
+# NOTE: the .md source file must be deleted for this 301 to take effect; a built
+# page at the same path wins over this rule. Until then the slash-less form 301s
+# (no asset there) while the canonical slash form still serves the old page —
+# which makes a redirect check that strips the slash look like a false pass.
+/resources/indoor-golf-simulator-business-plan    /resources/golf-simulator-business-plan-template/   301
+/resources/indoor-golf-simulator-business-plan/   /resources/golf-simulator-business-plan-template/   301
+
+# Consolidation 2026-09-14: /resources/indoor-golf-simulator-business-revenue/ was
+# ~85% duplicative of the revenue pillar (same core formula, same bay-count table,
+# same five levers, same "systems problem not demand problem" close) AND contradicted
+# it on two figures — membership share (30-50% vs the pillar's 25-40%) and margins.
+# It also had zero inbound internal links, and its own body already called the pillar
+# "our main guide", so the canonical direction was settled in the content itself.
+# GSC evidence: queries where 10+ of our URLs compete average position 45.7; queries
+# where 1-2 compete average 16.3.
+# The unique material (hourly-rate/utilization bands, the 50-65% cost-consumption
+# figure, the well-run-vs-average margin split) was folded into the pillar first.
+#
+# COMPLETE — source file deleted 2026-09-14, deployed and verified live. The URL is
+# absent from the sitemap (checked 2026-09-15), which is the real proof of deletion.
+/resources/indoor-golf-simulator-business-revenue    /resources/golf-simulator-business-revenue/   301
+/resources/indoor-golf-simulator-business-revenue/   /resources/golf-simulator-business-revenue/   301
+
+# Consolidation 2026-09-14 (2 of 2): /resources/how-to-start-indoor-golf-simulator-business/
+# was a near-subset of the how-to-start pillar — same bay-count advice almost verbatim
+# (2 = proof of concept, 4 = sweet spot, 6-10 = entertainment venue), same
+# Calendly/Square software argument, same location criteria, same weekday-utilization
+# close. Unique material folded into the pillar first: lease-rate benchmark (<$15/sq ft),
+# buildout line items (flooring, lighting, HVAC heat, soundproofing), the 3-6 month
+# working-capital reserve, and staffing (owner-operator + 1 part-timer, labor 15-20%
+# of revenue) which became the pillar's new Step 9.
+# NOT merged, after reading the bodies: golf-simulator-business-guide.astro is a
+# topical hub linking ~30 resources, not a duplicate; mobile/portable pages were
+# already correctly scoped and cross-linked and needed no change.
+#
+# COMPLETE — source file deleted 2026-09-14, deployed and verified live. The URL is
+# absent from the sitemap (checked 2026-09-15), which is the real proof of deletion.
+/resources/how-to-start-indoor-golf-simulator-business    /resources/how-to-start-a-golf-simulator-business/   301
+/resources/how-to-start-indoor-golf-simulator-business/   /resources/how-to-start-a-golf-simulator-business/   301
+
+# Consolidation 2026-09-14 (3 of 3) — CLUSTER C, the money cluster. Only ONE merge here:
+# /blog/golf-simulator-booking-software-guide/ was a textbook cannibaliser of the booking
+# pillar. Its title ("Golf Simulator Booking Software: A Buyer's Guide") near-exactly matched
+# the money term, and GSC caught it as top_url for `golf simulator booking software` at pos
+# 16.0 — DISPLACING the pillar, which is the exact failure the 09-06 watch list asked us to
+# watch for. Its whole body was a six-criteria "how to choose" list that already exists TWICE
+# on the site: the pillar's `choose` block and the best- page's `needs` block, five of six
+# criteria identical across all three. It had ZERO inbound internal links and did not link to
+# the pillar either. The merge is LOSSLESS — every criterion is already on the pillar (the
+# `choose` grid plus `should`), so nothing was copied across. The one thing deliberately NOT
+# migrated is the blog's unsourced "SMS open rates above 95%" claim, per the no-untraceable-
+# statistic rule.
+# NOT merged, after reading all seven Cluster C pages in full: the six commercial/resource
+# pages all have genuinely distinct intent — booking (pillar), management (booking-vs-
+# management framing), golf-simulator-software (HUB + the GSPro/E6 disambiguation),
+# best- (buyer's guide, 10 rivals), resources/golf-booking-software (category education),
+# features + platform (product showcase / multi-location). Cluster C's real problem is
+# COMPONENT-level duplication, not duplicate pages — fix by differentiating, not merging.
+#
+# !! STILL PENDING as of 2026-09-15 — src/content/blog/golf-simulator-booking-software-guide.md
+# IS STILL PRESENT in the working tree. The 09-14 log recorded this deletion as done and
+# "verified live"; it was not. DELETE IT (PowerShell:
+#   Remove-Item src\content\blog\golf-simulator-booking-software-guide.md
+# then rebuild + push).
+#
+# CORRECTION to the 2026-09-10 assumption above ("a built page beats this rule"): it does NOT.
+# On Cloudflare Pages this _redirects rule fires AHEAD of the built static asset, so the URL
+# 301s correctly EVEN WHILE the page is still being built and shipped. That is exactly why the
+# 09-14 check passed — a redirect test cannot detect an undeleted source file.
+#
+# THE RELIABLE TEST IS THE SITEMAP, NOT THE REDIRECT. A deleted page leaves the sitemap; an
+# undeleted one stays in it and 301s. Measured 2026-09-15: 89 sitemap URLs, and this is the
+# ONLY one that redirects. A sitemap that lists a 301'd URL is a mixed signal to Google —
+# that is the live cost of leaving the file in place, not a broken redirect.
+/blog/golf-simulator-booking-software-guide    /golf-simulator-booking-software/   301
+/blog/golf-simulator-booking-software-guide/   /golf-simulator-booking-software/   301

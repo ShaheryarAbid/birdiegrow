@@ -1,0 +1,44 @@
+---
+/**
+ * Split panel — Figma "Product preview" dark/light card: heading + copy + check list on the left, a visual on the right.
+ * Props: heading, body / bodyHtml, eyebrow, items (check list), bg (dark background image), img/imgAlt (right visual) or the default slot,
+ * tone ('dark' | 'light'), cta {label, href}, id, sectionHeading (optional H2 above the card instead of inside it).
+ */
+import '../../styles/sections.css';
+import '../../styles/product.css';
+import Button from '../Button.astro';
+export interface Props {
+  heading: string;
+  body?: string;
+  bodyHtml?: string;
+  eyebrow?: string;
+  items?: string[];
+  bg?: string;
+  img?: string;
+  imgAlt?: string;
+  tone?: 'dark' | 'light';
+  cta?: { label: string; href: string };
+  id?: string;
+  level?: 2 | 3;
+}
+const { heading, body, bodyHtml, eyebrow, items = [], bg, img, imgAlt = '', tone = 'dark', cta, id, level = 2 } = Astro.props;
+const endsPunct = /[.?!]$/.test(heading.trim());
+const H = level === 2 ? 'h2' : 'h3';
+const hasSlot = Astro.slots.has('default');
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class={`pf-panel${tone === 'light' ? ' pf-panel--light' : ''}`}>
+    {bg && tone === 'dark' && <div class="pf-panel__bg"><img src={bg} alt="" loading="lazy" /><div class="fade"></div></div>}
+    <div class="pf-panel__txt">
+      {eyebrow && <p class="pf-eyebrow">{eyebrow}</p>}
+      <H>{heading}{!endsPunct && <i>.</i>}</H>
+      {body && <p>{body}</p>}
+      {bodyHtml && <p set:html={bodyHtml} />}
+      {items.length > 0 && <ul class="pf-checks">{items.map((x) => <li><img src={tone === 'dark' ? '/assets/home/check-feature.svg' : '/assets/home/check-dark.svg'} alt="" />{x}</li>)}</ul>}
+      {cta && <div class="hm-btns"><Button href={cta.href} mode={tone === 'dark' ? 'light' : 'dark'}>{cta.label}</Button></div>}
+    </div>
+    <div class="pf-panel__vis">
+      {hasSlot ? <slot /> : (img && <img src={img} alt={imgAlt} loading="lazy" />)}
+    </div>
+  </div>
+</section>

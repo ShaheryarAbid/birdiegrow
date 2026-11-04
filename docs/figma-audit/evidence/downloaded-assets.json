@@ -1,0 +1,260 @@
+[
+  {
+    "context": "home-hero-desktop",
+    "variable": "imgHeroImage",
+    "path": "/assets/figma-2026/home-hero-desktop-imgHeroImage.png",
+    "bytes": 293997
+  },
+  {
+    "context": "home-hero-desktop",
+    "variable": "imgNavigationHeader",
+    "path": "/assets/figma-2026/home-hero-desktop-imgNavigationHeader.png",
+    "bytes": 14197
+  },
+  {
+    "context": "home-hero-desktop",
+    "variable": "imgInstanceBirdieLogoWhite",
+    "path": "/assets/figma-2026/home-hero-desktop-imgInstanceBirdieLogoWhite.svg",
+    "bytes": 6109
+  },
+  {
+    "context": "home-hero-desktop",
+    "variable": "imgInstanceIcons18X18PxUnclassifiedUnidentifiedGlyph",
+    "path": "/assets/figma-2026/home-hero-desktop-imgInstanceIcons18X18PxUnclassifiedUnidentifiedGlyph.svg",
+    "bytes": 389
+  },
+  {
+    "context": "home-hero-desktop",
+    "variable": "imgInstanceIcons16X16PxNavigationArrowLeft02",
+    "path": "/assets/figma-2026/home-hero-desktop-imgInstanceIcons16X16PxNavigationArrowLeft02.svg",
+    "bytes": 387
+  },
+  {
+    "context": "home-hero-desktop",
+    "variable": "imgCourseMap",
+    "path": "/assets/figma-2026/home-hero-desktop-imgCourseMap.svg",
+    "bytes": 13364
+  },
+  {
+    "context": "home-hero-mobile",
+    "variable": "imgNavigationHeader",
+    "path": "/assets/figma-2026/home-hero-mobile-imgNavigationHeader.png",
+    "bytes": 16465
+  },
+  {
+    "context": "home-hero-mobile",
+    "variable": "imgHeroImage",
+    "path": "/assets/figma-2026/home-hero-mobile-imgHeroImage.png",
+    "bytes": 293997
+  },
+  {
+    "context": "home-hero-mobile",
+    "variable": "imgInstanceBirdieLogoWhite",
+    "path": "/assets/figma-2026/home-hero-mobile-imgInstanceBirdieLogoWhite.svg",
+    "bytes": 6109
+  },
+  {
+    "context": "home-hero-mobile",
+    "variable": "imgInstanceIcons18X18PxUnclassifiedUnidentifiedGlyph",
+    "path": "/assets/figma-2026/home-hero-mobile-imgInstanceIcons18X18PxUnclassifiedUnidentifiedGlyph.svg",
+    "bytes": 345
+  },
+  {
+    "context": "home-hero-mobile",
+    "variable": "imgInstanceIcons16X16PxNavigationArrowLeft02",
+    "path": "/assets/figma-2026/home-hero-mobile-imgInstanceIcons16X16PxNavigationArrowLeft02.svg",
+    "bytes": 387
+  },
+  {
+    "context": "home-product-context",
+    "variable": "imgWhiteRight",
+    "path": "/assets/figma-2026/home-product-context-imgWhiteRight.png",
+    "bytes": 1928380
+  },
+  {
+    "context": "home-product-context",
+    "variable": "imgPasteYourContent",
+    "path": "/assets/figma-2026/home-product-context-imgPasteYourContent.png",
+    "bytes": 322204
+  },
+  {
+    "context": "home-product-context",
+    "variable": "imgPasteYourContent1",
+    "path": "/assets/figma-2026/home-product-context-imgPasteYourContent1.png",
+    "bytes": 378402
+  },
+  {
+    "context": "home-product-context",
+    "variable": "imgLayoutAkarIconsChevronDown",
+    "path": "/assets/figma-2026/home-product-context-imgLayoutAkarIconsChevronDown.svg",
+    "bytes": 402
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgInstanceIcons16X16PxNavigationArrowLeft",
+    "path": "/assets/figma-2026/website-hero-context-imgInstanceIcons16X16PxNavigationArrowLeft.svg",
+    "bytes": 386
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgInstanceIcons16X16PxNavigationArrowLeft02",
+    "path": "/assets/figma-2026/website-hero-context-imgInstanceIcons16X16PxNavigationArrowLeft02.svg",
+    "bytes": 389
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgInstanceIcons16X16PxNavigationArrowLeft03",
+    "path": "/assets/figma-2026/website-hero-context-imgInstanceIcons16X16PxNavigationArrowLeft03.svg",
+    "bytes": 389
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgDeviceDesktopTypeDark",
+    "path": "/assets/figma-2026/website-hero-context-imgDeviceDesktopTypeDark.png",
+    "bytes": 14197
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgInstanceBirdieLogoWhite",
+    "path": "/assets/figma-2026/website-hero-context-imgInstanceBirdieLogoWhite.svg",
+    "bytes": 6109
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgInstanceIcons18X18PxUnclassifiedUnidentifiedGlyph",
+    "path": "/assets/figma-2026/website-hero-context-imgInstanceIcons18X18PxUnclassifiedUnidentifiedGlyph.svg",
+    "bytes": 389
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgGreensward352",
+    "path": "/assets/figma-2026/website-hero-context-imgGreensward352.png",
+    "bytes": 463972
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgConfirmPay1BookingDarkMode",
+    "path": "/assets/figma-2026/website-hero-context-imgConfirmPay1BookingDarkMode.png",
+    "bytes": 4263936
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgChangeColorHere",
+    "path": "/assets/figma-2026/website-hero-context-imgChangeColorHere.png",
+    "bytes": 49822
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgCamera",
+    "path": "/assets/figma-2026/website-hero-context-imgCamera.png",
+    "bytes": 3568
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgChangeColorHere1",
+    "path": "/assets/figma-2026/website-hero-context-imgChangeColorHere1.png",
+    "bytes": 39624
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "img",
+    "path": "/assets/figma-2026/website-hero-context-img.png",
+    "bytes": 123129
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "img1",
+    "path": "/assets/figma-2026/website-hero-context-img1.png",
+    "bytes": 1391459
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgDisplayFrame",
+    "path": "/assets/figma-2026/website-hero-context-imgDisplayFrame.png",
+    "bytes": 263589
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgFix",
+    "path": "/assets/figma-2026/website-hero-context-imgFix.svg",
+    "bytes": 253
+  },
+  {
+    "context": "website-hero-context",
+    "variable": "imgFix1",
+    "path": "/assets/figma-2026/website-hero-context-imgFix1.svg",
+    "bytes": 837
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgImage97",
+    "path": "/assets/figma-2026/website-intro-context-imgImage97.png",
+    "bytes": 335755
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgImageCalendarIconImage",
+    "path": "/assets/figma-2026/website-intro-context-imgImageCalendarIconImage.png",
+    "bytes": 1197737
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgIcons16X16PxFeaturesProfessionallyDesignedWebsite",
+    "path": "/assets/figma-2026/website-intro-context-imgIcons16X16PxFeaturesProfessionallyDesignedWebsite.svg",
+    "bytes": 823
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgVector10",
+    "path": "/assets/figma-2026/website-intro-context-imgVector10.svg",
+    "bytes": 228
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgIcons16X16PxFeaturesMobileOptimized",
+    "path": "/assets/figma-2026/website-intro-context-imgIcons16X16PxFeaturesMobileOptimized.svg",
+    "bytes": 714
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgIcons16X16PxFeaturesSeoOptimizedStructure",
+    "path": "/assets/figma-2026/website-intro-context-imgIcons16X16PxFeaturesSeoOptimizedStructure.svg",
+    "bytes": 718
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgIcons16X16PxFeaturesGoogleBusinessProfile",
+    "path": "/assets/figma-2026/website-intro-context-imgIcons16X16PxFeaturesGoogleBusinessProfile.svg",
+    "bytes": 999
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgIcons24X24PxFeaturesLookAtYourSetup",
+    "path": "/assets/figma-2026/website-intro-context-imgIcons24X24PxFeaturesLookAtYourSetup.svg",
+    "bytes": 2030
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgLine21",
+    "path": "/assets/figma-2026/website-intro-context-imgLine21.svg",
+    "bytes": 245
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgIcons18X18PxInterfaceTable",
+    "path": "/assets/figma-2026/website-intro-context-imgIcons18X18PxInterfaceTable.svg",
+    "bytes": 729
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgAtIconsCalendar",
+    "path": "/assets/figma-2026/website-intro-context-imgAtIconsCalendar.svg",
+    "bytes": 2460
+  },
+  {
+    "context": "website-intro-context",
+    "variable": "imgCheck",
+    "path": "/assets/figma-2026/website-intro-context-imgCheck.svg",
+    "bytes": 1184
+  }
+]
