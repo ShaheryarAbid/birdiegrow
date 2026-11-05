@@ -55,4 +55,16 @@ export const TESTIMONIALS = [
     summary:
       'Brian runs Swing Den, an indoor golf simulator venue in Farnham, Virginia. He shares how he manages bay bookings, memberships, payments, and automated messaging on Birdie — running the venue on one platform instead of juggling separate tools.',
   },
+  {
+    // No upload yet: an empty id renders the card as a still cover (Customer-story-image) with no facade or VideoObject.
+    id: '',
+    date: '',
+    venue: 'Indoor Golf Venue',
+    person: 'Dorian',
+    location: 'Texas',
+    tag: 'Golf Lounge Owner',
+    schemaName: '',
+    summary:
+      'BirdieGrow enabled a fully unmanned, self-service golf lounge by integrating the website, booking system, and alarm system.',
+  },
 ];

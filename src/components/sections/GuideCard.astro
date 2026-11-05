@@ -1,25 +1,27 @@
 ---
 /**
  * Single guide / article card — Figma "Content/Guide-Card" (Article-Thumbnail UI kit 585:46173). Used by GuideCards and GuideLibrary.
- * Props: title, desc, href, category, cta (link label), kind ('gradient' | 'photo' | 'dark' | 'ball' — thumbnail art variant), or index (cycles the four variants).
+ * Props: title, desc, href, category, cta (link label), kind ('gradient' | 'photo' | 'dark' | 'ball' | 'corner' — thumbnail art variant), or index (cycles the variants).
+ * 'gradient' and 'corner' are drawn by CSS alone (Grain & Halftone Effects .fx-4 / .fx-1), the rest reuse the exported stills.
  */
 import '../../styles/sections.css';
 import { SHADER_DARK } from '../../data/shader';
-export interface Props { title: string; desc: string; href: string; category?: string; cta?: string; kind?: 'gradient' | 'photo' | 'dark' | 'ball'; index?: number; }
+export interface Props { title: string; desc: string; href: string; category?: string; cta?: string; kind?: 'gradient' | 'photo' | 'dark' | 'ball' | 'corner'; index?: number; }
 const { title, desc, href, category, cta = 'Read guide', index = 0 } = Astro.props;
 const S = '/assets/sections/';
-const kinds = ['gradient', 'photo', 'dark', 'ball'] as const;
+const kinds = ['gradient', 'photo', 'ball', 'dark', 'corner', 'photo'] as const;
 const k = Astro.props.kind ?? kinds[index % kinds.length];
+const fx = k === 'gradient' || k === 'corner';
 ---
 <a class="sx-gcard" href={href}>
   <div class={`sx-gthumb sx-gthumb--${k}`} aria-hidden="true">
-    {k === 'gradient' && (<><img class="a" src={`${S}thumb-gradient-a.webp`} alt="" loading="lazy" /><img class="b" src={`${S}thumb-gradient-b.webp`} alt="" loading="lazy" /></>)}
+    {fx && (<><div class="fx-glow"></div><div class="fx-dots"></div></>)}
     {k === 'photo' && <img src={`${S}thumb-photo.webp`} alt="" loading="lazy" />}
     {k === 'dark' && <img src="/assets/home/cta-image.webp" alt="" loading="lazy" />}
     {k === 'ball' && <img src={`${S}thumb-ball.webp`} alt="" loading="lazy" />}
     <div class="sh"></div>
-    {k !== 'ball' && <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>}
-    <div class="hm-noise" style="background:#fdfffe"></div>
+    {!fx && k !== 'ball' && <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>}
+    {!fx && <div class="hm-noise" style="background:#fdfffe"></div>}
     <p class="t">{title}</p>
   </div>
   <div class="sx-gcard__body">

@@ -13,7 +13,8 @@ import { SITE } from '../consts';
 import { TESTIMONIALS as testimonials } from '../data/stories';
 
 
-const schema = testimonials.map((t) => ({
+// Only stories with an upload qualify for VideoObject; a cover-only card would emit an empty embedUrl.
+const schema = testimonials.filter((t) => t.id).map((t) => ({
   '@context': 'https://schema.org',
   '@type': 'VideoObject',
   name: t.schemaName,
@@ -34,7 +35,7 @@ const description =
   'See how real indoor golf simulator operators run bookings, memberships, and 24/7 door access on Birdie — in their own words. Watch customer video stories.';
 
 // Local portrait/landscape thumbnails from the Figma customer-story frame (index = story order). The YouTube facade still loads the real video on click.
-const IMG = ['story-1', 'story-2', 'story-3', 'story-4', 'story-5'];
+const IMG = ['story-1', 'story-2', 'story-3', 'story-4', 'story-5', 'story-6'];
 const stories = testimonials.map((t, i) => ({ ...t, img: `/assets/customers/${IMG[i]}.webp` }));
 ---
 

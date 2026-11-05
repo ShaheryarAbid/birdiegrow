@@ -1,13 +1,12 @@
 ---
 /**
  * Customer story cards with click-to-load YouTube facade — Figma "Content/Customer-Story" 260:13152 / "All customer stories" 438:16378.
- * First story renders as the large dark featured card (shader), the rest as light two-column cards (image on top on mobile).
+ * First story renders as the large dark featured card (cus-sec-bg artwork on the card itself), the rest as light two-column cards (image on top on mobile).
  * Props: stories [{id (YouTube id, '' = no video), venue, person, location, tag, summary, img (local webp), alt}].
  * The YouTube iframe is only injected on click (script at the bottom), so the page keeps its LCP.
  */
 import '../../styles/sections.css';
 import '../../styles/customers.css';
-import { SHADER_DARK } from '../../data/shader';
 export interface Story { id: string; venue: string; person: string; location: string; tag: string; summary: string; img: string; alt?: string; }
 export interface Props { stories: Story[]; id?: string; }
 const { stories, id = 'stories' } = Astro.props;
@@ -19,14 +18,6 @@ const A = '/assets/customers/';
       const feat = i === 0;
       return (
         <article class={`cs-card${feat ? ' is-feat' : ''}`}>
-          {feat && (
-            <div class="cs-card__bg" aria-hidden="true">
-              <img src="/assets/home/compat-bg.webp" alt="" loading="lazy" />
-              <div class="fade"></div>
-              <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
-              <div class="hm-noise" style="background:#fdfffe"></div>
-            </div>
-          )}
           <div class="cs-card__txt">
             <span class="cs-loc"><img src={`${A}pin.svg`} alt="" width="20" height="20" />{t.location}</span>
             <div class="cs-card__body">
