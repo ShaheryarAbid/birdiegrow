@@ -5,7 +5,7 @@
  * with the soft shader (mandatory where Figma has ShaderEffect) and noise on top. On mobile the stage is scaled down.
  * Props: h1 (green "." appended unless it ends in punctuation), lead, crumb (["Product", "Leagues & events"]),
  * primary/secondary {label, href}, center (centered copy), tall (823px), bg {src,left,top,width}, layers [{src,left,top,width}],
- * badges [{label, small, href}] (store buttons) + badgeNote, stats [value, label][] (small stat row under the buttons), stats = [], mobileX / mobileScale (stage offset/scale under 900px).
+ * badges [{label, small, href, image, imageSide, imageWidth, imageHeight}] (store buttons; image is an optional icon, imageSide is 'left' by default or 'right', imageWidth / imageHeight are optional px sizes: set one to scale proportionally, both for an exact size, neither for its own size) + badgeNote, stats [value, label][] (small stat row under the buttons), stats = [], mobileX / mobileScale (stage offset/scale under 900px).
  * Default slot: extra stage content (rendered inside the stage, e.g. a calendar widget).
  */
 import '../../styles/sections.css';
@@ -13,6 +13,7 @@ import '../../styles/product.css';
 import Button from '../Button.astro';
 import { SHADER_DARK } from '../../data/shader';
 export interface Layer { src: string; left: number; top: number; width: number; z?: number; }
+export interface Badge { label: string; small: string; href?: string; image?: string; imageSide?: 'left' | 'right'; imageWidth?: number; imageHeight?: number; }
 export interface Props {
   h1: string;
   lead?: string;
@@ -23,7 +24,7 @@ export interface Props {
   tall?: boolean;
   bg?: Layer;
   layers?: Layer[];
-  badges?: { label: string; small: string; href?: string }[];
+  badges?: Badge[];
   badgeNote?: string;
   stats?: [string, string][];
   mobileX?: number;
@@ -38,6 +39,14 @@ const endsPunct = /[.?!]$/.test(h1.trim());
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const h1html = esc(h1).replace(/\s*\n\s*/g, ' <br class="d-br">').replace(/\.(\s|$)/g, '<i>.</i>$1') + (!endsPunct ? '<i>.</i>' : '');
 const style = [mobileX !== undefined ? `--pf-x:${mobileX}px` : '', mobileScale !== undefined ? `--pf-s:${mobileScale}` : '', mobileY !== undefined ? `--pf-y:${mobileY}px` : ''].filter(Boolean).join(';');
+// Sizes are also set inline because the global `img { height: auto }` would override a plain height attribute.
+const badgeImg = ({ image, imageWidth: w, imageHeight: h }: Badge) => ({
+  src: image,
+  alt: '',
+  width: w,
+  height: h,
+  style: [w !== undefined ? `width:${w}px` : '', h !== undefined ? `height:${h}px` : ''].filter(Boolean).join(';') || undefined,
+});
 ---
 <section class={`pf-hero${tall ? ' pf-hero--tall' : ''}${center ? ' pf-hero--center' : ''}${wide ? ' pf-hero--wide' : ''}${extraClass ? ` ${extraClass}` : ''}`}>
   <div class="pf-hero__content">
@@ -51,7 +60,15 @@ const style = [mobileX !== undefined ? `--pf-x:${mobileX}px` : '', mobileScale !
       </div>
     )}
     {badges.length > 0 && (
-      <div class="pf-hero__badges">{badges.map((b) => <a href={b.href ?? '#'} aria-disabled={b.href ? undefined : 'true'}><span><small>{b.small}</small>{b.label}</span></a>)}</div>
+      <div class="pf-hero__badges">
+        {badges.map((b) => (
+          <a href={b.href ?? '#'} aria-disabled={b.href ? undefined : 'true'}>
+            {b.image && b.imageSide !== 'right' && <img {...badgeImg(b)} />}
+            <span><small>{b.small}</small>{b.label}</span>
+            {b.image && b.imageSide === 'right' && <img {...badgeImg(b)} />}
+          </a>
+        ))}
+      </div>
     )}
     {badgeNote && <p class="pf-hero__badge-note">{badgeNote}</p>}
     {stats.length > 0 && <div class="pf-hero__stats">{stats.map(([v, l]) => <div><b>{v}</b><span>{l}</span></div>)}</div>}

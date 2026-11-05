@@ -1,0 +1,62 @@
+/* Features slider (src/components/FeaturesSlider.astro). The values come from its `options` prop as --fs-*-mobile/tablet/desktop.
+   Screen sizes: mobile below 600px, tablet 600-900px, desktop from 901px (the site-wide 900px split, and the tablet range in home.css). */
+.features-slider {
+  --fs-basis: var(--fs-basis-mobile);
+  --fs-gap: var(--fs-gap-mobile);
+  --fs-dots: var(--fs-dots-mobile);
+  --fs-top: var(--fs-top-mobile);
+  --fs-start: var(--fs-start-mobile);
+  --fs-end: var(--fs-end-mobile);
+  width: 100%;
+  min-width: 0;
+}
+@media (min-width: 600px) {
+  .features-slider {
+    --fs-basis: var(--fs-basis-tablet);
+    --fs-gap: var(--fs-gap-tablet);
+    --fs-dots: var(--fs-dots-tablet);
+    --fs-top: var(--fs-top-tablet);
+    --fs-start: var(--fs-start-tablet);
+    --fs-end: var(--fs-end-tablet);
+  }
+}
+@media (min-width: 901px) {
+  .features-slider {
+    --fs-basis: var(--fs-basis-desktop);
+    --fs-gap: var(--fs-gap-desktop);
+    --fs-dots: var(--fs-dots-desktop);
+    --fs-top: var(--fs-top-desktop);
+    --fs-start: var(--fs-start-desktop);
+    --fs-end: var(--fs-end-desktop);
+  }
+}
+
+.features-slider__viewport { overflow: hidden; }
+.features-slider__track {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--fs-gap);
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--fs-top) var(--fs-end) 0 var(--fs-start);
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--fs-start) var(--fs-end);
+  scrollbar-width: none;
+}
+.features-slider__track::-webkit-scrollbar { display: none; }
+/* Percentages resolve against the track's content box, so the padding is already excluded. */
+.features-slider__track > * {
+  flex: 0 0 var(--fs-basis);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* Pagination: same build as the "at a glance" dots (.hm-gl__dots), in the light colours. */
+.features-slider__dots { display: var(--fs-dots); align-items: center; gap: 8px; width: fit-content; height: 40px; margin: 16px auto 0; padding: 16px; box-sizing: border-box; border-radius: 99px; background: #fdfffe; }
+.features-slider__dots[hidden] { display: none; }
+.features-slider__dots button { position: relative; width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: #e9ebeb; cursor: pointer; transition: width .18s ease, background .18s ease; }
+.features-slider__dots button::before { content: ""; position: absolute; inset: -16px -4px; } /* Larger tap area */
+.features-slider__dots button.is-on { width: 32px; background: #000407; }

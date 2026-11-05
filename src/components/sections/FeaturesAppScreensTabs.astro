@@ -1,0 +1,60 @@
+---
+/**
+ * App screens: heading, tabs, and one slider per tab on the shared textured card.
+ * Figma: desktop 2049:94533, mobile 2049:95781.
+ * Props: heading, sub, tabs ({ label, slides }), id, prev (colour behind the rounded top corners),
+ * sliderOptions (replaces any of the DESIGN settings below).
+ * Give each slide its image's real width and height: the card's height comes from the tallest screen, so this reserves the space before it loads.
+ * A slide without a `src` renders an empty placeholder.
+ */
+import FeaturesSlider, { type FeaturesSliderOptions } from '../FeaturesSlider.astro';
+import { gd } from '../../lib/gd';
+import '../../styles/home.css';
+import '../../styles/sections.css';
+import '../../styles/features-app-screens-tabs.css';
+export interface Slide { src?: string; alt?: string; width?: number; height?: number; }
+export interface Props { heading: string; sub?: string; tabs: { label: string; slides: Slide[] }[]; id?: string; prev?: string; sliderOptions?: FeaturesSliderOptions; }
+const { heading, sub, tabs, id, prev = '#000', sliderOptions } = Astro.props;
+
+const DESIGN: FeaturesSliderOptions = {
+  perView: { mobile: 1, tablet: 2, desktop: 3 },
+  gap: { mobile: 16, tablet: 16, desktop: 60 },
+  lastSlide: { mobile: 'full', tablet: 'full', desktop: 'half' },
+  dots: { mobile: true, tablet: true, desktop: false },
+  padding: {
+    mobile: { top: 32, start: 32, end: 32 },
+    tablet: { top: 40, start: 32, end: 32 },
+    desktop: { top: 60, start: 60, end: 0 },
+  },
+};
+const options = { ...DESIGN, ...sliderOptions };
+---
+<section class="hm-sec hm-white hm-round hm-stack features-app-screens" style={`--prev:${prev}`} id={id} data-features-app-screens>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub">{sub}</p>}</div>
+  <div class="hm-tabs" role="tablist">
+    {tabs.map((tab, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''} aria-selected={i === 0 ? 'true' : 'false'}>{tab.label}</button>)}
+  </div>
+  <div class="features-app-screens__panels">
+    {tabs.map((tab, i) => (
+      <div class="features-app-screens__panel" hidden={i !== 0}>
+        <FeaturesSlider label={`${tab.label} screens`} viewportClass="features-app-screens__card" options={options}>
+          {tab.slides.map((slide) => slide.src
+            ? <img class="features-app-screens__screen" src={slide.src} alt={slide.alt ?? ''} width={slide.width} height={slide.height} loading="lazy" decoding="async" />
+            : <div class="features-app-screens__screen features-app-screens__screen--empty" aria-hidden="true"></div>)}
+        </FeaturesSlider>
+      </div>
+    ))}
+  </div>
+</section>
+<script>
+  import { setupTabs } from '../../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('[data-features-app-screens]').forEach((root) => {
+    const bar = root.querySelector<HTMLElement>('.hm-tabs');
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('.hm-tabs button'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.features-app-screens__panel'));
+    if (!bar) return;
+    setupTabs(root, bar, buttons, panels, {
+      onSelect: (index) => panels[index].querySelector('[data-features-slider]')?.dispatchEvent(new Event('features-slider:reset')),
+    });
+  });
+</script>

@@ -1,0 +1,95 @@
+---
+/**
+ * Pricing tiers with a Monthly / Annually switch that only changes the prices.
+ * Figma: desktop 2049:94584, mobile 2049:95839.
+ * Props: heading, sub, buttons, tiers, benefits, id.
+ * buttons: { text, icon, iconSide ('right' by default, or 'left') } plus any Button prop or attribute (href, mode, hierarchy, disabled, class, target...).
+ * tiers: { name, tagline, price: { monthly, annually }, features, featuresLead (line above the features), dark, background (image URL), billingTabs (show the switch on this card) }.
+ */
+import Button, { type Props as ButtonProps } from '../Button.astro';
+import { gd } from '../../lib/gd';
+import '../../styles/home.css';
+import '../../styles/sections.css';
+import '../../styles/product.css';
+import '../../styles/tiers-section-mobile-app.css';
+// Button's own `icon` is a boolean for icon-only buttons. Here `icon` is an image URL shown beside the text, so it isn't inherited.
+export type TierButton = Pick<ButtonProps, 'href' | 'mode' | 'hierarchy' | 'disabled' | 'class'> & { text: string; icon?: string; iconSide?: 'left' | 'right'; [key: string]: unknown };
+export interface Tier {
+  name: string;
+  tagline?: string;
+  price: { monthly: string; annually: string };
+  features: string[];
+  featuresLead?: string;
+  dark?: boolean;
+  background?: string;
+  billingTabs?: boolean;
+}
+export interface Props { heading: string; sub?: string; buttons?: TierButton[]; tiers: Tier[]; benefits?: string[]; id?: string; }
+const { heading, sub, buttons = [], tiers, benefits = [], id } = Astro.props;
+const BILLING = [
+  { key: 'monthly', label: 'Monthly', suffix: '/mo' },
+  { key: 'annually', label: 'Annually', suffix: '/year' },
+] as const;
+---
+<section class="hm-sec hm-white hm-stack tiers-app" id={id} data-tiers-app>
+  <div class="hm-intro">
+    <h2 class="hm-h2" set:html={gd(heading)} />
+    {sub && <p class="hm-sub">{sub}</p>}
+    {buttons.length > 0 && (
+      <div class="hm-btns tiers-app__btns">
+        {buttons.map(({ text, icon, iconSide = 'right', ...button }) => (
+          <Button {...button}>
+            {icon && iconSide === 'left' && <img src={icon} alt="" width="16" height="16" />}
+            {text}
+            {icon && iconSide === 'right' && <img src={icon} alt="" width="16" height="16" />}
+          </Button>
+        ))}
+      </div>
+    )}
+  </div>
+  <div class="tiers-app__pricing">
+    <div class="pf-tiers pf-tiers--2 tiers-app__cards">
+      {tiers.map((tier) => (
+        <div class:list={['tiers-app__card', { 'tiers-app__card--dark': tier.dark }]} style={tier.background ? `background-image:url('${tier.background}'); background-position: top right;` : undefined}>
+          {tier.billingTabs && (
+            <div class="hm-tabs tiers-app__tabs" role="group" aria-label="Billing period">
+              {BILLING.map(({ key, label }, i) => <button type="button" class={i === 0 ? 'is-on' : ''} aria-pressed={i === 0 ? 'true' : 'false'} data-billing-tab={key}>{label}</button>)}
+            </div>
+          )}
+          <div class="tiers-app__plan">
+            <div class="tiers-app__intro">
+              <h3>{tier.name}</h3>
+              {tier.tagline && <p>{tier.tagline}</p>}
+            </div>
+            <p class="tiers-app__price">
+              {BILLING.map(({ key, suffix }, i) => <span data-billing={key} hidden={i !== 0}>{tier.price[key]}<i>{suffix}</i></span>)}
+            </p>
+          </div>
+          <div class="tiers-app__features">
+            {tier.featuresLead && <p class="tiers-app__lead">{tier.featuresLead}</p>}
+            <ul class="tiers-app__list">
+              {tier.features.map((feature) => <li><span class="tiers-app__check" aria-hidden="true"></span>{feature}</li>)}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+    {benefits.length > 0 && (
+      <ul class="tiers-app__benefits">
+        {benefits.map((benefit) => <li><span class="tiers-app__check" aria-hidden="true"></span>{benefit}</li>)}
+      </ul>
+    )}
+  </div>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tiers-app]').forEach((root) => {
+    const tabs = root.querySelectorAll<HTMLButtonElement>('[data-billing-tab]');
+    tabs.forEach((tab) => tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.toggle('is-on', t === tab);
+        t.setAttribute('aria-pressed', String(t === tab));
+      });
+      root.querySelectorAll<HTMLElement>('[data-billing]').forEach((price) => { price.hidden = price.dataset.billing !== tab.dataset.billingTab; });
+    }));
+  });
+</script>
