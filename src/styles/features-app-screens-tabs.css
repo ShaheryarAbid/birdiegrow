@@ -1,0 +1,13 @@
+/* App screens section (src/components/sections/FeaturesAppScreensTabs.astro). The slider layout is set through its options in the component. */
+.features-app-screens__panels { width: 100%; max-width: 1280px; }
+.features-app-screens__card {
+  box-sizing: border-box;
+  border: 0.5px solid rgba(253, 255, 254, 0.25);
+  border-radius: 40px;
+  background: #f0f2f1 url("/assets/features/app-screens-slider-bg-mobile.webp") center / cover no-repeat;
+}
+@media (min-width: 600px) { .features-app-screens__card { background-image: url("/assets/features/app-screens-slider-bg.webp"); } }
+
+/* The card has no height of its own: it fits the top padding plus the screens. Every screen uses the same proportions, cropped from the bottom if needed, so they all end at the card's bottom edge. */
+.features-app-screens__screen { display: block; height: auto; aspect-ratio: 441 / 780; object-fit: cover; object-position: top; }
+.features-app-screens__screen--empty { border-radius: 24px; background: rgba(253, 255, 254, 0.5); }
