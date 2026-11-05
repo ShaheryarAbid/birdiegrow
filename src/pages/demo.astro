@@ -18,13 +18,19 @@ import { PROOF } from '../data/proof';
 import { TESTIMONIALS } from '../data/stories';
 import { SOFTWARE_FAQS } from '../data/softwareFaq';
 import { SHADER_DARK } from '../data/shader';
+import FeaturesSlider from '../components/FeaturesSlider.astro';
+import { FEATURE_SLIDER_DESIGN } from '../components/sections/FeaturesAppScreensTabs.astro';
+
+
+const { sliderOptions } = Astro.props;
+
 const title = 'Book a Free Demo — Birdie Golf Simulator Software';
 const description = 'No pitch. No commitment. Just a live look at the platform built for golf simulator operators. Free walkthrough.';
 
 const valueProps: [string, string, string][] = [
-  ['calendar', '27% more weekday bookings', 'Average result for venues in their first 60 days on Birdie.'],
-  ['rocket', 'Live in 24 hours', 'We handle the entire setup. You don’t need a developer or an IT person.'],
-  ['filex', 'No long-term contracts', 'Month-to-month. If it doesn’t work, you cancel. Simple.'],
+  ['calendarFilled', '27% more weekday bookings', 'Average result for venues in their first 60 days on Birdie.'],
+  ['rocketFilled', 'Live in 24 hours', 'We handle the entire setup. You don’t need a developer or an IT person.'],
+  ['filexFilled', 'No long-term contracts', 'Month-to-month. If it doesn’t work, you cancel. Simple.'],
 ];
 const steps: [string, string][] = [
   ['search', 'We look at your current setup'],
@@ -35,6 +41,39 @@ const steps: [string, string][] = [
 const IMG = ['story-1', 'story-2', 'story-3'];
 const stories = TESTIMONIALS.slice(0, 3).map((t, i) => ({ ...t, img: `/assets/customers/${IMG[i]}.webp` }));
 const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
+const F = "/assets/features/";
+
+const sliderData = {
+    label: "Book a bay",
+    slides: [
+      {
+        src: `${F}mobile-app/booking-bat-session.webp`,
+        width: 441,
+        height: 780,
+        alt: "Choosing a date, time and bay in the Birdie app",
+      },
+      {
+        src: `${F}mobile-app/add-extras.webp`,
+        width: 441,
+        height: 780,
+        alt: "Adding extras to a booking in the Birdie app",
+      },
+      {
+        src: `${F}mobile-app/booking-summary.webp`,
+        width: 441,
+        height: 780,
+        alt: "Booking summary in the Birdie app",
+      },
+      {
+        src: `${F}mobile-app/liability-waiver.webp`,
+        width: 441,
+        height: 780,
+        alt: "Signing liability weiver in the Birdie app",
+      },
+    ],
+  };
+
+  const options = { ...FEATURE_SLIDER_DESIGN, ...sliderOptions };
 ---
 <BaseLayout title={title} description={description} noHeader={true}>
   <div class="bk bk--demo">
@@ -69,8 +108,8 @@ const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
           <p id="demo-error" class="err" role="alert" style="display:none">Something went wrong - please try again, or email <a href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a>.</p>
         </form>
         <div id="demo-success" class="ok" style="display:none">
-          <h3>You’re all set.</h3>
-          <p>Thanks — we’ve got your details and will reach out within one business day to confirm your walkthrough. Prefer to grab a time now? <a href="/book-demo/">Pick a slot →</a></p>
+          <h3>You're all set.</h3>
+          <p>Thanks — we've got your details and will reach out within one business day to confirm your walkthrough. Prefer to grab a time now? <a href="/book-demo/">Pick a slot →</a></p>
         </div>
       </div>
       <div class="bk-proof">
@@ -91,7 +130,12 @@ const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
     </section>
 
     <section class="hm-sec hm-white pg-screens-sec">
-      <div class="pg-screens"><img src="/assets/features/app-screens.webp" alt="Birdie booking flow on a phone: pick a date, time and bay, add extras, confirm the booking summary." width="1220" height="520" loading="lazy" /></div>
+        <FeaturesSlider label={`${sliderData.label} screens`} viewportClass="features-app-screens__card" options={options}>
+          {sliderData.slides.map((slide) => slide.src
+            ? <img class="features-app-screens__screen" src={slide.src} alt={slide.alt ?? ''} width={slide.width} height={slide.height} loading="lazy" decoding="async" />
+            : <div class="features-app-screens__screen features-app-screens__screen--empty" aria-hidden="true"></div>)}
+        </FeaturesSlider>
+      </div>
     </section>
 
     <section class="hm-sec hm-white hm-stack pg-proof">
@@ -99,11 +143,12 @@ const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
         <h2 class="hm-h2">Trusted by venues like yours<i>.</i></h2>
         <p class="hm-sub" style="max-width:640px">From unattended 24/7 members’ clubs to full pub-and-kitchen golf venues — hear how operators across the country run bookings, memberships, and door access on Birdie.</p>
         <Button href="/customers/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">See all customer stories <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>
+        <br />
       </div>
     </section>
     <CustomerStories stories={stories} id="stories" />
 
-    <section class="hm-sec hm-white hm-stack pg-call">
+    <section class="hm-sec hm-white hm-stack pg-call demo-call-info">
       <h2 class="hm-h2">What Happens on the Call<i>.</i></h2>
       <div class="pg-call__row">
         {steps.map(([ic, t]) => (
@@ -124,6 +169,24 @@ const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
     <Faq heading="Frequently asked questions" items={SOFTWARE_FAQS} open={1} balls />
     <Cta heading="Ready to see golf simulator software built for your studio?" body="Free walkthrough · No commitment · Live in 24 hours" items={[]} label="Book a demo" href="#demo-form" />
   </div>
+
+  <style is:global>
+    /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .demo-call-info {
+      gap: 24px;
+    }
+    .demo-call-info h2 {
+      margin-bottom: 36px;
+    }
+    @media (max-width: 900px) {
+      .demo-call-info h2 {
+        margin-bottom: 16px;
+      }
+      .fb { display: none;}
+      .hm-stack { padding: 56px 16px; }
+      br { display: none; }
+    }
+  </style>
 
   {/* Fire the Lead conversion (Meta + GA4 + optional Google Ads) when the demo form is submitted. */}
   <script is:inline define:vars={{ adsLabel: ANALYTICS.googleAdsLeadLabel }}>
