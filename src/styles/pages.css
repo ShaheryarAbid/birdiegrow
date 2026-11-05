@@ -108,7 +108,7 @@
 /* 404 (Figma 371:23119) */
 .pg-404 { position: relative; background: #000; color: #fff; overflow: hidden; min-height: 791px; display: flex; align-items: center; justify-content: center; padding: 250px 80px 160px; text-align: center; isolation: isolate; }
 .pg-404__bg { position: absolute; inset: -12px 0 auto 0; height: 803px; z-index: -1; pointer-events: none; }
-.pg-404__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .72; }
+.pg-404__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .72; top: 5%; }
 .pg-404__bg .shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,11,0,.9), rgba(0,11,0,0) 70%); }
 .pg-404__bg .hm-shader { position: absolute; inset: 0; }
 .pg-404__c { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 900px; }
