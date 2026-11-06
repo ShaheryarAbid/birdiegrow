@@ -1,34 +1,38 @@
 ---
 /**
  * Guide library — Figma Resources "Features / Option 6" 260:14754: sticky vertical tab list (anchors) on the left, one titled group of guide cards per tab on the right.
- * All groups are always in the HTML (tabs are anchor links, no JS). Props: groups [{id, label, items: {title, desc, href}[]}], cta (card link label).
+ * All groups are always in the HTML (tabs are anchor links, no JS). Props: groups [{id, label, items: {title, desc, href}[]}], cta (card link label),
+ * firstCta (label for the first card of every group, the design's featured article), all {label, href} (extra leading tab that points at the library itself, e.g. Blog's "All articles").
  */
 import '../../styles/sections.css';
 import '../../styles/resources.css';
 import GuideCard from './GuideCard.astro';
 export interface Group { id: string; label: string; items: { title: string; desc: string; href: string }[]; }
-export interface Props { groups: Group[]; cta?: string; id?: string; }
-const { groups, cta = 'Read guide', id = 'guides' } = Astro.props;
+export interface Props { groups: Group[]; cta?: string; firstCta?: string; id?: string; all?: { label: string; href: string }; }
+const { groups, cta = 'Read guide', firstCta, id = 'guides', all } = Astro.props;
 ---
 <section class="hm-sec hm-white hm-round rs-lib" id={id} style="--prev:#000">
   <nav class="rs-tabs" aria-label="Guide topics">
-    {groups.map((g, i) => <a href={`#${g.id}`} class={i === 0 ? 'is-on' : ''} data-rs-tab>{g.label}</a>)}
+    {all && <a href={all.href} class="is-on">{all.label}</a>}
+    {groups.map((g, i) => <a href={`#${g.id}`} class={!all && i === 0 ? 'is-on' : ''} data-rs-tab>{g.label}</a>)}
   </nav>
   <div class="rs-groups">
     {groups.map((g) => (
       <section class="rs-group" id={g.id}>
         <h2>{g.label}<i>.</i></h2>
         <div class="rs-cards">
-          {g.items.map((it, i) => <GuideCard title={it.title} desc={it.desc} href={it.href} category={g.label} cta={cta} index={i} />)}
+          {g.items.map((it, i) => <GuideCard title={it.title} desc={it.desc} href={it.href} category={g.label} cta={i === 0 && firstCta ? firstCta : cta} index={i} />)}
         </div>
       </section>
     ))}
   </div>
 </section>
 <script>
-  const tabs = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-rs-tab]'));
-  if ('IntersectionObserver' in window && tabs.length) {
-    const map = new Map(tabs.map((t) => [t.getAttribute('href')!.slice(1), t]));
+  // Only the group tabs are data-rs-tab anchors, but every tab in the rail is cleared when a group scrolls into view, so a leading "All articles" tab drops out too.
+  const tabs = Array.from(document.querySelectorAll<HTMLAnchorElement>('.rs-tabs a'));
+  const groupTabs = tabs.filter((t) => t.hasAttribute('data-rs-tab'));
+  if ('IntersectionObserver' in window && groupTabs.length) {
+    const map = new Map(groupTabs.map((t) => [t.getAttribute('href')!.slice(1), t]));
     const io = new IntersectionObserver((es) => {
       es.forEach((e) => { if (e.isIntersecting) { tabs.forEach((t) => t.classList.toggle('is-on', t === map.get(e.target.id))); } });
     }, { rootMargin: '-30% 0px -60% 0px' });

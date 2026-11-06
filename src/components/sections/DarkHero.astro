@@ -1,27 +1,22 @@
 ---
 /**
- * Dark centered hero with a row of link cards — Figma Resources "V2" 260:15162 (photo background, soft shader, glass cards).
+ * Dark centered hero with a row of link cards — Figma Resources "V2" 260:15162.
  * Props: h1 (white, green "." appended), lead, noteHtml (small paragraph, may contain links), primary / secondary {label, href},
- * cards [{kicker, title, text, href}], bg (image src). The page must use headerVariant="dark" headerOverlay.
+ * cards [{kicker, title, text, href}], bg / bgMobile (flattened hero exports painted as the section background), cls (extra section class for page-specific hero proportions).
+ * The page must use headerVariant="dark" headerOverlay.
  */
 import '../../styles/sections.css';
 import '../../styles/resources.css';
 import Button from '../Button.astro';
-import { SHADER_DARK } from '../../data/shader';
 export interface Props {
   h1: string; lead?: string; noteHtml?: string;
   primary?: { label: string; href: string }; secondary?: { label: string; href: string };
-  cards?: { kicker: string; title: string; text: string; href: string }[]; bg: string;
+  cards?: { kicker: string; title: string; text: string; href: string }[]; bg: string; bgMobile?: string; cls?: string;
 }
-const { h1, lead, noteHtml, primary, secondary, cards = [], bg } = Astro.props;
+const { h1, lead, noteHtml, primary, secondary, cards = [], bg, bgMobile, cls } = Astro.props;
 const endsPunct = /[.?!]$/.test(h1.trim());
 ---
-<section class="rs-hero">
-  <div class="rs-hero__bg" aria-hidden="true">
-    <img src={bg} alt="" fetchpriority="high" />
-    <div class="shade"></div>
-    <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
-  </div>
+<section class={`rs-hero${cls ? ` ${cls}` : ''}`} style={`--rs-bg:url("${bg}")${bgMobile ? `;--rs-bg-m:url("${bgMobile}")` : ''}`}>
   <div class="rs-hero__c">
     <div class="rs-hero__copy">
       <h1>{h1}{!endsPunct && <i>.</i>}</h1>

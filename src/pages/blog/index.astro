@@ -1,18 +1,44 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/sections/Hero.astro';
-import GuideCards from '../../components/sections/GuideCards.astro';
-import Cta from '../../components/sections/Cta.astro';
 import { getCollection } from 'astro:content';
+import DarkHero from '../../components/sections/DarkHero.astro';
+import GuideLibrary from '../../components/sections/GuideLibrary.astro';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const title = 'Golf Simulator Business Blog | Birdie';
 const description = 'Practical playbooks for golf simulator operators — booking software, memberships, pricing, no-shows, 24/7 door access, reviews, and weekday utilization.';
-const items = posts.map((p) => ({ title: p.data.title, desc: p.data.description, href: `/blog/${p.slug}/`, category: 'Blog' }));
+
+// Topic grouping from the Figma Blog Hub frame (Marketing & growth / Revenue & pricing / Memberships & retention / Operations & 24/7).
+// Slugs not listed here fall into the last group so no post is ever dropped.
+const TOPICS: { id: string; label: string; slugs: string[] }[] = [
+  { id: 'marketing-growth', label: 'Marketing & growth', slugs: ['golf-simulator-grand-opening', 'golf-simulator-marketing-ideas', 'golf-simulator-sms-marketing', 'golf-simulator-google-reviews', 'golf-simulator-gift-cards'] },
+  { id: 'revenue-pricing', label: 'Revenue & pricing', slugs: ['increase-golf-simulator-revenue', 'golf-simulator-pricing', 'golf-simulator-weekday-utilization', 'golf-simulator-corporate-events', 'golf-simulator-no-shows'] },
+  { id: 'memberships-retention', label: 'Memberships & retention', slugs: ['golf-simulator-membership-software', 'golf-simulator-customer-retention', 'golf-simulator-leagues'] },
+  { id: 'operations-24-7', label: 'Operations & 24/7', slugs: ['golf-simulator-business-tips', 'golf-simulator-staffing', 'golf-simulator-door-access', 'how-to-run-golf-simulator-24-7'] },
+];
+const bySlug = new Map(posts.map((p) => [p.slug, p]));
+const listed = new Set(TOPICS.flatMap((t) => t.slugs));
+const groups = TOPICS.map((t) => ({
+  id: t.id,
+  label: t.label,
+  items: t.slugs.map((s) => bySlug.get(s)).filter((p): p is NonNullable<typeof p> => !!p).map((p) => ({ title: p.data.title, desc: p.data.description, href: `/blog/${p.slug}/` })),
+}));
+const extra = posts.filter((p) => !listed.has(p.slug));
+groups[groups.length - 1].items.push(...extra.map((p) => ({ title: p.data.title, desc: p.data.description, href: `/blog/${p.slug}/` })));
 ---
-<BaseLayout title={title} description={description} headerVariant="light">
+<BaseLayout title={title} description={description} headerVariant="dark" headerOverlay>
   <div class="hm">
-    <Hero align="center" eyebrow="Blog" h1="Golf Simulator Business Blog" lead={description} />
-    <GuideCards heading="All articles" items={items} cta="Read article" />
-    <Cta label="Book a Demo" />
+    <DarkHero
+      h1="Golf Simulator Business Blog"
+      lead={description}
+      bg="/assets/blog/hero.webp"
+      cls="rs-hero--blog"
+    />
+    <GuideLibrary
+      groups={groups}
+      id="articles"
+      all={{ label: 'All articles', href: '#articles' }}
+      cta="Read guide"
+      firstCta="Read article"
+    />
   </div>
 </BaseLayout>

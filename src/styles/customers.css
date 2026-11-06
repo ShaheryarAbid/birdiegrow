@@ -19,7 +19,8 @@
 .cs-play img { width: 16px; height: 16px; position: static; }
 .tvideo:hover .cs-play, .tvideo:focus-visible .cs-play { transform: scale(1.08); }
 
-.cs-card.is-feat { grid-column: 1 / -1; background: radial-gradient(55% 60% at 8% 4%, rgba(34,197,94,.38), rgba(14,90,110,.28) 40%, rgba(0,2,3,0) 75%), #000203; min-height: 541px; }
+/* Figma "All customer stories": the featured card's glow is a flattened export (cus-sec-bg 2560x1082 = the 1280x541 card at 2x), so it is painted as the card background instead of the old gradient + shader scaffolding. */
+.cs-card.is-feat { grid-column: 1 / -1; background: #000203 url(/assets/customers/sec-bg.webp) center / cover no-repeat; min-height: 541px; }
 .cs-card.is-feat .cs-card__txt { background: transparent; color: #fff; padding: 32px; flex: 0 0 40%; }
 .cs-card.is-feat .cs-card__desc h3 { color: #fff; }
 .cs-card.is-feat .cs-card__desc p, .cs-card.is-feat .cs-card__by span { color: var(--gray-300); }
@@ -28,18 +29,14 @@
 .cs-card.is-feat .cs-card__vid { flex: 1 1 0; }
 .cs-card.is-feat .cs-loc { color: #fff; }
 .cs-card:not(.is-feat) .cs-loc img { filter: invert(1); }
-.cs-card__bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.cs-card__bg > img { display: none; position: absolute; width: 965px; height: 680px; left: -300px; top: -80px; transform: rotate(163deg) scaleY(-1); opacity: .87; object-fit: cover; max-width: none; }
-.cs-card__bg .fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.4)); }
 
 @media (max-width: 900px) {
   .cs-sec { padding: 0 16px 56px; }
   .cs-list { grid-template-columns: 1fr; }
   .cs-card, .cs-card.is-feat { flex-direction: column-reverse; min-height: 0; }
+  /* Mobile has its own export (722x1340) with the glow low, behind the copy, since the video stacks on top. */
+  .cs-card.is-feat { background-image: url(/assets/customers/sec-bg-mobile.webp); }
   .cs-card__vid, .cs-card.is-feat .cs-card__vid { flex: none; width: 100%; aspect-ratio: 345 / 380; min-height: 0; }
   .cs-card.is-feat .cs-card__txt { flex: none; padding: 24px 20px; }
   .cs-card__txt { padding: 20px; }
-  .cs-card__bg > img { left: -400px; }
 }
-.cs-card .cs-card__bg > img { display: none !important; }
-.cs-card__bg .hm-shader:not(:has(canvas)) .px, .cs-card__bg .hm-shader:not(:has(canvas)) ~ .hm-noise { display: none; }

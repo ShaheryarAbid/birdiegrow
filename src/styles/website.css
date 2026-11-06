@@ -1,5 +1,11 @@
 /* Target section 2049:113176. Mobile structure comes from 2049:113767/CSS;
    its screenshot could not be retrieved before the MCP quota was exhausted. */
+
+/* ===== Hero ===== */
+/* Figma exports the whole hero as one flattened photo (venue-hero-desktop 2880x1582 = 1440x791 at 2x, venue-hero-mobile 786x1688),
+   so the page paints it as a background like the other product pages instead of rebuilding the room/phone stack in DOM. */
+.ws .pf-hero { background: #000 url(/assets/venue/hero-desktop.webp) center / cover no-repeat; }
+.ws .pf-hero__art { display: none; }
 .ws-art { position: absolute; inset: 0; }
 .ws-art img { max-width: none; }
 .ws-art__room { position: absolute; left: 452.87px; top: 0; width: 987.13px; height: 832.52px; object-fit: cover; }
@@ -22,25 +28,57 @@
 .ws-intro__copy li:first-child { padding-top: 0; }
 .ws-intro__copy li:last-child { border: 0; padding-bottom: 0; }
 .ws-intro__copy li > span { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; background: var(--color-bg); flex: none; }
-.ws-journey { position: relative; min-height: 557px; border-radius: 20px; background: #f2f2f2; overflow: hidden; display: grid; place-items: center; }
-.ws-journey__bg { position: absolute; width: 1100px; height: 1014px; object-fit: contain; left: -140px; top: -30px; opacity: .45; }
+.ws-journey { position: relative; min-height: 557px; border-radius: 20px; overflow: hidden; display: grid; place-items: center; background: var(--color-bg) url(/assets/venue/second-sec-bg.webp) center / cover no-repeat; }
 .ws-journey ol { position: relative; list-style: none; display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 0 20px; margin: 0; }
-.ws-journey li { position: relative; display: flex; align-items: center; gap: 8px; padding: 12px; border: 1px solid #fff; border-radius: 12px; background: #fdfffecc; box-shadow: 0 8px 16px #0000000a; }
+/* Figma "Frame 225": frosted glass over the artwork - 10% white, radius 16, two soft shadows (no outline). */
+.ws-journey li { position: relative; display: flex; align-items: center; gap: 8px; padding: 12px; border: 0; border-radius: 16px; background: rgba(255, 255, 255, .1); box-shadow: 0 20px 20px rgba(0, 0, 0, .03), 0 10px 10px rgba(0, 0, 0, .03); }
 .ws-journey li + li::before { content: ""; position: absolute; left: 50%; top: -28px; height: 24px; border-left: 1px solid #c9cdca; }
-.ws-journey__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: #000407; flex: none; }
+/* Tiles reuse the dark pixel treatment from the homepage setup cards: pixel artwork + soft-light grain, glyph on top. */
+.ws-journey__icon { position: relative; overflow: hidden; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 7.7px; flex: none; border: 0.55px solid rgba(253, 255, 254, .5); background: #000407 url(/assets/home/color-pixel.webp) center / cover no-repeat; box-shadow: 0 11px 11px rgba(0, 0, 0, .03), 0 5.5px 5.5px rgba(0, 0, 0, .03); }
+.ws-journey__icon::after { content: ""; position: absolute; inset: 0; background: url(/assets/home/grain.svg); mix-blend-mode: soft-light; opacity: .6; }
+.ws-journey__icon img { position: relative; z-index: 1; }
 .ws-journey h3 { font: 500 16px/1 var(--font-ui); }
 .ws-journey p { margin-top: 4px; font: 400 14px/1.3 var(--font-ui); color: var(--color-text-secondary); }
 .ws-setup .hm-setup__txt h3 { white-space: normal; }
+/* Figma tiles are 80px at radius 14 (the shared setup component uses 16). */
+.ws-setup .hm-setup__tile { border-radius: 14px; }
 .ws-price-head { padding-bottom: 40px; }
 .ws-price-head .bd-btn { margin-top: 16px; }
 .ws .cm-pricing { background: #fdfffe; padding-top: 0; }
+/* Figma draws "Custom" flat white on the dark plan; the shared dark card adds a green bloom for the pricing hero. */
+.ws .cm-plan.is-dark .cm-amt { text-shadow: none; }
+/* Figma keeps the plan glow tight in the top-right corner: the shared artwork is zoomed about that corner and masked radially so the blue lobe and the wide falloff stay off the card. */
+.ws .cm-plan.is-bg .cm-plan__bg > img { transform: scale(1.6); transform-origin: 100% 0; -webkit-mask-image: radial-gradient(115% 85% at 100% 0, #000 15%, transparent 68%); mask-image: radial-gradient(115% 85% at 100% 0, #000 15%, transparent 68%); }
+
+/* ===== Comparison table ===== */
+/* Figma 2049:113xxx: one 426x740 panel (Frame 2147232032) at left 427.44 / top 8 inside the 1280x756 table, flattened to venue-feature-bg.
+   It is painted behind the whole middle column instead of per-cell, so the artwork, its 1px #FDFFFE outline and the radius stay continuous
+   (the outline and the corner radius are baked into the export, so nothing is redrawn here; the crop is the panel's exact 852x1480 opaque box so the outline lands on the edge). */
+.ws .sx-tbl__inner::after { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; left: 33.3333%; width: 33.3333%; border-radius: 12px; background: #000407 url(/assets/venue/feature-bg.webp) 0 0 / 100% 100% no-repeat; box-shadow: 0 20px 20px rgba(0, 0, 0, .05), 0 10px 10px rgba(0, 0, 0, .05); pointer-events: none; }
+/* Cells go transparent (the panel owns the column) but stay positioned so their content paints above it. */
+.ws .sx-tbl .b { position: relative; z-index: 1; background: transparent; border-top-color: rgba(253, 255, 254, .2); }
+.ws .sx-tbl thead .b { border-radius: 0; overflow: visible; }
+.ws .sx-tbl thead .b .art, .ws .sx-tbl thead .b .hm-shader { display: none; }
+.ws .sx-tbl tbody tr:last-child .b { border-radius: 0; }
+.ws .sx-tbl thead th { font-weight: 600; }
+/* Figma centres the header labels ~6px below the row's middle (Feature 300 / competitor 303 against a 245-345 row), so the shared 20/20 padding is shifted instead of the row height. */
+.ws .sx-tbl thead th { padding-top: 26px; padding-bottom: 14px; height: 108px; }
+.ws .sx-tbl thead .b { padding: 6px 0 70px; }
+/* Flat #FDFFFE disappears on the #F0F2F1 shell and the old dark rule read as black, so the row rules use a mid gray that stays legible without going heavy. */
+.ws .sx-tbl th, .ws .sx-tbl td { border-top-color: rgba(0, 4, 7, .16); }
+.ws .sx-tbl .sx-colname { font: 600 24px/1.24 var(--font-ui); color: var(--color-text); }
 @media (max-width: 900px) {
   .ws-intro { grid-template-columns: 1fr; gap: 40px; }
   .ws-journey { min-height: 430px; }
-  .ws-journey__bg { left: -300px; }
   .ws-journey li { max-width: 100%; }
   .ws-journey ol { padding: 0 16px; }
   .ws-art__shadow { display: none; }
-  .ws .pf-hero { min-height: 791px; }
-  .ws .pf-hero__art { pointer-events: none; }
+  /* Mobile hero is its own flattened export (786x1688). The stage is capped at 430px and centred, so a 480-900px window gets the phone composition instead of a 1650px black column, and the copy shares that centred column. */
+  .ws .pf-hero { display: block; position: relative; height: auto; min-height: min(calc(100vw * 2.1476), 923px); background: #000 url(/assets/venue/hero-mobile.webp) top center / min(100vw, 430px) auto no-repeat; }
+  .ws .pf-hero__content { position: static; width: auto; max-width: 430px; margin: 0 auto; padding: 124px 16px 0; }
+  /* Figma mobile (390x838): "Your site. / Your bookings. / One link." keep their own line at 36/39, so the desktop breaks stay live and the 300px clamp goes. */
+  .ws .pf-hero h1 { max-width: none; font-size: 36px; line-height: 39px; letter-spacing: -1.1px; }
+  .ws .pf-hero h1 .d-br { display: inline; }
+  /* Beats the component's own :not(.pf-hero--center) margin-top:8px, which out-specifies a plain .ws rule. */
+  .ws .pf-hero:not(.pf-hero--center) .pf-hero__content > .hm-btns { margin-top: 32px; }
 }

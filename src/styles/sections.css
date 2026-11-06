@@ -126,9 +126,13 @@
 .sx-vtile img.birdie { width: 113px; height: 30px; }
 
 /* Comparison table */
-.sx-tbl { width: 100%; background: var(--color-bg); border-radius: 20px; overflow: hidden; }
+.sx-tbl { position: relative; width: 100%; background: var(--color-bg); border-radius: 20px; overflow: hidden; }
 .sx-tbl__scroll { overflow-x: auto; padding: 8px 0; scrollbar-width: none; }
 .sx-tbl__scroll::-webkit-scrollbar { display: none; }
+/* Wrapper so a page can paint one continuous panel behind the middle column (it must track the table, not the scroll viewport). */
+.sx-tbl__inner { position: relative; }
+/* Figma "Frame 81" - the pill that replaces the hidden scrollbar on touch layouts; desktop has room for all three columns so it stays off. */
+.sx-tbl__hint { display: none; }
 .sx-tbl table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
 .sx-tbl th, .sx-tbl td { padding: 20px 32px; text-align: left; vertical-align: middle; font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); border-top: 1px solid #00040710; border-bottom: 1px solid #00040710; height: 80px; }
 .sx-tbl tr:last-of-type th, .sx-tbl tr:last-of-type td {border-bottom: 0px; }
@@ -181,9 +185,19 @@ a.sx-plate:focus-visible { outline: 2px solid var(--green-600); outline-offset: 
 .sx-gcard { display: flex; flex-direction: column; gap: 8px; padding: 8px; background: var(--color-bg); border-radius: 20px; text-decoration: none; color: var(--color-text); }
 .sx-gthumb { position: relative; height: 151px; border-radius: 12px; overflow: hidden; background: #000407; flex: none; }
 .sx-gthumb > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.sx-gthumb .sh { position: absolute; inset: 0; }
-.sx-gthumb--gradient > img.a { opacity: .87; transform: rotate(-12deg) scale(1.5); transform-origin: 30% 0; }
-.sx-gthumb--gradient > img.b { mix-blend-mode: color-burn; left: 40%; top: -40%; width: 80%; height: 120%; inset: auto; transform: rotate(-127deg) scaleY(-1); }
+.sx-gthumb .sh { position: absolute; inset: 0; z-index: 2; }
+/* Grain + halftone thumbnails (Figma "Grain & Halftone Effects"): .fx-4 mottled gradient and .fx-1 corner glow rebuilt as pure CSS — glow carries the radial gradients plus overlay turbulence grain, dots lays a 3px halftone over it. */
+.sx-gthumb { --fx-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.sx-gthumb--gradient, .sx-gthumb--corner { isolation: isolate; background: #000; }
+.sx-gthumb .fx-glow, .sx-gthumb .fx-dots { position: absolute; inset: 0; pointer-events: none; }
+.sx-gthumb .fx-glow { z-index: 0; filter: contrast(1.7) brightness(1.05); }
+.sx-gthumb .fx-glow::after { content: ""; position: absolute; inset: 0; background: var(--fx-noise); mix-blend-mode: overlay; opacity: .9; }
+.sx-gthumb .fx-dots { z-index: 1; background: radial-gradient(circle, transparent .6px, rgba(0, 0, 0, .6) 1.3px) 0 0/3px 3px; }
+/* Same five stops and palette as .fx-4, re-anchored for the 295x151 thumbnail so the glow runs along the top edge (green left, blue centre, dark green right) and fades to black under the title, like the Figma cards. */
+.sx-gthumb--gradient .fx-glow { background-color: #000; background-image: radial-gradient(circle at 8% 18%, #0fa63a 0, transparent 40%), radial-gradient(circle at 45% -5%, #0b4fb3 0, transparent 42%), radial-gradient(circle at 85% 10%, #0a6b22 0, transparent 38%), radial-gradient(circle at 60% 55%, #062a1a 0, transparent 45%), radial-gradient(circle at 15% 75%, #04122e 0, transparent 40%); }
+.sx-gthumb--corner .fx-glow { background-color: #000; background-image: radial-gradient(circle at 100% 0%, #b6f5d2 0, #2fd08a 8%, #1b8f98 20%, #1d46b5 34%, transparent 58%), radial-gradient(circle at 78% -8%, #0e5d3a 0, transparent 40%); }
+/* The corner glow keeps its halftone only where the glow reaches, so the dither fades into flat black. */
+.sx-gthumb--corner .fx-dots { background: radial-gradient(circle, transparent .7px, rgba(0, 0, 0, .55) 1.2px) 0 0/3px 3px; -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 55%); mask-image: radial-gradient(circle at 100% 0%, #000 0, transparent 55%); }
 .sx-gthumb--gradient .sh::before, .sx-gthumb--photo .sh::before, .sx-gthumb--dark .sh::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.4)); }
 .sx-gthumb--photo .sh::before { background: linear-gradient(90deg, #000b00 4%, rgba(0,11,0,0) 70%); }
 .sx-gthumb--dark > img { height: 117%; top: -8%; }
@@ -191,7 +205,7 @@ a.sx-plate:focus-visible { outline: 2px solid var(--green-600); outline-offset: 
 .sx-gthumb--ball { background: #fff; }
 .sx-gthumb--ball > img { object-position: bottom; }
 .sx-gthumb--ball .sh::before { content: ""; position: absolute; inset: 0; background: linear-gradient(190deg, #fff 12%, rgba(255,255,255,0) 95%); }
-.sx-gthumb .t { position: absolute; left: 16px; right: 16px; bottom: 16px; font: 600 16px/1.2 var(--font-display); letter-spacing: -0.03em; color: var(--gray-300); z-index: 2; margin: 0; max-width: 258px; }
+.sx-gthumb .t { position: absolute; left: 16px; right: 16px; bottom: 16px; font: 600 16px/1.2 var(--font-display); letter-spacing: -0.03em; color: var(--gray-300); z-index: 3; margin: 0; max-width: 258px; }
 .sx-gthumb--ball .t { color: var(--color-text-secondary); }
 .sx-gcard__body { display: flex; flex-direction: column; gap: 12px; padding: 12px; flex: 1; }
 .sx-gcard__cat { font: 400 14px/1.24 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-accent); }
@@ -235,8 +249,11 @@ a.sx-plate:focus-visible { outline: 2px solid var(--green-600); outline-offset: 
   .sx-hero--center { gap: 32px; padding-bottom: 32px; }
   .sx-versus { height: 310px; }
   .sx-versus__col { transform: scale(.757); }
-  .sx-tbl table { min-width: 900px; }
+  .sx-tbl__inner { min-width: 900px; }
   .sx-tbl th, .sx-tbl td { padding: 16px; }
+  .sx-tbl__hint { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 96px; height: 40px; padding: 16px; border-radius: 99px; background: #fdfffe; box-shadow: 0 8px 24px rgba(0, 4, 7, .14); pointer-events: none; }
+  .sx-tbl__hint span { flex: none; width: 8px; height: 8px; border-radius: 99px; background: #e9ebeb; transition: width .2s ease, background .2s ease; }
+  .sx-tbl__hint span.is-on { width: 32px; background: #000407; }
   .sx-acc { flex-direction: column; }
   .sx-acc__card { flex: none; height: 80px; padding: 16px; }
   .sx-acc__card.is-open { height: auto; min-height: 0; gap: 24px; }

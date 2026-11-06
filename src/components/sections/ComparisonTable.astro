@@ -56,12 +56,8 @@ const check = "/assets/sections/check-circle.svg";
     }
   </div>
   <div class="sx-tbl">
-    <div
-      class="sx-tbl__scroll"
-      tabindex="0"
-      role="region"
-      aria-label={`Birdie versus ${name} comparison table`}
-    >
+    <div class="sx-tbl__scroll" tabindex="0" role="region" aria-label={`Birdie versus ${name} comparison table`}>
+      <div class="sx-tbl__inner">
       <table>
         <thead>
           <tr>
@@ -125,7 +121,9 @@ const check = "/assets/sections/check-circle.svg";
           }
         </tbody>
       </table>
+      </div>
     </div>
+    <div class="sx-tbl__hint" aria-hidden="true"><span></span><span></span><span></span></div>
   </div>
 </section>
 <style is:global>
@@ -135,3 +133,20 @@ const check = "/assets/sections/check-circle.svg";
         cover no-repeat;
     }
   </style>
+<script>
+  // The table hides its native scrollbar (the design has none), so the pill under Figma "Frame 81" doubles as the scroll position: the wide segment tracks scrollLeft.
+  for (const tbl of document.querySelectorAll<HTMLElement>('.sx-tbl')) {
+    const sc = tbl.querySelector<HTMLElement>('.sx-tbl__scroll');
+    const segs = [...tbl.querySelectorAll<HTMLElement>('.sx-tbl__hint span')];
+    if (!sc || !segs.length) continue;
+    const paint = () => {
+      const max = sc.scrollWidth - sc.clientWidth;
+      const on = max <= 2 ? 0 : Math.min(segs.length - 1, Math.round((sc.scrollLeft / max) * (segs.length - 1)));
+      segs.forEach((s, i) => s.classList.toggle('is-on', i === on));
+      tbl.classList.toggle('is-end', sc.scrollLeft >= max - 2);
+    };
+    sc.addEventListener('scroll', paint, { passive: true });
+    addEventListener('resize', paint);
+    paint();
+  }
+</script>
