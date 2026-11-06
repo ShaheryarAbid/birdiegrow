@@ -15,9 +15,6 @@ const endsPunct = /[.?!]$/.test(heading.trim());
   <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} /></div>
   <div class="sx-sb">
     <div class="sx-sb__dark">
-      <img class="art" src="/assets/seo/tile-art.webp" alt="" loading="lazy" />
-      <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
-      <div class="hm-noise" style="background:#fdfffe"></div>
       <div class="in">{title && <h3>{title}</h3>}<p>{text}</p></div>
     </div>
     {stats.map(([v, l]) => {

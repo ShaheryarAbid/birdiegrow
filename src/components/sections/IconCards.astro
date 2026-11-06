@@ -12,19 +12,19 @@ export interface Props {
   items: { title: string; text: string; label: string; href: string }[];
   icons?: string[];
   id?: string;
+  h2Classes?: string;
 }
-const { heading, items, icons = ['icon-laptop', 'icon-money', 'icon-door', 'icon-chart'], id } = Astro.props;
+const { heading, items, icons = ['icon-laptop', 'icon-money', 'icon-door', 'icon-chart'], h2Classes, id } = Astro.props;
 const S = '/assets/seo/';
 const clean = (s: string) => s.replace(/\s*→\s*$/, '');
 const endsPunct = /[.?!]$/.test(heading.trim());
 ---
 <section class="hm-sec hm-white hm-stack" id={id}>
-  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} /></div>
+  <div class="hm-intro"><h2 class=`hm-h2 ${h2Classes}` set:html={gd(heading)} /></div>
   <div class="sx-ic">
     {items.map((it, i) => (
       <article class={`sx-ic__card${i === 0 ? ' is-first' : ''}`}>
         <div class={`sx-ic__tile${i === 0 ? ' dark' : ''}`} aria-hidden="true">
-          {i === 0 && (<><img class="art" src={`${S}tile-art.webp`} alt="" loading="lazy" /><div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div><div class="hm-noise" style="background:#fdfffe"></div></>)}
           <img class="g" src={`${S}${icons[i % icons.length]}.svg`} alt="" width="40" height="40" />
         </div>
         <div class="sx-ic__txt"><h3>{it.title}</h3><p>{it.text}</p></div>
