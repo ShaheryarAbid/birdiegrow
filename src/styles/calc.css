@@ -112,3 +112,19 @@
 }
 
 .cc-out__bg .hm-shader:not(:has(canvas)) .px, .cc-out__bg:not(:has(canvas)) .hm-noise { display: none; }
+
+/* Opt-in flattened Figma backgrounds. The exported art already carries its own glow, so the photo / gradient / shader layers are dropped and the panel is painted with the single image.
+   --cc-out-bg-pos lets each page anchor the crop where its glow lives (cover crops the opposite edges). */
+.cc-out--flat { background: #000407 var(--cc-out-bg, none) var(--cc-out-bg-pos, center) / cover no-repeat; }
+/* Calculators explainer: option4 rotated 180° so the glow lands bottom-left. Fitting it to the band height keeps the glow at the Figma size instead of scaling it up and cropping the top; the rest of the band is the element's own #000 and the art is pure black there, so no seam shows. */
+.cc-explain--flat { background: #000 url('/assets/resources/calc-cta-bg.webp') left bottom / auto 100% no-repeat; }
+@media (max-width: 900px) {
+  /* Mobile covers the whole tall panel with the art, which blows the glow up behind the numbers — a barely-there black veil tames it without changing the colour */
+  .cc-out--flat::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.3); pointer-events: none; }
+  /* Mobile drops the art (plain black, like before) and re-reads heading → copy → CTA, so the button leaves the heading column and lands at the bottom */
+  .cc-explain--flat { background: #000; display: flex; flex-direction: column; }
+  .cc-explain--flat .cc-explain__h { display: contents; }
+  .cc-explain--flat .cc-explain__h h2 { order: 1; }
+  .cc-explain--flat .cc-explain__t { order: 2; }
+  .cc-explain--flat .cc-explain__h .bd-btn { order: 3; align-self: flex-start; margin-top: auto; }
+}
