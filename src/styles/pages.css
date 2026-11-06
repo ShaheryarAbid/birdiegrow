@@ -102,15 +102,28 @@
 .pg-book__bay small { margin-top: .855px; font: 400 11.11px/1.3 var(--font-ui); color: var(--bk-muted); }
 .pg-book__check { position: absolute; right: 8.55px; bottom: 8.55px; width: 10.26px; height: 10.26px; }
 
-/* Legal (Figma Privacy 366:15265) */
-.pg-legal { background: #fdfffe; padding: 40px 24px 80px; }
-.pg-legal__in { max-width: 800px; margin: 0 auto; }
-.pg-legal h1 { font: 600 48px/1.05 var(--font-display); letter-spacing: -0.03em; color: var(--color-text); margin: 0; }
-.pg-legal .muted { font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); margin: 12px 0 0; }
+/* Legal (Figma Terms of Service 2049:105089) */
+.pg-legal { background: #fdfffe; padding: 40px 24px 120px; }
+.pg-legal__in { max-width: 720px; margin: 0 auto; }
+.pg-legal h1 { font: 600 64px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text); margin: 0; }
+.pg-legal .muted { font: 400 16px/1.4 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); margin: 16px 0 0; }
+.pg-legal .muted + p, .pg-legal .sx-prose h2 + * { margin-top: 24px; }
+.pg-legal .sx-prose a { color: var(--green-700); }
 
-.pg-legal .sx-prose h2 { font: 500 28px/1.2 var(--font-display); margin-top: 48px; }
+.pg-legal .sx-prose h2 { font: 500 32px/1.2 var(--font-display); margin-top: 80px; }
 .pg-legal .sx-prose ul, .pg-legal .sx-prose ol { gap: 8px; }
-.pg-legal .sx-prose code { word-break: break-all; }
+
+/* Privacy's own differences (Figma 2049:104899, mobile 2049:105022). The first three sections are spaced wider than the rest. */
+.pg-legal--privacy .sx-prose h2 { font-weight: 600; line-height: 1; letter-spacing: -0.04em; margin-top: 40px; }
+.pg-legal--privacy .sx-prose h2:nth-of-type(-n+3) { margin-top: 80px; }
+.pg-legal--privacy .sx-prose h2 + p + p, .pg-legal--privacy .sx-prose p + ol { margin-top: 8px; }
+.pg-legal--privacy .sx-prose ol + ul { margin-top: 24px; }
+.pg-legal--privacy .sx-prose ul, .pg-legal--privacy .sx-prose ol { padding-left: 24px; }
+.pg-legal--privacy .sx-prose ol { gap: 0; }
+.pg-legal--privacy .sx-prose strong { font-weight: 600; }
+.pg-legal--privacy .sx-prose a { color: var(--green-800); }
+.pg-legal--privacy .sx-prose code { font: inherit; background: none; padding: 0; border-radius: 0; color: var(--green-800); text-decoration: underline; overflow-wrap: anywhere; }
+.pg-legal--privacy .sx-prose li code { color: inherit; text-decoration: none; }
 
 /* Guide FAQ / TOC helpers */
 .pg-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; }
@@ -153,9 +166,14 @@
   .pg-prog { grid-template-columns: minmax(0, 1fr); }
   .pg-prog ol { padding: 32px 24px 8px; }
   .pg-prog__vis { justify-content: center; padding: 16px 16px 32px; }
-  .pg-legal { padding: 24px 16px 56px; }
-  .pg-legal h1 { font-size: 36px; }
-  .pg-legal .sx-prose h2 { font-size: 24px; margin-top: 36px; }
+  /* Figma mobile 2049:105208. Its sections stack 56px + 56px (112px) before each heading; one 56px is used on purpose. */
+  .pg-legal { padding: 56px 16px; }
+  .pg-legal__in { max-width: 800px; }
+  .pg-legal h1 { font-size: 40px; }
+  .pg-legal .muted, .pg-legal .muted + p { margin-top: 20px; }
+  .pg-legal .sx-prose h2 { margin-top: 56px; }
+  .pg-legal--privacy .sx-prose h2 { margin-top: 40px; }
+  .pg-legal--privacy .sx-prose h2:nth-of-type(-n+3) { margin-top: 56px; }
   .pg-404 { min-height: 640px; padding: 160px 16px 80px; }
   .pg-404 h1 { font-size: 40px; }
 }

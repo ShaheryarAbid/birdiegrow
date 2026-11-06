@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalPage from '../components/sections/LegalPage.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
 ---
 <BaseLayout
   title="Terms of Service | Birdie"
@@ -8,6 +9,7 @@ import LegalPage from '../components/sections/LegalPage.astro';
   noindex={true}
   headerVariant="light"
 >
+  <ReadingProgress target=".pg-legal__in" />
   <LegalPage>
         <h1>Terms of Service</h1>
         <p class="muted">Last updated: May 23, 2026</p>
