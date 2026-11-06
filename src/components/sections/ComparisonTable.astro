@@ -126,6 +126,13 @@ const check = "/assets/sections/check-circle.svg";
     <div class="sx-tbl__hint" aria-hidden="true"><span></span><span></span><span></span></div>
   </div>
 </section>
+<style is:global>
+    .sx-tbl thead th.middle {
+      background:  #000407
+        url("/assets/compare/comparison-table-middle-bg.webp") top /
+        cover no-repeat;
+    }
+  </style>
 <script>
   // The table hides its native scrollbar (the design has none), so the pill under Figma "Frame 81" doubles as the scroll position: the wide segment tracks scrollLeft.
   for (const tbl of document.querySelectorAll<HTMLElement>('.sx-tbl')) {
@@ -143,10 +150,3 @@ const check = "/assets/sections/check-circle.svg";
     paint();
   }
 </script>
-<style is:global>
-    .sx-tbl thead th.middle {
-      background:  #000407
-        url("/assets/compare/comparison-table-middle-bg.webp") top /
-        cover no-repeat;
-    }
-  </style>
