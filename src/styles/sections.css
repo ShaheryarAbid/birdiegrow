@@ -138,7 +138,7 @@
 .sx-tbl tr:last-of-type th, .sx-tbl tr:last-of-type td {border-bottom: 0px; }
 .sx-tbl thead th { height: 100px; border-top: 0; font-weight: 500; color: var(--color-text-secondary); }
 .sx-tbl thead th.m { text-align: center; }
-.sx-tbl .b { background: var(--color-text); color: #fff; border-top-color: rgba(255,255,255,.1); }
+.sx-tbl .b { background: var(--color-text); color: #fff; border-top-color: rgba(255,255,255,.1); text-align: center; }
 .sx-tbl thead .b { position: relative; overflow: hidden; border-radius: 12px 12px 0 0; padding: 0; }
 .sx-tbl thead .b .art { position: absolute; inset: 0; background: url(/assets/sections/feature-artwork.webp) center 0 / cover no-repeat; opacity: .9; }
 .sx-tbl thead .b .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,4,7,0) 20%, #000407 100%); }
