@@ -27,9 +27,9 @@ const faqs: [string, string][] = [
 ];
 const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
 
-const tiers: [string, string, string][] = [
+const tiers: [string, string, string, ('light' | 'dark')?][] = [
   ['Starter', 'For casual players who want an affordable way to play regularly without committing to a larger plan.', '$99–$129/mo'],
-  ['Regular', 'For regular players and league participants who book most weeks.', '$179–$229/mo'],
+  ['Regular', 'For regular players and league participants who book most weeks.', '$179–$229/mo', 'dark'],
   ['Weekday-Only', 'For players with flexible schedules who prefer quieter sessions and want to save by booking during off-peak hours.', '$129–$199/mo'],
   ['Premium', 'For dedicated golfers who practice frequently and want more playing time, better rates.', '$249–$329/mo'],
 ];
