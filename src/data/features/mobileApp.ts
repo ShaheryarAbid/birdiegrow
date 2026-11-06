@@ -1,6 +1,5 @@
 // Content for the mobile app feature page: /features/mobile-app/ (src/pages/features/mobile-app.astro).
-// NOT CONFIRMED: the mobile app isn't verified as offered, so nothing here should be reused on other pages yet.
-// Prices come from Figma and the store badges have no URLs. See the page header for what's needed to go live.
+// The app and Figma pricing are not confirmed, and no official store listings were found.
 
 import { SITE } from '../../consts';
 import { PRICING } from '../product';
@@ -17,24 +16,7 @@ export const MOBILE_APP = {
     crumb: ['Product', 'Mobile app'],
     h1: "Your venue. In every golfer's pocket.",
     lead: 'The Birdie mobile app for iOS and Android. Golfers book bays, join leagues and manage their account — your venue, one tap away.',
-    badges: [
-      {
-        small: 'Download on the',
-        label: 'App Store',
-        image: '/assets/icons/apple-brand.png',
-        imageSide: 'left' as const,
-        imageWidth: 20,
-        imageHeight: 24,
-      },
-      {
-        small: 'GET IT ON',
-        label: 'Google Play',
-        image: '/assets/icons/playstore.svg',
-        imageSide: 'left' as const,
-        imageWidth: 20,
-        imageHeight: 24,
-      },
-    ],
+    primary: { label: 'Book a demo', href: SITE.demoPath },
   },
   screens: {
     heading: 'What golfers see.',

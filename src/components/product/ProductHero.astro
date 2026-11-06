@@ -62,11 +62,19 @@ const badgeImg = ({ image, imageWidth: w, imageHeight: h }: Badge) => ({
     {badges.length > 0 && (
       <div class="pf-hero__badges">
         {badges.map((b) => (
-          <a href={b.href ?? '#'} aria-disabled={b.href ? undefined : 'true'}>
-            {b.image && b.imageSide !== 'right' && <img {...badgeImg(b)} />}
-            <span><small>{b.small}</small>{b.label}</span>
-            {b.image && b.imageSide === 'right' && <img {...badgeImg(b)} />}
-          </a>
+          b.href ? (
+            <a href={b.href}>
+              {b.image && b.imageSide !== 'right' && <img {...badgeImg(b)} />}
+              <span><small>{b.small}</small>{b.label}</span>
+              {b.image && b.imageSide === 'right' && <img {...badgeImg(b)} />}
+            </a>
+          ) : (
+            <span class="pf-hero__badge" aria-disabled="true">
+              {b.image && b.imageSide !== 'right' && <img {...badgeImg(b)} />}
+              <span><small>{b.small}</small>{b.label}</span>
+              {b.image && b.imageSide === 'right' && <img {...badgeImg(b)} />}
+            </span>
+          )
         ))}
       </div>
     )}
