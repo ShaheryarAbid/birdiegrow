@@ -23,13 +23,7 @@ const endsPunct = /[.?!]$/.test(h1.trim());
 const hasSlot = Astro.slots.has('default');
 ---
 <section class="hm sx-seo">
-  <div class="sx-seo__bg" aria-hidden="true">
-    <img class="prev" src="/assets/seo/hero-preview.webp" alt="" />
-    <div class="tex"></div>
-    <div class="shade"></div>
-    <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
-    <div class="hm-noise" style="background:#fdfffe"></div>
-  </div>
+  <div class="sx-seo__bg" aria-hidden="true"></div>
   <div class="sx-seo__in">
     <nav class="sx-seo__crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span></nav>
     <div class="sx-seo__copy">
@@ -51,3 +45,18 @@ const hasSlot = Astro.slots.has('default');
     )}
   </div>
 </section>
+
+<style>
+    .sx-seo__bg {
+      background: #000407
+        url("/assets/features/golf-simulator-software-bg.webp") bottom /
+        cover no-repeat;;
+    }
+    @media (max-width: 900px) {
+      .sx-seo__bg {
+      background: #000407
+          url("/assets/features/golf-simulator-software-bg-mobile.webp") bottom /
+          cover no-repeat;
+      }
+    }
+  </style>

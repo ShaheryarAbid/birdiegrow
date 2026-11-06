@@ -1,116 +1,47 @@
 ---
-import { SOFTWARE_FAQS as faqs } from '../data/softwareFaq';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../consts';
-import SeoHero from '../components/sections/SeoHero.astro';
-import Glance from '../components/sections/Glance.astro';
-import IconCards from '../components/sections/IconCards.astro';
-import ComparisonTable from '../components/sections/ComparisonTable.astro';
-import StatBand from '../components/sections/StatBand.astro';
-import LinkCards from '../components/sections/LinkCards.astro';
-import ArticleAccordion from '../components/sections/ArticleAccordion.astro';
-import Faq from '../components/sections/Faq.astro';
-import Cta from '../components/sections/Cta.astro';
+/**
+ * Content lives in src/data/golf-simulator-software.ts.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { GOLF_SIMULATOR_SOFTWARE as page } from "../data/golf-simulator-software";
+import SeoHero from "../components/sections/SeoHero.astro";
+import Glance from "../components/sections/Glance.astro";
+import IconCards from "../components/sections/IconCards.astro";
+import ComparisonTable from "../components/sections/ComparisonTable.astro";
+import StatBand from "../components/sections/StatBand.astro";
+import LinkCards from "../components/sections/LinkCards.astro";
+import ArticleAccordion from "../components/sections/ArticleAccordion.astro";
+import Faq from "../components/sections/Faq.astro";
+import Cta from "../components/sections/Cta.astro";
 
-const title = 'Golf Simulator Software for Venues and Operators | Birdie';
-const description = 'Golf simulator software for venues — bay scheduling, memberships, Stripe, Square, Clover and Helcim (beta) payments, door access and revenue reporting.';
-
-const blocks = [
-  ['Booking System', 'Bay-based scheduling with real-time availability, membership plans with hour banks, add-ons at checkout, and Stripe, Square, Clover and Helcim (beta) payments built into the flow. No redirect. No third-party checkout.', 'Golf simulator booking software →', '/golf-simulator-booking-software/'],
-  ['Management & Revenue Intelligence', 'See exactly which days and times are underperforming, identify customers inactive 60+ days, and trigger one-click reactivation campaigns. Full owner dashboard with occupancy, revenue, and bay status in real time.', 'Golf simulator management software →', '/golf-simulator-management-software/'],
-  ['24/7 Door Access', 'Birdie integrates with the major smart-lock brands — Kisi, PDK, UniFi Access, Avigilon Alta, and RemoteLock. Every booking triggers a time-gated SMS unlock link — customers let themselves in, no app, no PIN, no staff required. Off-peak hours become revenue.', 'See all door integrations →', '/integrations/'],
-  ['Growth (Full Platform)', "Facebook and Google Ads management, ongoing SEO optimization, local search domination, and a dedicated account manager — all managed for you. Start with the booking system and add growth when you're ready.", 'See all platform tiers →', '/pricing/'],
-];
-
-// This table deliberately compares Birdie against SIMULATOR GAME ENGINES, not against
-// generic booking tools. The booking pillar (/golf-simulator-booking-software) already
-// owns the "Birdie vs generic booking tools" comparison with a near-identical 9-row table;
-// running the same table here was pure duplication and is a measured cannibalisation
-// driver (see CANNIBALIZATION-MERGE-PLAN.md §4 — the overlap is at the COMPONENT level).
-// This page's unique job, stated in its own quickAnswer, is resolving the "is Birdie the
-// thing I hit shots on?" confusion — the 07-22 SERP baseline found this term carries
-// home-hardware intent. So the table now answers THAT question instead.
-// NOTE: these are complementary products, not rivals — Birdie venues run these engines in
-// the bays. The two "No" rows in Birdie's column are intentional and honest.
-const rows: [string, string, string][] = [
-  ['Books and schedules bays', 'Yes', 'No'],
-  ['Memberships with hour banks', 'Yes', 'No'],
-  ['Takes customer payments', 'Yes', 'No'],
-  ['Automated text and email confirmations, reminders and receipts', 'Yes', 'No'],
-  ['24/7 smart-lock door access', 'Yes', 'No'],
-  ['Occupancy and revenue reporting', 'Yes', 'No'],
-  ['Lapsed customer reactivation', 'Yes', 'No'],
-  ['Ball-flight simulation and shot data', 'No', 'Yes'],
-  ['Course play and game modes', 'No', 'Yes'],
-];
-
-const stats = [['24 hours', 'average time to go live'], ['0', 'developers required'], ['0', 'long-term contracts']];
-
-const quickAnswer = 'Golf simulator software is the operations platform that runs an indoor golf simulator venue — online bay booking, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, 24/7 smart-lock door access, and revenue reporting, all in one system. It is not the game engine players hit shots on (GSPro, E6 Connect, TruGolf, Awesome Golf); it is the business software that books the bays, charges customers, and keeps the venue full. Birdie is purpose-built for simulator operators and goes live in 24 hours.';
-
-
-// Proof-of-scale figures live in src/data/proof.ts — update them there, not here.
-
-const productFacts = [
-  ['Best for', 'Simulator venues focused on weekday utilization and revenue growth — Birdie pairs booking and operations with a revenue layer that surfaces underused hours and lapsed customers.'],
-  ['Works with', 'Any simulator hardware or game software. Birdie is the business layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
-  ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
-  ['Pricing', 'From $197/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
-  ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
-];
-
-const explore: [string, string][] = [
-  ['Golf simulator booking, reservation & scheduling software', '/golf-simulator-booking-software/'],
-  ['Golf simulator management software', '/golf-simulator-management-software/'],
-  ['Best golf simulator software (2026 comparison)', '/best-golf-simulator-software/'],
-  ['All platform features', '/features/'],
-];
-
-const articleIntro = [`Golf simulator software is the operating system for an indoor golf venue. It controls how customers find and book bay time online, how memberships and hour banks are tracked, how payments and deposits are captured, how confirmations and reminders go out by SMS, and how the owner sees what's actually happening across every bay, every day. Done right, it's the difference between a venue that runs itself and a venue that runs the owner.`];
-const articleItems = [
-  { title: 'The problem most simulator operators have', html: `<p>Most golf simulator businesses launch using a stitched-together stack: a generic appointment app for booking, a spreadsheet for membership hours, a separate POS for payments, and a calendar app to track which bays are reserved. Every layer creates friction. Customers can't book the bay they actually want. Members lose track of how many hours they have left. Staff spend their day reconciling payments and chasing no-shows. And the owner has zero visibility into which weekday hours are dead, which bays underperform, or which customers haven't booked in 60 days. Revenue gets lost in the gaps.</p>` },
-  { title: 'How Birdie addresses each pain point', html: `<p>Birdie consolidates the entire operation into one platform built specifically for simulator venues. Bay-by-bay online booking shows real-time availability for every bay and captures the deposit at the moment of reservation, eliminating no-shows that cost weekday revenue. Hour-bank and unlimited memberships are tracked automatically — no spreadsheets, no manual draw-downs. Automated SMS handles confirmations, 30-minute reminders, and lapsed-customer re-engagement, all wired through native Telnyx integration with high US deliverability. The owner dashboard surfaces utilization by bay, revenue by hour and weekday, top-performing time slots, lapsed members, and active member counts.</p><p>Shopping specifically for <a href="/golf-simulator-booking-software/">golf simulator reservation software</a>? It's the same system under a different name — real-time bay reservations, deposits captured at checkout, group and recurring reservations, and weekday pricing all live on the dedicated booking and reservation page. Looking for <a href="/golf-simulator-booking-software/">bay reservation software</a> or <a href="/golf-simulator-booking-software/">golf simulator bay assignment software</a> specifically, that page covers both. If your question is operational rather than reservational — memberships, hour banks, POS and reporting — start with <a href="/golf-simulator-management-software/">indoor golf bay management</a>.</p>` },
-  { title: 'Pricing and onboarding', html: `<p>Birdie is flat-fee, month-to-month, and live in 24 hours. There are no per-seat charges, no transaction percentages on top of payment processing, and no long-term contracts. Setup is white-glove — we configure your bays, pricing tiers, memberships, and SMS templates for you so you launch on a working system on day one, with zero technical knowledge required. If it doesn't deliver, you cancel.</p>` },
-  { title: 'Who Birdie is built for', html: `<p>Birdie is built for indoor golf simulator businesses with one to twelve bays — single-location studios, multi-bay entertainment venues, and small multi-site operators. If you run a full-size outdoor course, a driving range, or a country club, there are better-fit platforms. If you run a simulator venue and you're spending more time managing your tools than serving customers, Birdie is the platform you've been looking for.</p>` },
-];
-
-const schema = [
-  {
-    '@context': 'https://schema.org', '@type': 'SoftwareApplication',
-    name: 'Birdie',
-    applicationCategory: 'BusinessApplication',
-    applicationSubCategory: 'Golf Simulator Software',
-    operatingSystem: 'Web',
-    url: `${SITE.url}/golf-simulator-software/`,
-    description: 'Booking and revenue software for indoor golf simulator venues: bay scheduling, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, and 24/7 smart-lock door access.',
-    offers: {
-      '@type': 'Offer', price: '197', priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: `${SITE.url}/pricing/`,
-      priceSpecification: { '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD', unitText: 'MONTH' },
-    },
-  },
-  {
-    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
-      { '@type': 'ListItem', position: 2, name: 'Golf Simulator Software', item: `${SITE.url}/golf-simulator-software/` },
-    ],
-  },
-  {
-    '@context': 'https://schema.org', '@type': 'FAQPage',
-    mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-  },
-];
+const { quickAnswer, ...hero } = page.hero;
 ---
-<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
-  <SeoHero crumb="Golf Simulator Software" h1="Golf Simulator Software Built for Simulator Studios" lead="Generic software wasn't designed for bay-based scheduling, simulator memberships, or 24/7 unattended operation. Birdie was built from scratch for the way golf simulator studios actually run — and it goes live in 24 hours. Purpose-built. Not adapted." primary={{ label: 'Book a Demo', href: SITE.demoPath }} secondary={{ label: 'See pricing', href: '/pricing/' }}>{quickAnswer}</SeoHero>
-  <Glance facts={productFacts} />
-  <IconCards heading="Everything your studio needs in one platform" items={blocks.map(([title, text, label, href]) => ({ title, text, label, href }))} />
-  <ComparisonTable heading="Venue software vs. simulator game engines" sub="These do different jobs, and most venues run both. Birdie books the bay, charges the customer and opens the door; the game engine simulates the shot once they are inside. Switching from Golf O'Clock?" cta={{ label: 'See the full comparison', href: '/birdie-vs-golf-oclock/' }} rowLabel="Job" colLabel="Game engines (GSPro, E6, TruGolf)" rows={rows} />
-  <StatBand heading="Why simulator owners switch to Birdie" title="We handle setup" text="We handle the entire setup — your bays, pricing, membership plans, and booking flow. You review it, it goes live, and your customers can start booking. Most studios are live within 24 hours of signing." stats={stats as [string, string][]} />
-  <LinkCards heading="Golf simulator software, by what you need" sub="Explore the platform. Serving indoor golf simulator venues across the US & Canada." items={explore} />
-  <ArticleAccordion heading="What golf simulator software actually does" intro={articleIntro} items={articleItems} cta={{ label: 'Book a Demo', href: SITE.demoPath }} />
-  <Faq heading="Frequently asked questions" items={faqs} open={1} balls />
-  <Cta heading="Ready to see golf simulator software built for your studio?" body="" items={['Free walkthrough', 'No commitment', 'Live in 24 hours']} label="Book a Demo" />
+
+<BaseLayout
+  title={page.meta.title}
+  description={page.meta.description}
+  schema={page.schema}
+  headerVariant="dark"
+  headerOverlay
+>
+  <SeoHero {...hero}>{quickAnswer}</SeoHero>
+  <Glance facts={page.facts} />
+  <IconCards {...page.platform} h2Classes="max-w-540" />
+  <ComparisonTable {...page.comparison} />
+  <StatBand
+    heading={page.stats.heading}
+    title={page.stats.title}
+    text={page.stats.text}
+    stats={page.stats.items}
+  />
+  <LinkCards {...page.explore} />
+  <ArticleAccordion {...page.article} />
+  <Faq {...page.faq} open={1} balls />
+  <Cta {...page.cta} />
+
+  <style is:global>
+    .hm-intro .hm-h2.max-w-540 { max-width: 540px; }
+    @media (max-width: 900px) {
+    }
+  </style>
 </BaseLayout>
