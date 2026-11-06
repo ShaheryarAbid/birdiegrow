@@ -3,7 +3,31 @@
 export type LogoPart = { src: string; x: number; y: number; w: number; h: number; pos?: 'bottom' };
 export type LogoSpec = { w: number; h: number; parts: LogoPart[] };
 const A = '/assets/compare/';
+const P = '/assets/compare/plates/';
 const one = (file: string, w: number, h: number, pos?: 'bottom'): LogoSpec => ({ w, h, parts: [{ src: `${A}${file}`, x: 0, y: 0, w, h, pos }] });
+
+export const COMPARE_PLATE_LOGOS: Record<string, string> = {
+  'birdie-vs-foreup': `${P}logo-foreup.svg`,
+  'birdie-vs-golf-oclock': `${P}logo-golfoclock.svg`,
+  'birdie-vs-lightspeed-golf': `${P}logo-lightspeed.svg`,
+  'birdie-vs-chronogolf': `${P}logo-chronogolf.svg`,
+  'birdie-vs-birrdi': `${P}logo-birrdi.svg`,
+  'birdie-vs-golf918': `${P}logo-golf918.svg`,
+  'birdie-vs-butter': `${P}logo-butter.svg`,
+  'birdie-vs-ezfacility': `${P}logo-ezfacility.svg`,
+  'birdie-vs-mindbody': `${P}logo-mindbody.svg`,
+  'birdie-vs-acuity': `${P}logo-acuity.svg`,
+  'birdie-vs-square': `${P}logo-square.svg`,
+  'birdie-vs-booked-bays': `${P}logo-booked-bays.svg`,
+  'birdie-vs-avus': `${P}logo-avus.svg`,
+  'birdie-vs-simbook': `${P}logo-simbook.svg`,
+  'birdie-vs-teeflow': `${P}logo-teeflow.svg`,
+  'birdie-vs-itg-golf': `${P}logo-itg-golf.svg`,
+  'birdie-vs-playbypoint': `${P}logo-playbypoint.svg`,
+  'birdie-vs-whoosh': `${P}logo-whoosh.svg`,
+  'birdie-vs-activebooker': `${P}logo-activebooker.svg`,
+  'birdie-vs-proagenda': `${P}logo-proagenda.svg`,
+};
 
 export const COMPARE_LOGOS: Record<string, LogoSpec> = {
   'birdie-vs-foreup': one('logo-foreup.webp', 93, 28),

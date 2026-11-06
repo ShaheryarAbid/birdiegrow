@@ -4,7 +4,6 @@ import { COMPARISONS } from '../data/pages';
 import { SITE } from '../consts';
 import Hero from '../components/sections/Hero.astro';
 import LogoPlates from '../components/sections/LogoPlates.astro';
-import TextLink from '../components/TextLink.astro';
 const title = 'Golf Simulator Software Comparisons | Birdie';
 const description = 'How Birdie compares to other golf simulator and booking platforms on scheduling, memberships, 24/7 door access, payments, and pricing.';
 const items = COMPARISONS.map((c) => ({ slug: c.slug, name: c.name, href: `/${c.slug}/` }));
@@ -18,8 +17,7 @@ const items = COMPARISONS.map((c) => ({ slug: c.slug, name: c.name, href: `/${c.
       primary={{ label: 'Book a demo', href: SITE.demoPath }}
       secondary={{ label: 'Read the full 2026 roundup', href: '/best-golf-simulator-software/' }}
     />
-    <LogoPlates items={items} flush>
-      <TextLink href="/indoor-golf-software-alternative/">Indoor golf software alternative</TextLink>
+    <LogoPlates items={items} flush fullPlateLogos>
     </LogoPlates>
   </div>
 </BaseLayout>

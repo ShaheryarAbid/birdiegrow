@@ -11,6 +11,8 @@ const description = 'Estimate your indoor golf simulator revenue by bay count, h
     lead="Estimate monthly revenue from your bays, then see the upside of filling weekday hours."
     panelTitle="Your venue"
     resultsTitle="Estimated monthly revenue"
+    resultsBg="/assets/resources/rc-calc-bg.webp"
+    resultsBgPos="right top"
     ctaLabel="Book a Demo"
   >
     <Fragment slot="inputs">
@@ -21,6 +23,7 @@ const description = 'Estimate your indoor golf simulator revenue by bay count, h
     </Fragment>
     <Fragment slot="results">
       <p class="cc-big"><strong id="out" style="font-weight:inherit">$0</strong></p>
+      <div id="breakdown" class="cc-rowlist2"></div>
       <p class="cc-sub">At 60% utilization: <span id="out2">$0</span> — the weekday gap Birdie helps you close.</p>
     </Fragment>
   </CalcShell>
@@ -30,10 +33,17 @@ const description = 'Estimate your indoor golf simulator revenue by bay count, h
     const fmt = (n) => '$' + Math.round(n).toLocaleString();
     function calc() {
       const bays = +$('bays').value || 0, rate = +$('rate').value || 0, hours = +$('hours').value || 0, util = (+$('util').value || 0) / 100;
-      const monthly = bays * hours * 30 * rate * util;
-      const upside = bays * hours * 30 * rate * 0.6;
+      const capacity = bays * hours * 30 * rate;
+      const monthly = capacity * util;
+      const upside = capacity * 0.6;
       $('out').textContent = fmt(monthly);
       $('out2').textContent = fmt(upside);
+      // Same bar pattern as the startup cost card: what the bays already earn versus the capacity still sitting empty
+      const booked = Math.round(util * 100);
+      const rows = [['Booked hours', monthly, booked], ['Open capacity', Math.max(0, capacity - monthly), 100 - booked]];
+      $('breakdown').innerHTML = rows.map((r) => '<div class="cc-bar">' +
+        '<div class="cc-bar__h"><span>' + r[0] + '</span><b>' + fmt(r[1]) + ' <span>(' + r[2] + '%)</span></b></div>' +
+        '<div class="cc-bar__t"><i style="width:' + r[2] + '%"></i></div></div>').join('');
     }
     ['bays', 'rate', 'hours', 'util'].forEach((id) => $(id).addEventListener('input', calc));
     calc();
