@@ -146,4 +146,4 @@
   .pg-404 h1 { font-size: 40px; }
 }
 .pg-card__bg .hm-shader:not(:has(canvas)) .px, .pg-card__bg .hm-shader:not(:has(canvas)) ~ .hm-noise { display: none; }
-@media (min-width: 901px) { .pg-ct { padding-bottom: 0; } .pg-ct + .hm-sec, .pg-ct + * .hm-sec { padding-top: 40px; } }
+@media (min-width: 901px) { .pg-ct { padding-bottom: 0; } .pg-ct + .hm-sec, .pg-ct + * .hm-sec { padding-top: 60px; } }
