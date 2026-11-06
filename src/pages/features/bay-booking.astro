@@ -66,15 +66,10 @@ const F = '/assets/features/';
     mobileX={-276}
   />
 
-  <ShortAnswer variant="stack"
-    body="Customers pick a bay and a time, choose the group size and add-ons, and pay inside the booking flow, with no redirect and no app download. You set the price of every hour, the payment rule per booking type, and the waiver step. Length, timing and block-time rules run on every booking."
-    chips={['Priced by the hour', 'Deposits or full payment', 'Versioned waivers', 'Block time']}
-    items={[
-      ['clock', 'Priced by the hour', 'Every slot is priced by its window and by the size of the group.'],
-      ['card', 'Four ways to get paid', 'Full payment, deposit, reserve with card or pay at venue.'],
-      ['check', 'Signed waivers', 'Waivers are signed online, with versions, before tee time.'],
-      ['calendar', 'Rules that protect the calendar', 'Pricing, length and timing rules run on every booking.'],
-    ]}
+  <ShortAnswer
+    body="Birdie is bay booking software for golf simulator venues. Customers pick a bay, a time and a group size, pay at checkout and sign the waiver online, on any phone. Appointment tools sell fixed slots; Birdie sells hourly bay time, with group pricing, peak and off-peak rates and add-ons built in."
+    chips={[['broadcastFilled', 'Real-time availability per bay'], ['usersThreeFilled', 'Group-size pricing'], ['listPlusFilled', 'Add-ons at checkout'], ['signatureFilled', 'Waivers signed online']]}
+    image={{ src: '/assets/product/bay-booking-short-answer.webp', mobileSrc: '/assets/product/bay-booking-short-answer-mobile.webp', alt: 'Pick a bay and time, set group size, pay at checkout, and sign the waiver.' }}
   />
 
   <SplitPanel

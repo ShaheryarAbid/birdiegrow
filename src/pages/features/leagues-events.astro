@@ -68,15 +68,10 @@ const F = '/assets/features/';
     <div style="position:absolute;left:212px;top:420px;width:1016px;z-index:3"><WeekCalendar days={days} /></div>
   </ProductHero>
 
-  <ShortAnswer variant="stack"
+  <ShortAnswer
     body="Birdie runs leagues, events and lessons on the same calendar customers book from. Leagues get teams, rosters, weekly billing, standings and stroke-play scoring, with league-night bay holds. Camps, clinics and tournaments get custom sign-up forms, check-in and reminders. Block time closes bays one-off or repeating, and can still let members or specific plans book."
-    chips={['League-night bay holds', 'Standings and stroke-play scoring', 'Event sign-up and check-in', 'Instructors and lesson booking']}
-    items={[
-      ['lock', 'Block the time', 'Set repeating or one-off bay holds in one calendar.'],
-      ['list', 'Collect sign-ups', 'Custom forms, teams, and rosters for any event.'],
-      ['card', 'Automate payments', 'Weekly billing, reminders, and instant check-in.'],
-      ['trophy', 'Play & score', 'Live standings, stroke-play scoring, and lesson booking.'],
-    ]}
+    chips={[['flagBannerFoldFilled', 'League-night bay holds'], ['tableFilled', 'Standings and stroke-play scoring'], ['calendarFilled', 'Event sign-up and check-in'], ['golfFilled', 'Instructors and lesson booking']]}
+    image={{ src: '/assets/product/leagues-and-events-short-answer.webp', mobileSrc: '/assets/product/leagues-and-events-short-answer-mobile.webp', alt: 'Block the time, collect sign-ups, automate payments, and play and score.' }}
   />
 
   <!-- Season planner (interactive example) -->

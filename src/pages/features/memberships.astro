@@ -54,7 +54,7 @@ const out = calc(ex.members, ex.rate, ex.hours, ex.walkin);
 const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
 ---
 <BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
-<div class="hm">
+<div class="hm membership-page">
   <ProductHero
     tall
     center
@@ -63,21 +63,12 @@ const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
     lead="Monthly plans built on hour banks. Members book from their balance, Birdie draws the hours down and enforces the rules of every plan."
     primary={{ label: 'Book a demo', href: SITE.demoPath }}
     secondary={{ label: 'See how it works', href: '#plan-rules' }}
-    bg={{ src: `${F}mem-bg.webp`, left: 0, top: 0, width: 1440 }}
-    layers={[{ src: `${F}mem-usage-card.webp`, left: 163, top: 428, width: 324 }, { src: `${F}mem-phone.webp`, left: 511, top: 441, width: 418, z: 3 }, { src: `${F}mem-plan-card.webp`, left: 971, top: 599, width: 273 }]}
-    shadow={false}
-    mobileX={-452} mobileScale={.9} mobileY={-330}
   />
 
-  <ShortAnswer variant="stack"
+  <ShortAnswer
     body="Birdie runs simulator memberships the way venues actually sell them: hour-bank plans where members book from their balance and hours draw down automatically, plus unlimited, member-rate and credit plans. Each plan can have its own bay restrictions, advance booking window, time window and members-only hours."
-    chips={['Hour banks with rollover', 'Bay restrictions', 'Plan time windows', 'Punch passes']}
-    items={[
-      ['sliders', 'Build custom plans', 'Set hour-bank plans for off-peak hours.'],
-      ['lock', 'Set bay & time rules', 'Restrict bays and members-only slots.'],
-      ['repeat', 'Automate hours & billing', 'Auto-deduct hours and collect payments.'],
-      ['chart', 'Secure predictable revenue', 'Fill quiet weeknights without manual admin.'],
-    ]}
+    chips={[['clockCounterClockwiseFilled', 'Hour banks with rollover'], ['prohibitFilled', 'Bay restrictions'], ['clockCountdownFilled', 'Plan time windows'], ['ticketFilled', 'Punch passes']]}
+    image={{ src: '/assets/product/membership-short-answer.webp', mobileSrc: '/assets/product/membership-short-answer-mobile.webp', alt: 'Build custom plans, set bay and time rules, automate hours and billing, and secure predictable revenue.' }}
   />
 
   <!-- Recurring revenue example (interactive; defaults are the design's example) -->
@@ -136,6 +127,22 @@ const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
   <LinkCards heading="See the rest of Birdie" sub="Each part of the platform has its own page." items={PRODUCT_LINKS.filter(([, h]) => h !== '/features/memberships/')} />
   <Cta heading="Fill quiet weeknights with members." body="Free walkthrough. We set up your plans, bay restrictions and booking windows during onboarding." />
 </div>
+<style is:global>
+    /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .membership-page .pf-hero {
+      background: #000407 url("/assets/product/membership-bg.webp") center / cover no-repeat;
+    }
+    .membership-page .pf-hero__art { display: none; }
+    @media (max-width: 900px) {
+      .membership-page .pf-hero {
+        background: #000407 url("/assets/product/membership-bg-mobile.webp") center / cover no-repeat;
+      }
+      .membership-page .pf-hero__art { display: block; visibility: hidden; }
+    }
+    @media (max-width: 540px) {
+      
+    }
+  </style>
 <script is:inline>
   (function () {
     var g = function (id) { return document.getElementById(id); };
