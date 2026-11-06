@@ -1,0 +1,43 @@
+---
+/**
+ * Reading progress bar — Figma "Content divider" 2049:105091 (1px grey track, black fill) under the sticky header.
+ * Props: target (CSS selector for the content being read, default "main"). Full when the end of the target reaches the bottom of the screen.
+ * Place it as the first thing in the page's <main>, before the sections. Without JS it stays an empty grey line.
+ */
+export interface Props { target?: string; }
+const { target = 'main' } = Astro.props;
+---
+<div class="bd-progress" data-reading-progress={target} aria-hidden="true"><span class="bd-progress__fill"></span></div>
+
+<style>
+  .bd-progress { position: sticky; top: 88px; z-index: 29; height: 1px; overflow: hidden; background: rgba(0, 0, 0, .1); }
+  .bd-progress__fill { display: block; height: 100%; background: var(--color-text); transform: scaleX(0); transform-origin: left; }
+  /* top = the rendered height of .bd-header at each breakpoint. */
+  @media (max-width: 899px) { .bd-progress { top: 82px; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-reading-progress]').forEach((bar) => {
+    const target = document.querySelector(bar.dataset.readingProgress!);
+    const fill = bar.firstElementChild as HTMLElement;
+    if (!target) return;
+
+    let queued = false;
+    const update = () => {
+      queued = false;
+      // Scroll distance at which the end of the target reaches the bottom of the screen.
+      const end = target.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+      const progress = end > 0 ? Math.min(window.scrollY / end, 1) : 1;
+      fill.style.transform = `scaleX(${progress})`;
+    };
+    const queue = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
+  });
+</script>
