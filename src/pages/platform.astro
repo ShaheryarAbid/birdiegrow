@@ -1,82 +1,177 @@
 ---
-/** /platform/ — Figma "Platform" 366:15781 (mobile 577:83312). Copy and sample data are the existing page's. */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Button from '../components/Button.astro';
-import Cta from '../components/sections/Cta.astro';
-import '../styles/sections.css';
-import '../styles/pages.css';
-import { SITE } from '../consts';
+/**
+ * /platform/ — Figma "Platform" 366:15781 (mobile 577:83312). Copy and sample data are the existing page's.
+ * Content lives in src/data/platform.ts.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import Cta from "../components/sections/Cta.astro";
+import "../styles/sections.css";
+import "../styles/pages.css";
+import { PLATFORM as page } from "../data/platform";
+import { gd } from "../lib/gd";
 
-const title = 'Multi-Location Platform for Golf Simulator Venues | Birdie';
-const description = 'Start with one venue and scale to many. Manage every location with one Birdie login and a location switcher.';
-
-const venues = [
-  ['Downtown', '124', '68%', '$9,320'],
-  ['West End', '98', '55%', '$7,140'],
-  ['Royal Fairway — Scottsdale', '156', '74%', '$11,880'],
-  ['Royal Fairway — Denver', '89', '48%', '$6,450'],
-];
-const progression = ['Booking System', 'Website', 'Local SEO', 'Automated Campaigns', 'Full Revenue Platform'];
-const B = '/assets/home/';
+const { hero, portfolio, growth, booking } = page;
+const B = "/assets/home/";
 ---
-<BaseLayout title={title} description={description} headerVariant="light">
+
+<BaseLayout
+  title={page.meta.title}
+  description={page.meta.description}
+  headerVariant="light"
+>
   <div class="hm">
     <section class="pg-pl-hero">
       <div>
-        <h1>One Platform<i>.</i> One Login<i>.</i> Every Location<i>.</i></h1>
-        <p>Start with one venue. Scale to many. Birdie grows with you.</p>
+        <h1 set:html={gd(hero.h1)} />
+        <p>{hero.lead}</p>
       </div>
-      <Button href={SITE.demoPath} mode="dark">Book a Demo</Button>
+      <Button href={hero.cta.href} mode="dark">{hero.cta.label}</Button>
     </section>
 
     <section class="hm-sec hm-white">
       <div class="pg-pf">
         <div class="pg-pf__h">
-          <h2 class="hm-h2">One login across all your locations<i>.</i></h2>
-          <p class="hm-sub">Switch between your venues with a location switcher, from the same login.</p>
+          <h2 class="hm-h2" set:html={gd(portfolio.heading)} />
+          <p class="hm-sub">{portfolio.sub}</p>
         </div>
         <div class="pg-pf__card">
           <div class="pg-pf__cap">
-            <h3>Portfolio overview</h3>
-            <p>Example venues and figures, shown to illustrate the multi-location dashboard. Not real customer data or industry benchmarks.</p>
+            <h3>{portfolio.title}</h3>
+            <p>{portfolio.text}</p>
           </div>
+          {
+            /* Desktop and tablet: table. Mobile (below 600px): one card per venue, Figma 2049:91879. pages.css switches between them. */
+          }
           <div class="pg-pf__tbl">
             <table>
-              <caption class="sr-only" style="position:absolute;left:-9999px">Portfolio overview — sample data</caption>
-              <thead><tr><th>Venue</th><th>Bookings</th><th>Occupancy</th><th>Revenue</th></tr></thead>
-              <tbody>{venues.map(([v, b, o, r]) => (<tr><td>{v}</td><td>{b}</td><td>{o}</td><td>{r}</td></tr>))}</tbody>
+              <caption class="sr-only" style="position:absolute;left:-9999px"
+                >{portfolio.caption}</caption
+              >
+              <thead
+                ><tr>{portfolio.columns.map((label) => <th>{label}</th>)}</tr></thead
+              >
+              <tbody
+                >{
+                  portfolio.venues.map(([v, b, o, r]) => (
+                    <tr>
+                      <>
+                        <td>{v}</td>
+                        <td>{b}</td>
+                        <td>{o}</td>
+                        <td>{r}</td>
+                      </>
+                    </tr>
+                  ))
+                }</tbody
+              >
             </table>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hm-sec hm-white hm-stack" style="padding-top:0">
-      <div class="hm-intro">
-        <h2 class="hm-h2">Start with bookings<i>.</i> Expand when you're ready<i>.</i></h2>
-        <p class="hm-sub" style="max-width:600px">Birdie begins as your booking engine — then becomes the <a href="/golf-simulator-management-software/" style="color:var(--color-text);text-decoration:underline">golf simulator management software</a> running your entire business. No bloated stack required.</p>
-        <Button href="/golf-simulator-management-software/" mode="dark">Golf simulator management software</Button>
-      </div>
-      <div class="pg-prog">
-        <div class="pg-prog__bg"><img src="/assets/features/door-panel-bg.webp" alt="" loading="lazy" /><div class="fade"></div></div>
-        <ol aria-label="How Birdie grows with you">{progression.map((step) => <li>{step}</li>)}</ol>
-        <div class="pg-prog__vis" aria-hidden="true">
-          <div class="pg-book">
-            <div><h3>Date: September 2026</h3><div class="pg-book__days"><span class="on">WED<br />9</span><span>THU<br />10</span><span>FRI<br />11</span><span>SAT<br />12</span><span>SUN<br />13</span></div></div>
-            <div><h3>Time</h3><div class="pg-book__times"><span>6:00 AM</span><span class="on">7:00 AM</span><span>8:00 AM</span></div></div>
-            <div><h3>Bay</h3>
-              <div class="pg-book__bays">
-                <div class="on"><img src={`${B}bay-callaway.webp`} alt="" /><span>Callaway</span><small>$45/hour</small></div>
-                <div><img src={`${B}bay-titleist.webp`} alt="" /><span>Titleist</span><small>$45/hour</small></div>
-                <div><img src={`${B}bay-taylormade.webp`} alt="" /><span>TaylorMade</span><small>$45/hour</small></div>
-              </div>
-            </div>
-            <p class="pg-book__note">Illustrative booking flow.</p>
+          <div class="pg-pf__venues">
+            {
+              portfolio.venues.map((venue) => (
+                <dl class="pg-pf__venue">
+                  {portfolio.columns.map((label, i) => (
+                    <div>
+                      <dt>{label}</dt>
+                      {/* The non-breaking space keeps "— Scottsdale" together when the name wraps. */}
+                      <dd>{venue[i].replace(" — ", " — ")}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ))
+            }
           </div>
         </div>
       </div>
     </section>
 
-    <Cta heading="Ready to see the full platform?" body="Free walkthrough. No commitment. We handle all setup." items={[]} label="Book a Demo" />
+    <section class="hm-sec hm-white hm-stack">
+      <div class="hm-intro">
+        <h2 class="hm-h2" set:html={gd(growth.heading)} />
+        <p class="hm-sub" style="max-width:600px; margin-bottom: 16px;">
+          {growth.sub.before}
+          <a
+            href={growth.sub.link.href}
+            style="color:var(--color-text);text-decoration:underline"
+            >{growth.sub.link.label}</a
+          >
+          {growth.sub.after}
+        </p>
+        <Button href={growth.cta.href} mode="dark">{growth.cta.label}</Button>
+      </div>
+      <div class="pg-prog">
+        <ol aria-label={growth.stepsLabel}>
+          {growth.steps.map((step) => <li>{step}</li>)}
+        </ol>
+        <div class="pg-prog__vis" aria-hidden="true">
+          <div class="pg-book">
+            <div class="pg-book__sec">
+              <div class="pg-book__head">
+                <h3>{booking.dateLabel}</h3>
+                <img src={`${B}icon-calendar.svg`} alt="" />
+              </div>
+              <div class="pg-book__row">
+                {
+                  booking.days.map(({ day, date, dots, state }) => (
+                    <div class:list={["pg-book__day", state]}>
+                      {state === "on" && (
+                        <img class="pg-book__tex" src={`${B}tex-day.svg`} alt="" />
+                      )}
+                      <span>
+                        {day}
+                        <b>{date}</b>
+                      </span>
+                      <span class="pg-book__dots">
+                        {dots.map((src) => (
+                          <img src={src} alt="" />
+                        ))}
+                      </span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+            <div class="pg-book__sec">
+              <h3>{booking.timeLabel}</h3>
+              <div class="pg-book__row">
+                {
+                  booking.times.map(({ label, state, mobileOnly }) => (
+                    <div class:list={["pg-book__time", state, mobileOnly && "pg-book__time--extra"]}>
+                      {state === "on" && (
+                        <img class="pg-book__tex" src={`${B}tex-time.svg`} alt="" />
+                      )}
+                      {label}
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+            <hr class="pg-book__rule" />
+            <div class="pg-book__sec">
+              <h3>{booking.bayLabel}</h3>
+              <div class="pg-book__bays">
+                {
+                  booking.bays.map(({ name, price, img, state, crop }) => (
+                    <div class:list={["pg-book__bay", state]}>
+                      <span class="pg-book__photo">
+                        <img src={img} alt="" loading="lazy" style={crop} />
+                      </span>
+                      <b>{name}</b>
+                      <small>{price}</small>
+                      {state === "on" && (
+                        <img class="pg-book__check" src={`${B}check-sm.svg`} alt="" />
+                      )}
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Cta {...page.cta} />
   </div>
 </BaseLayout>
