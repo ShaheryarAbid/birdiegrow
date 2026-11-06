@@ -1,65 +1,97 @@
 ---
-/** /contact/ — Figma "Contact" 341:29799 (mobile 577:82206). Copy is the existing page's, plus the design's card copy. */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import LinkCards from '../components/sections/LinkCards.astro';
-import Button from '../components/Button.astro';
-import '../styles/sections.css';
-import '../styles/pages.css';
-import { SITE } from '../consts';
-import { SHADER_DARK } from '../data/shader';
+/**
+ * /contact/ — Figma "Contact" 341:29799 (mobile 577:82206). Copy is the existing page's, plus the design's card copy.
+ * Content lives in src/data/contact.ts.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LinkCards from "../components/sections/LinkCards.astro";
+import Button from "../components/Button.astro";
+import "../styles/sections.css";
+import "../styles/pages.css";
+import { CONTACT as page } from "../data/contact";
 ---
+
 <BaseLayout
-  title="Contact Birdie | Golf Simulator Booking Software"
-  description="Get in touch with Birdie — book a demo or email us about booking, memberships, and 24/7 door access for your golf simulator venue."
+  title={page.meta.title}
+  description={page.meta.description}
   headerVariant="light"
 >
   <div class="hm">
     <section class="pg-ct">
       <div class="pg-ct__top">
-        <h1>Let's talk about your simulator business<i>.</i></h1>
-        <p class="pg-ct__lead">The fastest way to see Birdie is a walkthrough. Prefer email? Reach us directly and we'll get right back to you.</p>
+        <h1>{page.hero.h1}<i>.</i></h1>
+        <p class="pg-ct__lead">{page.hero.lead}</p>
       </div>
       <div class="pg-ct__cards">
         <article class="pg-card pg-card--dark">
-          <div class="pg-card__bg" aria-hidden="true">
-            <img src="/assets/home/compat-bg.webp" alt="" loading="lazy" />
-            <div class="fade"></div>
-            <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
-            <div class="hm-noise" style="background:#fdfffe"></div>
+          <div>
+            <h2>{page.demo.heading}</h2><p>{page.demo.text}</p>
           </div>
-          <div><h2>Book a demo</h2><p>See the platform live — no commitment, and we handle all setup.</p></div>
-          <div class="hm-btns"><Button href={SITE.demoPath} mode="light">Book a demo</Button></div>
+          <div class="hm-btns">
+            <Button href={page.demo.cta.href} mode="light">{page.demo.cta.label}</Button>
+          </div>
         </article>
         <article class="pg-card">
-          <div><h2>Email</h2><p>Questions about pricing, switching from another booking tool, or anything else — write to Luke directly.</p></div>
-          <div class="pg-link"><a class="pg-link" href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a><button type="button" class="pg-copy" data-copy="luke@birdiegrow.com" aria-label="Copy email address"><img src="/assets/pages/copy.svg" alt="" width="14" height="16" /></button></div>
+          <div>
+            <h2>{page.email.heading}</h2><p>{page.email.text}</p>
+          </div>
+          <div class="pg-link">
+            <a class="pg-link" href={`mailto:${page.email.address}`}>{page.email.address}</a>
+            <button
+              type="button"
+              class="pg-copy"
+              data-copy={page.email.address}
+              aria-label="Copy email address"
+            >
+              <img
+                src="/assets/pages/copy.svg"
+                alt=""
+                width="14"
+                height="16"
+              />
+            </button>
+          </div>
         </article>
         <article class="pg-card">
-          <div><h2>Already on Birdie?</h2><p>Log in to manage bays, bookings, memberships, and your revenue dashboard.</p></div>
-          <a class="pg-link" href={SITE.appUrl} rel="noopener nofollow">Client Login <img src="/assets/ui/arrow-right.svg" alt="" width="16" height="16" /></a>
+          <div>
+            <h2>{page.login.heading}</h2><p>{page.login.text}</p>
+          </div>
+          <a class="pg-link" href={page.login.link.href} rel="noopener nofollow"
+            >{page.login.link.label} <img
+              src="/assets/ui/arrow-right.svg"
+              alt=""
+              width="16"
+              height="16"
+            /></a
+          >
         </article>
       </div>
     </section>
-    <LinkCards
-      heading="Find answers on your own"
-      sub="Guides, calculators, and stories from operators running simulator venues on Birdie."
-      items={[
-        ['Guides', '/resources/', 'Operator playbooks'],
-        ['Calculators', '/resources/calculators/', 'Free tools to model your numbers'],
-        ['Blog', '/blog/', 'Tips to fill more bays'],
-        ['Business FAQ', '/resources/golf-simulator-business-faq/', 'Quick answers'],
-        ['Customers', '/customers/', 'Real venues, real results'],
-        ['Pricing', '/pricing/', 'Plans and what is included'],
-      ]}
-    />
+
+    <LinkCards {...page.resources} />
   </div>
 </BaseLayout>
 <script is:inline>
-  document.querySelectorAll('[data-copy]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var done = function () { b.classList.add('is-done'); b.setAttribute('aria-label', 'Email address copied'); setTimeout(function () { b.classList.remove('is-done'); b.setAttribute('aria-label', 'Copy email address'); }, 1800); };
-      var failed = function () { b.setAttribute('aria-label', 'Copy unavailable. Use the email link.'); };
-      try { navigator.clipboard.writeText(b.getAttribute('data-copy')).then(done, failed); } catch (e) { failed(); }
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var done = function () {
+        b.classList.add("is-done");
+        b.setAttribute("aria-label", "Email address copied");
+        setTimeout(function () {
+          b.classList.remove("is-done");
+          b.setAttribute("aria-label", "Copy email address");
+        }, 1800);
+      };
+      var failed = function () {
+        b.setAttribute("aria-label", "Copy unavailable. Use the email link.");
+      };
+      try {
+        navigator.clipboard
+          .writeText(b.getAttribute("data-copy"))
+          .then(done, failed);
+      } catch (e) {
+        failed();
+      }
     });
   });
 </script>
