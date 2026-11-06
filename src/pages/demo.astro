@@ -26,7 +26,7 @@ const options = { ...FEATURE_SLIDER_DESIGN, ...sliderOptions };
 ---
 <BaseLayout title={meta.title} description={meta.description} noHeader={true}>
   <div class="bk bk--demo">
-    <BookingBg />
+    <!-- <BookingBg /> -->
     <BookingBar variant="actions" />
     <h1 class="bk-demo-h1" set:html={gd(hero.h1)} />
     <p class="bk-sub">{hero.sub}</p>
@@ -121,6 +121,11 @@ const options = { ...FEATURE_SLIDER_DESIGN, ...sliderOptions };
 
   <style is:global>
     /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .bk--demo {
+      background: #000407
+        url("/assets/features/demo-bg.webp") bottom /
+        cover no-repeat;;
+    }
     .demo-call-info {
       gap: 24px;
     }
