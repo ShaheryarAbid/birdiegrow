@@ -5,15 +5,21 @@
  * Each plate keeps its "Birdie vs {name}" link text as screen-reader/SEO text.
  */
 import '../../styles/sections.css';
+import { COMPARE_PLATE_LOGOS } from '../../data/compareLogos';
 import Logo from './Logo.astro';
-export interface Props { heading?: string; items: { slug: string; name: string; href: string; label?: string }[]; flush?: boolean; id?: string; }
-const { heading, items, flush = false, id } = Astro.props;
+export interface Props { heading?: string; items: { slug: string; name: string; href: string; label?: string }[]; flush?: boolean; id?: string; fullPlateLogos?: boolean; }
+const { heading, items, flush = false, id, fullPlateLogos = false } = Astro.props;
 ---
 <section class="hm-sec hm-white hm-stack" style={flush ? 'padding-top:0' : undefined} id={id}>
   {heading && <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2></div>}
-  <div class="sx-plates">
+  <div class:list={['sx-plates', fullPlateLogos && 'sx-plates--full']}>
     {items.map((it) => (
-      <a class="sx-plate" href={it.href}><Logo slug={it.slug} maxW={160} maxH={56} /><span class="sr-only">{it.label ?? `Birdie vs ${it.name}`}</span></a>
+      <a class="sx-plate" href={it.href}>
+        {fullPlateLogos && COMPARE_PLATE_LOGOS[it.slug]
+          ? <img class="sx-plate__image" src={COMPARE_PLATE_LOGOS[it.slug]} alt="" loading="lazy" />
+          : <Logo slug={it.slug} maxW={160} maxH={56} />}
+        <span class="sr-only">{it.label ?? `Birdie vs ${it.name}`}</span>
+      </a>
     ))}
   </div>
   <slot />
