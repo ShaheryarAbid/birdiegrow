@@ -5,7 +5,7 @@
  * The calculator markup and its inline script live in the page; this component only provides layout and the +/- stepper wiring.
  * Props: h1, lead, crumb (label of the last breadcrumb item; omit to hide the breadcrumb), panelTitle (inputs card heading), resultsTitle (dark card heading),
  *        ctaLabel/ctaHref (button at the bottom of the results card), explainer {heading, paras (HTML strings)},
- *        resultsBg/resultsBgPos (flattened Figma art for the dark panel, opt-in per page), ctaFlat (explainer band painted like the calculators hub).
+ *        resultsBg/resultsBgPos/resultsBgFlipMobile (flattened Figma art for the dark panel, opt-in per page), ctaFlat (explainer band painted like the calculators hub).
  * Slots: "inputs" (Stepper / RadioCards rows) and "results" (cc-* classes: .cc-big, .cc-sub, .cc-rows, .cc-row ...).
  */
 import '../../styles/sections.css';
@@ -20,10 +20,12 @@ export interface Props {
   resultsBg?: string;
   /** Where cover should anchor the art, e.g. "right top" when the glow sits in that corner. Defaults to center. */
   resultsBgPos?: string;
+  /** Rotate the same art 180° below 900px so its glow leaves the corner it occupies on desktop. */
+  resultsBgFlipMobile?: boolean;
   /** Paint the explainer band with the calculators hub's flattened art (desktop) and plain black + bottom CTA (mobile). */
   ctaFlat?: boolean;
 }
-const { h1, lead, crumb, panelTitle, resultsTitle, ctaLabel = 'Book a demo', ctaHref = '/demo/', explainer, resultsBg, resultsBgPos, ctaFlat } = Astro.props;
+const { h1, lead, crumb, panelTitle, resultsTitle, ctaLabel = 'Book a demo', ctaHref = '/demo/', explainer, resultsBg, resultsBgPos, resultsBgFlipMobile, ctaFlat } = Astro.props;
 const endsPunct = /[.?!]$/.test(h1.trim());
 ---
 <div class="hm cc">
@@ -40,7 +42,7 @@ const endsPunct = /[.?!]$/.test(h1.trim());
         <h2>{panelTitle}</h2>
         <div class="cc-rowlist"><slot name="inputs" /></div>
       </div>
-      <div class="cc-out" class:list={{ 'cc-out--flat': !!resultsBg }} style={resultsBg ? `--cc-out-bg: url('${resultsBg}'); --cc-out-bg-pos: ${resultsBgPos || 'center'}` : undefined}>
+      <div class="cc-out" class:list={{ 'cc-out--flat': !!resultsBg, 'cc-out--flip-m': !!resultsBgFlipMobile }} style={resultsBg ? `--cc-out-bg: url('${resultsBg}'); --cc-out-bg-pos: ${resultsBgPos || 'center'}` : undefined}>
         {!resultsBg && (
           <div class="cc-out__bg" aria-hidden="true">
             <img src="/assets/home/compat-bg.webp" alt="" loading="lazy" />

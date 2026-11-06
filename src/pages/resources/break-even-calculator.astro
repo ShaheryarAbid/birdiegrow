@@ -22,28 +22,68 @@ const schema = [{
     crumb="Break-Even Calculator"
     panelTitle="Your numbers"
     resultsTitle="Break-even utilization"
-    ctaLabel="Fill more hours with Birdie — book a demo"
+    ctaLabel="Book a demo"
+    resultsBg="/assets/resources/be-calc-bg.webp"
+    resultsBgPos="right top"
+    resultsBgFlipMobile
+    ctaFlat
     explainer={{ heading: 'How to read your break-even number', paras: ['Your <strong>break-even utilization</strong> is the share of your available bay-hours you have to sell each month just to cover your fixed costs. Below it, you lose money; above it, every additional booked hour is profit. Most of the math comes down to your <em>contribution per hour</em> — your hourly rate minus the small variable cost of running a session. Fixed costs divided by that contribution gives the booked hours you need, and dividing by your total available hours turns that into a percentage.', 'The reason this number matters so much: simulator venues have high fixed costs and low variable costs, so profitability is almost entirely a utilization game. A studio stuck at 30% occupancy struggles while an identical one at 55% prints money — same rent, same equipment. That\'s why filling weekday and off-peak hours is the single highest-leverage thing an operator can do. See the tactics in <a href="/resources/how-to-fill-weekday-bays-golf-simulator/">how to fill weekday bays</a>, size the top line with the <a href="/resources/revenue-calculator/">revenue calculator</a>, or plan your launch budget with the <a href="/resources/startup-cost-calculator/">startup cost calculator</a>.'] }}
   >
     <Fragment slot="inputs">
-      <Stepper id="fixed" label="Monthly fixed costs ($)" value={8000} min={0} step={100} prefix="$" hint="Rent, software, insurance, loan payments, base staff" />
-      <Stepper id="bays" label="Number of bays" value={3} min={1} max={20} />
-      <Stepper id="hours" label="Open hours per day" value={14} min={1} max={24} />
-      <Stepper id="rate" label="Hourly rate ($)" value={45} min={1} step={1} prefix="$" />
+      <Stepper id="fixed" label="Monthly fixed costs ($)" value={10000} min={0} step={100} prefix="$" hint="Rent, software, insurance, loan payments, base staff" />
+      <Stepper id="bays" label="Number of bays" value={3} min={1} max={20} stack />
+      <Stepper id="hours" label="Open hours per day" value={14} min={1} max={24} stack />
+      <Stepper id="rate" label="Hourly rate ($)" value={35} min={1} step={1} prefix="$" stack />
       <Stepper id="varcost" label="Variable cost per booked hour ($)" value={3} min={0} step={1} prefix="$" hint="Utilities, cleaning, per-session consumables" />
-      <Stepper id="target" label="Target utilization (%)" value={40} min={1} max={100} suffix="%" />
+      <Stepper id="target" label="Target utilization (%)" value={40} min={1} max={100} suffix="%" stack />
     </Fragment>
     <Fragment slot="results">
-      <p class="cc-big"><span id="beUtil">0%</span></p>
-      <p class="cc-sub"><span id="beHours">0</span> booked bay-hours per month</p>
-      <div class="cc-split">
-        <p class="cc-sec-t">Monthly profit at <span id="tLabel">40</span>% utilization</p>
-        <p class="cc-big-sm"><span id="profit">$0</span></p>
-        <p class="cc-sub muted" style="margin-top:6px"><span id="verdict"></span></p>
+      <div class="be-body">
+        <div class="be-num">
+          <p class="cc-big be-big"><span id="beUtil">0%</span></p>
+          <p class="be-note"><span id="beHours">0</span> booked bay-hours per month</p>
+        </div>
+        <!-- Figma draws the break-even share as an 8px occupancy meter with a 1px tick where the target utilization sits -->
+        <div class="be-meter"><i id="beFill"></i><b id="beTick"></b></div>
+        <div class="be-profit">
+          <div class="be-profit__l">
+            <p>Monthly profit at <span id="tLabel">40</span>% utilization</p>
+            <p class="be-profit__s"><span id="verdict"></span></p>
+          </div>
+          <p class="be-profit__v"><span id="profit">$0</span></p>
+        </div>
+        <div class="be-total">
+          <p>Total available bay-hours/month:</p>
+          <span id="avail">0</span>
+        </div>
       </div>
-      <p class="cc-sub cc-split">Total available bay-hours/month: <span id="avail">0</span></p>
     </Fragment>
   </CalcShell>
+
+  <style>
+    /* Break-even card, measured off the Figma export: 64px answer, meter, profit as a label/value row, hairline above the available-hours row */
+    .be-body { display: flex; flex-direction: column; }
+    .be-num { display: flex; flex-direction: column; gap: 8px; }
+    .be-big { font-size: 64px; }
+    .be-note { margin: 0; font: 400 16px/1.2 var(--font-ui); color: #d1d5db; }
+    .be-meter { position: relative; box-sizing: border-box; height: 8px; margin-top: 32px; background: rgba(253,255,254,.15); border: 1px solid rgba(255,255,255,.1); border-radius: 99px; }
+    .be-meter i { position: absolute; left: 0; top: 0; bottom: 0; background: #fdfffe; border-radius: 99px; }
+    .be-meter b { position: absolute; top: 50%; width: 1px; height: 16px; transform: translateY(-50%); background: #fdfffe; border-radius: 99px; }
+    .be-profit { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 32px; }
+    .be-profit__l { display: flex; flex-direction: column; gap: 6px; }
+    .be-profit__l p { margin: 0; font: 400 16px/1.3 var(--font-ui); color: #fff; }
+    .be-profit__l p.be-profit__s { font-size: 14px; line-height: 1.2; color: #d1d5db; }
+    .be-profit__v { margin: 0; font: 400 32px/1 var(--font-display); letter-spacing: -0.03em; color: #22c55e; }
+    .be-total { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.15); }
+    .be-total p { margin: 0; font: 400 16px/1.3 var(--font-ui); color: #fff; }
+    .be-total span { font: 400 20px/1.15 var(--font-ui); letter-spacing: -0.03em; color: #fff; }
+    @media (max-width: 900px) {
+      /* Same 44px answer the other calculator cards fall back to on mobile */
+      .be-big { font-size: 44px; }
+      /* Stacked: the profit figure gets its own row instead of sitting beside the label */
+      .be-profit { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
 
   <script is:inline>
     (function () {
@@ -69,10 +109,12 @@ const schema = [{
         $('beHours').textContent = Math.round(beHours).toLocaleString();
         $('avail').textContent = Math.round(avail).toLocaleString();
         $('tLabel').textContent = Math.round(target);
+        // Fill = the break-even share of capacity, tick = the occupancy being modelled
+        $('beFill').style.width = Math.max(0, Math.min(100, beUtil)) + '%';
+        $('beTick').style.left = Math.max(0, Math.min(100, target)) + '%';
         var pEl = $('profit');
         pEl.textContent = fmt(profit);
-        pEl.style.color = profit >= 0 ? 'var(--accent, #1aa24c)' : '#ff6b6b';
-        pEl.classList.toggle('accent', profit >= 0);
+        pEl.style.color = profit >= 0 ? '#22c55e' : '#ff6b6b';
         $('verdict').textContent = profit >= 0
           ? 'Above break-even — this occupancy is profitable.'
           : 'Below break-even — you need higher utilization to cover costs.';

@@ -22,25 +22,56 @@ const schema = [{
     crumb="Membership Pricing Calculator"
     panelTitle="Your plan"
     resultsTitle="Monthly recurring revenue"
-    ctaLabel="Run memberships on autopilot — book a demo"
+    ctaLabel="Book a demo"
+    resultsBg="/assets/resources/rc-calc-bg.webp"
+    resultsBgPos="right top"
+    ctaFlat
     explainer={{ heading: 'Getting membership pricing right', paras: ["A good membership price sits in the sweet spot where members feel they're getting a deal <em>and</em> your recurring revenue is healthy. The <strong>effective member rate</strong> — the monthly price divided by the included hours — is what members mentally compare against your drop-in rate. Land the discount around 20–35% and the offer is compelling without giving away margin. Price the discount too shallow and few people join; too deep and you erode the revenue per hour that makes the program worth running.", 'The other number to watch is <strong>bay-hours consumed</strong>. Memberships are most powerful when they fill hours that would otherwise sit empty — steer members toward weekday and off-peak time so the program grows revenue instead of crowding out full-price weekend demand. The operators who win with memberships treat them as a retention and utilization engine, not just a discount. For the full playbook, read <a href="/resources/golf-simulator-membership-program/">how to build a membership program that retains members</a>, and pair this with the <a href="/resources/break-even-calculator/">break-even calculator</a> and <a href="/resources/revenue-calculator/">revenue calculator</a> to see the whole picture.'] }}
   >
     <Fragment slot="inputs">
-      <Stepper id="members" label="Number of members" value={40} min={1} step={1} />
-      <Stepper id="price" label="Monthly membership price ($)" value={150} min={1} step={5} prefix="$" />
-      <Stepper id="incl" label="Included hours per member / month" value={8} min={1} step={1} hint="The hour-bank each member gets" />
-      <Stepper id="std" label="Standard drop-in rate ($/hr)" value={45} min={1} step={1} prefix="$" hint="What non-members pay per hour" />
+      <Stepper id="members" label="Number of members" value={40} min={1} step={1} stack />
+      <Stepper id="price" label="Monthly membership price ($)" value={150} min={1} step={5} prefix="$" stack />
+      <Stepper id="incl" label="Included hours per member / month" value={6} min={1} step={1} hint="The hour-bank each member gets" />
+      <Stepper id="std" label="Standard drop-in rate ($/hr)" value={40} min={1} step={1} prefix="$" hint="What non-members pay per hour" />
     </Fragment>
     <Fragment slot="results">
-      <p class="cc-big"><span id="mrr">$0</span></p>
-      <p class="cc-sub"><span id="arr">$0</span> per year</p>
-      <div class="cc-rows">
-        <div><span>Effective member rate</span><strong id="eff">$0/hr</strong></div>
-        <div><span>Member discount vs drop-in</span><strong id="disc">0%</strong></div>
-        <div><span>Member bay-hours / month</span><strong id="consumed">0</strong></div>
+      <div class="mp-body">
+        <div class="mp-num">
+          <p class="cc-big"><span id="mrr">$0</span></p>
+          <p class="cc-sub"><span id="arr">$0</span> per year</p>
+        </div>
+        <!-- Figma draws the discount as a gauge: the green band is the healthy 20–35% zone, the amber tick this plan's discount -->
+        <div class="mp-meter"><i></i><b id="discTick"></b></div>
+        <div class="mp-rows">
+          <div class="mp-row"><p>Effective member rate</p><span id="eff">$0/hr</span></div>
+          <div class="mp-hr"></div>
+          <div class="mp-row"><p>Member discount vs drop-in</p><span class="mp-warn" id="disc">0%</span></div>
+          <div class="mp-hr"></div>
+          <div class="mp-row"><p>Member bay-hours / month</p><span id="consumed">0</span></div>
+        </div>
       </div>
     </Fragment>
   </CalcShell>
+
+  <style>
+    /* Membership card, off the Figma export: 64px answer, 8px discount gauge, 16px/20px value rows on hairlines */
+    .mp-body { display: flex; flex-direction: column; }
+    .mp-num { display: flex; flex-direction: column; gap: 8px; }
+    .cc-big { font-size: 64px; }
+    .cc-sub { font: 400 16px/1.2 var(--font-ui); color: #d1d5db; }
+    .mp-meter { position: relative; box-sizing: border-box; height: 8px; margin-top: 32px; background: rgba(253,255,254,.15); border: 1px solid rgba(255,255,255,.1); border-radius: 99px; }
+    .mp-meter i { position: absolute; top: 50%; left: 20%; width: 15%; height: 8px; transform: translateY(-50%); background: #22c55e; border-radius: 99px; }
+    .mp-meter b { position: absolute; top: 50%; width: 1px; height: 16px; transform: translateY(-50%); background: #f4bc07; border-radius: 99px; }
+    .mp-rows { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .mp-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .mp-row p { margin: 0; font: 400 16px/21px var(--font-ui); color: #fff; }
+    .mp-row span { font: 400 20px/1.15 var(--font-ui); letter-spacing: -0.03em; color: #fff; }
+    .mp-row span.mp-warn { color: #f4bc07; }
+    .mp-hr { border-top: 1px solid rgba(255,255,255,.15); }
+    @media (max-width: 900px) {
+      .cc-big { font-size: 44px; }
+    }
+  </style>
 
   <script is:inline>
     (function () {
@@ -63,6 +94,8 @@ const schema = [{
         $('eff').textContent = '$' + (Math.round(eff * 10) / 10) + '/hr';
         $('disc').textContent = Math.round(disc) + '%';
         $('consumed').textContent = Math.round(consumed).toLocaleString();
+        // Amber tick rides the same scale as the green 20–35% band: the plan's discount vs drop-in
+        $('discTick').style.left = Math.max(0, Math.min(100, disc)) + '%';
       }
       ['members', 'price', 'incl', 'std'].forEach(function (id) {
         var el = $(id);
