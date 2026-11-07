@@ -1,147 +1,54 @@
 ---
-/** Leagues & events — /features/leagues-events/ (Figma "Leagues & events", node 314:22300). Facts match src/data/features.ts. */
+/** Leagues & events — /features/leagues-events/ (Figma "Leagues & events", node 314:22300). Content lives in src/data/features/leagues-events.ts. */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductHero from '../../components/product/ProductHero.astro';
 import ShortAnswer from '../../components/product/ShortAnswer.astro';
-import SplitPanel from '../../components/product/SplitPanel.astro';
-import FeatureTabs from '../../components/product/FeatureTabs.astro';
-import Timeline from '../../components/product/Timeline.astro';
-import WeekCalendar from '../../components/product/WeekCalendar.astro';
+import LeaguePlanner from '../../components/product/LeaguePlanner.astro';
+import FormatTabs from '../../components/product/FormatTabs.astro';
+import SetupTimeline from '../../components/sections/SetupTimeline.astro';
 import LinkCards from '../../components/sections/LinkCards.astro';
 import Glance from '../../components/sections/Glance.astro';
 import Faq from '../../components/sections/Faq.astro';
 import Cta from '../../components/sections/Cta.astro';
-import { SITE } from '../../consts';
-import { PRODUCT_LINKS } from '../../data/featurePages';
+import { LEAGUES_EVENTS } from '../../data/features/leagues-events';
 
-const title = 'Leagues & Events for Golf Simulator Venues | Birdie';
-const description = 'Run leagues, events and lessons on the same bay calendar as every other booking: teams, rosters, standings, stroke-play scoring, league-night bay holds and event sign-ups.';
-
-const faqs: [string, string][] = [
-  ['Can teams manage their own rosters?', 'Yes. Leagues include teams and rosters, with team invites and substitutes.'],
-  ['Does Birdie handle league scoring?', 'Yes. Leagues include standings and stroke-play scoring, and there is a GSPro online tournament (SGT) integration for leagues.'],
-  ['Can I hold the same bays every league night?', 'Yes. League-night bay holds repeat for the whole season, so you set them once and only sell the bays that are left.'],
-  ['Can members still book during a block?', 'Optionally. Block time can close bays one-off or repeating, and can still let members, or specific plans, book.'],
-  ['How do event sign-ups work?', 'Camps, clinics and tournaments get custom sign-up forms, check-in and reminders.'],
-  ['Can I sell lessons?', 'Yes. Instructors and lesson booking come with availability, rates and intake questions, plus lesson packages and member lesson rates.'],
-  ['Can I take a deposit for a private event?', 'Yes. Deposits, reserve-with-card and pay-at-venue rules are set per booking type.'],
-];
-const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
-
-const days = [
-  { day: 'MON', slots: [{ time: '9:00 PM', label: 'Regular booking', kind: 'regular' as const }] },
-  { day: 'TUE', slots: ['7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'].map((t) => ({ time: t, label: 'Tuesday League', kind: 'league' as const })) },
-  { day: 'WED', slots: ['7:00 PM', '8:00 PM', '9:00 PM'].map((t) => ({ time: t, label: 'Clinic', kind: 'event' as const })) },
-  { day: 'THU', slots: [{ time: '7:00 PM', label: 'Party package', kind: 'package' as const }, { time: '7:00 PM', label: 'Party package', kind: 'package' as const }] },
-  { day: 'FRI', slots: [{ time: '8:00 PM', label: 'Regular booking', kind: 'regular' as const }] },
-  { day: 'SAT', slots: [{ time: '7:00 PM', label: 'Regular booking', kind: 'regular' as const }, { time: '10:00 PM', label: 'Lesson', kind: 'lesson' as const }] },
-  { day: 'SUN', slots: [{ time: '7:00 PM', label: 'Regular booking', kind: 'regular' as const }] },
-];
-const formats = [
-  { label: 'League', title: 'League', text: 'Teams, rosters, standings and stroke-play scoring, with team invites and substitutes.', facts: [['Bays', '1–4'], ['Season', '8 weeks'], ['Billing', 'Weekly']] },
-  { label: 'Event', title: 'Event', text: 'Camps, clinics and tournaments, with custom sign-up forms, check-in and reminders.', facts: [['Sign-up', 'Custom form'], ['Arrival', 'Check-in'], ['Before', 'Reminders']] },
-  { label: 'Package', title: 'Package', text: 'The customer pays once, then picks their own date and time.', facts: [['Payment', 'Once'], ['Date and time', 'Customer picks'], ['Calendar', 'Same bays']] },
-  { label: 'Lesson', title: 'Lesson', text: 'Instructors and lesson booking, with availability, rates and intake questions.', facts: [['Instructor', 'Availability'], ['Rates', 'Per lesson'], ['Intake', 'Questions']] },
-];
-const steps: [string, string][] = [
-  ['Hold the bays', 'League-night bay holds repeat for the whole season. Set it once.'],
-  ['Build the teams', 'Teams invite players and add substitutes. Weekly billing runs automatically, and a waitlist catches late sign-ups.'],
-  ['Play and score', 'Stroke-play scoring and standings update every week. GSPro online tournaments (SGT) plug in too.'],
-  ['Same night next week', 'Reminders go out, the bays are already held, and you only sell the bays that are left.'],
-];
-const F = '/assets/features/';
+const { meta, hero, shortAnswer, planner, formats, timeline, faq, links, cta } = LEAGUES_EVENTS;
+const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
 ---
-<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
-<div class="hm">
-  <ProductHero
-    tall
-    center
-    crumb={['Product', 'Leagues & events']}
-    h1="One calendar for everything."
-    lead="Leagues with teams, rosters and standings. Events with sign-up forms and check-in. Lessons with instructors. All on the same bays and the same calendar as every other booking."
-    primary={{ label: 'Book a demo', href: SITE.demoPath }}
-    secondary={{ label: 'See how it works', href: '#league-planner' }}
-    bg={{ src: `${F}lg-bg.webp`, left: 0, top: 0, width: 1440 }}
-    shadow={false}
-    mobileX={-135}
-  >
-    <div style="position:absolute;left:212px;top:420px;width:1016px;z-index:3"><WeekCalendar days={days} /></div>
-  </ProductHero>
+<BaseLayout title={meta.title} description={meta.description} schema={schema} headerVariant="dark" headerOverlay>
+<div class="hm leagues-events-page">
+  <ProductHero tall center {...hero} />
+  <ShortAnswer {...shortAnswer} />
 
-  <ShortAnswer
-    body="Birdie runs leagues, events and lessons on the same calendar customers book from. Leagues get teams, rosters, weekly billing, standings and stroke-play scoring, with league-night bay holds. Camps, clinics and tournaments get custom sign-up forms, check-in and reminders. Block time closes bays one-off or repeating, and can still let members or specific plans book."
-    chips={[['flagBannerFoldFilled', 'League-night bay holds'], ['tableFilled', 'Standings and stroke-play scoring'], ['calendarFilled', 'Event sign-up and check-in'], ['golfFilled', 'Instructors and lesson booking']]}
-    image={{ src: '/assets/product/leagues-and-events-short-answer.webp', mobileSrc: '/assets/product/leagues-and-events-short-answer-mobile.webp', alt: 'Block the time, collect sign-ups, automate payments, and play and score.' }}
-  />
+  <!-- League season planner — Figma 2049:102254 (mobile 2049:102760). Static example, not interactive. -->
+  <LeaguePlanner {...planner} />
 
-  <!-- Season planner (interactive example) -->
-  <SplitPanel
-    id="league-planner"
-    tone="light"
-    heading="Plan a season in four taps."
-    body="A league is a repeating block: same bays, same night, every week. Set it once and only sell the bays that are left."
-  >
-    <div class="pf-eg" id="lp" style="width:100%;max-width:460px">
-      <div class="pf-eg__h"><b style="color:var(--color-text)">League night</b><span>Block time</span></div>
-      <label class="pf-field">Night
-        <select id="lp-night" class="pf-select"><option>Monday</option><option selected>Tuesday</option><option>Wednesday</option><option>Thursday</option></select>
-      </label>
-      <label class="pf-field">During the block
-        <select id="lp-mode" class="pf-select"><option>Closed to all</option><option>Members can book</option></select>
-      </label>
-      <label class="pf-field">Bays for the league <output id="lp-bays-o">1</output><input id="lp-bays" class="pf-range" type="range" min="1" max="4" value="1" /></label>
-      <label class="pf-field">Season length (weeks) <output id="lp-weeks-o">8</output><input id="lp-weeks" class="pf-range" type="range" min="1" max="12" value="8" /></label>
-      <div class="pf-kv">
-        <div>Bay-hours set for the season<b id="lp-bh">24</b></div>
-        <div>Bays still bookable that night<b id="lp-left">3</b></div>
-      </div>
-      <div class="pf-eg__h"><b style="color:var(--color-text)">Season preview</b><span id="lp-title">Tuesday Night League</span></div>
-      <div id="lp-weeks-list" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
-        {Array.from({ length: 8 }, (_, i) => <div class="pf-eg__row" style="flex-direction:column;align-items:flex-start;gap:2px;padding:8px 10px"><b>Week {i + 1}</b><small style="margin:0">7:00 PM</small></div>)}
-      </div>
-      <p class="pf-eg__note">Example: a 7:00 PM start and a three-hour night across a four-bay venue. Block time is set from your Birdie dashboard.</p>
-    </div>
-  </SplitPanel>
+  <!-- Four formats — Figma 2049:102341 (tab 2: 2049:102483, mobile: 2049:102850) -->
+  <FormatTabs {...formats} />
 
-  <FeatureTabs
-    id="formats"
-    heading="Four formats. Zero double-bookings."
-    sub="Every format sits on the same bay calendar as regular bookings, so a party never lands on top of league night."
-    tabs={formats.map((f) => ({ label: f.label, title: f.title, text: f.text }))}
-  >
-    <div slot="panel-0" class="pf-eg" style="width:100%;max-width:340px"><div class="pf-eg__h"><b style="color:var(--color-text)">League</b><span>Example</span></div><div class="pf-kv">{formats[0].facts.map(([k, v]) => <div>{k}<b>{v}</b></div>)}</div></div>
-    <div slot="panel-1" class="pf-eg" style="width:100%;max-width:340px"><div class="pf-eg__h"><b style="color:var(--color-text)">Event</b><span>Example</span></div><div class="pf-kv">{formats[1].facts.map(([k, v]) => <div>{k}<b>{v}</b></div>)}</div></div>
-    <div slot="panel-2" class="pf-eg" style="width:100%;max-width:340px"><div class="pf-eg__h"><b style="color:var(--color-text)">Package</b><span>Example</span></div><div class="pf-kv">{formats[2].facts.map(([k, v]) => <div>{k}<b>{v}</b></div>)}</div></div>
-    <div slot="panel-3" class="pf-eg" style="width:100%;max-width:340px"><div class="pf-eg__h"><b style="color:var(--color-text)">Lesson</b><span>Example</span></div><div class="pf-kv">{formats[3].facts.map(([k, v]) => <div>{k}<b>{v}</b></div>)}</div></div>
-  </FeatureTabs>
-
-  <Timeline
-    heading="From an empty Tuesday to a league night."
-    sub="Most venues run around 40% weekday utilization. A league turns one of those nights into a weekly fixture."
-    steps={steps}
-    icons={['lock', 'users', 'trophy', 'repeat']}
-  />
+  <!-- League-night timeline — Figma 2049:102426 (mobile 2049:102939). Same scroll-progress component as the home page. -->
+  <SetupTimeline {...timeline} />
 
   <Glance />
-  <Faq heading="Questions owners ask about leagues and events" items={faqs} open={1} />
-  <LinkCards heading="See the rest of Birdie" sub="Each part of the platform has its own page." items={PRODUCT_LINKS.filter(([, h]) => h !== '/features/leagues-events/')} />
-  <Cta heading="Turn quiet weeknights into league nights." body="Free walkthrough. We set up your bays, blocks and booking rules during onboarding." />
+  <Faq {...faq} />
+  <LinkCards {...links} />
+  <Cta {...cta} />
 </div>
-<script is:inline>
-  (function () {
-    var g = function (id) { return document.getElementById(id); };
-    if (!g('lp')) return;
-    function run() {
-      var bays = +g('lp-bays').value, weeks = +g('lp-weeks').value, night = g('lp-night').value;
-      g('lp-bays-o').textContent = bays; g('lp-weeks-o').textContent = weeks;
-      g('lp-bh').textContent = bays * weeks * 3;
-      g('lp-left').textContent = 4 - bays;
-      g('lp-title').textContent = night + ' Night League';
-      var h = '';
-      for (var i = 1; i <= weeks; i++) h += '<div class="pf-eg__row" style="flex-direction:column;align-items:flex-start;gap:2px;padding:8px 10px"><b>Week ' + i + '</b><small style="margin:0">7:00 PM</small></div>';
-      g('lp-weeks-list').innerHTML = h;
+<style is:global>
+    /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .leagues-events-page .pf-hero {
+      background: #000407
+        url("/assets/features/leagues-events-bg.webp") center /
+        cover no-repeat;
     }
-    ['lp-bays', 'lp-weeks', 'lp-night', 'lp-mode'].forEach(function (id) { g(id).addEventListener('input', run); });
-  })();
-</script>
+    .leagues-events-page .pf-hero__art { display: none; }
+    @media (max-width: 900px) {
+      .leagues-events-page .pf-hero {
+        background: #000407 url("/assets/features/leagues-events-bg-mobile.webp") center center / cover no-repeat;
+      }
+      .leagues-events-page .pf-hero--tall {
+        min-height: 800px;
+      }
+    }
+  </style>
 </BaseLayout>

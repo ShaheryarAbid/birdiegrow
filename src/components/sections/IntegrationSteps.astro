@@ -2,12 +2,13 @@
 /**
  * Setup steps timeline — Figma "Progress/Setup/Steps" 466:32805. Same build as the homepage Setup block:
  * 960px alternating tile/text rows on a centre line, with a golf ball that travels as you scroll
- * (data-setup-progress, src/scripts/home.ts) and completed rows flipping their marker dark.
+ * (data-setup-progress, src/scripts/setup-progress.ts) and completed rows flipping their marker dark.
  * Props: heading, sub/note (lines under the heading), steps string[], icons (file names in /assets/integrations/, cycled), id.
  */
 import { gd } from '../../lib/gd';
 import '../../styles/home.css';
 import '../../styles/sections.css';
+import '../../styles/setup-timeline.css';
 export interface Props { heading: string; sub?: string; steps: string[]; icons?: string[]; note?: string; id?: string; }
 const { heading, sub, steps, icons = ['step-plug', 'step-pin', 'step-key', 'step-grid'], note, id } = Astro.props;
 const A = '/assets/home/';
@@ -27,3 +28,7 @@ const A = '/assets/home/';
     ))}
   </div>
 </section>
+<script>
+  import { initSetupProgress } from '../../scripts/setup-progress';
+  initSetupProgress();
+</script>

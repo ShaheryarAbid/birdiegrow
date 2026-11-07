@@ -1,0 +1,55 @@
+/* Tabbed dark preview cards (src/components/product/FormatTabs.astro) — Figma 2049:102341, mobile 2049:102850. Prefix fmt-.
+   Tab bar is the shared .hm-tabs pill (home.css); section shell and intro come from sections.css. */
+
+.fmt__head { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; }
+.fmt__head .hm-sub { max-width: 800px; line-height: 1.24; }
+.hm-tabs.fmt__tabs[hidden] { display: none; }
+.hm-tabs.fmt__tabs button { border: 1px solid transparent; }
+.hm-tabs.fmt__tabs button.is-on { border-color: #fff; box-shadow: var(--shadow-btn); }
+
+/* Card: 960 × 421, one shared background, text left and calendar image right */
+.fmt__panels { display: flex; flex-direction: column; gap: 24px; width: 100%; max-width: 960px; }
+.fmt__panel { display: flex; min-height: 421px; border-radius: 20px; overflow: hidden; background: #000407 var(--fmt-bg) center / cover no-repeat; color: var(--color-text-inverse); }
+.fmt.is-js .fmt__panel:not(.is-on) { display: none; }
+
+.fmt__txt { flex: 0 0 479px; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 32px; }
+.fmt__top { display: flex; flex-direction: column; gap: 24px; width: 100%; }
+.fmt__intro { display: flex; flex-direction: column; gap: 12px; }
+.fmt__intro h3 { margin: 0; font: 600 32px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text-inverse); }
+.fmt__intro p { margin: 0; font: 400 16px/1.24 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-inverse-secondary); }
+
+.fmt__facts { display: flex; flex-direction: column; gap: 16px; margin: 0; }
+.fmt__facts div { display: flex; justify-content: space-between; gap: 16px; font: 400 16px/1.3 var(--font-ui); }
+.fmt__facts div + div { padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.fmt__facts dt { color: #c0c0c0; }
+.fmt__facts dd { margin: 0; color: var(--color-text-inverse-secondary); text-align: right; }
+
+/* The exported calendar carries its own card and shadow; its card is centred in the 421px panel */
+.fmt__vis { flex: 1; min-width: 0; display: flex; justify-content: center; align-items: flex-start; padding: 54px 20px 0; box-sizing: border-box; }
+.fmt__vis img { display: block; width: 441px; max-width: 100%; height: auto; }
+
+/* Smaller desktops: the text column gives up width before the calendar does */
+@media (max-width: 1100px) {
+  .fmt__txt { flex-basis: 50%; }
+}
+
+@media (max-width: 900px) {
+  .hm-sec.fmt { gap: 40px; }
+  .fmt__head { gap: 32px; }
+  .fmt__head .hm-h2 { text-wrap: balance; }
+  .fmt__head .hm-sub { line-height: 1.32; text-wrap: balance; }
+  /* Tabs stack full width on the light grey track */
+  .hm-tabs.fmt__tabs { display: flex; flex-direction: column; width: 100%; box-sizing: border-box; background: var(--color-bg); }
+  .hm-tabs.fmt__tabs button { width: 100%; padding: 12px 20px; }
+
+  /* Tall card: plain black with the glow anchored bottom-right and faded in, instead of stretching the art over the whole card.
+     The layer overhangs the card so the art's own rounded corners stay outside the clip. */
+  .fmt__panel { position: relative; flex-direction: column; min-height: 0; background: #000407; }
+  .fmt__panel::before { content: ""; position: absolute; left: -60%; right: -24px; bottom: -24px; height: 70%; background: var(--fmt-bg) right bottom / cover no-repeat; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%); mask-image: linear-gradient(to bottom, transparent, #000 45%); pointer-events: none; }
+  .fmt__txt, .fmt__vis { position: relative; }
+  .fmt__txt { flex: none; width: 100%; padding: 24px; gap: 24px; }
+  .fmt__cta { width: 100%; justify-content: center; }
+  .fmt__vis { padding: 0 24px 24px; }
+  /* The calendar card sits inside the image's shadow margin; bleed the image so the card itself is full width */
+  .fmt__vis img { width: calc(100% + 31px); max-width: none; margin: 0 -15.5px; }
+}

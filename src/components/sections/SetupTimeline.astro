@@ -1,0 +1,59 @@
+---
+/**
+ * Scroll-progress step timeline: alternating icon tile / text rows around a line, with a ball that follows the scroll
+ * and marks the steps it passes. Home "Setup steps" Figma 2049:106304 (mobile 2049:106616); Leagues & events 2049:102426 (mobile 2049:102939).
+ * Props:
+ *   heading      sentence-ending periods turn green (gd); breakMobile puts each sentence on its own line on mobile
+ *   sub, subWidth  intro text and its max width in px
+ *   steps        [{ title, text, icon }] — icon is an image path (contains "/") or an icon name from src/data/icons.ts
+ *   textWidth    max width of a step's text column on desktop (default 240px)
+ *   cta          optional button under the timeline: { label, href, icon? }
+ */
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/home.css';
+import '../../styles/setup-timeline.css';
+export interface Step { title: string; text: string; icon: string; }
+export interface Props {
+  heading: string;
+  breakMobile?: boolean;
+  sub?: string;
+  subWidth?: number;
+  steps: Step[];
+  textWidth?: number;
+  id?: string;
+  cta?: { label: string; href: string; icon?: string };
+}
+const { heading, breakMobile, sub, subWidth, steps, textWidth, id, cta } = Astro.props;
+const headingHtml = breakMobile ? gd(heading).replace(/<i>\.<\/i> /g, '<i>.</i><br class="hm-brm" /> ') : gd(heading);
+const check = '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m4 10 4 4 8-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>';
+---
+<section class="hm-sec hm-white hm-stack" id={id}>
+  <div class="hm-intro">
+    <h2 class="hm-h2" set:html={headingHtml} />
+    {sub && <p class="hm-sub" style={subWidth ? `max-width:${subWidth}px` : undefined}>{sub}</p>}
+  </div>
+  <div class="hm-setup" data-setup-progress style={textWidth ? `--setup-txt:${textWidth}px` : undefined}>
+    <div class="hm-setup__line" aria-hidden="true"></div>
+    <div class="hm-setup__trail" aria-hidden="true"></div>
+    <img class="hm-setup__ball" src="/assets/home/setup-ball.webp" alt="" width="40" height="40" />
+    {steps.map((s, i) => {
+      const tile = <div class="hm-setup__tile">{s.icon.includes('/') ? <img class="ic" src={s.icon} alt="" /> : <Icon name={s.icon} size={40} class="ic" />}</div>;
+      const txt = <div class="hm-setup__txt"><h3>{s.title}</h3><p>{s.text}</p></div>;
+      return (
+        <div class:list={['hm-setup__row', i % 2 === 0 ? 'tl' : 'tr', { feat: i === 0 }]}>
+          <div class="hm-setup__side a">{i % 2 === 0 ? tile : txt}</div>
+          <button type="button" class="hm-setup__mark" aria-label={`Step ${i + 1}: ${s.title}`}><span>{String(i + 1).padStart(2, '0')}</span><Fragment set:html={check} /></button>
+          <div class="hm-setup__side b">{i % 2 === 0 ? txt : tile}</div>
+        </div>
+      );
+    })}
+  </div>
+  {cta && <Button href={cta.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">{cta.label} {cta.icon && <img src={cta.icon} alt="" width="16" height="16" />}</Button>}
+</section>
+<script>
+  import { initSetupProgress } from '../../scripts/setup-progress';
+  initSetupProgress();
+</script>

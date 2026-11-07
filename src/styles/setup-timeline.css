@@ -1,0 +1,62 @@
+/* Scroll-progress step timeline (src/components/sections/SetupTimeline.astro; also the revenue page timeline).
+   Home "Setup steps" Figma 2049:106304 (mobile 2049:106616), Leagues & events 2049:102426 (mobile 2049:102939).
+   Moved from home.css; the hm-setup class names are kept so existing markup keeps working.
+   Scroll behaviour: src/scripts/setup-progress.ts. Text column width: --setup-txt (default 240px). */
+
+.hm-setup { width: 960px; max-width: 100%; position: relative; display: flex; flex-direction: column; gap: 8px; }
+.hm-setup__row { min-height: 144px; box-sizing: border-box; padding: 32px 0; display: grid; grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr); column-gap: 60px; align-items: center; border-radius: 20px; position: relative; }
+.hm-setup__row.feat { background: var(--color-bg); }
+.hm-setup__side.a { display: flex; justify-content: flex-end; text-align: right; }
+.hm-setup__side.a .hm-setup__txt { align-items: flex-end; }
+.hm-setup__txt { display: flex; flex-direction: column; gap: 8px; max-width: var(--setup-txt, 240px); }
+.hm-setup__txt h3 { font: 500 20px/1.2 var(--font-ui); letter-spacing: -0.03em; white-space: nowrap; }
+.hm-setup__txt p { font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); }
+.hm-setup__tile { width: 80px; height: 80px; border-radius: 16px; background: var(--color-bg); display: grid; place-items: center; }
+.hm-setup__tile { position: relative; overflow: hidden; }
+.hm-setup__tile .ic { position: relative; z-index: 2; }
+/* Icons from src/data/icons.ts render inline in the text colour, white on a featured tile */
+.hm-setup__tile svg.ic { width: 40px; height: 40px; color: var(--color-text-secondary); }
+.hm-setup__tile.k { background: #000407; border: 1px solid rgba(253,255,254,.5); border-radius: 14px; box-shadow: 0 20px 20px rgba(0,0,0,.03), 0 10px 10px rgba(0,0,0,.03); }
+.hm-setup__tile.k .bgimg { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center bottom; }
+.hm-setup__tile.k .nz { position: absolute; left: -.5px; top: -3px; width: 80px; height: 83px; background: #fdfffe; mix-blend-mode: soft-light; }
+.hm-setup__tile.k .hm-shader { position: absolute; left: -.5px; top: -1px; width: 80px; height: 81px; mix-blend-mode: soft-light; }
+.hm-setup__mark { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 99px; display: grid; place-items: center; background: var(--color-bg); font: 400 16px/1 var(--font-ui); letter-spacing: -0.03em; }
+.hm-setup__mark .ball { width: 40px; height: 40px; border-radius: 99px; object-fit: cover; }
+.hm-setup__line { position: absolute; left: 479px; top: 64px; height: 488px; width: 0; border-left: 1px solid #eceeed; }
+[data-setup-progress] .hm-setup__mark { border: 0; padding: 0; color: var(--color-text); cursor: pointer; }
+[data-setup-progress] .hm-setup__mark svg { display: none; }
+[data-setup-progress] .is-complete .hm-setup__mark { background: #000407; color: #fff; }
+[data-setup-progress] .is-complete .hm-setup__mark svg { display: block; }
+[data-setup-progress] .is-complete .hm-setup__mark span { display: none; }
+/* No-JS fallback; the script pins the line to the first and last circle centres */
+[data-setup-progress] .hm-setup__line { left: calc(50% - .5px); top: 72px; bottom: 72px; height: auto; }
+.hm-setup__ball { position: absolute; z-index: 2; top: 0; left: calc(50% - 20px); transform: translateY(52px); width: 40px; height: 40px; pointer-events: none; }
+.hm-setup__trail { position: absolute; z-index: 1; pointer-events: none; width: 40px; border-radius: 99px; background: linear-gradient(#01040703, #0104070d); }
+[data-setup-progress] .feat .hm-setup__tile { background: #000407 url(/assets/home/color-pixel.webp) center / cover no-repeat; box-shadow: 0 10px 20px #0001; }
+[data-setup-progress] .feat .hm-setup__tile::after { content: ""; position: absolute; inset: 0; background: url(/assets/home/grain.svg); mix-blend-mode: soft-light; opacity: .6; }
+[data-setup-progress] .feat .hm-setup__tile .ic { filter: brightness(0) invert(1); }
+[data-setup-progress] .feat .hm-setup__tile .ic[src$="calendar.svg"] { filter: none; }
+[data-setup-progress] .feat .hm-setup__tile svg.ic { filter: none; color: #fff; }
+[data-setup-progress] .hm-setup__row { transition: background .2s; }
+.hm-setup + .bd-btn { margin-top: -28px; }
+
+@media (max-width: 900px) {
+  .hm-setup { width: 100%; gap: 0; }
+  .hm-setup__line { display: block; left: 19.5px; top: 40px; height: calc(100% - 100px); }
+  [data-setup-progress] .hm-setup__line { left: 19.5px; top: 20px; bottom: 100px; }
+  .hm-setup__ball { left: 0; transform: translateY(0); }
+  .hm-setup__row { min-height: 0; padding: 0; display: grid; grid-template-columns: 40px 1fr; column-gap: 12px; align-items: start; border-radius: 0; background: none !important; }
+  .hm-setup__row.feat::before { content: ""; position: absolute; left: 52px; right: 0; top: 0; bottom: 0; background: var(--color-bg); border-radius: 20px; }
+  .hm-setup__mark { grid-column: 1; grid-row: 1 / span 2; margin-top: 0; }
+  .hm-setup__side { grid-column: 2; position: relative; text-align: left !important; justify-content: flex-start !important; padding: 0 20px; }
+  .hm-setup__side:has(.hm-setup__tile) { grid-row: 1; padding-top: 20px; padding-bottom: 20px; }
+  .hm-setup__side:has(.hm-setup__txt) { grid-row: 2; padding-bottom: 22px; }
+  .hm-setup__side .hm-setup__txt { align-items: flex-start !important; max-width: none; }
+  .hm-setup__txt h3 { white-space: normal; font-size: 20px; }
+  .hm-setup__tile { width: 48px; height: 48px; border-radius: 10px; }
+  .hm-setup__tile .ic { width: 24px; height: auto; }
+  .hm-setup__tile svg.ic { height: 24px; }
+  .hm-setup__tile.k { border-radius: 10px; }
+  .hm-setup__tile.k .bgimg, .hm-setup__tile.k .nz, .hm-setup__tile.k .hm-shader { transform: scale(.6); transform-origin: 0 0; }
+  .hm-setup + .bd-btn { margin-top: 0; width: 100%; }
+}

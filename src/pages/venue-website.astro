@@ -10,6 +10,7 @@ import Button from '../components/Button.astro';
 import { PRICING, softwareApplicationSchema } from '../data/product';
 import { SITE } from '../consts';
 import '../styles/home.css';
+import '../styles/setup-timeline.css';
 import '../styles/website.css';
 
 const title = 'Websites for Golf Simulator Venues | Birdie';
@@ -102,6 +103,6 @@ const faqs: [string, string][] = [
   </div>
 </BaseLayout>
 <script>
-  import { initHomeInteractions } from '../scripts/home';
-  initHomeInteractions();
+  import { initSetupProgress } from '../scripts/setup-progress';
+  initSetupProgress();
 </script>

@@ -1,0 +1,54 @@
+---
+/**
+ * Tabbed dark preview cards — Figma Leagues & events "Features / Option 2" 2049:102341 (tab 2: 2049:102483, mobile: 2049:102850).
+ * Left: title, text, label/value rows and a CTA. Right: an exported calendar image per tab. Every card shares one background image.
+ * Progressive enhancement: all panels are in the HTML; the shared tabs script turns them into tabs (the tab bar is hidden without JS).
+ * Props: heading, sub, id, bg (card background), cta {label, href}, tabs [{label, title, text, facts [label, value][], img, alt}].
+ */
+import Button from '../Button.astro';
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/home.css';
+import '../../styles/format-tabs.css';
+export interface Tab { label: string; title: string; text: string; facts: [string, string][]; img: string; alt: string; }
+export interface Props { heading: string; sub?: string; id?: string; bg: string; cta: { label: string; href: string }; tabs: Tab[]; }
+const { heading, sub, id, bg, cta, tabs } = Astro.props;
+---
+<section class="hm-sec hm-white hm-stack fmt" id={id} data-fmt>
+  <div class="fmt__head">
+    <div class="hm-intro">
+      <h2 class="hm-h2" set:html={gd(heading)} />
+      {sub && <p class="hm-sub">{sub}</p>}
+    </div>
+    <div class="hm-tabs fmt__tabs" hidden>{tabs.map((t, i) => <button type="button" class={i === 0 ? 'is-on' : ''}>{t.label}</button>)}</div>
+  </div>
+
+  <div class="fmt__panels">
+    {tabs.map((t, i) => (
+      <div class:list={['fmt__panel', { 'is-on': i === 0 }]} style={`--fmt-bg: url('${bg}')`}>
+        <div class="fmt__txt">
+          <div class="fmt__top">
+            <div class="fmt__intro">
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+            </div>
+            <dl class="fmt__facts">{t.facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+          </div>
+          <Button href={cta.href} mode="light" class="fmt__cta">{cta.label}</Button>
+        </div>
+        <div class="fmt__vis">
+          <img src={t.img} alt={t.alt} width="662" height="527" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+<script>
+  import { setupTabs } from '../../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('[data-fmt]').forEach((root) => {
+    const bar = root.querySelector<HTMLElement>('.fmt__tabs');
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('.fmt__tabs button'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.fmt__panel'));
+    if (bar) setupTabs(root, bar, buttons, panels);
+  });
+</script>

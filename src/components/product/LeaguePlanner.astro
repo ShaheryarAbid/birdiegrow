@@ -1,0 +1,75 @@
+---
+/**
+ * League season planner for /features/leagues-events/ — Figma "Features / Option 3" 2049:102254 (mobile 2049:102760).
+ * Static on purpose: the choices and results are an example, not a calculator. Nothing is clickable and there is no script;
+ * the selected option is just drawn in its "on" style. Each calculator on the site gets its own component, so this one has its own CSS.
+ * Props: heading, sub, id, nights + night (selected), modes + mode (selected), bays, weeks, start (week time), bayHours, baysLeft, note.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/league-planner.css';
+export interface Props {
+  heading: string;
+  sub?: string;
+  id?: string;
+  nights: string[];
+  night: string;
+  modes: string[];
+  mode: string;
+  bays: number;
+  weeks: number;
+  start: string;
+  bayHours: number;
+  baysLeft: number;
+  note?: string;
+}
+const { heading, sub, id, nights, night, modes, mode, bays, weeks, start, bayHours, baysLeft, note } = Astro.props;
+const ICONS = '/assets/features/league-planner';
+const steppers: [string, number][] = [['Bays for the league', bays], ['Season length (weeks)', weeks]];
+---
+<section class="hm-sec hm-white hm-stack lp" id={id}>
+  <div class="lp__intro">
+    <h2 class="hm-h2" set:html={gd(heading)} />
+    {sub && <p class="hm-sub">{sub}</p>}
+  </div>
+
+  <div class="lp__card">
+    <div class="lp__in">
+      <div class="lp__group">
+        <p class="lp__label">League night</p>
+        <div class="lp__opts lp__opts--fill">{nights.map((n) => <span class:list={['lp__opt', { 'is-on': n === night }]}>{n}</span>)}</div>
+      </div>
+      <div class="lp__group">
+        <p class="lp__label">During the block</p>
+        <div class="lp__opts">{modes.map((m) => <span class:list={['lp__opt lp__opt--wide', { 'is-on': m === mode }]}>{m}</span>)}</div>
+      </div>
+      {steppers.map(([label, value]) => (
+        <div class="lp__group lp__row">
+          <p class="lp__label">{label}</p>
+          <div class="lp__step">
+            <span class="lp__step-btn"><img src={`${ICONS}/minus.svg`} width="24" height="24" alt="" /></span>
+            <span class="lp__step-v">{value}</span>
+            <span class="lp__step-btn"><img src={`${ICONS}/plus.svg`} width="24" height="24" alt="" /></span>
+          </div>
+        </div>
+      ))}
+      {note && (
+        <p class="lp__group lp__note"><img src={`${ICONS}/info.svg`} width="18" height="18" alt="" />{note}</p>
+      )}
+    </div>
+
+    <div class="lp__out">
+      <div class="lp__out-h">
+        <p class="lp__eyebrow">Season preview</p>
+        <p class="lp__title">{night} Night League</p>
+      </div>
+      <ol class="lp__weeks">
+        {Array.from({ length: weeks }, (_, i) => <li><b>Week {i + 1}</b><span>{start}</span></li>)}
+      </ol>
+      <dl class="lp__metrics">
+        <div><dt>Bay-hours set for the season</dt><dd>{bayHours}</dd></div>
+        <div><dt>Bays still bookable that night</dt><dd>{baysLeft}</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
