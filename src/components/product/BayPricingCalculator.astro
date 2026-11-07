@@ -1,0 +1,98 @@
+---
+/**
+ * Hourly bay pricing calculator for /features/bay-booking/ — Figma "Features / Option 3" 2049:99348 (mobile 2049:100151).
+ * Static on purpose, like LeaguePlanner: the start times, steppers and summary are an example, not a calculator.
+ * Nothing is clickable and there is no script; the selected start time and its hour tile are drawn in their "on" style.
+ * Each calculator on the site gets its own component, so this one has its own CSS (src/styles/bay-pricing.css).
+ * Props: heading (each sentence on its own line), sub, id, title, starts + start (selected label), length, players,
+ * day (rate-panel heading), rates [hour, price, tile colour], legend [label, colour], date, time, total, note.
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/bay-pricing.css';
+export interface Props {
+  heading: string;
+  sub?: string;
+  id?: string;
+  title: string;
+  startLabel: string;
+  starts: [string, string][];
+  start: string;
+  length: number;
+  players: number;
+  day: string;
+  rates: [string, number, string][];
+  rate: string;
+  legend: [string, string][];
+  date: string;
+  time: string;
+  total: string;
+  note?: string;
+}
+const { heading, sub, id, title, startLabel, starts, start, length, players, day, rates, rate, legend, date, time, total, note } = Astro.props;
+const LP = '/assets/features/league-planner';
+const BP = '/assets/features/bay-pricing';
+// One heading line per sentence (Figma breaks after each period on desktop and mobile).
+const lines = heading.match(/[^.?!]+[.?!]?/g)?.map((s) => s.trim()).filter(Boolean) ?? [heading];
+const steppers: [string, number][] = [['Length (h)', length], ['Players', players]];
+const half = Math.ceil(rates.length / 2);
+---
+<section class="hm-sec hm-white hm-stack bp" id={id}>
+  <div class="bp__intro">
+    <h2 class="hm-h2">{lines.map((l) => <span class="bp__line" set:html={gd(l)} />)}</h2>
+    {sub && <p class="hm-sub">{sub}</p>}
+  </div>
+
+  <div class="bp__card">
+    <div class="bp__in">
+      <p class="bp__title">{title}</p>
+      <div class="bp__params">
+        <div class="bp__group">
+          <p class="bp__label">{startLabel}</p>
+          <div class="bp__opts">
+            {starts.map(([t, s]) => (
+              <span class:list={['bp__opt', { 'is-on': t === start }]}><b>{t}</b><small>{s}</small></span>
+            ))}
+          </div>
+        </div>
+        {steppers.map(([label, value]) => (
+          <div class="bp__group bp__row">
+            <p class="bp__label">{label}</p>
+            <div class="bp__step">
+              <span class="bp__step-btn"><img src={`${LP}/minus.svg`} width="24" height="24" alt="" /></span>
+              <span class="bp__step-v">{value}</span>
+              <span class="bp__step-btn"><img src={`${LP}/plus.svg`} width="24" height="24" alt="" /></span>
+            </div>
+          </div>
+        ))}
+        {note && (
+          <p class="bp__group bp__note"><img src={`${LP}/info.svg`} width="18" height="18" alt="" />{note}</p>
+        )}
+      </div>
+    </div>
+
+    <div class="bp__out">
+      <p class="bp__day">{day}</p>
+      <div class="bp__body">
+        <div class="bp__chart">
+          <ol class="bp__rates" style={`--bp-half:${half}`} aria-label={`Example hourly rates: ${rates.map(([h, p]) => `${h} $${p}`).join(', ')}`}>
+            {rates.map(([h, p, bg]) => (
+              <li class:list={['bp__rate', { 'is-on': h === rate }]} style={`background:${bg}`}><b>${p}</b><span>{h}</span></li>
+            ))}
+          </ol>
+          <ul class="bp__legend">
+            {legend.map(([l, c]) => <li><i style={`background:${c}`}></i>{l}</li>)}
+          </ul>
+        </div>
+        <div class="bp__sum">
+          <ul class="bp__meta">
+            <li><span class="bp__ico"><img src={`${BP}/calendar.svg`} width="13.2" height="13.2" alt="" /></span>{date}</li>
+            <li><span class="bp__ico"><img src={`${BP}/clock.svg`} width="13.2" height="13.2" alt="" /></span>{time}</li>
+            <li><span class="bp__ico"><img src={`${BP}/user.svg`} width="16" height="16" alt="" /></span>{players} players</li>
+          </ul>
+          <p class="bp__total">{total}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -6,6 +6,7 @@ import Cta from '../components/sections/Cta.astro';
 import Faq from '../components/sections/Faq.astro';
 import Glance from '../components/sections/Glance.astro';
 import SetupTimeline from '../components/sections/SetupTimeline.astro';
+import AccordionPreview from '../components/sections/AccordionPreview.astro';
 import { SITE } from '../consts';
 import { PRICING } from '../data/product';
 import '../styles/sections.css';
@@ -40,6 +41,8 @@ const guestViews = [
   ...ownerViews.slice(2),
 ];
 const groups = [['Owner dashboard', ownerViews], ['Booking Experience', guestViews]];
+// AccordionPreview groups (one tab each). Items: images under /assets/home are phone renders, the rest are bare screenshots drawn in a phone frame.
+const previewGroups = groups.map(([label, views]) => ({ label: label as string, items: (views as string[][]).map(([l, text, img]) => ({ label: l, text, img: `/assets/${img}.webp`, kind: (img.startsWith('home/') ? 'render' : 'screen') as 'render' | 'screen' })) }));
 
 const process = [
   ['01', 'Empty weekday bays', 'Most venues run at 40% weekday utilization. The right system surfaces those gaps and helps you fill them.', 'Payments & revenue', '/revenue/'],
@@ -127,27 +130,7 @@ const demo = SITE.demoPath;
   <!-- Everything in one place (bay calendar) -->
   <section class="hm-sec hm-white hm-round hm-stack" style="--prev:#000" id="product">
     <div class="hm-intro"><h2 class="hm-h2">Everything you need to run a golf<br class="hm-brd" /> simulator business — in one place<i>.</i></h2></div>
-    <div class="hm-tabs" role="tablist" id="pp-tabs">
-      {groups.map(([g], i) => <button role="tab" class={i === 0 ? 'is-on' : ''} data-g={i}>{g}</button>)}
-    </div>
-    <div class="hm-pp">
-      <div class="hm-pp__side">
-        {groups.map(([, views], gi) => (
-          <div class="hm-pp__acc" data-acc={gi} hidden={gi !== 0}>
-            {(views as string[][]).map(([label, desc, img], vi) => (
-              <button type="button" class={`hm-pp__item${vi === 0 ? ' is-open' : ''}`} aria-expanded={vi === 0 ? 'true' : 'false'} aria-controls={`pp-desc-${gi}-${vi}`} data-img={`/assets/${img}.webp`} data-kind={img.startsWith('home/') ? 'render' : 'screen'} data-label={label}>
-                <span class="row"><span>{label}</span><span class="chev"><img src="/assets/ui/chevron-down.svg" alt="" width="10" height="10" /></span></span>
-                <span class="desc" id={`pp-desc-${gi}-${vi}`}>{desc}</span>
-              </button>
-            ))}
-          </div>
-        ))}
-        <Button href={demo} mode="dark">Book a demo</Button>
-      </div>
-      <div class="hm-pp__art" data-kind="render">
-        <img id="pp-img" src="/assets/home/preview-calendar.webp" width="1240" height="1190" alt="Birdie booking calendar on a phone" loading="lazy" />
-      </div>
-    </div>
+    <AccordionPreview groups={previewGroups} cta={{ label: 'Book a demo', href: demo }} id="pp" />
   </section>
 
   <!-- Birdie at a glance -->
@@ -302,33 +285,6 @@ const demo = SITE.demoPath;
   import { setupTabs } from '../scripts/tabs';
   import { initHomeInteractions } from '../scripts/home';
   initHomeInteractions();
-  // Product preview: tabs + accordion swap the phone screenshot.
-  const img = document.getElementById('pp-img') as HTMLImageElement | null;
-  const accs = document.querySelectorAll<HTMLElement>('[data-acc]');
-  const pick = (btn: HTMLElement) => {
-    btn.parentElement!.querySelectorAll('.hm-pp__item').forEach((x) => {
-      x.classList.toggle('is-open', x === btn);
-      x.setAttribute('aria-expanded', String(x === btn));
-    });
-    if (img) {
-      img.src = btn.dataset.img!;
-      img.alt = `Birdie product preview — ${btn.dataset.label}`;
-      img.parentElement!.dataset.kind = btn.dataset.kind;
-    }
-  };
-  document.querySelectorAll<HTMLElement>('.hm-pp__item').forEach((b) => {
-    b.addEventListener('click', () => pick(b));
-    b.addEventListener('focus', () => pick(b));
-    // Use actual pointer movement: a tab change must not select whatever moves under a parked cursor.
-    b.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && !b.classList.contains('is-open')) pick(b); });
-  });
-  const productBar = document.getElementById('pp-tabs');
-  if (productBar) setupTabs(productBar.parentElement!, productBar, Array.from(productBar.querySelectorAll('button')), Array.from(accs), {
-    onSelect: (index) => {
-      const first = accs[index].querySelector<HTMLElement>('.hm-pp__item');
-      if (first) pick(first);
-    },
-  });
   const featureBar = document.getElementById('feat-tabs');
   if (featureBar) {
     const featBtns = Array.from(featureBar.querySelectorAll<HTMLButtonElement>('button'));

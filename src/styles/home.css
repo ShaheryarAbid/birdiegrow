@@ -16,31 +16,7 @@
 .hm-hero__stats b { font: 600 40px/1 var(--font-display); letter-spacing: -0.03em; color: #fff; }
 .hm-hero__stats span { font: 400 14px/1.3 var(--font-ui); color: var(--gray-300); max-width: 150px; }
 
-/* ===== Product preview (bay calendar) ===== */
-.hm-pp { width: 1100px; max-width: 100%; height: 595px; background: var(--color-bg); border-radius: 20px; position: relative; overflow: hidden; display: flex; }
-.hm-pp__side { position: relative; z-index: 2; width: 480px; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
-.hm-pp__acc { display: flex; flex-direction: column; gap: 8px; }
-.hm-pp__item { background: transparent; border: 0; border-radius: 99px; padding: 16px; text-align: left; cursor: pointer; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); display: block; width: fit-content; min-width: 0; background: transparent; }
-.hm-pp__item:not(.is-open) { height: 56px; padding: 0 16px 0 20px; background: #fdfffe; display: flex; align-items: center; }
-.hm-pp__item .desc { max-width: 245px; }
-.hm-pp__side > .bd-btn { align-self: flex-start; }
-.hm-pp__item .row { line-height: 1.2; display: flex; align-items: center; justify-content: space-between; }
-.hm-pp__item .chev { width: 24px; height: 24px; border-radius: 99px; background: #e9ebeb; display: grid; place-items: center; }
-.hm-pp__item .chev img { width: 10px; height: 10px; transition: transform .15s; }
-.hm-pp__item .desc { display: none; font: 400 16px/1.32 var(--font-ui); color: var(--color-text-secondary); margin-top: 8px; }
-.hm-pp__item.is-open { background: #fdfffe; border-radius: 16px; width: 309px; }
-.hm-pp__item .row { gap: 16px; }
-.hm-pp__item.is-open .desc { display: block; }
-.hm-pp__item.is-open .chev img { transform: rotate(180deg); }
-.hm-pp__art { position: absolute; right: 0; top: 0; width: 620px; height: 595px; pointer-events: none; }
-.hm-pp__art > img { width: 100%; height: auto; }
-.hm-pp__art[data-kind="screen"] { display: flex; justify-content: center; align-items: flex-start; padding-top: 40px; }
-.hm-pp__art[data-kind="screen"] > img { width: 280px; height: auto; border: 8px solid #000407; border-radius: 40px; box-shadow: 0 14px 20px #0002; }
-.hm-sec > .hm-tabs { margin-top: -20px; }
 #feat-tabs { margin-top: -28px !important; }
-.hm-tabs { display: inline-flex; padding: 4px; gap: 4px; border-radius: 20px; background: rgba(0,4,7,.08); }
-.hm-tabs button { border: 0; background: transparent; border-radius: 16px; padding: 12px 20px; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); cursor: pointer; transition: background .2s ease, color .2s ease; }
-.hm-tabs button.is-on { background: #fdfffe; color: var(--color-text); }
 
 /* ===== Process ===== */
 .hm-proc { display: grid; grid-template-columns: 1fr 792px; gap: 60px; align-items: start; width: 100%; }
@@ -187,8 +163,7 @@
   .hm-hero__map { display: none; }
   .hm-hero__img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .hm-hero__shadow { width: 403px; height: 367px; }
-  .hm-tabs { width: 100%; } .hm-tabs button { flex: 1; padding: 12px 8px; }
-  .hm-pp__side .bd-btn, .hm-feat__text .bd-btn { width: 100%; }
+  .hm-feat__text .bd-btn { width: 100%; }
   .hm-proc { grid-template-columns: 1fr; gap: 32px; }
   .hm-proc__head { position: static; text-align: center; align-items: center; }
   .hm-pstep { height: auto; } .hm-pstep__card { padding: 20px; }
@@ -223,25 +198,12 @@
   .hm-hero__stats { position: absolute; left: 1px; right: auto; width: 100%; bottom: 16px; top: auto; gap: 12px; margin: 0; flex-wrap: nowrap; }
   .hm-hero__stats b { font-size: 32px; }
   .hm-hero__stats span { max-width: 128px; }
-  .hm-pp { flex-direction: column; width: 100%; height: auto; }
-  .hm-pp__side { width: 100%; padding: 20px; gap: 16px; justify-content: flex-start; }
-  .hm-pp__acc { gap: 8px; }
-  .hm-pp__item, .hm-pp__item.is-open, .hm-pp__item:not(.is-open) { width: 100%; }
-  .hm-pp__side > .bd-btn { width: 100%; }
-  .hm-pp__art { position: relative; right: auto; top: auto; width: 100%; height: 282px; overflow: hidden; }
-  .hm-pp__art > img { width: 100%; height: auto; max-width: 480px; margin: -20px auto 0; }
-  .hm-pp__art[data-kind="screen"] { padding-top: 20px; }
-  .hm-pp__art:has(img[src$="/preview-booking.webp"]) { height: auto; }
-  .hm-pp__art:has(img[src$="/preview-booking.webp"]) > img { margin-top: 0; }
-  .hm-sec > .hm-tabs { margin-top: -12px; }
-  .hm-sec > .hm-pp { margin-top: -8px; }
   .hm-h2 { line-height: 1; }
 }
 
 @media (max-width: 900px) {
   .hm-hero__p { width: 100%; max-width: 440px; }
   .hm-hero__stats div:nth-child(1) { width: 81px; } .hm-hero__stats div:nth-child(2), .hm-hero__stats div:nth-child(3) { width: auto; flex: 1; min-width: 0; }
-  .hm-pp__item .row { flex: 1; }
   .hm-pstep { flex-direction: row; }
   .hm-pstep h3 { font-size: 20px; }
   .hm-pstep__card { padding: 20px; gap: 16px; }

@@ -1,0 +1,96 @@
+/* Hourly bay pricing calculator (src/components/product/BayPricingCalculator.astro) — Figma 2049:99348, mobile 2049:100151. Prefix bp-.
+   Static example: start times and steppers are drawn, not clickable. Section shell, headings and colours come from sections.css and tokens. */
+
+/* Intro: heading left (one sentence per line), copy right (desktop) */
+.bp__intro { display: flex; align-items: flex-end; gap: 20px; width: 100%; max-width: 1280px; }
+.bp__intro .hm-h2 { flex: 1; margin: 0; }
+.bp__line { display: block; }
+.bp__intro .hm-sub { width: 320px; flex: none; line-height: 1.32; margin: 0; }
+
+/* Card: light inputs left, dark rate panel right */
+.bp__card { display: flex; gap: 8px; width: 100%; max-width: 1280px; padding: 8px; background: var(--color-bg); border-radius: 20px; box-sizing: border-box; }
+.bp__in, .bp__out { flex: 1 1 0; min-width: 0; box-sizing: border-box; }
+
+.bp__in { display: flex; flex-direction: column; gap: 32px; padding: 24px; background: #fdfffe; border-radius: 12px; text-align: left; }
+.bp__title { margin: 0; font: 600 24px/1.2 var(--font-display); letter-spacing: -0.03em; color: var(--color-text); }
+.bp__params { display: flex; flex-direction: column; gap: 24px; }
+.bp__group + .bp__group { padding-top: 24px; border-top: 1px solid var(--color-border-light); }
+.bp__group:not(.bp__row, .bp__note) { display: flex; flex-direction: column; gap: 12px; }
+.bp__label { margin: 0; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+
+/* Start-time options: price on top, window name below */
+.bp__opts { display: flex; gap: 12px; }
+.bp__opt { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 12px; background: rgba(255, 255, 255, .24); text-align: left; box-sizing: border-box; }
+.bp__opt b { font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); white-space: nowrap; }
+.bp__opt small { font: 400 14px/1.3 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); }
+.bp__opt.is-on { background: var(--color-text); border-color: var(--color-text); box-shadow: var(--shadow-btn); }
+.bp__opt.is-on b { color: var(--color-text-inverse); }
+.bp__opt.is-on small { color: var(--color-text-inverse-secondary); }
+
+/* Steppers (drawn only) */
+.bp__row { display: flex; align-items: center; gap: 24px; }
+.bp__row .bp__label { flex: 1; }
+.bp__step { display: flex; align-items: center; gap: 8px; padding: 4px; border: 1px solid #e0e0e0; border-radius: 16px; background: rgba(255, 255, 255, .24); flex: none; }
+.bp__step-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--color-text); box-shadow: var(--shadow-btn); }
+.bp__step-btn img { display: block; }
+.bp__step-v { width: 80px; text-align: center; font: 400 20px/1.15 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+
+.bp__note { display: flex; align-items: center; gap: 12px; margin: 0; font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); }
+.bp__note img { flex: none; }
+
+/* Dark rate panel — the same flattened glow art the other calculator result panels use */
+.bp__out { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 32px; padding: 32px; border: .5px solid rgba(253, 255, 254, .25); border-radius: 16px; background: #000 url('/assets/resources/rc-calc-bg.webp') right top / cover no-repeat; color: var(--color-text-inverse); }
+.bp__day { margin: 0; font: 600 24px/1.2 var(--font-display); letter-spacing: -0.03em; color: var(--color-text-inverse-secondary); }
+.bp__body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+.bp__chart { display: flex; flex-direction: column; gap: 32px; }
+
+/* Hour tiles: one row of eight, price over hour */
+.bp__rates { display: flex; gap: 4px; height: 120px; margin: 0; padding: 0; list-style: none; }
+.bp__rate { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; padding: 0 4px 10px 8px; border-radius: 10px; overflow: hidden; box-sizing: border-box; }
+.bp__rate b { font: 400 24px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text-disabled, #9ca3af); white-space: nowrap; }
+.bp__rate span { font: 500 10px/14px var(--font-ui); color: var(--color-text-disabled, #9ca3af); white-space: nowrap; }
+.bp__rate.is-on { border: 2px solid #f7f9f7; padding: 0 2px 8px 6px; }
+.bp__rate.is-on b { color: var(--color-text-inverse); }
+.bp__rate.is-on span { color: var(--color-text-inverse-secondary); }
+
+.bp__legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.bp__legend li { display: flex; align-items: center; gap: 6px; font: 400 12px/17px var(--font-ui); color: var(--color-text-inverse-secondary); white-space: nowrap; }
+.bp__legend i { width: 10px; height: 10px; border-radius: 3px; }
+
+/* Booking summary: details left, total right */
+.bp__sum { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, .2); }
+.bp__meta { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.bp__meta li { display: flex; align-items: center; gap: 4px; font: 400 14px/1.4 var(--font-ui); color: var(--color-text-inverse-secondary); white-space: nowrap; }
+.bp__ico { display: grid; place-items: center; width: 16px; height: 16px; flex: none; }
+.bp__ico img { display: block; }
+.bp__total { margin: 0; font: 400 64px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text-inverse); white-space: nowrap; }
+
+/* Smaller desktops and tablets: the two halves stack so the start times keep one row */
+@media (max-width: 1100px) {
+  .bp__card { flex-direction: column; }
+  .bp__in, .bp__out { flex: none; }
+}
+
+@media (max-width: 900px) {
+  .hm-sec.bp { gap: 40px; }
+  .bp__intro { flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .bp__intro .hm-h2 { flex: none; }
+  .bp__intro .hm-sub { width: auto; max-width: 361px; }
+
+  .bp__opts { flex-direction: column; }
+  .bp__opt { flex: none; width: 100%; }
+  .bp__row { min-height: 48px; }
+  .bp__step { width: 144px; box-sizing: border-box; justify-content: space-between; gap: 0; }
+  .bp__step-v { flex: 1; width: auto; }
+
+  .bp__body { gap: 24px; }
+  .bp__chart { gap: 32px; }
+  /* Two columns, filled top to bottom (2–5 PM left, 6–9 PM right); price left, hour right */
+  .bp__rates { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(var(--bp-half, 4), auto); grid-auto-flow: column; gap: 8px; height: auto; }
+  .bp__rate { flex-direction: row; align-items: center; justify-content: space-between; padding: 8px; }
+  .bp__rate.is-on { border-width: 1px; padding: 7px; }
+  .bp__rate b { font-size: 16px; }
+  .bp__rate span, .bp__rate.is-on span { line-height: normal; text-align: right; color: var(--color-text-disabled, #9ca3af); }
+
+  .bp__sum { flex-direction: column; align-items: flex-start; padding-top: 24px; }
+}

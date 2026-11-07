@@ -1,0 +1,40 @@
+---
+/**
+ * Payment rules — /features/bay-booking/ — Figma "Features / Option 4" 2049:99568 (mobile 2049:100374).
+ * Dark section on a full-bleed background: shared intro (hm-intro), four exported payment-rule cards in a grid, and a note.
+ * The cards are images (each one is a static example), so there is no markup to keep in sync with the design.
+ * Props: heading, sub, id, bg, cards [{ src, alt }], note.
+ */
+import Icon from '../Icon.astro';
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+export interface Card { src: string; alt: string; }
+export interface Props { heading: string; sub?: string; id?: string; bg: string; cards: Card[]; note?: string; }
+const { heading, sub, id, bg, cards, note } = Astro.props;
+---
+<section class="hm-sec hm-stack hm-round prc" id={id} style={`--prc-bg: url('${bg}')`}>
+  <div class="hm-intro">
+    <h2 class="hm-h2" set:html={gd(heading)} />
+    {sub && <p class="hm-sub">{sub}</p>}
+  </div>
+  <ul class="prc__grid">
+    {cards.map((c) => <li><img src={c.src} alt={c.alt} width="302" height="368" loading="lazy" decoding="async" /></li>)}
+  </ul>
+  {note && <p class="prc__note"><Icon name="infoFilled" size={18} />{note}</p>}
+</section>
+
+<style>
+  .prc { background: #000407 var(--prc-bg) center / cover no-repeat; }
+  .prc .hm-h2 { color: var(--color-text-inverse); }
+  .prc .hm-sub { max-width: 920px; color: var(--color-text-inverse-secondary); }
+  .prc__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; width: 100%; margin: 0; padding: 0; list-style: none; }
+  .prc__grid img { width: 100%; height: auto; }
+  .prc__note { display: flex; align-items: center; gap: 12px; font: 400 16px/1.32 var(--font-ui); color: var(--color-text-inverse-secondary); }
+  .prc__note :global(svg) { flex: none; }
+  @media (max-width: 1100px) { .prc__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) {
+    .hm-sec.prc { gap: 40px; }
+    .prc__grid { grid-template-columns: 1fr; }
+    .prc__note { align-self: stretch; }
+  }
+</style>
