@@ -7,6 +7,7 @@ import Cta from '../components/sections/Cta.astro';
 import { SITE } from '../consts';
 import '../styles/calc.css';
 import '../styles/home.css';
+import '../styles/setup-timeline.css';
 
 const title = 'Revenue Intelligence for Golf Simulator Studios | Birdie';
 const description = 'Birdie reveals which bays, days, and hours are costing you money — and gives you the tools to recover the weekday revenue you can\'t currently see.';
@@ -217,8 +218,8 @@ const GAP_ICONS = [
   calc();
 </script>
 <script>
-  import { initHomeInteractions } from '../scripts/home';
-  initHomeInteractions();
+  import { initSetupProgress } from '../scripts/setup-progress';
+  initSetupProgress();
 </script>
 <style is:global>
   /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */

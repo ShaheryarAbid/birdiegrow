@@ -4,18 +4,57 @@
  * Props: heading, slug + name (competitor logo / label) or colLabel (plain text column title), sub + cta (optional intro paragraph / button), rowLabel (first column title), rows [feature, birdie, competitor][] ("Yes" renders a check, "No" a dash).
  * Scrolls horizontally on mobile like the design.
  */
-import '../../styles/sections.css';
-import Logo from './Logo.astro';
-import Button from '../Button.astro';
-import { SHADER_DARK } from '../../data/shader';
-export interface Props { heading: string; slug?: string; name?: string; rows: [string, string, string][]; sub?: string; cta?: { label: string; href: string }; colLabel?: string; rowLabel?: string; }
-const { heading, slug, name = '', rows, sub, cta, colLabel, rowLabel = 'Feature' } = Astro.props;
-const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-const h2html = esc(heading).replace(/\.(\s|$)/g, '<i>.</i>$1') + (/[.?!]$/.test(heading.trim()) ? '' : '<i>.</i>');
-const check = '/assets/sections/check-circle.svg';
+import "../../styles/sections.css";
+import Logo from "./Logo.astro";
+import Button from "../Button.astro";
+import { SHADER_DARK } from "../../data/shader";
+export interface Props {
+  heading: string;
+  slug?: string;
+  name?: string;
+  rows: [string, string, string][];
+  sub?: string;
+  cta?: { label: string; href: string };
+  colLabel?: string;
+  h2Classes?: string;
+  rowLabel?: string;
+}
+const {
+  heading,
+  slug,
+  name = "",
+  rows,
+  sub,
+  cta,
+  colLabel,
+  h2Classes = "",
+  rowLabel = "Feature",
+} = Astro.props;
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const h2html =
+  esc(heading).replace(/\.(\s|$)/g, "<i>.</i>$1") +
+  (/[.?!]$/.test(heading.trim()) ? "" : "<i>.</i>");
+const check = "/assets/sections/check-circle.svg";
 ---
+
 <section class="hm-sec hm-white hm-stack">
-  <div class="hm-intro"><h2 class="hm-h2" set:html={h2html} />{sub && <p class="hm-sub" style="max-width:680px">{sub}</p>}{cta && <div class="hm-btns sx-tbl__cta"><Button href={cta.href} mode="dark">{cta.label}</Button></div>}</div>
+  <div class="hm-intro">
+    <h2 class=`hm-h2 ${h2Classes}` set:html={h2html} />{
+      sub && (
+        <p class="hm-sub" style="max-width:680px">
+          {sub}
+        </p>
+      )
+    }{
+      cta && (
+        <div class="hm-btns sx-tbl__cta">
+          <Button href={cta.href} mode="dark">
+            {cta.label}
+          </Button>
+        </div>
+      )
+    }
+  </div>
   <div class="sx-tbl">
     <div class="sx-tbl__scroll" tabindex="0" role="region" aria-label={`Birdie versus ${name} comparison table`}>
       <div class="sx-tbl__inner">
@@ -23,22 +62,63 @@ const check = '/assets/sections/check-circle.svg';
         <thead>
           <tr>
             <th scope="col">{rowLabel}</th>
-            <th scope="col" class="b m">
-              <span class="art"></span>
-              <span class="hm-shader hm-shader--overlay" data-shader-params={SHADER_DARK}><span class="px" style="display:block"></span></span>
-              <img class="sx-logo" src="/assets/sections/birdie-logo-white.svg" alt="Birdie" width="113" height="30" style="position:relative;z-index:2;display:block;margin:0 auto;top:35px;width:113px;height:30px" />
+            <th scope="col" class="b m middle">
+              <img
+                class="sx-logo"
+                src="/assets/sections/birdie-logo-white.svg"
+                alt="Birdie"
+                width="113"
+                height="30"
+                style="position:relative;z-index:2;display:block;margin:0 auto;top:0px;width:113px;height:30px"
+              />
             </th>
-            <th scope="col" class="c m">{slug ? <Logo slug={slug} alt={name} maxW={140} maxH={36} /> : <span class="sx-colname">{colLabel}</span>}</th>
+            <th scope="col" class="c m"
+              >{
+                slug ? (
+                  <Logo slug={slug} alt={name} maxW={140} maxH={36} />
+                ) : (
+                  <span class="sx-colname">{colLabel}</span>
+                )
+              }</th
+            >
           </tr>
         </thead>
         <tbody>
-          {rows.map(([f, b, c]) => (
-            <tr>
-              <th scope="row" style="font-weight:400;color:var(--color-text)">{f}</th>
-              <td class={`b${b === 'Yes' || b === 'No' ? ' mid' : ''}`}>{b === 'Yes' ? <span class="tick"><img src={check} alt="Yes" /></span> : b === 'No' ? <span class="dash" aria-label="No">—</span> : b}</td>
-              <td class={`c${c === 'Yes' ? ' mid' : ''}`}>{c === 'Yes' ? <span class="tick"><img src={check} alt="Yes" /></span> : c === 'No' ? <span class="dash" aria-label="No">—</span> : c}</td>
-            </tr>
-          ))}
+          {
+            rows.map(([f, b, c]) => (
+              <tr>
+                <th scope="row" style="font-weight:400;color:var(--color-text)">
+                  {f}
+                </th>
+                <td class={`b${b === "Yes" || b === "No" ? " mid" : ""}`}>
+                  {b === "Yes" ? (
+                    <span class="tick">
+                      <img src={check} alt="Yes" />
+                    </span>
+                  ) : b === "No" ? (
+                    <span class="dash" aria-label="No">
+                      —
+                    </span>
+                  ) : (
+                    b
+                  )}
+                </td>
+                <td class={`c${c === "Yes" ? " mid" : ""}`}>
+                  {c === "Yes" ? (
+                    <span class="tick">
+                      <img src={check} alt="Yes" />
+                    </span>
+                  ) : c === "No" ? (
+                    <span class="dash" aria-label="No">
+                      —
+                    </span>
+                  ) : (
+                    c
+                  )}
+                </td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
       </div>
@@ -46,6 +126,13 @@ const check = '/assets/sections/check-circle.svg';
     <div class="sx-tbl__hint" aria-hidden="true"><span></span><span></span><span></span></div>
   </div>
 </section>
+<style is:global>
+    .sx-tbl thead th.middle {
+      background:  #000407
+        url("/assets/compare/comparison-table-middle-bg.webp") top /
+        cover no-repeat;
+    }
+  </style>
 <script>
   // The table hides its native scrollbar (the design has none), so the pill under Figma "Frame 81" doubles as the scroll position: the wide segment tracks scrollLeft.
   for (const tbl of document.querySelectorAll<HTMLElement>('.sx-tbl')) {

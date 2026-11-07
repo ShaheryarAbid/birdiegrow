@@ -1,17 +1,18 @@
 ---
 /**
- * Plan tiers row — Figma "Features / Option 9". Props: heading, sub, tiers [name, text, price][], note, cta {label, href}, id.
+ * Plan tiers row — Figma "Features / Option 9" 2049:103258 (mobile 2049:103963).
+ * Props: heading, sub, tiers [name, text, price, mode?][] (mode is 'light' by default, 'dark' for the image card), note, cta {label, href}, id.
  */
 import { gd } from '../../lib/gd';
 import '../../styles/sections.css';
 import '../../styles/product.css';
 import Button from '../Button.astro';
-export interface Props { heading: string; sub?: string; tiers: [string, string, string][]; note?: string; cols?: 2 | 3 | 4; cta?: { label: string; href: string }; id?: string; }
+export interface Props { heading: string; sub?: string; tiers: [string, string, string, ('light' | 'dark')?][]; note?: string; cols?: 2 | 3 | 4; cta?: { label: string; href: string }; id?: string; }
 const { heading, sub, tiers, note, cols = 3, cta, id } = Astro.props;
 const endsPunct = /[.?!]$/.test(heading.trim());
 ---
-<section class="hm-sec hm-white hm-stack" id={id}>
-  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:640px">{sub}</p>}{cta && <Button href={cta.href} mode="dark">{cta.label}</Button>}</div>
-  <div class={`pf-tiers${cols === 4 ? ' pf-tiers--4' : cols === 2 ? ' pf-tiers--2' : ''}`}>{tiers.map(([n, t, p]) => <div class="pf-tier"><div><h3>{n}</h3><p>{t}</p></div><div class="amt" set:html={p.replace(/(\/\s?mo(nth)?)$/i, '<i>$1</i>')} /></div>)}</div>
-  {note && <p class="pf-tier-note">{note}</p>}
+<section class="hm-sec hm-white hm-stack pf-tiers-sec" id={id}>
+  <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:800px">{sub}</p>}{cta && <Button href={cta.href} mode="dark">{cta.label}</Button>}</div>
+  <div class={`pf-tiers${cols === 4 ? ' pf-tiers--4' : cols === 2 ? ' pf-tiers--2' : ''}`}>{tiers.map(([n, t, p, mode]) => <div class:list={['pf-tier', mode === 'dark' && 'pf-tier--dark']}><div><h3>{n}</h3><p>{t}</p></div><div class="amt" set:html={p.replace(/(\/\s?mo(nth)?)$/i, '<i>$1</i>')} /></div>)}</div>
+  {note && <p class="pf-tier-note"><img src="/assets/ui/icon-info.svg" alt="" width="18" height="18" />{note}</p>}
 </section>

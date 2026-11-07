@@ -1,0 +1,88 @@
+---
+/**
+ * AccordionPreview — grey box with an expandable list on the left (plus a CTA) and the image for the open item on the right.
+ * Works with or without tabs:
+ *   - one group  → just the box (bay-booking "Rules that protect the calendar", Figma 2049:99693, mobile 2049:100506);
+ *   - 2+ groups  → a pill tab bar (one tab per group `label`) above the box; picking a tab swaps the list and opens its
+ *                  first item (home "Everything you need…", tabs "Owner dashboard" / "Booking Experience").
+ * Opening an item (click, focus or mouse movement) swaps the image; items may share one image.
+ * The section, title and tagline stay in the page. Tab bar and box are rendered as siblings so the page's .hm-stack spaces them.
+ * Props: groups [{ label?, items: PreviewItem[] }], cta { label, href }, id.
+ */
+import Button from '../Button.astro';
+import '../../styles/sections.css';
+import '../../styles/accordion-preview.css';
+export interface PreviewItem {
+  label: string;
+  text?: string;
+  img: string;
+  /** Alt text for the image while this item is open. Default: "Birdie product preview — {label}". */
+  alt?: string;
+  /** 'render' = full-bleed phone render (default); 'screen' = a bare screenshot drawn inside a phone frame. */
+  kind?: 'render' | 'screen';
+}
+export interface PreviewGroup { label?: string; items: PreviewItem[]; }
+export interface Props { groups: PreviewGroup[]; cta: { label: string; href: string }; id?: string; }
+const { groups, cta, id } = Astro.props;
+const first = groups[0].items[0];
+const tabbed = groups.length > 1;
+const altOf = (it: PreviewItem) => it.alt ?? `Birdie product preview — ${it.label}`;
+const uid = id ?? 'pp';
+---
+{tabbed && (
+  <div class="hm-tabs" role="tablist" data-pp-tabs={uid}>
+    {groups.map((g, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''}>{g.label}</button>)}
+  </div>
+)}
+<div class="hm-pp" id={id} data-pp={uid}>
+  <div class="hm-pp__side">
+    {groups.map((g, gi) => (
+      <div class="hm-pp__acc" hidden={gi !== 0}>
+        {g.items.map((it, vi) => (
+          <button type="button" class={`hm-pp__item${vi === 0 ? ' is-open' : ''}`} aria-expanded={vi === 0 ? 'true' : 'false'} aria-controls={it.text ? `${uid}-desc-${gi}-${vi}` : undefined} data-img={it.img} data-kind={it.kind ?? 'render'} data-alt={altOf(it)}>
+            <span class="row"><span>{it.label}</span><span class="chev"><img src="/assets/ui/chevron-down.svg" alt="" width="10" height="10" /></span></span>
+            {it.text && <span class="desc" id={`${uid}-desc-${gi}-${vi}`}>{it.text}</span>}
+          </button>
+        ))}
+      </div>
+    ))}
+    <Button href={cta.href} mode="dark">{cta.label}</Button>
+  </div>
+  <div class="hm-pp__art" data-kind={first.kind ?? 'render'}>
+    <img src={first.img} width="1240" height="1190" alt={altOf(first)} loading="lazy" />
+  </div>
+</div>
+
+<script>
+  import { setupTabs } from '../../scripts/tabs';
+  // Scoped per box so several can sit on one page.
+  document.querySelectorAll<HTMLElement>('[data-pp]').forEach((root) => {
+    const art = root.querySelector<HTMLElement>('.hm-pp__art');
+    const img = art?.querySelector('img');
+    // Open one item in its list and show its image.
+    const pick = (btn: HTMLElement) => {
+      btn.parentElement!.querySelectorAll('.hm-pp__item').forEach((x) => {
+        x.classList.toggle('is-open', x === btn);
+        x.setAttribute('aria-expanded', String(x === btn));
+      });
+      if (!art || !img) return;
+      if (img.getAttribute('src') !== btn.dataset.img) img.src = btn.dataset.img!;
+      img.alt = btn.dataset.alt!;
+      art.dataset.kind = btn.dataset.kind;
+    };
+    root.querySelectorAll<HTMLElement>('.hm-pp__item').forEach((b) => {
+      b.addEventListener('click', () => pick(b));
+      b.addEventListener('focus', () => pick(b));
+      // Use actual pointer movement: a tab change must not select whatever moves under a parked cursor.
+      b.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && !b.classList.contains('is-open')) pick(b); });
+    });
+
+    // Tabs (only rendered for 2+ groups): each tab shows one list and opens its first item.
+    const bar = document.querySelector<HTMLElement>(`[data-pp-tabs="${root.dataset.pp}"]`);
+    if (!bar) return;
+    const lists = Array.from(root.querySelectorAll<HTMLElement>('.hm-pp__acc'));
+    setupTabs(bar.parentElement!, bar, Array.from(bar.querySelectorAll('button')), lists, {
+      onSelect: (index) => { const firstItem = lists[index].querySelector<HTMLElement>('.hm-pp__item'); if (firstItem) pick(firstItem); },
+    });
+  });
+</script>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="662" height="527" viewBox="0 0 662 527" fill="none">
+  <!-- Placeholder for tabs without a design yet. Same size and card position as weekly-booking-calendar-*.webp. -->
+  <rect x="30.5" y="0.5" width="601" height="479" rx="23.5" fill="#FDFFFE" fill-opacity=".04" stroke="#FDFFFE" stroke-opacity=".18" stroke-dasharray="8 8"/>
+  <text x="331" y="232" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="28" font-weight="500" fill="#D1D5DB">Calendar preview</text>
+  <text x="331" y="272" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="22" fill="#9CA3AF">Placeholder: design coming soon</text>
+</svg>

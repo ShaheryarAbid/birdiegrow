@@ -1,156 +1,65 @@
 ---
-/** Memberships & passes — /features/memberships/ (Figma "Memberships & passes", node 344:37407). Facts match src/data/features.ts and the membership guide. */
+/** Memberships & passes — /features/memberships/ (Figma "Memberships & passes", node 344:37407). Content lives in src/data/features/membership.ts. */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductHero from '../../components/product/ProductHero.astro';
 import ShortAnswer from '../../components/product/ShortAnswer.astro';
 import Tiers from '../../components/product/Tiers.astro';
 import FeatureTabs from '../../components/product/FeatureTabs.astro';
 import SideTabs from '../../components/product/SideTabs.astro';
+import ExampleMembershipCard from '../../components/product/ExampleMembershipCard.astro';
+import MetricCard from '../../components/product/MetricCard.astro';
 import LinkCards from '../../components/sections/LinkCards.astro';
 import Glance from '../../components/sections/Glance.astro';
 import Faq from '../../components/sections/Faq.astro';
 import Cta from '../../components/sections/Cta.astro';
-import { SITE } from '../../consts';
-import { PRODUCT_LINKS } from '../../data/featurePages';
+import { gd } from '../../lib/gd';
+import { MEMBERSHIP } from '../../data/features/membership';
 
-const title = 'Memberships & Passes for Golf Simulator Venues | Birdie';
-const description = 'Hour-bank, unlimited, member-rate and credit plans for golf simulator venues, with bay restrictions, advance booking windows, billing and punch passes handled automatically.';
-
-const faqs: [string, string][] = [
-  ['How do hour-bank memberships work?', 'Members buy a block of hours and book against it. Birdie draws the hours down automatically and enforces the rules of every plan.'],
-  ['Can unused hours roll over?', 'Yes. Hour rollover is supported, and you can offer overage discounts once hours run out.'],
-  ['Can I restrict a plan to certain bays or times?', 'Yes. Each plan can have its own bay restrictions, advance booking window, time window and members-only hours.'],
-  ['Which billing intervals are supported?', 'Monthly, quarterly, annual and 6-month prepaid billing.'],
-  ['Can members manage their own membership?', 'Yes. Members can self-cancel, cancel at period end or self-pause, and they sign in to the customer portal to check hours and balances, update cards and sign waivers.'],
-  ['Does Birdie support family and household plans?', 'Yes. Family, household and group plans with seats are supported, plus add-on memberships linked to a main member.'],
-  ['Can I sell memberships before the venue opens?', 'Yes. Pre-opening and pre-sale memberships are charged on opening day.'],
-];
-const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
-
-const tiers: [string, string, string][] = [
-  ['Starter', 'For casual players who want an affordable way to play regularly without committing to a larger plan.', '$99–$129/mo'],
-  ['Regular', 'For regular players and league participants who book most weeks.', '$179–$229/mo'],
-  ['Weekday-Only', 'For players with flexible schedules who prefer quieter sessions and want to save by booking during off-peak hours.', '$129–$199/mo'],
-  ['Premium', 'For dedicated golfers who practice frequently and want more playing time, better rates.', '$249–$329/mo'],
-];
-const groups = [
-  { label: 'Plan types', items: [['Hour-bank plans', 'Members buy a block of hours and book against it.'], ['Unlimited plans', 'One flat price, no hour tracking.'], ['Pay-per-use member-rate plans', 'Members pay a lower rate per hour than walk-ins.'], ['Unit and credit plans', 'Sell credits that cover different services.'], ['Punch passes and guest passes', 'Fixed-visit bundles, plus passes for friends.'], ['Plan time windows', 'For example off-peak-only plans, with discounted rates outside the window.']] as [string, string][] },
-  { label: 'Billing', items: [['Monthly, quarterly, annual and 6-month prepaid billing'], ['Overage discounts and hour rollover', 'Discounts once hours run out; hours can roll over.'], ['Grandfathered pricing for existing members'], ['Late-cancel and no-show fees', 'A flat amount per hour.']] as [string, string?][] },
-  { label: 'Households', items: [['Family, household and group plans with seats', 'Plus add-on memberships linked to a main member.'], ['Comped memberships']] as [string, string?][] },
-  { label: 'Member self-service', items: [['Member self-service', 'Self-cancel, cancel at period end, self-pause.'], ['Waivers and membership agreements', 'Signed online, with versions.']] as [string, string][] },
-  { label: 'Launch and loyalty', items: [['Pre-opening and pre-sale memberships', 'Charge on opening day.'], ['Sign-up proration, birthday and anniversary bonus hours']] as [string, string?][] },
-];
-const ruleTabs = [
-  { label: 'Members-only slots', title: 'Members-only hours', text: 'Keep times for members, one-off or repeating. Optionally let specific plans still book.', img: '/assets/features/mem-rule-a.webp', alt: 'Members-only booking slots' },
-  { label: 'Advance booking windows', title: 'Advance booking windows', text: 'Give higher tiers priority, like a 48- or 72-hour head start.', img: '/assets/features/mem-rule-b.webp', alt: 'Advance booking window by plan' },
-  { label: 'Plan time windows', title: 'Plan time windows', text: 'For example off-peak-only plans, with discounted rates outside the window.', img: '/assets/features/mem-rule-c.webp', alt: 'Member access time window' },
-  { label: 'Bay restrictions', title: 'Bay restrictions', text: 'Limit a plan to certain bays, or open all of them.', img: '/assets/features/mem-rule-d.webp', alt: 'Bay restriction by plan' },
-];
-const F = '/assets/features/';
-// Example membership (design defaults). Outputs are computed, on the server for the first paint and in the browser on input.
-const ex = { members: 40, rate: 229, hours: 8, walkin: 40 };
-const calc = (m: number, r: number, h: number, w: number) => ({ rec: m * r, eff: h ? r / h : 0, disc: w ? Math.round((1 - (h ? r / h : 0) / w) * 100) : 0, hrs: m * h });
-const out = calc(ex.members, ex.rate, ex.hours, ex.walkin);
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
+const { meta, hero, shortAnswer, revenue, tiers, rules, planTypes, faq, links, cta } = MEMBERSHIP;
+const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
 ---
-<BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
-<div class="hm">
-  <ProductHero
-    tall
-    center
-    crumb={['Product', 'Memberships & passes']}
-    h1="Memberships that run themselves."
-    lead="Monthly plans built on hour banks. Members book from their balance, Birdie draws the hours down and enforces the rules of every plan."
-    primary={{ label: 'Book a demo', href: SITE.demoPath }}
-    secondary={{ label: 'See how it works', href: '#plan-rules' }}
-    bg={{ src: `${F}mem-bg.webp`, left: 0, top: 0, width: 1440 }}
-    layers={[{ src: `${F}mem-usage-card.webp`, left: 163, top: 428, width: 324 }, { src: `${F}mem-phone.webp`, left: 511, top: 441, width: 418, z: 3 }, { src: `${F}mem-plan-card.webp`, left: 971, top: 599, width: 273 }]}
-    shadow={false}
-    mobileX={-452} mobileScale={.9} mobileY={-330}
-  />
+<BaseLayout title={meta.title} description={meta.description} schema={schema} headerVariant="dark" headerOverlay>
+<div class="hm membership-page">
+  <ProductHero tall center {...hero} />
+  <ShortAnswer {...shortAnswer} />
 
-  <ShortAnswer variant="stack"
-    body="Birdie runs simulator memberships the way venues actually sell them: hour-bank plans where members book from their balance and hours draw down automatically, plus unlimited, member-rate and credit plans. Each plan can have its own bay restrictions, advance booking window, time window and members-only hours."
-    chips={['Hour banks with rollover', 'Bay restrictions', 'Plan time windows', 'Punch passes']}
-    items={[
-      ['sliders', 'Build custom plans', 'Set hour-bank plans for off-peak hours.'],
-      ['lock', 'Set bay & time rules', 'Restrict bays and members-only slots.'],
-      ['repeat', 'Automate hours & billing', 'Auto-deduct hours and collect payments.'],
-      ['chart', 'Secure predictable revenue', 'Fill quiet weeknights without manual admin.'],
-    ]}
-  />
-
-  <!-- Recurring revenue example (interactive; defaults are the design's example) -->
-  <section class="hm-sec hm-white hm-stack" id="recurring-revenue">
+  <!-- Recurring revenue example — Figma 2049:103192 (mobile 2049:103898) -->
+  <section class="hm-sec hm-white hm-stack pf-rev-sec" id="recurring-revenue">
     <div class="hm-intro">
-      <h2 class="hm-h2">Turn memberships into predictable revenue<i>.</i></h2>
-      <p class="hm-sub" style="max-width:680px">See how 40 members on a $229 monthly plan with 8 hours each can generate recurring revenue. Memberships give your venue a predictable monthly cash flow. Automate recurring billing, lock in off-peak utilization, and build a sustainable business model on autopilot. This ensures financial stability and eliminates the stress of unpredictable walk-in traffic.</p>
+      <h2 class="hm-h2" set:html={gd(revenue.heading)} />
+      <p class="hm-sub">{revenue.sub}</p>
     </div>
-    <div class="pf-calc" id="mp">
-      <div class="pf-calc__in">
-        <h3>Example membership</h3>
-        <label>Members<input id="mp-members" type="number" min="1" value={ex.members} /></label>
-        <label>Plan rate ($/month)<input id="mp-rate" type="number" min="1" value={ex.rate} /></label>
-        <label>Included hours<input id="mp-hours" type="number" min="1" value={ex.hours} /></label>
-        <label>Walk-in rate ($/hour)<input id="mp-walkin" type="number" min="1" value={ex.walkin} /></label>
-        <p class="pf-eg__note" style="grid-column:1/-1">Illustrative example. Enter your own numbers.</p>
-      </div>
-      <div class="pf-calc__out" aria-live="polite">
-        <span class="k">Recurring revenue</span>
-        <span class="big" id="mp-rec">{fmt(out.rec)}</span>
-        <span class="sub">per month, before a single booking</span>
-        <div class="pf-kv" style="color:var(--color-text)">
-          <div>Effective member rate<b id="mp-eff">{fmt(out.eff)}</b>per bay hour</div>
-          <div>Member discount vs drop-in<b id="mp-disc">{out.disc}%</b><span id="mp-band">{out.disc >= 20 && out.disc <= 35 ? 'in the 20–35% sweet spot' : 'outside the 20–35% range'}</span></div>
-          <div>Member bay-hours / month<b id="mp-hrs">{out.hrs.toLocaleString('en-US')}</b>hours members can book</div>
-        </div>
+    <div class="hm-glance pf-rev">
+      <ExampleMembershipCard {...revenue.card} />
+      <div class="hm-gl__stats">
+        {revenue.metrics.map((m) => <MetricCard {...m} />)}
       </div>
     </div>
   </section>
 
-  <Tiers
-    heading="Build plans around your quiet"
-    sub="A typical program runs four tiers, including a weekday-only plan that fills your slowest hours."
-    cols={4}
-    tiers={tiers}
-    note="Example time and price ranges from our membership program guide. You set your own."
-    cta={{ label: 'Book a demo', href: SITE.demoPath }}
-  />
-
-  <FeatureTabs variant="cards"
-    id="plan-rules"
-    heading="Every plan gets its own rules"
-    sub="Set them once. Birdie enforces them on every booking, so the front desk never has to."
-    tabs={ruleTabs}
-  />
-
-  <SideTabs variant="pills"
-    id="plan-types"
-    heading="Every kind of plan you'd want to sell"
-    sub="Hour banks are the start. Pick a topic to see everything else Birdie runs for members."
-    groups={groups}
-  />
+  <Tiers {...tiers} />
+  <FeatureTabs variant="cards" {...rules} />
+  <SideTabs variant="pills" {...planTypes} />
 
   <Glance />
-  <Faq heading="Questions owners ask about memberships" items={faqs} open={0} />
-  <LinkCards heading="See the rest of Birdie" sub="Each part of the platform has its own page." items={PRODUCT_LINKS.filter(([, h]) => h !== '/features/memberships/')} />
-  <Cta heading="Fill quiet weeknights with members." body="Free walkthrough. We set up your plans, bay restrictions and booking windows during onboarding." />
+  <Faq {...faq} />
+  <LinkCards {...links} />
+  <Cta {...cta} />
 </div>
-<script is:inline>
-  (function () {
-    var g = function (id) { return document.getElementById(id); };
-    if (!g('mp')) return;
-    function run() {
-      var m = +g('mp-members').value || 0, r = +g('mp-rate').value || 0, h = +g('mp-hours').value || 0, w = +g('mp-walkin').value || 0;
-      var eff = h ? r / h : 0, disc = w ? Math.round((1 - eff / w) * 100) : 0;
-      var f = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
-      g('mp-rec').textContent = f(m * r);
-      g('mp-eff').textContent = f(eff);
-      g('mp-disc').textContent = disc + '%';
-      g('mp-band').textContent = disc >= 20 && disc <= 35 ? 'in the 20–35% sweet spot' : 'outside the 20–35% range';
-      g('mp-hrs').textContent = (m * h).toLocaleString('en-US');
+<style is:global>
+    /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .membership-page .pf-hero {
+      background: #000407 url("/assets/product/membership-bg.webp") center / cover no-repeat;
     }
-    ['mp-members', 'mp-rate', 'mp-hours', 'mp-walkin'].forEach(function (id) { g(id).addEventListener('input', run); });
-  })();
-</script>
+    .membership-page .pf-hero__art { display: none; }
+    @media (max-width: 900px) {
+      .membership-page .pf-hero {
+        background: #000407 url("/assets/product/membership-bg-mobile.webp") center / cover no-repeat;
+      }
+      .membership-page .pf-hero__art { display: block; visibility: hidden; }
+    }
+    @media (max-width: 540px) {
+      
+    }
+  </style>
 </BaseLayout>

@@ -1,7 +1,9 @@
 ---
-/** Inline stroke icon from src/data/icons.ts. Props: name, size (px, default 20). Decorative (aria-hidden). */
+/** Inline icon from src/data/icons.ts: stroked, or solid for names ending in `Filled`. Props: name, size (px, default 20). Decorative (aria-hidden). */
 import { iconPath } from '../data/icons';
 export interface Props { name: string; size?: number; class?: string; }
 const { name, size = 20, class: cls = '' } = Astro.props;
 ---
-<svg class={cls} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={iconPath(name)} /></svg>
+{name.endsWith('Filled')
+  ? <svg class={cls} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={iconPath(name)} /></svg>
+  : <svg class={cls} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={iconPath(name)} /></svg>}

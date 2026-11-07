@@ -23,6 +23,7 @@
 .pf-hero--center .pf-hero__lead { max-width: 560px; }
 .pf-hero__badges { display: flex; gap: 12px; flex-wrap: wrap; }
 .pf-hero__badges a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.35); color: #fff; font: 500 14px/1.1 var(--font-ui); text-decoration: none; }
+.pf-hero__badges a img { flex: none; max-width: none; }
 .pf-hero__badges a small { display: block; font-size: 11px; color: var(--gray-300); font-weight: 400; }
 .pf-hero__badge-note { font: 400 13px/1.3 var(--font-ui); color: var(--gray-400); }
 
@@ -33,22 +34,15 @@
 .pf-note { color: var(--green-800) !important; font-weight: 500 !important; }
 
 /* ===== Short answer ===== */
-.pf-short { display: grid; grid-template-columns: 440px 1fr; gap: 80px; align-items: start; width: 100%; }
-.pf-short__copy { display: flex; flex-direction: column; gap: 20px; }
-.pf-short__copy .hm-sub { font-size: 18px; line-height: 1.4; }
-.pf-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none; }
-.pf-chips li { padding: 10px 14px; border-radius: 99px; background: rgba(0,4,7,.06); font: 500 14px/1 var(--font-ui); color: var(--color-text); }
-.pf-minis { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; border-radius: 20px; background: var(--color-bg); }
-.pf-mini { background: #fdfffe; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-height: 180px; }
-.pf-mini__ic { width: 40px; height: 40px; border-radius: 99px; background: var(--color-text); color: var(--green-500); display: grid; place-items: center; }
-.pf-mini h3 { font: 500 20px/1.2 var(--font-ui); }
-.pf-mini p { font: 400 16px/1.32 var(--font-ui); color: var(--color-text-secondary); }
-.pf-flow { background: var(--color-bg); border-radius: 20px; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
-.pf-flow > div { background: #fdfffe; border-radius: 14px; padding: 20px 24px; display: flex; gap: 16px; align-items: center; }
-.pf-flow__n { flex: none; width: 36px; height: 36px; border-radius: 99px; background: var(--color-text); color: var(--green-500); display: grid; place-items: center; font: 600 14px/1 var(--font-ui); }
-.pf-flow b { display: block; font: 500 18px/1.2 var(--font-ui); }
-.pf-flow span.t { display: block; margin-top: 4px; font: 400 15px/1.3 var(--font-ui); color: var(--color-text-secondary); }
-.pf-flow > div.is-alert .pf-flow__n { background: #7a1d1d; color: #fff; }
+/* Columns keep Figma's 440:800 split at 1440 and shrink together below it. */
+.pf-short { display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 20fr); gap: 40px; align-items: start; width: 100%; }
+.pf-short__copy { display: flex; flex-direction: column; gap: 16px; }
+.pf-short__copy .hm-sub { letter-spacing: -0.03em; }
+.pf-short__img img { display: block; width: 100%; height: auto; border-radius: 20px; }
+.pf-chips { display: flex; flex-direction: column; gap: 16px; margin: 24px 0 0; padding: 0; list-style: none; }
+.pf-chips li { display: flex; align-items: center; gap: 16px; font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+.pf-chips li + li { padding-top: 16px; border-top: 1px solid #e9ebea; }
+.pf-chips__ic { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; background: var(--color-bg); }
 
 /* ===== Timeline (alternating rows; reuses hm-setup geometry) ===== */
 .pf-tl .hm-setup { width: 960px; }
@@ -219,8 +213,8 @@
   .pf-hero__stage { left: var(--pf-x, -196px); top: var(--pf-y, 0px); transform: scale(var(--pf-s, .46)); transform-origin: 0 0; height: 791px; }
   .pf-hero--tall .pf-hero__stage { height: 823px; }
   .pf-hero__shadow { width: 700px; }
-  .pf-short { grid-template-columns: 1fr; gap: 32px; }
-  .pf-minis { grid-template-columns: 1fr; }
+  .pf-short { grid-template-columns: 1fr; }
+  .pf-chips { margin-top: 16px; }
   .pf-tl .hm-setup { width: 100%; }
   .pf-panel, .pf-tabs__panel, .pf-agent, .pf-agent--3 { grid-template-columns: 1fr; }
   .pf-panel__txt, .pf-tabs__txt { padding: 24px 20px; }
@@ -247,15 +241,33 @@
 .pf-gap3 { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 400 14px/1.3 var(--font-ui); color: var(--color-text-secondary); }
 .pf-gap3 b { display: block; font: 600 20px/1.1 var(--font-display); color: var(--color-text); letter-spacing: -0.03em; }
 .pf-gap3 .left b { color: #8a2c2c; }
-.pf-calc { width: 100%; max-width: 960px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; border-radius: 20px; background: var(--color-bg); }
-.pf-calc__in { background: #fdfffe; border-radius: 14px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: start; }
-.pf-calc__in h3 { grid-column: 1 / -1; font: 500 18px/1.2 var(--font-ui); }
-.pf-calc__in label { display: flex; flex-direction: column; gap: 6px; font: 500 14px/1.2 var(--font-ui); color: var(--color-text-secondary); }
-.pf-calc__in input { width: 100%; box-sizing: border-box; border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px; font: 500 16px/1 var(--font-ui); background: #fff; color: var(--color-text); }
-.pf-calc__out { position: relative; overflow: hidden; background: #000407; color: #fff; border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
-.pf-calc__out .k { font: 400 14px/1.3 var(--font-ui); color: var(--gray-300); }
-.pf-calc__out .big { font: 600 56px/1 var(--font-display); letter-spacing: -0.03em; color: var(--green-500); }
-.pf-calc__out .sub { font: 400 15px/1.3 var(--font-ui); color: var(--gray-300); }
+/* Memberships recurring revenue: only what differs from the Glance card and stat tiles it is built on */
+.hm-gl__dark.pf-rev-card { color: var(--color-text-inverse-secondary); gap: 24px; }
+.pf-rev-card .hm-gl__top h3 { font: 600 24px/1.2 var(--font-display); }
+.pf-rev-card__details { display: flex; flex-direction: column; gap: 24px; }
+.pf-rev-card__big { font: 400 64px/1 var(--font-display); color: var(--color-text-inverse); }
+.pf-rev-card__rows { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.pf-rev-card__rows div { display: flex; justify-content: space-between; gap: 16px; font: 400 16px/1.32 var(--font-ui); }
+.pf-rev-card__rows div + div { padding-top: 12px; border-top: 1px solid rgba(255,255,255,.15); }
+.pf-rev-card__rows dd { margin: 0; font-weight: 500; line-height: 1; }
+.pf-rev-card__text { font: 400 16px/1.32 var(--font-ui); }
+.hm-stat.pf-rev-stat { padding: 32px; gap: 24px; }
+.pf-rev-stat h3 { font: 600 24px/1.2 var(--font-display); color: var(--color-text-secondary); }
+.pf-rev-stat__metric { display: flex; flex-direction: column; gap: 12px; }
+.hm-stat.pf-rev-stat b i { color: var(--color-accent); }
+/* The 480px card leaves too little room for the 64px figures below this width */
+@media (max-width: 1180px) { .hm-glance.pf-rev { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .hm-sec.pf-rev-sec { gap: 24px; }
+  .pf-rev-sec .hm-h2 { text-wrap: balance; }
+  .pf-rev-card .hm-gl__top h3 { font-size: 16px; }
+  .pf-rev-card__big { font-size: 44px; }
+  .hm-stat.pf-rev-stat { padding: 16px; justify-content: flex-start; }
+  .pf-rev-stat h3 { font-size: 16px; line-height: 1; white-space: pre-line; }
+  .pf-rev-stat__metric { gap: 8px; }
+  .hm-stat.pf-rev-stat b { font-size: 32px; }
+  .hm-stat.pf-rev-stat span { font-size: 14px; line-height: 1.3; white-space: pre-line; }
+}
 .pf-camp { width: 100%; max-width: 440px; background: #fdfffe; color: var(--color-text); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 .pf-camp .row { display: flex; justify-content: space-between; font: 400 14px/1.6 var(--font-ui); }
 .pf-camp .row span:first-child { color: var(--color-text-secondary); }
@@ -263,7 +275,6 @@
 .pf-camp .res { display: flex; justify-content: space-between; text-align: center; border-top: 1px solid var(--gray-200); padding-top: 12px; }
 .pf-camp .res b { display: block; font: 600 18px/1 var(--font-display); }
 .pf-camp .res small { font: 400 12px/1.4 var(--font-ui); color: var(--color-text-secondary); }
-@media (max-width: 900px) { .pf-calc { grid-template-columns: 1fr; } .pf-calc__out .big { font-size: 40px; } .pf-calc__in { grid-template-columns: 1fr; } }
 
 /* ===== Demo form (SMS opt-in) ===== */
 .pf-form { background: var(--color-bg); border-radius: 20px; padding: 8px; }
@@ -335,6 +346,7 @@
 .pf-ft .hm-intro .hm-sub { max-width: 800px; }
 .pf-ft { padding-left: 80px; padding-right: 80px; }
 @media (max-width: 900px) {
+  .pf-ft { padding-left: 16px; padding-right: 16px; }
   .pf-tabs__panel--trio { grid-template-columns: 1fr; }
   .pf-tabs__panel--trio .pf-tabs__vis { min-height: 460px; order: -1; justify-content: center; }
   .pf-tabs__panel--trio .pf-tabs__vis > img { width: 300px; margin-top: 40px; }
@@ -377,7 +389,7 @@
 .pf-side__nav { background: #f0f2f1; border-radius: 20px; padding: 8px; gap: 2px; }
 .pf-side__nav button { padding: 12px 16px; font: 400 14px/1.2 var(--font-ui); border-radius: 14px; }
 .pf-side__nav button.is-on { background: #fdfffe; color: var(--color-text); box-shadow: 0 1px 2px rgba(0,4,7,.06); }
-.pf-side__panels { background: #000407 radial-gradient(320px 200px at 100% 0, rgba(255,150,60,.18), transparent 70%); border-radius: 20px; padding: 40px 32px; min-height: 460px; color: #fff; }
+.pf-side__panels { background: #000407 url(/assets/features/option4.webp) top right / cover no-repeat; border-radius: 20px; padding: 40px 32px; min-height: 460px; color: #fff; }
 .pf-side__panel h3 { font: 500 32px/38px var(--font-display); letter-spacing: -0.03em; color: #fff; }
 .pf-side__panel ul { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; margin-top: 16px; }
 .pf-side__panel li { background: transparent; padding: 0 0 0 28px; position: relative; font: 400 14px/1.3 var(--font-ui); color: #9ca3af; }
@@ -452,23 +464,8 @@
 
 @media (min-width: 901px) { .pf-hero:not(.pf-hero--center) .pf-hero__content:has(.pf-hero__crumb) { top: 148px; height: 546px; gap: 20px; } }
 
-/* ShortAnswer "stack" variant (Figma Leagues): left = icon list rows, right = stacked cards on a grey panel */
-.pf-short--stack { grid-template-columns: 456px 1fr; gap: 24px; align-items: stretch; }
-.pf-chips--rows { flex-direction: column; flex-wrap: nowrap; gap: 0; margin-top: 12px; }
-.pf-chips--rows li { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-radius: 0; background: none; border-bottom: 1px solid rgba(0,4,7,.08); font: 400 14px/1.2 var(--font-ui); }
-.pf-chips--rows li:last-child { border-bottom: 0; }
-.pf-chips--rows li::before { content: ""; width: 32px; height: 32px; border-radius: 8px; background: #f2f3f3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none' stroke='%23000407' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 16.5l4 4 8-9'/%3E%3C/svg%3E") center/32px no-repeat; flex: none; }
-.pf-minis--stack { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 48px 40px; min-height: 480px; border-radius: 24px; background: radial-gradient(80% 60% at 50% 100%, #e9eaea, #f4f5f5); }
-.pf-minis--stack .pf-mini { width: 100%; max-width: 356px; min-height: 0; flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 10px; row-gap: 2px; padding: 12px 16px; border-radius: 14px; box-shadow: 0 10px 20px rgba(0,0,0,.05); }
-.pf-minis--stack .pf-mini h3 { font-size: 14px; flex: 1 1 calc(100% - 56px); }
-.pf-minis--stack .pf-mini p { font-size: 12px; flex: 1 1 100%; padding-left: 50px; margin-top: -2px; }
-.pf-minis--stack .pf-mini__ic { width: 40px; height: 40px; flex: none; }
-@media (max-width: 900px) { .pf-short--stack { grid-template-columns: 1fr; } .pf-minis--stack { padding: 24px 16px; min-height: 0; } }
-
 /* Leagues hero: Figma shows the calendar as a dark card; invert the light widget (hues kept) */
 .pf-hero .pf-cal { filter: invert(.93) hue-rotate(180deg) saturate(1.1); box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
-.pf-minis--stack { min-height: 540px; }
-.pf-short--stack { align-items: start; }
 
 /* SideTabs "pills" variant (Figma Memberships "Every kind of plan"): pill bar on top, dark card below */
 @media (min-width: 901px) {
@@ -480,29 +477,53 @@
 .pf-hero--center .pf-hero__lead { max-width: 560px; }
 
 /* Tiers: Figma look — sans plan name, divider above a serif price, green "/mo" */
-.pf-tier { min-height: 0; gap: 16px; justify-content: flex-start; }
+.pf-tier { min-height: 0; gap: 16px; justify-content: flex-start; padding: 16px; border-radius: 12px; background: #fff; }
 .pf-tier h3 { font: 500 24px/1.2 var(--font-ui); letter-spacing: -0.03em; }
+.pf-tier p { font-size: 16px; letter-spacing: -0.03em; }
 .pf-tier > div:first-child { flex: 1; }
-.pf-tier .amt { font: 600 24px/1 var(--font-display); letter-spacing: -0.03em; padding-top: 16px; border-top: 1px solid rgba(0,4,7,.1); }
+.pf-tier .amt { font: 600 24px/1.2 var(--font-display); letter-spacing: -0.03em; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.08); }
 .pf-tier .amt i { font-style: normal; color: var(--green-500); }
-.pf-tier-note { text-align: left; display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 14px; }
+.pf-tier--dark { background: #000 url(/assets/home/glance-bg.webp) top right / cover no-repeat; }
+.pf-tier--dark h3, .pf-tier--dark .amt { color: var(--color-text-inverse); }
+.pf-tier--dark p { color: var(--color-text-inverse-secondary); }
+.pf-tier--dark .amt { border-top-color: rgba(255,255,255,.08); }
+.pf-tier-note { text-align: left; display: flex; gap: 12px; align-items: center; justify-content: center; font-size: 16px; line-height: 1.32; letter-spacing: -0.03em; }
+.pf-tier-note img { flex: none; }
+.pf-tiers-sec .hm-intro .bd-btn { margin-top: 8px; }
+.pf-tiers-sec .pf-tier-note { margin-top: -28px; }
+@media (max-width: 900px) {
+  .hm-sec.pf-tiers-sec { gap: 24px; }
+  .pf-tiers-sec .hm-h2 { text-wrap: balance; }
+  .pf-tiers-sec .hm-intro .bd-btn { width: 100%; margin-top: 0; }
+  .pf-tiers-sec .pf-tier-note { margin-top: 8px; }
+}
 
 /* FeatureTabs "cards" variant: every panel shown as a visual tile with title + text underneath (Figma Memberships "Every plan gets its own rules") */
 .pf-ft--cards .hm-tabs { display: none !important; }
-.pf-ft--cards .pf-tabs__panels { max-width: 1280px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.pf-ft--cards .pf-tabs__panel { display: flex !important; flex-direction: column-reverse; justify-content: flex-end; background: transparent; min-height: 0; margin: 0; overflow: visible; gap: 16px; }
-.pf-ft--cards .pf-tabs__vis { height: 330px; border-radius: 20px; padding: 0; }
-.pf-ft--cards .pf-tabs__vis > * { max-width: 100%; }
-.pf-ft--cards .pf-tabs__txt { padding: 0; gap: 4px; justify-content: flex-start; }
+/* Figma 2049:103423 / mobile 2049:104129. Each image is a full-tile render, so it covers the tile; the tile shape changes per layout so cover only trims the image's empty margins. */
+.pf-ft--cards .hm-intro { margin-bottom: 0; }
+.pf-ft--cards .pf-tabs__panels { max-width: 1280px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.pf-ft--cards .pf-tabs__panel { display: flex !important; flex-direction: column-reverse; justify-content: flex-end; background: transparent; min-height: 0; margin: 0; overflow: visible; gap: 20px; }
+.pf-ft--cards .pf-tabs__vis { aspect-ratio: 302 / 362; border-radius: 20px; padding: 0; background: var(--color-bg); }
+.pf-ft--cards .pf-tabs__vis > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.pf-ft--cards .pf-tabs__txt { padding: 0; gap: 8px; justify-content: flex-start; }
 .pf-ft--cards .pf-tabs__txt h3 { font: 500 20px/1.2 var(--font-ui); letter-spacing: -0.03em; }
 .pf-ft--cards .pf-tabs__txt p { font-size: 16px; }
+/* Smaller desktops and tablets: 2 x 2 */
+@media (max-width: 1280px) {
+  .pf-ft--cards .pf-tabs__panels { grid-template-columns: repeat(2, 1fr); }
+  .pf-ft--cards .pf-tabs__vis { aspect-ratio: 4 / 3; }
+}
 @media (max-width: 900px) {
-  .pf-ft--cards .pf-tabs__panels { grid-template-columns: 1fr; gap: 24px; }
-  .pf-ft--cards .pf-tabs__vis { height: 360px; }
+  .hm-sec.pf-ft--cards { gap: 40px; }
+  .pf-ft--cards .hm-h2 { text-wrap: balance; }
+}
+@media (max-width: 600px) {
+  .pf-ft--cards .pf-tabs__panels { grid-template-columns: 1fr; }
+  .pf-ft--cards .pf-tabs__vis { aspect-ratio: 1; }
 }
 @media (max-width: 900px) {
   .pf-hero--center .pf-hero__art { height: 380px; }
-  .pf-short__copy .hm-sub { font-size: 16px; line-height: 1.4; }
 }
 
 /* Mobile: hero art sized to the scaled stage (no black strip), first white section rounds over the hero like Figma */

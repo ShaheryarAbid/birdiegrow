@@ -62,13 +62,8 @@ const F = '/assets/features/';
 
   <ShortAnswer
     body="Birdie connects your smart lock to your bookings. When a customer books a bay, they receive an unlock link or PIN that works only around their session. If the door does not confirm it opened, the customer sees a fallback and you get an alert. Staffed or fully unattended, the door follows the calendar."
-    chips={['Five smart-lock brands', 'No app to download', 'Time-gated access', 'Fallback and owner alerts']}
-    flow={[
-      { title: 'Customer books a bay', text: 'It lands on your calendar like any other booking.' },
-      { title: 'They receive an unlock link or PIN', text: 'Works only around their session time.' },
-      { title: 'Door opens', text: 'Access granted for their session.' },
-      { title: 'Door not opened', text: 'Customer sees a fallback and you get an alert.', alert: true },
-    ]}
+    chips={[['doorFilled', 'Five smart-lock brands'], ['deviceMobileSlashFilled', 'No app to download'], ['clockCountdownFilled', 'Time-gated access'], ['bellRingingFilled', 'Fallback and owner alerts']]}
+    image={{ src: '/assets/product/door-access-short-answer.webp', mobileSrc: '/assets/product/door-access-short-answer-mobile.webp', mobileHeight: 960, alt: 'A customer books a bay, receives an unlock link or PIN, and the smart lock opens. If the door does not open, the customer sees a fallback and you get an alert.' }}
   />
 
   <div id="whole-night"></div>

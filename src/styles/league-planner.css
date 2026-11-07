@@ -1,0 +1,81 @@
+/* League season planner (src/components/product/LeaguePlanner.astro) — Figma 2049:102254, mobile 2049:102760. Prefix lp-.
+   Static example: options and steppers are drawn, not clickable. Section shell, headings and colours come from sections.css and tokens. */
+
+/* Intro: heading left, copy right (desktop) */
+.lp__intro { display: flex; align-items: flex-end; gap: 20px; width: 100%; max-width: 1280px; }
+.lp__intro .hm-h2 { flex: 1; margin: 0; }
+.lp__intro .hm-sub { width: 320px; flex: none; line-height: 1.24; margin: 0; }
+
+/* Card: light inputs left, dark preview right */
+.lp__card { display: flex; gap: 8px; width: 100%; max-width: 1280px; padding: 8px; background: var(--color-bg); border-radius: 20px; box-sizing: border-box; }
+.lp__in, .lp__out { flex: 1 1 0; min-width: 0; box-sizing: border-box; }
+
+.lp__in { display: flex; flex-direction: column; gap: 24px; padding: 24px; background: #fdfffe; border-radius: 12px; text-align: left; }
+.lp__group + .lp__group { padding-top: 24px; border-top: 1px solid var(--color-border-light); }
+.lp__group:not(.lp__row, .lp__note) { display: flex; flex-direction: column; gap: 12px; }
+.lp__label { margin: 0; font: 500 16px/1.2 var(--font-ui); color: var(--color-text); }
+
+.lp__opts { display: flex; flex-wrap: wrap; gap: 12px; }
+.lp__opt { display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px solid #e0e0e0; border-radius: 12px; background: rgba(255, 255, 255, .24); font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); text-align: center; white-space: nowrap; }
+.lp__opts--fill .lp__opt { flex: 1 1 auto; }
+.lp__opt--wide { padding: 12px 16px; }
+.lp__opt.is-on { background: var(--color-text); border-color: var(--color-text); color: var(--color-text-inverse); box-shadow: var(--shadow-btn); }
+
+.lp__row { display: flex; align-items: center; gap: 24px; }
+.lp__row .lp__label { flex: 1; }
+.lp__step { display: flex; align-items: center; gap: 8px; padding: 4px; border: 1px solid #e0e0e0; border-radius: 16px; background: rgba(255, 255, 255, .24); flex: none; }
+.lp__step-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--color-text); box-shadow: var(--shadow-btn); }
+.lp__step-btn img { display: block; }
+.lp__step-v { width: 80px; text-align: center; font: 400 20px/1.15 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+
+.lp__note { display: flex; align-items: center; gap: 12px; margin: 0; font: 400 16px/1.24 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); }
+.lp__note img { flex: none; }
+
+/* Dark preview — the same flattened glow art the calculator result panels use */
+.lp__out { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 32px; padding: 32px; border: .5px solid rgba(253, 255, 254, .25); border-radius: 16px; background: #000 url('/assets/resources/rc-calc-bg.webp') right top / cover no-repeat; color: var(--color-text-inverse); }
+.lp__out-h { display: flex; flex-direction: column; gap: 8px; }
+.lp__eyebrow { margin: 0; font: 600 24px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text-inverse-secondary); }
+.lp__title { margin: 0; font: 400 32px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text-inverse); }
+
+.lp__weeks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.lp__weeks li { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 16px; border-radius: 12px; background: rgba(34, 197, 94, .6); box-shadow: var(--shadow-btn-soft); text-align: center; }
+.lp__weeks b { font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-inverse); }
+.lp__weeks span { font: 400 14px/1.3 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-inverse-secondary); }
+
+.lp__metrics { display: flex; flex-direction: column; gap: 16px; margin: 0; }
+.lp__metrics div { display: flex; align-items: center; gap: 8px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .2); }
+.lp__metrics div:first-child { padding-top: 32px; }
+.lp__metrics dt { flex: 1; font: 400 16px/1.2 var(--font-ui); }
+.lp__metrics dd { margin: 0; font: 400 48px/1 var(--font-display); letter-spacing: -0.03em; white-space: nowrap; }
+
+/* Smaller desktops and tablets: the two halves stack so the options keep one row */
+@media (max-width: 1100px) {
+  .lp__card { flex-direction: column; }
+  .lp__in, .lp__out { flex: none; }
+}
+
+@media (max-width: 900px) {
+  .hm-sec.lp { gap: 40px; }
+  .lp__intro { flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .lp__intro .hm-h2 { flex: none; }
+  .lp__intro .hm-sub { width: auto; max-width: 361px; line-height: 1.32; }
+
+  .lp__opts { flex-direction: column; }
+  .lp__opt { width: 100%; box-sizing: border-box; }
+  .lp__row { min-height: 48px; }
+  .lp__row .lp__label { line-height: 1; letter-spacing: -0.03em; }
+  .lp__step { width: 144px; box-sizing: border-box; justify-content: space-between; gap: 0; }
+  .lp__step-v { flex: 1; width: auto; }
+  .lp__note { line-height: 1.32; }
+
+  .lp__out { gap: 24px; }
+  .lp__out-h { margin-bottom: 8px; }
+  .lp__eyebrow { font-size: 16px; line-height: 1.2; }
+  .lp__title { font-weight: 600; font-size: 24px; line-height: 1.2; }
+  /* Two columns, filled top to bottom (weeks 1–4 left, 5–8 right) */
+  .lp__weeks { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 8px; }
+  .lp__weeks li { flex-direction: row; justify-content: space-between; height: 32px; padding: 0 16px; box-sizing: border-box; }
+  .lp__weeks b { font: 400 12px/1.3 var(--font-ui); }
+  .lp__weeks span { font-size: 10px; }
+  .lp__metrics div:first-child { padding-top: 16px; }
+}

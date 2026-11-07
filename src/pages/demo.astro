@@ -1,10 +1,9 @@
 ---
 /**
  * /demo/ — Figma "/demo" 546:35925 (dark funnel hero with the walkthrough form, benefits, app screens, customer stories, call agenda, FAQ, CTA).
- * The form is unchanged in behaviour: honeypot, masks, POST /api/lead, Lead conversions (Meta / GA4 / Google Ads / Reddit), sessionStorage hand-off, redirect to /book-demo/.
+ * Content lives in src/data/demo.ts. The form is unchanged in behaviour: honeypot, masks, POST /api/lead, Lead conversions (Meta / GA4 / Google Ads / Reddit), sessionStorage hand-off, redirect to /book-demo/.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BookingBg from '../components/booking/BookingBg.astro';
 import BookingBar from '../components/booking/BookingBar.astro';
 import CustomerStories from '../components/sections/CustomerStories.astro';
 import Faq from '../components/sections/Faq.astro';
@@ -14,116 +13,138 @@ import Icon from '../components/Icon.astro';
 import '../styles/booking.css';
 import '../styles/pages.css';
 import { ANALYTICS } from '../consts';
-import { PROOF } from '../data/proof';
-import { TESTIMONIALS } from '../data/stories';
-import { SOFTWARE_FAQS } from '../data/softwareFaq';
+import { gd } from '../lib/gd';
+import { DEMO } from '../data/demo';
 import { SHADER_DARK } from '../data/shader';
-const title = 'Book a Free Demo — Birdie Golf Simulator Software';
-const description = 'No pitch. No commitment. Just a live look at the platform built for golf simulator operators. Free walkthrough.';
+import FeaturesSlider from '../components/FeaturesSlider.astro';
+import { FEATURE_SLIDER_DESIGN } from '../components/sections/FeaturesAppScreensTabs.astro';
 
-const valueProps: [string, string, string][] = [
-  ['calendar', '27% more weekday bookings', 'Average result for venues in their first 60 days on Birdie.'],
-  ['rocket', 'Live in 24 hours', 'We handle the entire setup. You don’t need a developer or an IT person.'],
-  ['filex', 'No long-term contracts', 'Month-to-month. If it doesn’t work, you cancel. Simple.'],
-];
-const steps: [string, string][] = [
-  ['search', 'We look at your current setup'],
-  ['play', 'We show you the platform live'],
-  ['thumb', 'You decide if it’s a fit — zero pressure'],
-];
-// Figma shows three stories (featured + two); the YouTube facade loads the real video on click.
-const IMG = ['story-1', 'story-2', 'story-3'];
-const stories = TESTIMONIALS.slice(0, 3).map((t, i) => ({ ...t, img: `/assets/customers/${IMG[i]}.webp` }));
-const interests = ['Booking System', 'Paid Advertising', 'Not Sure'];
+const { sliderOptions } = Astro.props;
+const { meta, contactEmail, hero, form, benefits, screens, stories, call, faq, cta } = DEMO;
+const options = { ...FEATURE_SLIDER_DESIGN, ...sliderOptions };
 ---
-<BaseLayout title={title} description={description} noHeader={true}>
+<BaseLayout title={meta.title} description={meta.description} noHeader={true}>
   <div class="bk bk--demo">
-    <BookingBg />
+    <!-- <BookingBg /> -->
     <BookingBar variant="actions" />
-    <h1 class="bk-demo-h1">The Booking System Built to Fill Your Bays<i>.</i></h1>
-    <p class="bk-sub">A Booking System that grows with your business.</p>
+    <h1 class="bk-demo-h1" set:html={gd(hero.h1)} />
+    <p class="bk-sub">{hero.sub}</p>
 
     <div class="bk-demo">
       <div class="bk-df">
-        <h2>Book Your Free Walkthrough</h2>
+        <h2>{form.heading}</h2>
         <form id="demo-form" method="post" action="/api/lead">
           <!-- honeypot: hidden from humans, catches bots -->
           <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
           <div class="row">
-            <div class="f"><label for="demo-first">First Name <span class="req">*</span></label><input id="demo-first" type="text" name="first_name" placeholder="John" autocomplete="given-name" required /></div>
-            <div class="f"><label for="demo-biz">Business Name <span class="req">*</span></label><input id="demo-biz" type="text" name="business_name" placeholder="Your venue" autocomplete="organization" required /></div>
+            <div class="f"><label for="demo-first">{form.firstName.label} <span class="req">*</span></label><input id="demo-first" type="text" name="first_name" placeholder={form.firstName.placeholder} autocomplete="given-name" required /></div>
+            <div class="f"><label for="demo-biz">{form.businessName.label} <span class="req">*</span></label><input id="demo-biz" type="text" name="business_name" placeholder={form.businessName.placeholder} autocomplete="organization" required /></div>
           </div>
-          <div class="f"><label for="demo-email">Email <span class="req">*</span></label><input id="demo-email" type="email" name="email" placeholder="john@example.com" autocomplete="email" required /></div>
+          <div class="f"><label for="demo-email">{form.email.label} <span class="req">*</span></label><input id="demo-email" type="email" name="email" placeholder={form.email.placeholder} autocomplete="email" required /></div>
           <div class="row">
-            <div class="f"><label for="demo-phone">Phone <span class="req">*</span></label><input type="tel" name="phone" id="demo-phone" inputmode="numeric" maxlength="14" title="Enter a 10-digit US phone in the format (000)-000-0000" placeholder="(555)-123-4567" autocomplete="tel" required /></div>
-            <div class="f"><label for="demo-zip">Zip Code <span class="req">*</span></label><input type="text" name="zip" id="demo-zip" inputmode="numeric" maxlength="5" title="Enter a 5-digit ZIP code" placeholder="90210" autocomplete="postal-code" required /></div>
+            <div class="f"><label for="demo-phone">{form.phone.label} <span class="req">*</span></label><input type="tel" name="phone" id="demo-phone" inputmode="numeric" maxlength="14" title={form.phone.title} placeholder={form.phone.placeholder} autocomplete="tel" required /></div>
+            <div class="f"><label for="demo-zip">{form.zip.label} <span class="req">*</span></label><input type="text" name="zip" id="demo-zip" inputmode="numeric" maxlength="5" title={form.zip.title} placeholder={form.zip.placeholder} autocomplete="postal-code" required /></div>
           </div>
           <div class="f">
-            <span class="lab">What are you interested in?</span>
+            <span class="lab">{form.interests.label}</span>
             <div class="opts">
-              {interests.map((i) => <button type="button" class="demo-opt" data-val={i} aria-pressed="false">{i}</button>)}
+              {form.interests.options.map((i) => <button type="button" class="demo-opt" data-val={i} aria-pressed="false">{i}</button>)}
             </div>
             <input type="hidden" name="interests" id="demo-interests" />
           </div>
-          <button id="demo-submit" type="submit" class="bk-cta">Submit</button>
-          <p id="demo-error" class="err" role="alert" style="display:none">Something went wrong - please try again, or email <a href="mailto:luke@birdiegrow.com">luke@birdiegrow.com</a>.</p>
+          <button id="demo-submit" type="submit" class="bk-cta">{form.submit}</button>
+          <p id="demo-error" class="err" role="alert" style="display:none">{form.error} <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.</p>
         </form>
         <div id="demo-success" class="ok" style="display:none">
-          <h3>You’re all set.</h3>
-          <p>Thanks — we’ve got your details and will reach out within one business day to confirm your walkthrough. Prefer to grab a time now? <a href="/book-demo/">Pick a slot →</a></p>
+          <h3>{form.success.heading}</h3>
+          <p>{form.success.body} <a href={form.success.link.href}>{form.success.link.text}</a></p>
         </div>
       </div>
       <div class="bk-proof">
         <div class="stars" aria-hidden="true">{[0, 1, 2, 3, 4].map(() => <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 20.9l1.6-7L2 9.2l7.1-.6z" /></svg>)}</div>
-        <p>Trusted by {PROOF.activeClients}+ Golf Simulators Nationwide</p>
+        <p>{hero.proof}</p>
       </div>
     </div>
   </div>
 
   <div class="hm">
     <section class="hm-sec hm-white hm-round pg-benefits">
-      {valueProps.map(([ic, t, d]) => (
+      {benefits.map(({ icon, title, text }) => (
         <div class="pg-benefit">
-          <span class="pg-ic" aria-hidden="true"><Icon name={ic} size={32} /></span>
-          <div><h2>{t}</h2><p>{d}</p></div>
+          <span class="pg-ic" aria-hidden="true"><Icon name={icon} size={32} /></span>
+          <div><h2>{title}</h2><p>{text}</p></div>
         </div>
       ))}
     </section>
 
     <section class="hm-sec hm-white pg-screens-sec">
-      <div class="pg-screens"><img src="/assets/features/app-screens.webp" alt="Birdie booking flow on a phone: pick a date, time and bay, add extras, confirm the booking summary." width="1220" height="520" loading="lazy" /></div>
+        <FeaturesSlider label={`${screens.label} screens`} viewportClass="features-app-screens__card" options={options}>
+          {screens.slides.map((slide) => slide.src
+            ? <img class="features-app-screens__screen" src={slide.src} alt={slide.alt ?? ''} width={slide.width} height={slide.height} loading="lazy" decoding="async" />
+            : <div class="features-app-screens__screen features-app-screens__screen--empty" aria-hidden="true"></div>)}
+        </FeaturesSlider>
+      </div>
     </section>
 
     <section class="hm-sec hm-white hm-stack pg-proof">
       <div class="hm-intro">
-        <h2 class="hm-h2">Trusted by venues like yours<i>.</i></h2>
-        <p class="hm-sub" style="max-width:640px">From unattended 24/7 members’ clubs to full pub-and-kitchen golf venues — hear how operators across the country run bookings, memberships, and door access on Birdie.</p>
-        <Button href="/customers/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">See all customer stories <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>
+        <h2 class="hm-h2" set:html={gd(stories.heading)} />
+        <p class="hm-sub" style="max-width:640px">{stories.sub}</p>
+        <Button href={stories.link.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">{stories.link.text} <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>
+        <br />
       </div>
     </section>
-    <CustomerStories stories={stories} id="stories" />
+    <CustomerStories stories={stories.items} id="stories" />
 
-    <section class="hm-sec hm-white hm-stack pg-call">
-      <h2 class="hm-h2">What Happens on the Call<i>.</i></h2>
+    <section class="hm-sec hm-white hm-stack pg-call demo-call-info">
+      <h2 class="hm-h2" set:html={gd(call.heading)} />
       <div class="pg-call__row">
-        {steps.map(([ic, t]) => (
+        {call.steps.map(({ icon, title }) => (
           <article class="pg-call__card">
             <div class="sx-ic__tile dark" aria-hidden="true">
               <img class="art" src="/assets/seo/tile-art.webp" alt="" loading="lazy" />
               <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
               <div class="hm-noise" style="background:#fdfffe"></div>
-              <span class="g" style="color:#fff;display:grid;place-items:center"><Icon name={ic} size={32} /></span>
+              <span class="g" style="color:#fff;display:grid;place-items:center"><Icon name={icon} size={32} /></span>
             </div>
-            <h3>{t}</h3>
+            <h3>{title}</h3>
           </article>
         ))}
       </div>
-      <p class="pg-note">Still have questions? <a href="mailto:luke@birdiegrow.com">Email us at luke@birdiegrow.com</a></p>
+      <p class="pg-note">{call.note} <a href={`mailto:${contactEmail}`}>{call.noteLink}</a></p>
     </section>
 
-    <Faq heading="Frequently asked questions" items={SOFTWARE_FAQS} open={1} balls />
-    <Cta heading="Ready to see golf simulator software built for your studio?" body="Free walkthrough · No commitment · Live in 24 hours" items={[]} label="Book a demo" href="#demo-form" />
+    <Faq {...faq} open={1} balls />
+    <Cta {...cta} items={[]} />
   </div>
+
+  <style is:global>
+    /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .bk--demo {
+      background: #000407
+        url("/assets/features/demo-bg.webp") bottom /
+        cover no-repeat;
+    }
+    .demo-call-info {
+      gap: 24px;
+    }
+    .demo-call-info h2 {
+      margin-bottom: 36px;
+    }
+    @media (max-width: 900px) {
+      .demo-call-info h2 {
+        margin-bottom: 16px;
+      }
+      .fb { display: none;}
+      .hm-stack { padding: 56px 16px; }
+      br { display: none; }
+      .bk--demo {
+      background: #000407
+          url("/assets/features/demo-bg-mobile.webp") bottom /
+          cover no-repeat;
+      }
+    }
+  </style>
 
   {/* Fire the Lead conversion (Meta + GA4 + optional Google Ads) when the demo form is submitted. */}
   <script is:inline define:vars={{ adsLabel: ANALYTICS.googleAdsLeadLabel }}>

@@ -2015,8 +2015,7 @@
       "ProductHero",
       "ShortAnswer",
       "SplitPanel",
-      "Timeline",
-      "WeekCalendar"
+      "Timeline"
     ],
     "scripts": 1,
     "forms": 0,
@@ -2061,10 +2060,10 @@
     ],
     "staticAssets": [
       "/assets/features/",
-      "/assets/features/mem-rule-a.webp",
-      "/assets/features/mem-rule-b.webp",
-      "/assets/features/mem-rule-c.webp",
-      "/assets/features/mem-rule-d.webp"
+      "/assets/features/members-only-slots.webp",
+      "/assets/features/advanced-booking-window.webp",
+      "/assets/features/plan-time-windows.webp",
+      "/assets/features/bay-restrictions.webp"
     ]
   },
   {

@@ -28,13 +28,10 @@
 .pg-card { position: relative; overflow: hidden; border-radius: 14px; background: #fdfffe; min-height: 264px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
 .pg-card h2 { font: 500 32px/1.2 var(--font-display); letter-spacing: -0.03em; margin: 0 0 16px; color: var(--color-text); }
 .pg-card p { font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; margin: 0; color: var(--color-text-secondary); }
-.pg-card--dark { background: #000; color: #fff; }
+.pg-card--dark { background: url(/assets/contact/compatibility-preview-bg.webp) bottom right / cover no-repeat; color: #fff; }
 .pg-card--dark h2 { color: #fff; }
 .pg-card--dark p { color: var(--gray-300); }
 .pg-card--dark > * { position: relative; z-index: 2; }
-.pg-card__bg { position: absolute !important; inset: 0; z-index: 0 !important; pointer-events: none; }
-.pg-card__bg img { display: none; position: absolute; right: -120px; top: -40px; width: 520px; max-width: none; height: 380px; object-fit: cover; transform: rotate(180deg); opacity: .9; }
-.pg-card__bg .fade { position: absolute; inset: 0; background: radial-gradient(55% 55% at 78% 108%, rgba(150,130,40,.65), rgba(60,90,40,.35) 45%, rgba(0,0,0,0) 80%); }
 .pg-link { display: inline-flex; gap: 8px; align-items: center; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); text-decoration: none; }
 .pg-link:hover { text-decoration: underline; }
 .pg-link img { width: 16px; height: 16px; }
@@ -63,39 +60,70 @@
 .pg-pf__tbl td { padding: 20px 0; border-bottom: 1px solid rgba(0,4,7,.1); color: var(--color-text); }
 .pg-pf__tbl tr:last-child td { border-bottom: 0; }
 .pg-pf__tbl td:last-child { color: var(--green-800); }
-.pg-prog { width: 100%; max-width: 960px; border-radius: 20px; background: #000; color: #fff; overflow: hidden; position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 421px; }
-.pg-prog__bg { position: absolute; inset: 0; pointer-events: none; }
-.pg-prog__bg img { position: absolute; right: 0; top: 0; height: 100%; width: auto; max-width: none; opacity: .9; }
-.pg-prog__bg .fade { position: absolute; inset: 0; background: linear-gradient(90deg, #000407 30%, rgba(0,4,7,.1)); }
+.pg-pf__venues { display: none; }
+.pg-prog { width: 100%; max-width: 960px; border-radius: 20px; background: #000; color: #fff; overflow: hidden; position: relative; display: grid; grid-template-columns: 1fr auto; min-height: 421px; background: url(/assets/platform/feature-preview.webp) center 0 / cover no-repeat; }
 .pg-prog ol { position: relative; z-index: 2; list-style: none; margin: 0; padding: 48px 40px; display: flex; flex-direction: column; gap: 34px; justify-content: center; counter-reset: s; }
 .pg-prog li { display: flex; align-items: center; gap: 20px; font: 500 16px/1.32 var(--font-ui); letter-spacing: -0.03em; position: relative; }
 .pg-prog li::before { counter-increment: s; content: "0" counter(s); width: 40px; height: 40px; border-radius: 50%; background: #fdfffe; color: var(--color-text); display: grid; place-items: center; font: 500 14px/1 var(--font-ui); flex: none; }
 .pg-prog li:not(:last-child)::after { content: ""; position: absolute; left: 19.5px; top: 40px; width: 1px; height: 34px; background: rgba(255,255,255,.35); }
-.pg-prog__vis { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; padding: 33px 27px; }
-.pg-book { width: 100%; max-width: 363px; background: rgba(0,4,7,.82); border: 1px solid rgba(255,255,255,.14); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 12px; color: #fff; font: 400 12px/1.2 var(--font-ui); backdrop-filter: blur(6px); }
-.pg-book h3 { font: 500 12px/1.2 var(--font-ui); margin: 0 0 8px; color: var(--gray-300); }
-.pg-book__days, .pg-book__times { display: flex; gap: 6px; }
-.pg-book__days span { width: 36px; height: 40px; border-radius: 99px; background: rgba(255,255,255,.1); display: grid; place-items: center; font: 500 12px/1.1 var(--font-ui); text-align: center; }
-.pg-book__days span.on { background: var(--green-600); }
-.pg-book__times span { padding: 6px 10px; border-radius: 99px; background: rgba(255,255,255,.1); font: 500 11px/1 var(--font-ui); }
-.pg-book__times span.on { background: var(--green-600); }
-.pg-book__bays { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.pg-book__bays div { border-radius: 10px; background: rgba(255,255,255,.07); overflow: hidden; padding-bottom: 8px; font: 500 11px/1.2 var(--font-ui); }
-.pg-book__bays div.on { outline: 1.5px solid var(--green-500); }
-.pg-book__bays img { width: 100%; height: 52px; object-fit: cover; margin-bottom: 6px; }
-.pg-book__bays span { display: block; padding: 0 8px; }
-.pg-book__bays small { display: block; padding: 2px 8px 0; color: var(--gray-400); font-size: 10px; }
-.pg-book__note { margin: 0; color: var(--gray-400); font-size: 10px; }
+.pg-prog__vis { position: relative; z-index: 2; display: flex; align-items: center; justify-content: flex-end; padding-right: 32.35px; }
+/* Booking form mock. Figma 2049:91819 (mobile 2049:92286). Sizes are fractional because the Figma component is scaled. */
+.pg-book { --bk-text: #f5f5f5; --bk-muted: #c0c0c0; --bk-on: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), #22c55e; flex: none; box-sizing: border-box; width: 362.65px; padding: 13.68px; display: flex; flex-direction: column; gap: 11.97px; overflow: hidden; color: var(--bk-text); background: linear-gradient(rgba(0,4,7,.8), rgba(0,4,7,.3)); border: .98px solid rgba(255,255,255,.5); border-radius: 13.77px; box-shadow: 0 19.67px 19.67px rgba(0,0,0,.03), 0 9.84px 9.84px rgba(0,0,0,.03); }
+.pg-book__sec { flex: none; width: 333.33px; display: flex; flex-direction: column; gap: 10.26px; }
+.pg-book__sec:first-child { margin-bottom: 1.71px; }
+.pg-book h3 { margin: 0; font: 500 13.68px/1.2 var(--font-ui); letter-spacing: -0.03em; color: inherit; }
+.pg-book__head { display: flex; align-items: center; justify-content: space-between; }
+.pg-book__head img { width: 14.1px; height: 14.1px; margin: 1.5px; }
+.pg-book__row, .pg-book__bays { display: flex; }
+.pg-book__row { gap: 5.13px; }
+.pg-book__bays { gap: 6.84px; }
+.pg-book__day, .pg-book__time { position: relative; isolation: isolate; overflow: hidden; flex: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border: .855px solid #494949; border-radius: 99px; background: rgba(58,58,58,.4); box-shadow: 0 1.71px 12.99px rgba(0,0,0,.03); text-align: center; }
+.pg-book__day { flex-direction: column; gap: 3.42px; width: 51.28px; height: 51.28px; padding: 8.55px 10.26px 5.13px; font: 500 8.55px/1.2 var(--font-ui); color: var(--bk-muted); }
+.pg-book__day b { display: block; margin-top: -1.71px; font: 500 17.09px/1.2 var(--font-ui); letter-spacing: -0.03em; color: var(--bk-text); }
+.pg-book__day.dim { border-color: transparent; color: rgba(245,245,245,.65); }
+.pg-book__day.dim b { color: var(--bk-muted); }
+.pg-book__day.on { border-color: transparent; background: var(--bk-on); color: rgba(253,255,254,.8); }
+.pg-book__day.on b, .pg-book__time.on { color: #fff; }
+.pg-book__dots { display: flex; gap: .855px; }
+.pg-book__dots img { display: block; width: 3.42px; height: 3.42px; }
+.pg-book__time { height: 34.19px; padding: 6.84px 8.55px; font: 400 11.97px/1.4 var(--font-ui); }
+.pg-book__time.on { border-color: #188a42; background: var(--bk-on); }
+.pg-book__time--extra { display: none; }
+.pg-book__tex { position: absolute; z-index: -1; left: 50%; top: 50%; width: 51.28px; height: 51.28px; max-width: none; transform: translate(-50%, -50%) rotate(15deg); }
+.pg-book__time .pg-book__tex { width: 69.82px; height: 51.24px; }
+.pg-book__rule { flex: none; width: 333.33px; margin: 0; border: 0; border-top: .85px solid rgba(255,255,255,.15); }
+.pg-book__bay { position: relative; flex: none; box-sizing: border-box; width: 105.98px; padding: 5.13px 5.13px 8.55px; overflow: hidden; border: .855px solid rgba(255,255,255,.12); border-radius: 13.68px; background: rgba(43,43,43,.4); box-shadow: 0 1.71px 13.68px rgba(0,0,0,.05); }
+.pg-book__bay.on { border: 1.28px solid #22c55e; background: linear-gradient(rgba(34,197,94,.1), rgba(34,197,94,.1)), #2b2b2b; }
+.pg-book__photo { position: relative; display: block; height: 68.38px; margin-bottom: 6.84px; overflow: hidden; border: .43px solid rgba(255,255,255,.12); border-radius: 11.11px; }
+.pg-book__photo img { position: absolute; max-width: none; }
+.pg-book__bay b, .pg-book__bay small { display: block; padding: 0 3.42px; white-space: nowrap; }
+.pg-book__bay b { font: 500 11.97px/1.4 var(--font-ui); letter-spacing: -0.03em; color: var(--bk-text); }
+.pg-book__bay.dim b { color: var(--bk-muted); }
+.pg-book__bay small { margin-top: .855px; font: 400 11.11px/1.3 var(--font-ui); color: var(--bk-muted); }
+.pg-book__check { position: absolute; right: 8.55px; bottom: 8.55px; width: 10.26px; height: 10.26px; }
 
-/* Legal (Figma Privacy 366:15265) */
-.pg-legal { background: #fdfffe; padding: 40px 24px 80px; }
-.pg-legal__in { max-width: 800px; margin: 0 auto; }
-.pg-legal h1 { font: 600 48px/1.05 var(--font-display); letter-spacing: -0.03em; color: var(--color-text); margin: 0; }
-.pg-legal .muted { font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); margin: 12px 0 0; }
+/* Legal (Figma Terms of Service 2049:105089) */
+.pg-legal { background: #fdfffe; padding: 40px 24px 120px; }
+.pg-legal__in { max-width: 720px; margin: 0 auto; }
+.pg-legal h1 { font: 600 64px/1 var(--font-display); letter-spacing: -0.03em; color: var(--color-text); margin: 0; }
+.pg-legal .muted { font: 400 16px/1.4 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); margin: 16px 0 0; }
+.pg-legal .muted + p, .pg-legal .sx-prose h2 + * { margin-top: 24px; }
+.pg-legal .sx-prose a { color: var(--green-700); }
 
-.pg-legal .sx-prose h2 { font: 500 28px/1.2 var(--font-display); margin-top: 48px; }
+.pg-legal .sx-prose h2 { font: 500 32px/1.2 var(--font-display); margin-top: 80px; }
 .pg-legal .sx-prose ul, .pg-legal .sx-prose ol { gap: 8px; }
-.pg-legal .sx-prose code { word-break: break-all; }
+
+/* Privacy's own differences (Figma 2049:104899, mobile 2049:105022). The first three sections are spaced wider than the rest. */
+.pg-legal--privacy .sx-prose h2 { font-weight: 600; line-height: 1; letter-spacing: -0.04em; margin-top: 40px; }
+.pg-legal--privacy .sx-prose h2:nth-of-type(-n+3) { margin-top: 80px; }
+.pg-legal--privacy .sx-prose h2 + p + p, .pg-legal--privacy .sx-prose p + ol { margin-top: 8px; }
+.pg-legal--privacy .sx-prose ol + ul { margin-top: 24px; }
+.pg-legal--privacy .sx-prose ul, .pg-legal--privacy .sx-prose ol { padding-left: 24px; }
+.pg-legal--privacy .sx-prose ol { gap: 0; }
+.pg-legal--privacy .sx-prose strong { font-weight: 600; }
+.pg-legal--privacy .sx-prose a { color: var(--green-800); }
+.pg-legal--privacy .sx-prose code { font: inherit; background: none; padding: 0; border-radius: 0; color: var(--green-800); text-decoration: underline; overflow-wrap: anywhere; }
+.pg-legal--privacy .sx-prose li code { color: inherit; text-decoration: none; }
 
 /* Guide FAQ / TOC helpers */
 .pg-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; }
@@ -108,7 +136,7 @@
 /* 404 (Figma 371:23119) */
 .pg-404 { position: relative; background: #000; color: #fff; overflow: hidden; min-height: 791px; display: flex; align-items: center; justify-content: center; padding: 250px 80px 160px; text-align: center; isolation: isolate; }
 .pg-404__bg { position: absolute; inset: -12px 0 auto 0; height: 803px; z-index: -1; pointer-events: none; }
-.pg-404__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .72; }
+.pg-404__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .72; top: 5%; }
 .pg-404__bg .shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,11,0,.9), rgba(0,11,0,0) 70%); }
 .pg-404__bg .hm-shader { position: absolute; inset: 0; }
 .pg-404__c { display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 900px; }
@@ -135,15 +163,40 @@
   .pg-pf { flex-direction: column; align-items: stretch; gap: 32px; }
   .pg-pf__h { width: auto; }
   .pg-pf__cap h3 { font-size: 26px; }
-  .pg-prog { grid-template-columns: 1fr; }
+  .pg-prog { grid-template-columns: minmax(0, 1fr); }
   .pg-prog ol { padding: 32px 24px 8px; }
-  .pg-prog__bg img { opacity: .5; }
-  .pg-prog__vis { padding: 16px 16px 32px; }
-  .pg-legal { padding: 24px 16px 56px; }
-  .pg-legal h1 { font-size: 36px; }
-  .pg-legal .sx-prose h2 { font-size: 24px; margin-top: 36px; }
+  .pg-prog__vis { justify-content: center; padding: 16px 16px 32px; }
+  /* Figma mobile 2049:105208. Its sections stack 56px + 56px (112px) before each heading; one 56px is used on purpose. */
+  .pg-legal { padding: 56px 16px; }
+  .pg-legal__in { max-width: 800px; }
+  .pg-legal h1 { font-size: 40px; }
+  .pg-legal .muted, .pg-legal .muted + p { margin-top: 20px; }
+  .pg-legal .sx-prose h2 { margin-top: 56px; }
+  .pg-legal--privacy .sx-prose h2 { margin-top: 40px; }
+  .pg-legal--privacy .sx-prose h2:nth-of-type(-n+3) { margin-top: 56px; }
   .pg-404 { min-height: 640px; padding: 160px 16px 80px; }
   .pg-404 h1 { font-size: 40px; }
 }
-.pg-card__bg .hm-shader:not(:has(canvas)) .px, .pg-card__bg .hm-shader:not(:has(canvas)) ~ .hm-noise { display: none; }
-@media (min-width: 901px) { .pg-ct { padding-bottom: 0; } .pg-ct + .hm-sec, .pg-ct + * .hm-sec { padding-top: 40px; } }
+/* Platform portfolio on phones: venue cards replace the table. Figma 2049:91879. */
+@media (max-width: 599px) {
+  .pg-pf { gap: 40px; }
+  .pg-pf__h .hm-h2 { text-wrap: balance; }
+  .pg-pf__h .hm-sub { line-height: 1.24; text-wrap: balance; }
+  .pg-pf__cap { padding: 20px 24px 14px; }
+  .pg-pf__cap h3 { font-size: 32px; line-height: 1; letter-spacing: -0.04em; }
+  .pg-pf__tbl { display: none; }
+  .pg-pf__venues { display: flex; flex-direction: column; gap: 8px; }
+  .pg-pf__venue { margin: 0; padding: 0 24px; background: #fdfffe; border-radius: 12px; letter-spacing: -0.03em; color: var(--color-text); }
+  .pg-pf__venue > div { display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 64px; }
+  .pg-pf__venue > div + div { border-top: 1px solid rgba(0,0,0,.08); }
+  .pg-pf__venue > div:last-child { color: var(--green-800); }
+  .pg-pf__venue dt { font: 500 16px/1 var(--font-ui); }
+  .pg-pf__venue dd { margin: 0; font: 400 16px/1.32 var(--font-ui); }
+  /* Booking form: narrower than its contents, so the last day and bay run off the right edge as in Figma 2049:92286. */
+  .pg-prog__vis { padding: 24px 23px; }
+  .pg-book { --bk-text: #fff; --bk-muted: #d1d5db; width: 100%; max-width: 315px; }
+  .pg-book__head { width: 280.34px; }
+  .pg-book__day.dim { color: var(--bk-muted); }
+  .pg-book__time--extra { display: flex; border-width: .43px; background: rgba(253,255,254,.1); }
+}
+@media (min-width: 901px) { .pg-ct { padding-bottom: 0; } .pg-ct + .hm-sec, .pg-ct + * .hm-sec { padding-top: 60px; } }

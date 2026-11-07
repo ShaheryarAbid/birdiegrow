@@ -1,0 +1,130 @@
+---
+/**
+ * Features slider: native scroll-snap for swiping, plus pagination dots built from the scroll positions.
+ * Each direct child of the slot is one slide, and it can be any content.
+ * Props: label (accessible name), class (root), viewportClass (the clipped area; a card background sits here, the dots sit outside it),
+ * options (see FeaturesSliderOptions; anything left out uses DEFAULTS).
+ * Each option takes one value for every screen size, or { mobile, tablet, desktop }. The screen sizes are set in src/styles/features-slider.css.
+ * Dispatch a `features-slider:reset` event on the root to return to the first slide.
+ */
+import '../styles/features-slider.css';
+
+type Breakpoint = 'mobile' | 'tablet' | 'desktop';
+export type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
+export interface SliderPadding { top?: number; start?: number; end?: number; }
+export interface FeaturesSliderOptions {
+  /** Full slides in view. */
+  perView?: Responsive<number>;
+  /** Space between slides, in px. */
+  gap?: Responsive<number>;
+  /** 'half' shows half of one more slide after the full ones. */
+  lastSlide?: Responsive<'full' | 'half'>;
+  /** Show the pagination dots. */
+  dots?: Responsive<boolean>;
+  /** Space inside the slider, in px. */
+  padding?: Responsive<SliderPadding>;
+}
+export interface Props { label: string; class?: string; viewportClass?: string; options?: FeaturesSliderOptions; }
+
+const DEFAULTS = {
+  perView: { mobile: 1, tablet: 2, desktop: 3 },
+  gap: { mobile: 16, tablet: 24, desktop: 32 },
+  lastSlide: { mobile: 'full', tablet: 'full', desktop: 'full' },
+  dots: { mobile: true, tablet: true, desktop: true },
+  padding: { mobile: {}, tablet: {}, desktop: {} },
+} as const;
+
+const { label, class: className, viewportClass, options = {} } = Astro.props;
+
+const pick = <T,>(value: Responsive<T> | undefined, fallback: Record<Breakpoint, T>, bp: Breakpoint): T => {
+  if (value === undefined) return fallback[bp];
+  const perBreakpoint = typeof value === 'object' && value !== null && ('mobile' in value || 'tablet' in value || 'desktop' in value);
+  if (!perBreakpoint) return value as T;
+  return (value as Partial<Record<Breakpoint, T>>)[bp] ?? fallback[bp];
+};
+
+// The stylesheet switches between these per-breakpoint variables with its media queries.
+const style = (['mobile', 'tablet', 'desktop'] as const).flatMap((bp) => {
+  const perView = pick<number>(options.perView, DEFAULTS.perView, bp);
+  const gap = pick<number>(options.gap, DEFAULTS.gap, bp);
+  const half = pick<'full' | 'half'>(options.lastSlide, DEFAULTS.lastSlide, bp) === 'half';
+  const dots = pick<boolean>(options.dots, DEFAULTS.dots, bp);
+  const { top = 0, start = 0, end = 0 } = pick<SliderPadding>(options.padding, DEFAULTS.padding, bp);
+  const gaps = half ? perView : perView - 1;
+  return [
+    `--fs-basis-${bp}:calc((100% - ${gaps * gap}px) / ${half ? perView + 0.5 : perView})`,
+    `--fs-gap-${bp}:${gap}px`,
+    `--fs-dots-${bp}:${dots ? 'flex' : 'none'}`,
+    `--fs-top-${bp}:${top}px`,
+    `--fs-start-${bp}:${start}px`,
+    `--fs-end-${bp}:${end}px`,
+  ];
+}).join(';');
+---
+<div class:list={['features-slider', className]} style={style} data-features-slider role="region" aria-roledescription="carousel" aria-label={label}>
+  <div class:list={['features-slider__viewport', viewportClass]}>
+    <div class="features-slider__track" tabindex="0"><slot /></div>
+  </div>
+  <div class="features-slider__dots" hidden></div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-features-slider]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.features-slider__track')!;
+    const dots = root.querySelector<HTMLElement>('.features-slider__dots')!;
+    const slides = Array.from(track.children) as HTMLElement[];
+    let stops: number[] = [];
+
+    // Every distinct position the track can rest on. Slides past the scroll limit all share the last stop.
+    const measure = () => {
+      const padStart = parseFloat(getComputedStyle(track).paddingLeft);
+      const max = track.scrollWidth - track.clientWidth;
+      const next: number[] = [];
+      slides.forEach((slide) => {
+        const stop = Math.min(Math.max(slide.offsetLeft - padStart, 0), max);
+        if (!next.length || stop - next[next.length - 1] > 1) next.push(stop);
+      });
+      return next;
+    };
+
+    const markActive = () => {
+      const x = track.scrollLeft;
+      const active = stops.reduce((best, stop, i) => (Math.abs(stop - x) < Math.abs(stops[best] - x) ? i : best), 0);
+      Array.from(dots.children).forEach((dot, i) => {
+        dot.classList.toggle('is-on', i === active);
+        if (i === active) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+    };
+
+    const refresh = () => {
+      if (!track.clientWidth) return; // Hidden (e.g. an inactive tab): the observer runs this again once shown.
+      stops = measure();
+      dots.hidden = stops.length < 2;
+      if (dots.children.length !== stops.length) {
+        dots.replaceChildren(...stops.map((_, i) => {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.setAttribute('aria-label', `Go to position ${i + 1} of ${stops.length}`);
+          dot.addEventListener('click', () => {
+            const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+            track.scrollTo({ left: stops[i], behavior: smooth ? 'smooth' : 'auto' });
+          });
+          return dot;
+        }));
+      }
+      markActive();
+    };
+
+    let frame = 0;
+    track.addEventListener('scroll', () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(markActive);
+    }, { passive: true });
+    root.addEventListener('features-slider:reset', () => {
+      track.scrollTo({ left: 0, behavior: 'auto' });
+      markActive();
+    });
+    new ResizeObserver(refresh).observe(track);
+    refresh();
+  });
+</script>

@@ -1,0 +1,42 @@
+---
+/**
+ * Waivers & signatures panel for /features/bay-booking/ — Figma "Features / Option 2" 2049:99461 (mobile "Option 9" 2049:100272).
+ * One dark card on the shared product-preview background (same art as FormatTabs): feature list on the left, an exported
+ * booking-form image on the right (stacked below on mobile, with its own mobile export). Static — no tabs, no script.
+ * Props: heading (each sentence on its own line on mobile), sub, id, bg (card background),
+ * items [{ icon (name from src/data/icons.ts), title, text }], img { src, mobileSrc, alt, width, height, mobileWidth, mobileHeight }.
+ */
+import Icon from '../Icon.astro';
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/waiver-signatures.css';
+export interface Item { icon: string; title: string; text: string; }
+export interface Img { src: string; mobileSrc: string; alt: string; width: number; height: number; mobileWidth: number; mobileHeight: number; }
+export interface Props { heading: string; sub?: string; id?: string; bg: string; items: Item[]; img: Img; }
+const { heading, sub, id, bg, items, img } = Astro.props;
+// One span per sentence so the mobile heading breaks after each period (Figma 2049:100276).
+const lines = heading.match(/[^.?!]+[.?!]?/g)?.map((s) => s.trim()).filter(Boolean) ?? [heading];
+---
+<section class="hm-sec hm-white hm-stack ws" id={id}>
+  <div class="hm-intro ws__intro">
+    <h2 class="hm-h2">{lines.map((l, i) => <><span class="ws__line" set:html={gd(l)} />{i < lines.length - 1 && ' '}</>)}</h2>
+    {sub && <p class="hm-sub">{sub}</p>}
+  </div>
+
+  <div class="ws__card" style={`--ws-bg: url('${bg}')`}>
+    <ul class="ws__list">
+      {items.map((it) => (
+        <li>
+          <span class="ws__ico"><Icon name={it.icon} size={18} /></span>
+          <div><b>{it.title}</b><p>{it.text}</p></div>
+        </li>
+      ))}
+    </ul>
+    <div class="ws__vis">
+      <picture>
+        <source media="(max-width: 900px)" srcset={img.mobileSrc} width={img.mobileWidth} height={img.mobileHeight} />
+        <img src={img.src} alt={img.alt} width={img.width} height={img.height} loading="lazy" decoding="async" />
+      </picture>
+    </div>
+  </div>
+</section>

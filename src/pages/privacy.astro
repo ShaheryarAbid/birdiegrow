@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalPage from '../components/sections/LegalPage.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
 ---
 <BaseLayout
   title="Privacy Policy | Birdie"
@@ -8,30 +9,35 @@ import LegalPage from '../components/sections/LegalPage.astro';
   noindex={true}
   headerVariant="light"
 >
-  <LegalPage>
+  <ReadingProgress target=".pg-legal__in" />
+  <LegalPage class="pg-legal--privacy">
         <h1>Privacy Policy</h1>
         <p class="muted">Last updated: May 23, 2026</p>
 
         <p>Birdie ("Birdie," "we," "us," or "our") provides booking, membership, and revenue software for golf simulator and indoor golf businesses. This Privacy Policy explains what information we collect, how we use it, and the choices you have. It applies to birdiegrow.com and the Birdie application at app.birdiegrow.com.</p>
 
         <h2>Information We Collect</h2>
-        <p><strong>Account information.</strong> When a venue operator creates a Birdie account, we collect name, email address, phone number, business name, and business address.</p>
-        <p><strong>Business and booking data.</strong> We process data that operators and their customers enter into Birdie, including bookings, membership records, customer contact details, and activity history, in order to provide the service.</p>
-        <p><strong>Payment information.</strong> Payments are processed by third-party payment processors. Birdie does not store full card numbers or bank account details.</p>
-        <p><strong>Usage data.</strong> We collect standard technical data such as device type, browser, and log information to operate and secure the service.</p>
+        <ul>
+          <li><strong>Account information.</strong> When a venue operator creates a Birdie account, we collect name, email address, phone number, business name, and business address.</li>
+          <li><strong>Business and booking data.</strong> We process data that operators and their customers enter into Birdie, including bookings, membership records, customer contact details, and activity history, in order to provide the service.</li>
+          <li><strong>Payment information.</strong> Payments are processed by third-party payment processors. Birdie does not store full card numbers or bank account details.</li>
+          <li><strong>Usage data.</strong> We collect standard technical data such as device type, browser, and log information to operate and secure the service.</li>
+        </ul>
 
         <h2>Google User Data</h2>
         <p>The Birdie Google Calendar integration is optional and is enabled only when a venue operator explicitly connects their Google account.</p>
         <p>When you connect Google Calendar, Birdie requests access to the following Google data through the <code>https://www.googleapis.com/auth/calendar.events</code> scope:</p>
-        <ul>
+        <ol>
           <li>Your Google account email address, used to identify the connected account.</li>
           <li>Permission to create, edit, and delete events on your Google Calendar.</li>
+        </ol>
+        <ul>
+          <li><strong>How we use Google user data.</strong> Birdie uses this access for one purpose only: to keep your Google Calendar in sync with your Birdie bookings. When a booking is created, changed, or cancelled in Birdie, Birdie creates, updates, or deletes the corresponding event on your connected Google Calendar. The sync is one-way (from Birdie to Google); Birdie does not read or import events you create directly in Google Calendar.</li>
+          <li><strong>How we store Google user data.</strong> Birdie securely stores the OAuth access and refresh tokens needed to maintain the connection, the email address of the connected account, and an identifier that links each Birdie booking to its Google Calendar event. Tokens are stored securely and are never exposed to other users.</li>
+          <li><strong>Sharing and transfer.</strong> Birdie does not sell Google user data and does not share it with third parties. Birdie does not use Google user data for advertising and does not use it to develop, improve, or train generalized artificial intelligence or machine learning models.</li>
+          <li><strong>Limited Use disclosure.</strong> Birdie's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.</li>
+          <li><strong>Revoking access.</strong> You can disconnect Google Calendar at any time from Settings → Integrations in your Birdie dashboard, or by removing Birdie's access at <code>https://myaccount.google.com/permissions</code>. Disconnecting stops all future syncing.</li>
         </ul>
-        <p><strong>How we use Google user data.</strong> Birdie uses this access for one purpose only: to keep your Google Calendar in sync with your Birdie bookings. When a booking is created, changed, or cancelled in Birdie, Birdie creates, updates, or deletes the corresponding event on your connected Google Calendar. The sync is one-way (from Birdie to Google); Birdie does not read or import events you create directly in Google Calendar.</p>
-        <p><strong>How we store Google user data.</strong> Birdie securely stores the OAuth access and refresh tokens needed to maintain the connection, the email address of the connected account, and an identifier that links each Birdie booking to its Google Calendar event. Tokens are stored securely and are never exposed to other users.</p>
-        <p><strong>Sharing and transfer.</strong> Birdie does not sell Google user data and does not share it with third parties. Birdie does not use Google user data for advertising and does not use it to develop, improve, or train generalized artificial intelligence or machine learning models.</p>
-        <p><strong>Limited Use disclosure.</strong> Birdie's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.</p>
-        <p><strong>Revoking access.</strong> You can disconnect Google Calendar at any time from Settings → Integrations in your Birdie dashboard, or by removing Birdie's access at <code>https://myaccount.google.com/permissions</code>. Disconnecting stops all future syncing.</p>
 
         <h2>How We Use Information</h2>
         <p>We use the information we collect to provide and maintain the Birdie service, process bookings and payments, communicate with operators and their customers, provide support, improve and secure the service, and comply with legal obligations.</p>

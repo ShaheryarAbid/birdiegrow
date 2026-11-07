@@ -1,14 +1,17 @@
 ---
-/** 404 — Figma "404" 371:23119 (mobile 577:87087): dark golf-ball hero, centred message. */
+/** 404 — Figma "404" 371:23119 (mobile 577:87087): dark golf-ball hero, centred message. Content lives in src/data/notFound.ts. */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import '../styles/sections.css';
 import '../styles/pages.css';
+import { gd } from '../lib/gd';
+import { NOT_FOUND } from '../data/notFound';
 import { SHADER_DARK } from '../data/shader';
 // Cloudflare Pages serves this 404.html with a real HTTP 404 status for unknown
 // paths — killing the soft-404 (200) problem the SPA had. noindex is belt-and-suspenders.
+const { meta, heading, body, link } = NOT_FOUND;
 ---
-<BaseLayout title="Page not found | Birdie" description="The page you were looking for doesn't exist." noindex={true} headerVariant="dark" headerOverlay>
+<BaseLayout title={meta.title} description={meta.description} noindex={true} headerVariant="dark" headerOverlay>
   <div class="hm">
     <section class="pg-404">
       <div class="pg-404__bg" aria-hidden="true">
@@ -18,10 +21,10 @@ import { SHADER_DARK } from '../data/shader';
       </div>
       <div class="pg-404__c">
         <div>
-          <h1>We couldn't find that page<i>.</i></h1>
-          <p>The link may be broken or the page may have moved.</p>
+          <h1 set:html={gd(heading)} />
+          <p>{body}</p>
         </div>
-        <Button href="/" mode="light">Back to home</Button>
+        <Button href={link.href} mode="light">{link.text}</Button>
       </div>
     </section>
   </div>
