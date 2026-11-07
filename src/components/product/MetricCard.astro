@@ -1,0 +1,18 @@
+---
+/**
+ * Titled stat box — Figma Memberships "Stat" 2049:103232 (mobile 2049:103937). Built on the Glance stat tile.
+ * Props: title, value, prefix/suffix (rendered in the accent green), caption.
+ * A "\n" in title or caption is a line break on mobile and a space on desktop, as in the design.
+ */
+import '../../styles/sections.css';
+import '../../styles/product.css';
+export interface Props { title: string; value: string; prefix?: string; suffix?: string; caption: string; }
+const { title, value, prefix, suffix, caption } = Astro.props;
+---
+<div class="hm-stat pf-rev-stat">
+  <h3>{title}</h3>
+  <div class="pf-rev-stat__metric">
+    <b>{prefix && <i>{prefix}</i>}{value}{suffix && <i>{suffix}</i>}</b>
+    <span>{caption}</span>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+---
+/**
+ * Dark "example plan" card — Figma Memberships "Product preview" 2049:103200 (mobile 2049:103906).
+ * Built on the Glance dark card. Props: title, headline, rows [label, value][], text.
+ */
+import '../../styles/sections.css';
+import '../../styles/product.css';
+export interface Props { title: string; headline: string; rows: [string, string][]; text: string; }
+const { title, headline, rows, text } = Astro.props;
+---
+<div class="hm-gl__dark pf-rev-card">
+  <div class="hm-gl__ambient" aria-hidden="true"></div>
+  <div class="hm-gl__top">
+    <h3>{title}</h3>
+    <div class="pf-rev-card__details">
+      <p class="pf-rev-card__big">{headline}</p>
+      <dl class="pf-rev-card__rows">{rows.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+    </div>
+  </div>
+  <p class="hm-gl__bot pf-rev-card__text">{text}</p>
+</div>

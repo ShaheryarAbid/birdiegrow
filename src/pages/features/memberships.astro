@@ -6,6 +6,8 @@ import ShortAnswer from '../../components/product/ShortAnswer.astro';
 import Tiers from '../../components/product/Tiers.astro';
 import FeatureTabs from '../../components/product/FeatureTabs.astro';
 import SideTabs from '../../components/product/SideTabs.astro';
+import ExampleMembershipCard from '../../components/product/ExampleMembershipCard.astro';
+import MetricCard from '../../components/product/MetricCard.astro';
 import LinkCards from '../../components/sections/LinkCards.astro';
 import Glance from '../../components/sections/Glance.astro';
 import Faq from '../../components/sections/Faq.astro';
@@ -41,17 +43,18 @@ const groups = [
   { label: 'Launch and loyalty', items: [['Pre-opening and pre-sale memberships', 'Charge on opening day.'], ['Sign-up proration, birthday and anniversary bonus hours']] as [string, string?][] },
 ];
 const ruleTabs = [
-  { label: 'Members-only slots', title: 'Members-only hours', text: 'Keep times for members, one-off or repeating. Optionally let specific plans still book.', img: '/assets/features/mem-rule-a.webp', alt: 'Members-only booking slots' },
-  { label: 'Advance booking windows', title: 'Advance booking windows', text: 'Give higher tiers priority, like a 48- or 72-hour head start.', img: '/assets/features/mem-rule-b.webp', alt: 'Advance booking window by plan' },
-  { label: 'Plan time windows', title: 'Plan time windows', text: 'For example off-peak-only plans, with discounted rates outside the window.', img: '/assets/features/mem-rule-c.webp', alt: 'Member access time window' },
-  { label: 'Bay restrictions', title: 'Bay restrictions', text: 'Limit a plan to certain bays, or open all of them.', img: '/assets/features/mem-rule-d.webp', alt: 'Bay restriction by plan' },
+  { label: 'Members-only slots', title: 'Members-only hours', text: 'Keep times for members, one-off or repeating. Optionally let specific plans still book.', img: '/assets/features/members-only-slots.webp', alt: 'Members-only booking slots' },
+  { label: 'Advance booking windows', title: 'Advance booking windows', text: 'Give higher tiers priority, like a 48- or 72-hour head start.', img: '/assets/features/advanced-booking-window.webp', alt: 'Advance booking window by plan' },
+  { label: 'Plan time windows', title: 'Plan time windows', text: 'For example off-peak-only plans, with discounted rates outside the window.', img: '/assets/features/plan-time-windows.webp', alt: 'Member access time window' },
+  { label: 'Bay restrictions', title: 'Bay restrictions', text: 'Limit a plan to certain bays, or open all of them.', img: '/assets/features/bay-restrictions.webp', alt: 'Bay restriction by plan' },
 ];
 const F = '/assets/features/';
-// Example membership (design defaults). Outputs are computed, on the server for the first paint and in the browser on input.
+// Example membership from the design; the stat boxes are derived from it.
 const ex = { members: 40, rate: 229, hours: 8, walkin: 40 };
-const calc = (m: number, r: number, h: number, w: number) => ({ rec: m * r, eff: h ? r / h : 0, disc: w ? Math.round((1 - (h ? r / h : 0) / w) * 100) : 0, hrs: m * h });
-const out = calc(ex.members, ex.rate, ex.hours, ex.walkin);
-const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
+const recurring = ex.members * ex.rate;
+const memberRate = ex.rate / ex.hours;
+const discount = Math.round((1 - memberRate / ex.walkin) * 100);
+const bayHours = ex.members * ex.hours;
 ---
 <BaseLayout title={title} description={description} schema={schema} headerVariant="dark" headerOverlay>
 <div class="hm membership-page">
@@ -71,30 +74,24 @@ const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
     image={{ src: '/assets/product/membership-short-answer.webp', mobileSrc: '/assets/product/membership-short-answer-mobile.webp', alt: 'Build custom plans, set bay and time rules, automate hours and billing, and secure predictable revenue.' }}
   />
 
-  <!-- Recurring revenue example (interactive; defaults are the design's example) -->
-  <section class="hm-sec hm-white hm-stack" id="recurring-revenue">
+  <!-- Recurring revenue example — Figma 2049:103192 (mobile 2049:103898) -->
+  <section class="hm-sec hm-white hm-stack pf-rev-sec" id="recurring-revenue">
     <div class="hm-intro">
       <h2 class="hm-h2">Turn memberships into predictable revenue<i>.</i></h2>
-      <p class="hm-sub" style="max-width:680px">See how 40 members on a $229 monthly plan with 8 hours each can generate recurring revenue. Memberships give your venue a predictable monthly cash flow. Automate recurring billing, lock in off-peak utilization, and build a sustainable business model on autopilot. This ensures financial stability and eliminates the stress of unpredictable walk-in traffic.</p>
+      <p class="hm-sub">See how {ex.members} members on a ${ex.rate} monthly plan with {ex.hours} hours each can generate recurring revenue.</p>
     </div>
-    <div class="pf-calc" id="mp">
-      <div class="pf-calc__in">
-        <h3>Example membership</h3>
-        <label>Members<input id="mp-members" type="number" min="1" value={ex.members} /></label>
-        <label>Plan rate ($/month)<input id="mp-rate" type="number" min="1" value={ex.rate} /></label>
-        <label>Included hours<input id="mp-hours" type="number" min="1" value={ex.hours} /></label>
-        <label>Walk-in rate ($/hour)<input id="mp-walkin" type="number" min="1" value={ex.walkin} /></label>
-        <p class="pf-eg__note" style="grid-column:1/-1">Illustrative example. Enter your own numbers.</p>
-      </div>
-      <div class="pf-calc__out" aria-live="polite">
-        <span class="k">Recurring revenue</span>
-        <span class="big" id="mp-rec">{fmt(out.rec)}</span>
-        <span class="sub">per month, before a single booking</span>
-        <div class="pf-kv" style="color:var(--color-text)">
-          <div>Effective member rate<b id="mp-eff">{fmt(out.eff)}</b>per bay hour</div>
-          <div>Member discount vs drop-in<b id="mp-disc">{out.disc}%</b><span id="mp-band">{out.disc >= 20 && out.disc <= 35 ? 'in the 20–35% sweet spot' : 'outside the 20–35% range'}</span></div>
-          <div>Member bay-hours / month<b id="mp-hrs">{out.hrs.toLocaleString('en-US')}</b>hours members can book</div>
-        </div>
+    <div class="hm-glance pf-rev">
+      <ExampleMembershipCard
+        title="Example membership"
+        headline={`${ex.members} members`}
+        rows={[['Plan rate', `$${ex.rate}/month`], ['Included hours', `${ex.hours} hours`], ['Walk-in rate', `$${ex.walkin}/hour`]]}
+        text="Memberships give your venue a predictable monthly cash flow. Automate recurring billing, lock in off-peak utilization, and build a sustainable business model on autopilot. This ensures financial stability and eliminates the stress of unpredictable walk-in traffic."
+      />
+      <div class="hm-gl__stats">
+        <MetricCard title={'Recurring\nrevenue'} prefix="$" value={recurring.toLocaleString('en-US')} caption={'per month, before\na single booking'} />
+        <MetricCard title={'Effective\nmember rate'} prefix="$" value={String(Math.round(memberRate))} caption="per bay hour" />
+        <MetricCard title="Member discount vs drop-in" value={String(discount)} suffix="%" caption={'in the 20–35%\nsweet spot'} />
+        <MetricCard title="Member bay-hours / month" value={bayHours.toLocaleString('en-US')} caption={'hours members\ncan book'} />
       </div>
     </div>
   </section>
@@ -115,7 +112,9 @@ const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
     tabs={ruleTabs}
   />
 
-  <SideTabs variant="pills"
+
+  <SideTabs
+    variant="pills"
     id="plan-types"
     heading="Every kind of plan you'd want to sell"
     sub="Hour banks are the start. Pick a topic to see everything else Birdie runs for members."
@@ -143,21 +142,4 @@ const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
       
     }
   </style>
-<script is:inline>
-  (function () {
-    var g = function (id) { return document.getElementById(id); };
-    if (!g('mp')) return;
-    function run() {
-      var m = +g('mp-members').value || 0, r = +g('mp-rate').value || 0, h = +g('mp-hours').value || 0, w = +g('mp-walkin').value || 0;
-      var eff = h ? r / h : 0, disc = w ? Math.round((1 - eff / w) * 100) : 0;
-      var f = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
-      g('mp-rec').textContent = f(m * r);
-      g('mp-eff').textContent = f(eff);
-      g('mp-disc').textContent = disc + '%';
-      g('mp-band').textContent = disc >= 20 && disc <= 35 ? 'in the 20–35% sweet spot' : 'outside the 20–35% range';
-      g('mp-hrs').textContent = (m * h).toLocaleString('en-US');
-    }
-    ['mp-members', 'mp-rate', 'mp-hours', 'mp-walkin'].forEach(function (id) { g(id).addEventListener('input', run); });
-  })();
-</script>
 </BaseLayout>
