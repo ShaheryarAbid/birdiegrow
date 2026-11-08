@@ -11,7 +11,7 @@ export const MOBILE_APP = {
   meta: {
     title: 'Mobile App for Golf Simulator Venues | Birdie',
     description:
-      'The Birdie mobile app puts your venue on every golfer’s phone: book bays, join leagues and manage an account, with the same bays, prices and rules as your booking page.',
+      'The Birdie mobile app puts your venue on every golfer\'s phone: book bays, join leagues and manage an account, with the same bays, prices and rules as your booking page.',
   },
   hero: {
     crumb: ['Product', 'Mobile app'],
