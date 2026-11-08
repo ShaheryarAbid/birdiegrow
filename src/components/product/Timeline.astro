@@ -1,14 +1,15 @@
 ---
 /**
- * Numbered timeline — Figma "Setup steps" / "Progress/Process" (alternating rows around a dashed line; reuses the Home hm-setup geometry).
- * Props: heading, sub / subHtml, steps [title, text, note?][] (numbered 01..), icons (optional icon name per step), id, cta {label, href}.
+ * Numbered timeline — Figma "Progress/Process" (desktop 2049:98652, mobile 2049:99041).
+ * One dark textured highlight sits behind the list and slides to the active row as the page scrolls; every row gets an equal share of scroll.
+ * Props: heading, sub / subHtml, steps [title, text, note?][] (numbered 01..), icons (kept for API compatibility), id, cta {label, href}.
  */
 import { gd } from '../../lib/gd';
+import { SHADER_DARK } from '../../data/shader';
 import '../../styles/sections.css';
 import '../../styles/home.css';
 import '../../styles/product.css';
 import Button from '../Button.astro';
-import Icon from '../Icon.astro';
 export interface Props {
   heading: string;
   sub?: string;
@@ -18,18 +19,66 @@ export interface Props {
   id?: string;
   cta?: { label: string; href: string };
 }
-const { heading, sub, subHtml, steps, icons = [], id, cta } = Astro.props;
-const endsPunct = /[.?!]$/.test(heading.trim());
+const { heading, sub, subHtml, steps, id, cta } = Astro.props;
 ---
-<section class="hm-sec hm-white pf-tl pf-tl2" id={id}>
+<section class="hm-sec hm-white pf-tl2" id={id}>
   <div class="pf-tl2__head">
     <h2 class="hm-h2" set:html={gd(heading)} />
     {sub && <p class="hm-sub">{sub}</p>}{subHtml && <p class="hm-sub" set:html={subHtml} />}
     {cta && <Button href={cta.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">{cta.label} <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>}
   </div>
-  <ol class="pf-tl2__list">
-    {steps.map(([t, d, note], i) => (
-      <li class={i === 0 ? 'is-on' : ''}><span class="n">{String(i + 1).padStart(2, '0')}</span><div class="c"><h3>{t}</h3><p>{d}</p>{note && <p class="pf-note">{note}</p>}</div></li>
-    ))}
-  </ol>
+  <div class="pf-tl2__list" data-tl>
+    <div class="pf-tl2__hl" aria-hidden="true">
+      <div class="pf-tl2__hl-n">
+        <img class="leak" src="/assets/sections/leak-content.webp" alt="" loading="lazy" />
+        <img class="ell" src="/assets/product/timeline-ellipse-number.svg" alt="" width="222" height="358" loading="lazy" />
+        <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+        <div class="hm-noise"></div>
+      </div>
+      <div class="pf-tl2__hl-c">
+        <div class="leak"><img src="/assets/sections/leak-content.webp" alt="" loading="lazy" /></div>
+        <img class="ell ell--d" src="/assets/product/timeline-ellipse-card.svg" alt="" width="872" height="287" loading="lazy" />
+        <img class="ell ell--m" src="/assets/product/timeline-ellipse-card-mobile.svg" alt="" width="500" height="287" loading="lazy" />
+        <div class="hm-noise"></div>
+        <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
+      </div>
+    </div>
+    <ol>
+      {steps.map(([t, d, note], i) => (
+        <li class={i === 0 ? 'is-on' : ''} aria-current={i === 0 ? 'step' : undefined}><span class="n">{String(i + 1).padStart(2, '0')}</span><div class="c"><h3>{t}</h3><p>{d}</p>{note && <p class="pf-note">{note}</p>}</div></li>
+      ))}
+    </ol>
+  </div>
 </section>
+<script>
+  import { track } from '../../scripts/scroll-track';
+
+  document.querySelectorAll<HTMLElement>('[data-tl]').forEach((list) => {
+    const rows = Array.from(list.querySelectorAll<HTMLElement>('li'));
+    const hl = list.querySelector<HTMLElement>('.pf-tl2__hl')!;
+    let active = -1;
+    list.classList.add('is-js');
+
+    const move = (i: number) => {
+      const row = rows[i];
+      hl.style.transform = `translateY(${row.offsetTop}px)`;
+      hl.style.height = `${row.offsetHeight}px`;
+      if (i === active) return;
+      active = i;
+      rows.forEach((r, j) => {
+        r.classList.toggle('is-on', j === i);
+        if (j === i) r.setAttribute('aria-current', 'step');
+        else r.removeAttribute('aria-current');
+      });
+    };
+
+    move(0);
+    // The list's height is split into equal slices, one per row. A row is active while the viewport's middle line is inside its slice,
+    // so every row gets the same amount of scroll. Before the list reaches the middle the first row stays on; past the end the last one does.
+    track(list, () => {
+      const rect = list.getBoundingClientRect();
+      const progress = (innerHeight * 0.5 - rect.top) / rect.height;
+      move(Math.max(0, Math.min(rows.length - 1, Math.floor(progress * rows.length))));
+    });
+  });
+</script>

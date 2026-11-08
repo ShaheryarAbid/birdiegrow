@@ -1,0 +1,46 @@
+/* Door access window example — Figma "Features / Option 2" 2049:98671 (mobile 2049:99053).
+   Static example: the chart and steppers are drawn, not clickable. Section shell and headings come from sections.css. */
+.aw__sub { max-width: 800px; }
+
+.aw__card { display: flex; align-items: flex-start; gap: 8px; width: 100%; max-width: 1280px; padding: 8px; background: #f0f2f1; border-radius: 20px; box-sizing: border-box; }
+
+/* Left: dark chart panel on the supplied pattern image */
+.aw__chart { position: relative; flex: 1 1 0; min-width: 0; height: 328px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .5); border-radius: 14px; background: #000407 url("/assets/features/door-access/pattern.webp") left center / cover no-repeat; box-sizing: border-box; }
+.aw__title { position: absolute; left: 16px; right: 16px; top: 38px; margin: 0; text-align: center; font: 600 32px/1 var(--font-display); letter-spacing: -0.04em; color: #fff; }
+.aw__title span + span::before { content: " "; }
+
+/* The axis is drawn at its Figma size (604 × 222) and centred; tick i sits at 52.77px + i × step. */
+.aw__axis { --w: 604px; --pad: 24px; --col: 57.54px; --step: calc((var(--w) - 2 * var(--pad) - var(--col)) / (var(--n) - 1)); position: absolute; left: 50%; bottom: 47.5px; width: var(--w); height: 222px; transform: translateX(-50%); transform-origin: center bottom; }
+.aw__ticks { display: flex; justify-content: space-between; padding: 0 var(--pad); }
+.aw__tick { display: flex; flex-direction: column; align-items: center; gap: 13px; width: var(--col); }
+.aw__tick img { display: block; width: 3.27px; height: 196px; }
+.aw__tick span { font: 400 12px/1.24 var(--font-ui); letter-spacing: -0.03em; color: #9ca3af; white-space: nowrap; }
+.aw__bar { position: absolute; left: calc(var(--pad) + var(--col) / 2 + var(--from) * var(--step)); width: calc((var(--to) - var(--from)) * var(--step)); height: 42px; display: grid; place-items: center; border-radius: 4px; box-sizing: border-box; font: 400 16px/1.24 var(--font-ui); letter-spacing: -0.03em; white-space: nowrap; }
+.aw__bar--window { top: 70.25px; border: 1px dashed #22c55e; background: rgba(34, 197, 94, .12); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: #22c55e; }
+.aw__bar--session { top: 122.25px; background: #22c55e; border-bottom: 2.135px solid #22c55e; color: #000407; }
+
+/* Right: static stepper rows */
+.aw__panel { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 34px; padding: 24px; background: #fdfffe; border-radius: 12px; box-sizing: border-box; }
+.aw__row { display: flex; align-items: center; gap: 24px; }
+.aw__row + .aw__row { padding-top: 34px; border-top: 1px solid #e9ebea; }
+.aw__label { flex: 1; min-width: 0; font: 500 16px/1 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+.aw__step { display: flex; align-items: center; gap: 8px; flex: none; padding: 4px; border: 1px solid #e0e0e0; border-radius: 16px; background: rgba(255, 255, 255, .24); }
+.aw__step-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--color-text); box-shadow: var(--shadow-btn); }
+.aw__step-btn img { display: block; }
+.aw__step-v { width: 80px; text-align: center; font: 400 20px/1.15 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+
+@media (max-width: 900px) {
+  .hm-sec.aw { gap: 40px; padding: 40px 16px; }
+  .aw .hm-h2 { text-wrap: balance; }
+  .aw__card { flex-direction: column; align-items: stretch; }
+  .aw__chart { flex: none; }
+  .aw__title { top: 50.5px; font-weight: 500; font-size: 24px; letter-spacing: -0.03em; }
+  .aw__title span { display: block; }
+  .aw__title span + span::before { content: none; }
+  .aw__axis { bottom: 64.4px; transform: translateX(-50%) scale(.744); }
+  .aw__panel { flex: none; gap: 20px; padding: 16px; }
+  .aw__row { min-height: 48px; }
+  .aw__row + .aw__row { padding-top: 20px; }
+  .aw__step { width: 144px; justify-content: space-between; gap: 0; box-sizing: border-box; }
+  .aw__step-v { width: auto; flex: 1; }
+}

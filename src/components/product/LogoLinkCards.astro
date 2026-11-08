@@ -1,0 +1,34 @@
+---
+/**
+ * Row of partner cards — Figma "Features / Option 7" 2049:98730 (mobile 2049:99111): logo tile + name, description, divider, text link.
+ * Five across on desktop, stacked on mobile. Each heading sentence sits on its own line on mobile. Has its own CSS (src/styles/logo-link-cards.css).
+ * Props: heading, sub, id, cta (link label, default "See how it works"),
+ * cards { name, text, href, logo: { src, w, h } }[] (logo drawn at w × h inside the 48px tile).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/logo-link-cards.css';
+export interface Card { name: string; text: string; href: string; logo: { src: string; w: number; h: number }; }
+export interface Props { heading: string; sub?: string; id?: string; cta?: string; cards: Card[]; }
+const { heading, sub, id, cta = 'See how it works', cards } = Astro.props;
+// Each sentence of the heading gets its own span so mobile can stack them ("Five locks." / "One booking flow.").
+const sentences = heading.trim().split(/(?<=[.?!])\s+/);
+---
+<section class="hm-sec hm-white hm-stack llc" id={id}>
+  <div class="hm-intro">
+    <h2 class="hm-h2" set:html={sentences.map((t) => `<span class="llc__s">${gd(t)}</span>`).join(' ')} />
+    {sub && <p class="hm-sub llc__sub">{sub}</p>}
+  </div>
+  <ul class="llc__grid">
+    {cards.map((c) => (
+      <li class="llc__card">
+        <div class="llc__h">
+          <span class="llc__logo"><img src={c.logo.src} alt="" width={Math.round(c.logo.w)} height={Math.round(c.logo.h)} style={`width:${c.logo.w}px;height:${c.logo.h}px`} loading="lazy" /></span>
+          <h3>{c.name}</h3>
+        </div>
+        <p>{c.text}</p>
+        <a class="llc__go" href={c.href}>{cta}<span class="sr-only"> with {c.name}</span><img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></a>
+      </li>
+    ))}
+  </ul>
+</section>

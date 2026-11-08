@@ -1,0 +1,59 @@
+---
+/**
+ * Door access window example — Figma "Features / Option 2" 2049:98671 (mobile 2049:99053).
+ * Static on purpose, like BayPricingCalculator: the timeline chart and the steppers are a picture of one example, not a calculator.
+ * Nothing is clickable and there is no script. Has its own CSS (src/styles/access-window.css).
+ * Props: heading, sub, id, title (chart headline lines: one line on desktop, stacked on mobile), ticks (time labels along the axis),
+ * window / session { label, from, to } (tick indexes the bar spans), rows [label, value][] (the stepper rows).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/access-window.css';
+export interface Bar { label: string; from: number; to: number; }
+export interface Props {
+  heading: string;
+  sub?: string;
+  id?: string;
+  title: string[];
+  ticks: string[];
+  window: Bar;
+  session: Bar;
+  rows: [string, string | number][];
+}
+const { heading, sub, id, title, ticks, window: win, session, rows } = Astro.props;
+const LP = '/assets/features/league-planner';
+const span = (b: Bar) => `--from:${b.from};--to:${b.to}`;
+---
+<section class="hm-sec hm-white hm-stack aw" id={id}>
+  <div class="hm-intro">
+    <h2 class="hm-h2" set:html={gd(heading)} />
+    {sub && <p class="hm-sub aw__sub">{sub}</p>}
+  </div>
+  <div class="aw__card">
+    <div class="aw__chart" role="img" aria-label={`${title.join(' ')}. ${win.label} from ${ticks[win.from]} to ${ticks[win.to]}; ${session.label} from ${ticks[session.from]} to ${ticks[session.to]}.`}>
+      <p class="aw__title" aria-hidden="true">{title.map((line) => <span>{line}</span>)}</p>
+      <div class="aw__axis" aria-hidden="true" style={`--n:${ticks.length}`}>
+        <div class="aw__ticks">
+          {ticks.map((t) => (
+            <div class="aw__tick"><img src="/assets/features/door-access/timeline-tick.svg" alt="" width="3" height="196" /><span>{t}</span></div>
+          ))}
+        </div>
+        <div class="aw__bar aw__bar--window" style={span(win)}>{win.label}</div>
+        <div class="aw__bar aw__bar--session" style={span(session)}>{session.label}</div>
+      </div>
+    </div>
+    <div class="aw__panel">
+      {rows.map(([label, value]) => (
+        <div class="aw__row">
+          <span class="aw__label">{label}</span>
+          <div class="aw__step" aria-hidden="true">
+            <span class="aw__step-btn"><img src={`${LP}/minus.svg`} width="24" height="24" alt="" /></span>
+            <span class="aw__step-v">{value}</span>
+            <span class="aw__step-btn"><img src={`${LP}/plus.svg`} width="24" height="24" alt="" /></span>
+          </div>
+          <span class="sr-only">{value}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

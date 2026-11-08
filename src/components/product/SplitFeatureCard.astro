@@ -1,0 +1,44 @@
+---
+/**
+ * Dark feature card with a phone — Figma "Product preview" 2049:98741 (mobile 2049:99122).
+ * Grey section with a centred intro, then one dark card: title, lead and a check list on the left, a phone screenshot on the right
+ * (stacked under the text on mobile). Each heading sentence sits on its own line on mobile. Own CSS: src/styles/split-feature-card.css.
+ * Props: heading, sub, id, title, body, items (check list), bg (desktop card background image), img { src, alt, w, h } (phone, shown at w × h).
+ */
+import { gd } from '../../lib/gd';
+import '../../styles/sections.css';
+import '../../styles/split-feature-card.css';
+export interface Props {
+  heading: string;
+  sub?: string;
+  id?: string;
+  title: string;
+  body?: string;
+  items: string[];
+  bg?: string;
+  img: { src: string; alt: string; w: number; h: number };
+}
+const { heading, sub, id, title, body, items, bg, img } = Astro.props;
+const sentences = heading.trim().split(/(?<=[.?!])\s+/);
+---
+<section class="hm-sec hm-stack sfc" id={id}>
+  <div class="hm-intro">
+    <h2 class="hm-h2" set:html={sentences.map((t) => `<span class="sfc__s">${gd(t)}</span>`).join(' ')} />
+    {sub && <p class="hm-sub sfc__sub">{sub}</p>}
+  </div>
+  <div class="sfc__card" style={bg ? `--sfc-bg:url("${bg}")` : undefined}>
+    <div class="sfc__text">
+      <div class="sfc__lead">
+        <h3>{title}</h3>
+        {body && <p>{body}</p>}
+      </div>
+      <ul class="sfc__list">
+        {items.map((t) => <li><span class="sfc__check" aria-hidden="true"><img src="/assets/home/check-light.svg" alt="" width="8" height="8" /></span>{t}</li>)}
+      </ul>
+    </div>
+    <div class="sfc__media">
+      <img class="sfc__phone" src={img.src} alt={img.alt} width={img.w} height={img.h} loading="lazy" />
+      <span class="sfc__fade" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>

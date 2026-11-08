@@ -429,25 +429,56 @@
 .pf-hero h1 .d-br { display: inline; }
 @media (max-width: 900px) { .pf-hero h1 .d-br { display: none; } }
 
-/* ===== Timeline as numbered card list (Figma "A whole night, nobody on site") ===== */
-.pf-tl2 { display: grid !important; grid-template-columns: 440px 1fr; gap: 80px; align-items: start; padding: 80px 80px; max-width: 1440px; margin: 0 auto; box-sizing: border-box; }
-.pf-tl2__head { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; position: sticky; top: 100px; padding-top: 0; }
+/* ===== Timeline as numbered card list — Figma "Progress/Process" (desktop 2049:98652, mobile 2049:99041) ===== */
+.pf-tl2 { display: grid; grid-template-columns: minmax(0, 1fr) 800px; gap: 60px; align-items: start; }
+.pf-tl2__head { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; position: sticky; top: 100px; }
 .pf-tl2__head .hm-h2 { text-align: left; }
-.pf-tl2__list { list-style: none; margin: 0; padding: 8px; display: flex; flex-direction: column; gap: 8px; background: #f0f2f1; border-radius: 20px; }
-.pf-tl2__list li { display: grid; grid-template-columns: 56px 1fr; gap: 8px; }
-.pf-tl2__list .n { background: #fdfffe; border-radius: 14px; display: grid; place-items: center; font: 400 14px/1 var(--font-ui); color: var(--color-text); }
-.pf-tl2__list .c { background: #fdfffe; border-radius: 14px; padding: 28px 24px; display: flex; flex-direction: column; gap: 6px; }
-.pf-tl2__list h3 { font: 500 24px/28px var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
-.pf-tl2__list p { font: 400 14px/20px var(--font-ui); color: #4b5563; }
-.pf-tl2__list li.is-on .n, .pf-tl2__list li.is-on .c { background: #000407; color: #fff; }
+.pf-tl2__list { position: relative; padding: 8px; background: #f0f2f1; border-radius: 20px; }
+.pf-tl2__list ol { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.pf-tl2__list li { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 8px; }
+.pf-tl2__list .n, .pf-tl2__list .c { background: #fdfffe; border: 1px solid transparent; border-radius: 14px; transition: background-color .35s ease, color .35s ease; }
+.pf-tl2__list .n { display: grid; place-items: center; padding: 32px 4px; font: 400 16px/1.2 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); }
+.pf-tl2__list .c { padding: 31px; display: flex; flex-direction: column; gap: 8px; }
+.pf-tl2__list h3 { font: 500 24px/1.2 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text); transition: color .35s ease; }
+.pf-tl2__list p { font: 400 16px/1.32 var(--font-ui); letter-spacing: -0.03em; color: var(--color-text-secondary); transition: color .35s ease; }
+.pf-tl2__list li.is-on .n, .pf-tl2__list li.is-on .c { background-color: transparent; color: #fff; }
 .pf-tl2__list li.is-on h3 { color: #fff; }
 .pf-tl2__list li.is-on p { color: #d1d5db; }
+/* Without JS the highlight never moves, so the first row paints itself dark. */
+.pf-tl2__list:not(.is-js) li.is-on .n, .pf-tl2__list:not(.is-js) li.is-on .c { background-color: #000407; }
+
+/* Sliding highlight: number tile + card, both dark with the Figma texture (leak image, glow, dotted shader, noise). */
+.pf-tl2__hl { position: absolute; left: 8px; right: 8px; top: 8px; height: 0; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 8px; pointer-events: none; transition: transform .45s cubic-bezier(.22, 1, .36, 1), height .45s cubic-bezier(.22, 1, .36, 1); }
+.pf-tl2__list:not(.is-js) .pf-tl2__hl { display: none; }
+.pf-tl2__hl-n, .pf-tl2__hl-c { position: relative; overflow: hidden; background: #000407; border: 1px solid rgba(255, 255, 255, .5); border-radius: 14px; }
+.pf-tl2__hl .hm-shader { inset: -.5px -.5px -19.5px; }
+.pf-tl2__hl .hm-noise { background: #fdfffe; }
+.pf-tl2__hl-n img.leak { position: absolute; right: -.5px; top: -74.5px; width: 38px; height: 417px; object-fit: cover; }
+.pf-tl2__hl-n img.ell { position: absolute; left: -49px; top: -207.5px; width: 222px; height: 358px; max-width: none; }
+.pf-tl2__hl-c .leak { position: absolute; inset: -71px -58px -61px -208px; }
+.pf-tl2__hl-c .leak img { width: 100%; height: 100%; object-fit: cover; transform: rotate(5.44deg); }
+.pf-tl2__hl-c img.ell { position: absolute; top: -207.5px; height: 287px; max-width: none; }
+.pf-tl2__hl-c img.ell--d { right: -268.5px; width: 872px; }
+.pf-tl2__hl-c img.ell--m { display: none; left: 7.5px; width: 500px; }
+.pf-tl2__hl-c .hm-noise { inset: -1.5px -.5px -34.5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-tl2__hl, .pf-tl2__list .n, .pf-tl2__list .c, .pf-tl2__list h3, .pf-tl2__list p { transition: none; }
+}
+@media (max-width: 1200px) {
+  .pf-tl2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 48px; }
+}
 @media (max-width: 900px) {
-  .pf-tl2 { grid-template-columns: 1fr; gap: 32px; padding: 48px 16px; }
-  .pf-tl2__head { position: static; }
-  .pf-tl2__list li { grid-template-columns: 44px 1fr; }
-  .pf-tl2__list .c { padding: 20px 16px; }
-  .pf-tl2__list h3 { font-size: 20px; line-height: 24px; }
+  .pf-tl2 { grid-template-columns: minmax(0, 1fr); gap: 40px; padding: 56px 16px; }
+  .pf-tl2__head { position: static; align-items: center; text-align: center; }
+  .pf-tl2__head .hm-h2 { text-align: center; }
+  .pf-tl2__list .c { padding: 19px; gap: 8px; }
+  .pf-tl2__list h3 { font-size: 20px; }
+  .pf-tl2__hl-n img.leak { left: -.5px; right: auto; height: 495px; }
+  .pf-tl2__hl-c .leak { inset: auto; left: -138.5px; top: 117.5px; width: 557px; height: 255px; }
+  .pf-tl2__hl-c .leak img { transform: rotate(10.9deg) skewX(8.2deg); }
+  .pf-tl2__hl-c img.ell--d { display: none; }
+  .pf-tl2__hl-c img.ell--m { display: block; }
 }
 
 .pf-stories { background: #fdfffe; }
