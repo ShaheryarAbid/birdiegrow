@@ -1,6 +1,7 @@
 // Content for the mobile app feature page: /features/mobile-app/ (src/pages/features/mobile-app.astro).
 // NOT CONFIRMED: the mobile app isn't verified as offered, so nothing here should be reused on other pages yet.
 // Prices come from Figma and the store badges have no URLs. See the page header for what's needed to go live.
+// The app and Figma pricing are not confirmed, and no official store listings were found.
 
 import { SITE } from '../../consts';
 import { PRICING } from '../product';
@@ -35,6 +36,7 @@ export const MOBILE_APP = {
         imageHeight: 24,
       },
     ],
+    // primary: { label: 'Book a demo', href: SITE.demoPath },
   },
   screens: {
     heading: 'What golfers see.',
