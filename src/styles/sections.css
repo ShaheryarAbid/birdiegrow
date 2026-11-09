@@ -102,9 +102,12 @@
 /* ===== sx-: shared section components (compare / templates) ===== */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .sx-logo { position: relative; display: inline-block; flex: none; }
-.sx-logo img { position: absolute; object-fit: cover; max-width: none; }
+.sx-logo img:not(.sx-logo__plate):not(.sx-logo__standalone) { position: absolute; object-fit: cover; max-width: none; }
+.sx-logo img.sx-logo__plate { position: static; display: block; width: 100%; height: 100%; object-fit: contain; max-width: none; }
+.sx-logo img.sx-logo__standalone { position: static; display: block; width: 100%; height: 100%; object-fit: contain; max-width: none; }
 .sx-logo--white img { filter: brightness(0) invert(1); }
 .sx-logo--black img { filter: brightness(0); }
+.sx-logo__white { filter: brightness(0) invert(1); }
 
 /* Hero (split / center) */
 .sx-hero { background: #fdfffe; padding: 60px max(80px, calc((100% - 1280px) / 2)) 80px; display: flex; gap: 60px; align-items: center; position: relative; }
@@ -121,10 +124,10 @@
 .sx-hero--dark { background: #000; color: #fff; }
 
 /* Versus card (hero visual) */
-.sx-versus { position: relative; height: 473px; border-radius: 20px; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
-.sx-versus .hm-gl__bg .bg { left: -80px; top: -640px; }
+.sx-versus { position: relative; height: 473px; border-radius: 20px; overflow: hidden; background: #000 url('/assets/compare/ch-hero-card-bg.png') center / cover no-repeat; display: flex; align-items: center; justify-content: center; }
 .sx-versus__col { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 20px; width: 382px; flex: none; }
-.sx-vrow { display: flex; gap: 10px; padding: 10px; border-radius: 30px; background: rgba(255,255,255,.1); box-shadow: 0 40px 40px rgba(0,0,0,.1), 0 20px 20px rgba(0,0,0,.1), 0 10px 10px rgba(0,0,0,.1); }
+.sx-vrow { position: relative; isolation: isolate; display: flex; gap: 10px; padding: 10px; border: 1px solid rgba(255,255,255,.28); border-radius: 30px; background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.055) 48%, rgba(255,255,255,.14)); -webkit-backdrop-filter: blur(18px) saturate(135%); backdrop-filter: blur(18px) saturate(135%); box-shadow: 0 40px 40px rgba(0,0,0,.1), 0 20px 20px rgba(0,0,0,.1), 0 10px 10px rgba(0,0,0,.1); }
+.sx-vrow::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(255,255,255,.13), transparent 34%, rgba(0,0,0,.08)); pointer-events: none; }
 .sx-vrow--ghost { opacity: .5; }
 .sx-vtile { width: 176.33px; height: 176.33px; border-radius: 20px; display: grid; place-items: center; flex: none; overflow: hidden; }
 .sx-vtile--white { background: #fdfffe; box-shadow: 0 20px 20px rgba(0,0,0,.1), 0 10px 10px rgba(0,0,0,.1), 0 5px 5px rgba(0,0,0,.1); }
@@ -263,7 +266,7 @@ a.sx-plate:focus-visible { outline: 2px solid var(--green-600); outline-offset: 
   .sx-tbl__hint span.is-on { width: 32px; background: #000407; }
   .sx-acc { flex-direction: column; }
   .sx-acc__card { flex: none; height: 80px; padding: 16px; }
-  .sx-acc__card.is-open { height: auto; min-height: 0; gap: 24px; }
+  .sx-acc__card.is-open { flex: none; height: auto; min-height: 0; gap: 24px; }
   .sx-tile { width: 48px; height: 48px; border-radius: 10px; }
   .sx-tile .leak { width: 150px; height: 248px; left: -100px; top: -122px; }
   .sx-tile .glyph { width: 24px; height: 24px; }
@@ -272,7 +275,8 @@ a.sx-plate:focus-visible { outline: 2px solid var(--green-600); outline-offset: 
   .sx-plates { grid-template-columns: repeat(2, 1fr); }
   .sx-gcards { grid-template-columns: 1fr; }
   .sx-vcards { flex-direction: column; }
-  .sx-vcard, .sx-vbox { padding: 20px; }
+  .sx-vcard { flex: none; gap: 20px; padding: 20px; }
+  .sx-vbox { padding: 20px; }
   .sx-fgrid { grid-template-columns: 1fr; }
   .hm-sec { padding: 56px 16px; }
   .hm-round { --r: 24px; }
@@ -677,13 +681,28 @@ tr.hl .sx-ok { color: var(--green-500, #22c55e); }
 .sx-hub__grid .sx-icard > p { font-size: 15px; line-height: 1.4; }
 .sx-hub__grid .sx-icard__go { padding-top: 12px; font-size: 16px; }
 
-/* Verdict dark card: Figma uses a dark aurora gradient, not a photo behind the copy */
-.sx-vcard--dark .sx-vcard__art img { display: none; }
-.sx-vcard--dark .sx-vcard__art { background:
-  radial-gradient(60% 40% at 85% 0%, rgba(255,150,60,.35), transparent 70%),
-  radial-gradient(70% 45% at 60% 0%, rgba(40,200,120,.30), transparent 70%),
-  radial-gradient(50% 40% at 15% 0%, rgba(120,60,200,.22), transparent 70%); }
+.comparison-page .sx-acc__card.is-open .sx-acc__art { background: url('/assets/compare/compare-card-bg.png') center / cover no-repeat; }
+.comparison-page .sx-versus__col .sx-vtile:not(.sx-vtile--white) { background: transparent; }
+.comparison-page .sx-versus__col .sx-vtile { position: relative; }
+.comparison-page .sx-versus__col .sx-vtile .sx-logo--plate-art { position: absolute; left: 50%; top: 50%; max-width: none; transform: translate(-50%, -50%); }
+.comparison-page .sx-tbl thead .c .sx-logo { top: 0; }
+.comparison-page .sx-acc__card:not(.is-open) .sx-tile { background: #000407 url('/assets/home/color-pixel.webp') center / cover no-repeat; }
+.comparison-page .sx-acc__card:not(.is-open) .sx-tile::after { content: ''; position: absolute; inset: 0; background: url('/assets/home/grain.svg'); mix-blend-mode: soft-light; opacity: .6; pointer-events: none; }
+.comparison-page .sx-acc__card:not(.is-open) .sx-tile .glyph { position: relative; z-index: 1; }
+.comparison-page .sx-acc__card:not(.is-open) .sx-tile .glyph { filter: brightness(0) invert(1); }
+.comparison-page .sx-acc__card:not(.is-open) .sx-tile .glyph[src$="icon-bill.svg"] { filter: none; }
+.comparison-page .sx-acc__card.is-open .sx-tile .glyph { filter: brightness(0); }
+.comparison-page .sx-acc__card.is-open .sx-tile .glyph[src$="icon-bill.svg"] { filter: invert(1); }
+.comparison-page .sx-vcard--dark .sx-vcard__art { background: url('/assets/compare/verdict-left-card-bg.png') top right / cover no-repeat; }
+.comparison-page .sx-vcard .sx-logo--plate-art { margin-left: calc(-1 * var(--sx-logo-art-start, 0px)); }
 .sx-vcard--dark { color: #e5e7e6; }
+.comparison-page .hm-faqs { overflow: visible; }
+.comparison-page .hm-faqs > .hm-h2,
+.comparison-page .hm-faqs > .hm-faqs__head { position: sticky; top: 120px; align-self: start; }
+@media (max-width: 900px) {
+  .comparison-page .hm-faqs > .hm-h2,
+  .comparison-page .hm-faqs > .hm-faqs__head { position: static; top: auto; }
+}
 
 /* SEO hero: no-WebGPU fallback (also headless) — Figma look is a dark green tint, never the bright blurred photo */
 .sx-seo__bg .hm-shader:not(:has(canvas)) .px, .sx-seo__bg .hm-shader:not(:has(canvas)) ~ .hm-noise { display: none; }

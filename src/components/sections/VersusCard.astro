@@ -2,24 +2,18 @@
 /** Hero visual for comparison pages: Birdie plate next to the competitor logo on the dark glow card (Figma 312:16643). */
 import '../../styles/sections.css';
 import Logo from './Logo.astro';
-import { SHADER_DARK } from '../../data/shader';
+import { COMPARE_LOGOS } from '../../data/compareLogos';
 export interface Props { slug: string; name: string; }
 const { slug, name } = Astro.props;
-const A = '/assets/home/';
+const logoFromPlate = Boolean(COMPARE_LOGOS[slug]?.standalone);
+const heroLogoMono = slug === 'birdie-vs-birrdi' ? undefined : 'white';
 ---
 <div class="sx-versus" role="img" aria-label={`Birdie versus ${name}`}>
-  <div class="hm-gl__bg">
-    <img class="bg" src={`${A}compat-bg.webp`} alt="" loading="lazy" />
-    <div class="fade"></div>
-    <div class="hm-shader hm-shader--soft" data-shader-params={SHADER_DARK}><div class="px"></div></div>
-    <div class="hm-noise" style="background:#fdfffe"></div>
-    <div class="img"><img src={`${A}compat-img.webp`} alt="" loading="lazy" /></div>
-  </div>
   <div class="sx-versus__col" aria-hidden="true">
     <div class="sx-vrow sx-vrow--ghost"><div class="sx-vtile"></div></div>
     <div class="sx-vrow">
       <div class="sx-vtile sx-vtile--white"><img class="birdie" src="/assets/sections/birdie-logo-dark.svg" alt="" width="113" height="30" /></div>
-      <div class="sx-vtile"><Logo slug={slug} maxW={113} maxH={40} mono="white" /></div>
+      <div class="sx-vtile"><Logo slug={slug} maxW={logoFromPlate ? 247 : 156} maxH={logoFromPlate ? 88 : 72} mono={heroLogoMono} loading="eager" /></div>
     </div>
     <div class="sx-vrow sx-vrow--ghost"><div class="sx-vtile"></div></div>
   </div>

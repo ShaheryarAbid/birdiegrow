@@ -1,18 +1,28 @@
 ---
 /** A competitor logo (Figma logo-plate content) scaled to fit maxW x maxH. */
-import { COMPARE_LOGOS } from '../../data/compareLogos';
-export interface Props { slug: string; alt?: string; maxW?: number; maxH?: number; mono?: 'white' | 'black'; class?: string; }
-const { slug, alt = '', maxW, maxH, mono, class: cls = '' } = Astro.props;
+import { COMPARE_LOGOS, COMPARE_PLATE_LOGOS } from '../../data/compareLogos';
+export interface Props { slug: string; alt?: string; maxW?: number; maxH?: number; mono?: 'white' | 'black'; plate?: boolean; class?: string; loading?: 'eager' | 'lazy'; }
+const { slug, alt = '', maxW, maxH, mono, plate = false, class: cls = '', loading = 'lazy' } = Astro.props;
 const spec = COMPARE_LOGOS[slug];
-const k = spec ? Math.min(maxW ? maxW / spec.w : 1, maxH ? maxH / spec.h : 1) : 1;
-const W = spec ? +(spec.w * k).toFixed(2) : 0;
-const H = spec ? +(spec.h * k).toFixed(2) : 0;
+const plateSrc = plate ? COMPARE_PLATE_LOGOS[slug] : undefined;
+const whiteParts = mono === 'white' ? spec?.whiteParts : undefined;
+const effectiveMono = whiteParts || (spec?.standalone && mono === 'black') ? undefined : mono;
+const sourceW = plateSrc ? 247 : spec?.w ?? 0;
+const sourceH = plateSrc ? 88 : spec?.h ?? 0;
+const k = sourceW && sourceH ? Math.min(maxW ? maxW / sourceW : 1, maxH ? maxH / sourceH : 1) : 1;
+const W = sourceW ? +(sourceW * k).toFixed(2) : 0;
+const H = sourceH ? +(sourceH * k).toFixed(2) : 0;
+const artStartX = spec?.artStartX ? +(spec.artStartX * k).toFixed(2) : 0;
 const pct = (v: number, t: number) => `${((v / t) * 100).toFixed(3)}%`;
 ---
-{spec && (
-  <span class={`sx-logo${mono ? ` sx-logo--${mono}` : ''} ${cls}`.trim()} style={`width:${W}px;height:${H}px`} role={alt ? 'img' : undefined} aria-label={alt || undefined}>
-    {spec.parts.map((p) => (
-      <img src={p.src} alt="" loading="lazy" style={`left:${pct(p.x, spec.w)};top:${pct(p.y, spec.h)};width:${pct(p.w, spec.w)};height:${pct(p.h, spec.h)}${p.pos ? ';object-position:bottom' : ''}`} />
+{(plateSrc || spec) && (
+  <span class={`sx-logo${effectiveMono ? ` sx-logo--${effectiveMono}` : ''}${spec?.standalone ? ' sx-logo--plate-art' : ''} ${cls}`.trim()} style={`width:${W}px;height:${H}px;--sx-logo-art-start:${artStartX}px`} role={alt ? 'img' : undefined} aria-label={alt || undefined}>
+    {plateSrc ? <img class="sx-logo__plate" src={plateSrc} alt="" loading={loading} /> : whiteParts ? whiteParts.map((p) => (
+      <img class={p.white ? 'sx-logo__white' : ''} src={p.src} alt="" loading={loading} style={`left:${pct(p.x, spec.w)};top:${pct(p.y, spec.h)};width:${pct(p.w, spec.w)};height:${pct(p.h, spec.h)}${p.pos ? ';object-position:bottom' : ''}`} />
+    )) : spec?.standalone ? (
+      <img class="sx-logo__standalone" src={spec.standalone} alt="" loading={loading} />
+    ) : spec?.parts.map((p) => (
+      <img src={p.src} alt="" loading={loading} style={`left:${pct(p.x, spec.w)};top:${pct(p.y, spec.h)};width:${pct(p.w, spec.w)};height:${pct(p.h, spec.h)}${p.pos ? ';object-position:bottom' : ''}`} />
     ))}
   </span>
 )}

@@ -16,7 +16,6 @@ import Faq from '../components/sections/Faq.astro';
 import VerdictCards from '../components/sections/VerdictCards.astro';
 import FeatureGrid from '../components/sections/FeatureGrid.astro';
 import Cta from '../components/sections/Cta.astro';
-import TextLink from '../components/TextLink.astro';
 
 export async function getStaticPaths() {
   const paths: any[] = [];
@@ -141,7 +140,7 @@ const guideItems = [
 const otherPlates = COMPARISONS.filter((x) => x.slug !== slug).map((x) => ({ slug: x.slug, name: x.name, href: `/${x.slug}/` }));
 ---
 <BaseLayout title={title} description={description} schema={schema} headerVariant="light">
-<div class="hm">
+<div class:list={['hm', p.kind === 'comparison' && 'comparison-page']}>
   {p.kind === 'comparison' && comp ? (
     <Fragment>
       <Hero h1={h1} lead={intro} primary={{ label: 'Book a Demo', href: SITE.demoPath }} secondary={{ label: comp.secondaryBtn, href: '/pricing/' }}>
@@ -150,9 +149,7 @@ const otherPlates = COMPARISONS.filter((x) => x.slug !== slug).map((x) => ({ slu
       <ComparisonTable heading={`Birdie vs ${p.competitor}`} slug={slug!} name={p.competitor} rows={comp.rows} />
       <Glance facts={PRODUCT_FACTS} />
       <StatCards heading={comp.cardsEyebrow} items={comp.cards} note="Most operators are live and taking bookings within 24 hours of signup." />
-      <LogoPlates heading="Compare Birdie to other platforms" items={otherPlates}>
-        <TextLink href="/best-golf-simulator-software/">Best Golf Simulator Booking Software (2026)</TextLink>
-      </LogoPlates>
+      <LogoPlates heading="Compare Birdie to other platforms" items={otherPlates} fullPlateLogos />
       <GuideCards heading="Keep reading" items={guideItems} />
       {compFaqs.length > 0 && <Faq heading={`Birdie vs ${p.competitor}: common questions`} items={compFaqs} open={1} round={false} />}
       {comp.verdict && comp.verdict.length > 0 && <VerdictCards heading={`Verdict: Birdie vs ${p.competitor}`} slug={slug!} name={p.competitor} paragraphs={comp.verdict} />}

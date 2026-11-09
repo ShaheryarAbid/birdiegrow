@@ -6,6 +6,7 @@
  */
 import '../../styles/sections.css';
 import Logo from './Logo.astro';
+import { COMPARE_LOGOS } from '../../data/compareLogos';
 import { SHADER_DARK } from '../../data/shader';
 export interface Props { heading: string; slug: string; name: string; paragraphs: string[]; }
 const { heading, slug, name, paragraphs } = Astro.props;
@@ -13,6 +14,7 @@ const verdict = paragraphs.length >= 3 ? paragraphs[paragraphs.length - 1] : nul
 const body = verdict ? paragraphs.slice(0, -1) : paragraphs;
 const birdie = body.filter((p) => /^Birdie\b/.test(p));
 const other = body.filter((p) => !/^Birdie\b/.test(p));
+const logoFromPlate = Boolean(COMPARE_LOGOS[slug]?.standalone);
 ---
 <section class="hm-sec hm-white hm-stack">
   <div class="hm-intro"><h2 class="hm-h2">{heading}<i>.</i></h2></div>
@@ -20,13 +22,13 @@ const other = body.filter((p) => !/^Birdie\b/.test(p));
     <div class="sx-vcards">
       {other.length > 0 && (
         <div class="sx-vcard">
-          <div class="hd"><Logo slug={slug} alt={name} maxW={110} maxH={32} /></div>
+          <div class="hd"><Logo slug={slug} alt={name} maxW={logoFromPlate ? 247 : 140} maxH={logoFromPlate ? 88 : 48} mono="black" loading="eager" /></div>
           <div class="tx">{other.map((p) => <p>{p}</p>)}</div>
         </div>
       )}
       {birdie.length > 0 && (
         <div class="sx-vcard sx-vcard--dark">
-          <div class="sx-vcard__art"><img src="/assets/sections/feature-artwork.webp" alt="" loading="lazy" /><div class="hm-shader hm-shader--overlay" data-shader-params={SHADER_DARK}><div class="px"></div></div><div class="hm-noise"></div></div>
+          <div class="sx-vcard__art"></div>
           <div class="hd"><img src="/assets/sections/birdie-logo-white.svg" alt="Birdie" width="98" height="26" style="height:26px;width:auto" /></div>
           <div class="tx">{birdie.map((p) => <p>{p}</p>)}</div>
         </div>
