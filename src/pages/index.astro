@@ -31,18 +31,18 @@ const ownerViews = [
   ['Bookings', 'Full control over your daily bookings and schedule.', 'home/preview-calendar'],
   ['Booking Home', 'Pick a bay, a time and a group size. Pay. Done in under 30 seconds.', 'home/preview-analytics'],
   ['Analytics', 'Weekday occupancy, revenue per bay and the hours that sit empty.', 'home/preview-membership'],
-  ['Messages', 'Automated text and email confirmations, reminders and receipts.', 'demo-messages-mobile-CMOUn86E'],
-  ['Payments', 'Stripe, Square, Clover and Helcim (beta) built into the booking flow.', 'demo-payments-mobile-BsHYhvnk'],
+  ['Messages', 'Automated text and email confirmations, reminders and receipts.', 'home/preview-messages'],
+  ['Payments', 'Stripe, Square, Clover and Helcim (beta) built into the booking flow.', 'home/preview-payments'],
 ];
-const guestViews = [
-  ['Bay calendar', 'Real-time availability across all bays.', 'home/preview-calendar'],
-  ['Booking home', 'Pick a bay, a time and a group size. Pay. Done in under 30 seconds.', 'home/preview-booking'],
-  ['Analytics', 'Weekday occupancy, revenue per bay and the hours that sit empty.', 'home/preview-analytics'],
-  ...ownerViews.slice(2),
-];
-const groups = [['Owner dashboard', ownerViews], ['Booking Experience', guestViews]];
-// AccordionPreview groups (one tab each). Items: images under /assets/home are phone renders, the rest are bare screenshots drawn in a phone frame.
-const previewGroups = groups.map(([label, views]) => ({ label: label as string, items: (views as string[][]).map(([l, text, img]) => ({ label: l, text, img: `/assets/${img}.webp`, kind: (img.startsWith('home/') ? 'render' : 'screen') as 'render' | 'screen' })) }));
+// Show the owner dashboard directly; its images are full phone renders.
+const previewGroups = [{
+  items: ownerViews.map(([label, text, image]) => ({
+    label,
+    text,
+    img: `/assets/${image}.webp`,
+    kind: 'render' as const,
+  })),
+}];
 
 const process = [
   ['01', 'Empty weekday bays', 'Most venues run at 40% weekday utilization. The right system surfaces those gaps and helps you fill them.', 'Payments & revenue', '/revenue/'],

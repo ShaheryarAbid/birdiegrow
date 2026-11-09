@@ -17,6 +17,10 @@
 .hm-pp__item.is-open .chev img { transform: rotate(180deg); }
 .hm-pp__art { position: absolute; right: 0; top: 0; width: 620px; height: 595px; pointer-events: none; }
 .hm-pp__art > img { width: 100%; height: auto; }
+.hm-pp__art:has(img[src$="/preview-messages.webp"]) { display: flex; align-items: flex-start; justify-content: center; }
+.hm-pp__art:has(img[src$="/preview-payments.webp"]) { display: flex; align-items: flex-end; justify-content: center; }
+.hm-pp__art:has(img[src$="/preview-messages.webp"]) > img,
+.hm-pp__art:has(img[src$="/preview-payments.webp"]) > img { width: auto; height: 85%; max-width: 100%; margin: 0; object-fit: contain; }
 .hm-pp__art[data-kind="screen"] { display: flex; justify-content: center; align-items: flex-start; padding-top: 40px; }
 .hm-pp__art[data-kind="screen"] > img { width: 280px; height: auto; border: 8px solid #000407; border-radius: 40px; box-shadow: 0 14px 20px #0002; }
 
