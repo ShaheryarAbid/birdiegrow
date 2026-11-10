@@ -7,20 +7,32 @@
 import { gd } from '../../lib/gd';
 import '../../styles/sections.css';
 import '../../styles/product.css';
-export interface Group { label: string; title?: string; items: [string, string?][]; }
+export interface Group {
+  label: string;
+  title?: string;
+  items: [string, string?][];
+  columnBreakAt?: number;
+  sections?: { heading: string; items: [string, string?][]; columnBreakAt?: number }[];
+}
 export interface Props { heading: string; sub?: string; id?: string; groups: Group[]; variant?: 'side' | 'pills'; }
 const { heading, sub, id, groups, variant = 'side' } = Astro.props;
 const endsPunct = /[.?!]$/.test(heading.trim());
 ---
 <section class="hm-sec hm-white hm-stack" id={id}>
   <div class="hm-intro"><h2 class="hm-h2" set:html={gd(heading)} />{sub && <p class="hm-sub" style="max-width:640px">{sub}</p>}</div>
-  <div class={`pf-side${variant === 'pills' ? ' pf-side--pills' : ''}`} data-pf-side>
+  <div class={`pf-side${variant === 'pills' ? ' pf-side--pills' : ''}${id === 'all-features' ? ' pf-side--inventory' : ''}`} data-pf-side>
     <div class="pf-side__nav" role="tablist" hidden>{groups.map((g, i) => <button type="button" role="tab" class={i === 0 ? 'is-on' : ''}>{g.label}</button>)}</div>
     <div class="pf-side__panels">
       {groups.map((g, i) => (
         <div class={`pf-side__panel${i === 0 ? ' is-on' : ''}`} role="tabpanel">
           <h3>{g.title ?? g.label}</h3>
-          <ul>{g.items.map(([t, d]) => <li><b>{t}</b>{d}</li>)}</ul>
+          <ul style={`--pf-list-rows:${g.columnBreakAt ?? Math.ceil(g.items.length / 2)}`} class="pf-side__items">{g.items.map(([t, d]) => <li><b>{t}</b>{d}</li>)}</ul>
+          {g.sections?.map((section) => (
+            <section class="pf-side__subsection">
+              <h3>{section.heading}</h3>
+              <ul style={`--pf-list-rows:${section.columnBreakAt ?? Math.ceil(section.items.length / 2)}`} class="pf-side__items">{section.items.map(([t, d]) => <li><b>{t}</b>{d}</li>)}</ul>
+            </section>
+          ))}
         </div>
       ))}
     </div>

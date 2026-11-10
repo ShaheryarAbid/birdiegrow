@@ -26,6 +26,17 @@ const productFacts: [string, string][] = [
   ['Pricing', 'From $197/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
   ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
 ];
+const productFactPresentations = {
+  'Best for': { title: 'Weekday utilization and revenue growth', chips: ['Weekdays', 'Staffed venues', 'Unmanned 24/7'] },
+  'Works with': { title: 'Any simulator, any game software', chips: ['TrackMan', 'GSPro', 'E6 Connect', 'TruGolf'] },
+  'Integrations': { title: 'Payments, door access, SMS and email', chips: ['Square', 'Clover', 'Kisi', 'PDK', '+6 more'] },
+  'Pricing': { title: 'From $197/month flat', chips: ['No per-booking fees', 'Month-to-month', 'No percentage of revenue'] },
+  'Setup': { title: 'Live in about 24 hours', chips: ['One-time fee', 'White-glove onboarding', 'No developers required'] },
+};
+const scalePresentation = {
+  title: 'Simulator venues across the US and Canada',
+  chips: ['180+ active clients', 'US', 'Canada'],
+};
 
 const ownerViews = [
   ['Bookings', 'Full control over your daily bookings and schedule.', 'home/preview-calendar'],
@@ -50,9 +61,9 @@ const process = [
   ['03', 'Software built for gyms, not simulators', 'Hourly bays, group bookings, weekday pricing, memberships — generic tools weren’t built for how you operate.', 'Product overview', '/features/'],
 ];
 const featTabs = [
-  ['Booking', 'Fill the calendar', ['Real-time availability across every bay', 'Add-ons at checkout: BYOB, guests, custom items', 'Square payment inside the flow', 'Works on any phone in under 30 seconds']],
-  ['Members', 'Keep them coming back', ['Membership plans with hour banks and bay restrictions', 'Auto-segments customers inactive 60+ days', 'One-click reactivation campaigns by SMS or email', 'Automated Google review prompts after every session']],
-  ['Access', 'Run it unattended, 24/7', ['SMS unlock — no app, PIN or staff needed', 'Time-gated door access tied to the booking', 'Works with Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock', 'Every entry logged against the booking']],
+  ['Booking', 'Fill the calendar', ['Real-time availability across every bay', 'Add-ons at checkout: BYOB, guests, custom items', 'Square payment inside the flow', 'Works on any phone in under 30 seconds'], null],
+  ['Members', 'Keep members coming back', ['Hour banks, bay restrictions, advance booking windows', 'Monthly, quarterly, annual and 6-month prepaid billing', 'Family, household and group plans with seats', 'Member self-service: self-cancel, cancel at period end, self-pause'], 'members-right.png'],
+  ['Access', 'Open the door 24/7', ['An unlock link or PIN with every booking, sent by text or email', 'A fallback and an owner alert if a door does not open', 'Works with Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock', 'A window you set, per venue'], 'access-right.png'],
 ];
 // "Live in 24 hours" setup steps (SetupTimeline). Icons are the Figma 40px glyphs in /assets/home.
 const setup = [
@@ -66,6 +77,7 @@ const stories = [
   ['All Seasons Indoor Golf', 'Bryan Moore · All-in-one operation', 'story-2.webp', 'Kansas City, MO', 'Runs one of Kansas City’s top indoor golf destinations on Birdie — bookings, memberships, marketing, and reporting, all on one platform.'],
   ['Fairways Pub Grub & Indoor Golf', 'Danny · Pub + kitchen + golf', 'story-3.webp', 'Lancaster, CA', 'Runs a hybrid pub, kitchen, and indoor golf venue — managing bookings, memberships, leagues, and event packages all in one place.'],
   ['GoGolf Lounge', 'Deep · New venue · Onboarding to launch', 'story-4.webp', 'North Attleboro, MA', 'Deep is opening GoGolf Lounge, a new indoor golf simulator venue in North Attleboro. He shares his experience building the business on Birdie from onboarding through opening day.'],
+  ['Indoor Golf Venue', 'Dorian · Golf Lounge Owner', '/assets/customers/story-6.webp', 'Texas', 'BirdieGrow enabled a fully unmanned, self-service golf lounge by integrating the website, booking system, and alarm system.'],
 ];
 // 13 x 3 grid copied from the Figma "Mask group": [file, width, height] per tile, null = empty tile.
 const gridTiles: ([string, number, number] | [string, number, number, string] | null)[] = [
@@ -134,7 +146,7 @@ const demo = SITE.demoPath;
   </section>
 
   <!-- Birdie at a glance -->
-  <Glance facts={productFacts} />
+  <Glance facts={productFacts} presentationOverrides={productFactPresentations} scalePresentation={scalePresentation} />
 
   <!-- Problems / process -->
   <section class="hm-sec hm-white">
@@ -169,8 +181,8 @@ const demo = SITE.demoPath;
       <div class="hm-feat__bg">
         <img src={`${A}product-previews.webp`} alt="" loading="lazy" />
       </div>
-      {featTabs.map(([, h, items], i) => (
-        <div class={`hm-feat__pane${i === 0 ? ' is-on' : ''}`} data-pane={i}>
+      {featTabs.map(([, h, items, artwork], i) => (
+        <div class={`hm-feat__pane${i === 0 ? ' is-on' : ''}${artwork ? ' has-artwork' : ''}${artwork === 'members-right.png' ? ' is-members-artwork' : ''}${artwork === 'access-right.png' ? ' is-access-artwork' : ''}`} data-pane={i}>
           <div class="hm-feat__text">
             <div>
               <h3>{h}</h3>
@@ -178,6 +190,7 @@ const demo = SITE.demoPath;
             </div>
             <div class="hm-btns" style="margin-top:24px"><Button href={demo} mode="light">Book a demo</Button></div>
           </div>
+          {artwork && <img class="hm-feat__artwork" src={`${A}${artwork}`} alt="" aria-hidden="true" loading="lazy" />}
           {i === 0 && (
             <div class="hm-form" aria-hidden="true">
               <div class="h"><span>Date: September 2026</span><img src={`${A}icon-calendar.svg`} alt="" width="16" height="16" /></div>
@@ -192,9 +205,6 @@ const demo = SITE.demoPath;
           )}
         </div>
       ))}
-      <div class="hm-feat__dots" aria-label="Feature sections">
-        {featTabs.map(([, h], i) => <button type="button" class={i === 0 ? 'on' : ''} data-dot={i} aria-label={h}></button>)}
-      </div>
     </div>
   </section>
 
@@ -211,23 +221,33 @@ const demo = SITE.demoPath;
   />
 
   <!-- Customer stories -->
-  <section class="hm-sec hm-stories hm-round hm-stack">
+  <section class="hm-sec hm-stories hm-stories--home hm-round hm-stack">
     <div class="hm-stories__head">
       <div class="hm-intro">
         <h2 class="hm-h2">Owners who run on Birdie<i>.</i></h2>
         <p class="hm-sub">Customer stories. From unattended 24/7 clubs to full pub-and-kitchen venues — hear it from the owners.</p>
       </div>
-      <Button href="/customers/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">See all customer stories <img src={`${A}arrow-right-dark.svg`} alt="" width="16" height="16" /></Button>
     </div>
-    <div class="hm-stories__row">
+    <div class="hm-stories__viewport" id="home-stories-viewport" role="region" aria-roledescription="carousel" aria-label="Customer stories">
       {stories.map(([n, by, img, loc, desc]) => (
-        <a class="hm-story" href="/customers/">
-          <img class="bg" src={`${A}${img}`} alt="" loading="lazy" />
+        <a class="hm-story" href="/customers/" aria-roledescription="slide">
+          <img class="bg" src={img.startsWith('/') ? img : `${A}${img}`} alt="" loading="lazy" />
           <span class="pin"><img src={`${A}icon-pin.svg`} alt="" />{loc}</span>
           <span class="go bd-btn bd-btn--secondary-dark"><img src={`${A}icon-arrow-up-right.svg`} alt="" /></span>
           <div><h3>{n}</h3><div class="by">{by}</div><p>{desc}</p></div>
         </a>
       ))}
+    </div>
+    <div class="hm-stories__controls">
+      <div class="hm-stories__arrows" aria-label="Customer story navigation">
+        <button type="button" class="hm-stories__arrow" data-story-prev aria-label="Previous customer stories" aria-controls="home-stories-viewport" disabled>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m10 3-5 5 5 5" /></svg>
+        </button>
+        <button type="button" class="hm-stories__arrow" data-story-next aria-label="Next customer stories" aria-controls="home-stories-viewport">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" /></svg>
+        </button>
+      </div>
+      <Button href="/customers/" mode="dark" hierarchy="secondary" class="bd-btn--secondary-light hm-stories__cta">See all customer stories <img src={`${A}arrow-right-dark.svg`} alt="" width="16" height="16" /></Button>
     </div>
   </section>
 
@@ -288,11 +308,7 @@ const demo = SITE.demoPath;
   const featureBar = document.getElementById('feat-tabs');
   if (featureBar) {
     const featBtns = Array.from(featureBar.querySelectorAll<HTMLButtonElement>('button'));
-    const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.hm-feat__dots button'));
-    setupTabs(featureBar.parentElement!, featureBar, featBtns, Array.from(document.querySelectorAll<HTMLElement>('.hm-feat__pane')), {
-      onSelect: (index) => dots.forEach((d, i) => d.classList.toggle('on', i === index)),
-    });
-    dots.forEach((d, i) => d.addEventListener('click', () => featBtns[i]?.click()));
+    setupTabs(featureBar.parentElement!, featureBar, featBtns, Array.from(document.querySelectorAll<HTMLElement>('.hm-feat__pane')));
   }
 </script>
 </BaseLayout>

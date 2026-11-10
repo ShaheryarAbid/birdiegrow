@@ -12,6 +12,8 @@ export interface Props {
   heading?: string;
   sub?: string;
   chips?: string[];
+  presentationOverrides?: Record<string, { title: string; chips: string[] }>;
+  scalePresentation?: { title: string; chips: string[] };
   id?: string;
   /** remove the top padding so it butts against the previous white section (Home) */
   flush?: boolean;
@@ -31,6 +33,8 @@ const {
   heading = 'Birdie at a glance',
   sub = 'The short version, for owners comparing booking systems.',
   chips = ['TrackMan', 'GSPro', 'Foresight', 'E6 Connect', 'TruGolf', 'Uneekor'],
+  presentationOverrides = {},
+  scalePresentation = { title: 'Built for real simulator venues', chips: ['180+ venues'] },
   id = 'glance',
   flush = false,
   flip = false,
@@ -45,6 +49,7 @@ const presentations: Record<string, { title: string; chips: string[] }> = {
   'Integrations': { title: 'Payments, smart\nlocks and messaging', chips: ['Square', 'Stripe', 'Clover', 'Kisi', 'PDK', 'Telnyx', 'UniFi Access', 'Avigilon Alta', 'RemoteLock'] },
   'Pricing': { title: 'One flat monthly price', chips: ['From $197/month', 'No per-booking fees'] },
   'Setup': { title: 'Live in 24 hours', chips: ['Done-for-you setup', 'No developers needed'] },
+  ...presentationOverrides,
 };
 ---
 <section class="hm-sec hm-white hm-stack" style={flush ? 'padding-top:0' : undefined} id={id}>
@@ -65,8 +70,8 @@ const presentations: Record<string, { title: string; chips: string[] }> = {
         ))}
         {hasScale && (
           <div class="hm-gl__slide" data-slide={facts.length}>
-            <div><small>Scale</small><h3>Built for real simulator venues</h3></div>
-            <div class="hm-gl__chips"><span>180+ venues</span></div>
+            <div><small>Scale</small><h3>{scalePresentation.title}</h3></div>
+            <div class="hm-gl__chips">{scalePresentation.chips.map((chip) => <span>{chip}</span>)}</div>
             <p>
               {PROOF.activeClients && (<><StatCounter value={PROOF.activeClients} /> active clients run their simulator venues on Birdie. </>)}
               {PROOF.cumulativeBookings && (<><StatCounter value={PROOF.cumulativeBookings} /> bookings processed to date. </>)}

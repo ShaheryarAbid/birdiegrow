@@ -12,8 +12,11 @@ import '../styles/setup-timeline.css';
 const title = 'Revenue Intelligence for Golf Simulator Studios | Birdie';
 const description = 'Birdie reveals which bays, days, and hours are costing you money — and gives you the tools to recover the weekday revenue you can\'t currently see.';
 
-const heroStats: [string, string][] = [
-  ['3,150', 'average monthly revenue gap Birdie finds'],
+const heroTicker = [
+  { value: '$3,150', label: 'average monthly revenue gap Birdie finds' },
+  { value: '42', accent: '%', label: 'Typical weekday occupancy before Birdie' },
+  { value: '+27', accent: '%', label: 'Weekday utilization lift after 60 days' },
+  { value: '60', accent: '+', label: 'Days of lapsed customers recovered' },
 ];
 const problemBullets = [
   'Reveals exactly which hours sit empty each week',
@@ -63,7 +66,7 @@ const GAP_ICONS = [
     lead="Birdie reveals which bays, days, and hours are costing you money — and gives you the tools to fix it. Built with real simulator operators."
     primary={{ label: 'Book a demo', href: SITE.demoPath }}
     secondary={{ label: 'See how it works', href: '#revenue-system' }}
-    stats={heroStats}
+    ticker={heroTicker}
   />
 
   <section class="hm-sec hm-white hm-stack rv-gap">

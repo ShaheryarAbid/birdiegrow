@@ -27,6 +27,8 @@ export interface Props {
   badges?: Badge[];
   badgeNote?: string;
   stats?: [string, string][];
+  /** Auto-rotating stat ticker for dark heros (e.g. /revenue/). Falls back to `stats` grid under reduced motion. */
+  ticker?: { value: string; accent?: string; label: string }[];
   mobileX?: number;
   mobileScale?: number;
   mobileY?: number;
@@ -34,7 +36,7 @@ export interface Props {
   shadow?: boolean;
   extraClass?: string;
 }
-const { h1, lead, crumb, primary, secondary, center = false, tall = false, bg, layers = [], badges = [], badgeNote, stats = [], mobileX, mobileScale, mobileY, wide = false, shadow = true, extraClass = '' } = Astro.props;
+const { h1, lead, crumb, primary, secondary, center = false, tall = false, bg, layers = [], badges = [], badgeNote, stats = [], ticker = [], mobileX, mobileScale, mobileY, wide = false, shadow = true, extraClass = '' } = Astro.props;
 const endsPunct = /[.?!]$/.test(h1.trim());
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const h1html = esc(h1).replace(/\s*\n\s*/g, ' <br class="d-br">').replace(/\.(\s|$)/g, '<i>.</i>$1') + (!endsPunct ? '<i>.</i>' : '');
@@ -79,7 +81,22 @@ const badgeImg = ({ image, imageWidth: w, imageHeight: h }: Badge) => ({
       </div>
     )}
     {badgeNote && <p class="pf-hero__badge-note">{badgeNote}</p>}
-    {stats.length > 0 && <div class="pf-hero__stats">{stats.map(([v, l]) => <div><b>{v}</b><span>{l}</span></div>)}</div>}
+    {ticker.length > 0 && (
+      <div class="pf-ticker" data-ticker role="region" aria-roledescription="carousel" aria-label="Revenue metrics">
+        <div class="pf-ticker__bars">
+          {ticker.map((item, i) => <button type="button" class={i === 0 ? 'on' : ''} data-bar={i} aria-label={`Show ${item.label}`}></button>)}
+        </div>
+        <div class="pf-ticker__slides">
+          {ticker.map((item, i) => (
+            <div class={`pf-ticker__item${i === 0 ? ' on' : ''}`} data-slide={i} aria-hidden={i !== 0}>
+              <b>{item.value}{item.accent && <i>{item.accent}</i>}</b>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+    {stats.length > 0 && ticker.length === 0 && <div class="pf-hero__stats">{stats.map(([v, l]) => <div><b>{v}</b><span>{l}</span></div>)}</div>}
   </div>
   <div class="pf-hero__art">
     <div class="pf-hero__stage" style={style || undefined}>
@@ -92,3 +109,30 @@ const badgeImg = ({ image, imageWidth: w, imageHeight: h }: Badge) => ({
     </div>
   </div>
 </section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ticker]').forEach((root) => {
+    const items = root.querySelectorAll<HTMLElement>('[data-slide]');
+    const bars = root.querySelectorAll<HTMLElement>('[data-bar]');
+    if (!items.length) return;
+    let cur = 0;
+    let timer: number | undefined;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const go = (n: number) => {
+      cur = ((n % items.length) + items.length) % items.length;
+      items.forEach((item, i) => {
+        item.classList.toggle('on', i === cur);
+        item.setAttribute('aria-hidden', String(i !== cur));
+      });
+      bars.forEach((bar, i) => bar.classList.toggle('on', i === cur));
+    };
+    const start = () => {
+      if (timer) clearInterval(timer);
+      if (!reduced.matches) timer = window.setInterval(() => go(cur + 1), 4000);
+    };
+    bars.forEach((bar, i) => {
+      bar.addEventListener('click', () => { go(i); start(); });
+    });
+    reduced.addEventListener('change', () => { go(0); start(); });
+    start();
+  });
+</script>

@@ -6,6 +6,12 @@
 // happy-hour pricing, membership waitlist, trade-ins.
 
 export type FeatureItem = [title: string, description?: string];
+export interface FeatureGroup {
+  eyebrow: string;
+  items: FeatureItem[];
+  columnBreakAt: number;
+  sections?: { heading: string; items: FeatureItem[]; columnBreakAt: number }[];
+}
 
 export const BAY_AGENT = {
   eyebrow: 'Bay Agent',
@@ -41,9 +47,10 @@ export const DOOR_ACCESS = {
   ] as FeatureItem[],
 };
 
-export const FEATURE_GROUPS: { eyebrow: string; items: FeatureItem[] }[] = [
+export const FEATURE_GROUPS: FeatureGroup[] = [
   {
     eyebrow: 'Booking & pricing',
+    columnBreakAt: 4,
     items: [
       ['Peak, off-peak and time-of-day rates', 'Set per bay.'],
       ['Surge (demand) pricing', 'Raises rates automatically at busy times.'],
@@ -59,24 +66,26 @@ export const FEATURE_GROUPS: { eyebrow: string; items: FeatureItem[] }[] = [
   },
   {
     eyebrow: 'Memberships',
+    columnBreakAt: 7,
     items: [
       ['Hour-bank, unlimited, pay-per-use member-rate and unit/credit plans'],
       ['Monthly, quarterly, annual and 6-month prepaid billing'],
       ['Plan time windows', 'For example off-peak-only plans, with discounted rates outside the window.'],
       ['Overage discounts and hour rollover', 'Discounts once hours run out; hours can roll over.'],
       ['Grandfathered pricing for existing members'],
-      ['Family, household and group plans with seats', 'Plus add-on memberships linked to a main member.'],
       ['Comped memberships'],
+      ['Waivers and membership agreements', 'Signed online, with versions.'],
+      ['Family, household and group plans with seats', 'Plus add-on memberships linked to a main member.'],
       ['Pre-opening and pre-sale memberships', 'Charge on opening day.'],
       ['Sign-up proration, birthday and anniversary bonus hours'],
       ['Member self-service', 'Self-cancel, cancel at period end, self-pause.'],
       ['Late-cancel and no-show fees', 'A flat amount per hour.'],
       ['Punch passes'],
-      ['Waivers and membership agreements', 'Signed online, with versions.'],
     ],
   },
   {
     eyebrow: 'Leagues, events & lessons',
+    columnBreakAt: 4,
     items: [
       ['Leagues', 'Teams, rosters, weekly billing, standings, stroke-play scoring, league-night bay holds, waitlists, team invites and substitutes.'],
       ['GSPro online tournament (SGT) integration for leagues'],
@@ -89,12 +98,13 @@ export const FEATURE_GROUPS: { eyebrow: string; items: FeatureItem[] }[] = [
   },
   {
     eyebrow: 'Growth & marketing',
+    columnBreakAt: 5,
     items: [
       ['Gift cards', 'Sold online or issued by staff.'],
       ['Promo codes, BOGO offers and corporate promo programs'],
       ['Referral program', 'Rewards in cash, hours or recurring discounts, including tiers.'],
-      ['Guest passes'],
       ['Campaigns and Segments', 'Text and email.'],
+      ['Guest passes'],
       ['Workflows', 'Multi-step automations.'],
       ['Messages inbox', 'Text and email threads for each customer in one place.'],
       ['Google review requests, lapsed and at-risk customer reactivation, birthday campaigns and a newsletter'],
@@ -103,34 +113,38 @@ export const FEATURE_GROUPS: { eyebrow: string; items: FeatureItem[] }[] = [
   },
   {
     eyebrow: 'Operations',
+    columnBreakAt: 4,
     items: [
       ['Food & beverage', 'Menu, modifiers, bay tabs and kitchen tickets.'],
       ['Merchandise', 'With variants and stock.'],
       ['Square in-person sales', 'Matched to customer profiles.'],
       ['Sales tax and online convenience fee', 'Including tax-exempt plans.'],
       ['Card on file', 'Automatic renewals and retries.'],
-      ['Team roles and permissions'],
       ['Staff scheduling', 'Shifts, swaps and time off, plus a time clock, payroll exports and commissions.'],
+      ['Team roles and permissions'],
       ['Activity log', 'Every change recorded with who made it.'],
     ],
   },
   {
-    eyebrow: 'Customer experience',
+    eyebrow: 'Customer experience & Reporting',
+    columnBreakAt: 1,
     items: [
       ['A booking page themed to your venue', 'Bays, lessons, events, memberships and gift cards.'],
       ['Customer portal', 'One-time-code sign-in. Customers book, see hours and balances, update their card and sign waivers.'],
     ],
-  },
-  {
-    eyebrow: 'Reporting',
-    items: [
+    sections: [{
+      heading: 'Reporting',
+      columnBreakAt: 2,
+      items: [
       ['Owner dashboard'],
       ['Revenue reports'],
       ['Utilization heatmaps'],
-    ],
+      ],
+    }],
   },
   {
     eyebrow: 'Onboarding & support',
+    columnBreakAt: 1,
     items: [
       ['Done-for-you migration', 'Customers, memberships, history, gift cards and league rosters, moved by CSV.'],
       ['In-app Resources hub', 'Setup guides, plus a help bot that answers from those docs.'],
