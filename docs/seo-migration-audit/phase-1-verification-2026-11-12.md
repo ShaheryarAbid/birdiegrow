@@ -161,3 +161,11 @@ This addendum records source changes made after review of the initial findings. 
 - No price, SEO description, structured-data value, or customer-facing copy was changed. The `$197`/`$227` discrepancy remains pending client approval.
 
 These are source/build-output checks, not live edge checks. The redirects are not active until the new source is deployed; production host/scheme rules, the live sitemap, all production response codes, and the business price remain blockers for client/operator verification or approval.
+
+## Subsequent Client-Directed Robots Update — 2026-11-12
+
+The client asked that the new site follow the old site's page-level robots behavior. The preview-wide noindex behavior described in the earlier follow-up has therefore been removed: builds no longer inject preview robots metadata or response headers, rewrite `robots.txt`, or remove preview sitemap files. `BaseLayout` emits `noindex, nofollow` only when a page explicitly opts in.
+
+Read-only inspection of the old source confirms explicit noindex on the 404, privacy, terms, SMS terms, `/lpadvertising/`, and `/lpbookingsystem/` pages. The new site retains those same directives. The new-only `/features/mobile-app/` page also remains noindex because its source marks it as unverified and not ready for indexing. Other pages use the default index/follow behavior, matching the old site's default.
+
+Fresh production, Vercel-preview, and non-main Cloudflare Pages builds each generated 105 HTML pages. In all three builds, the only pages with a noindex meta were those six legacy pages plus `/features/mobile-app/`; preview builds added no noindex response header, kept the public crawlable `robots.txt`, and retained both sitemap files.

@@ -180,3 +180,9 @@ crawled or surfaced.
   routes.
 - [proposed-sitemap.xml](./proposed-sitemap.xml) — new canonical sitemap
   proposal.
+
+## Client-Directed Robots Update — 2026-11-12
+
+Preview-wide noindex protection was removed to match the old site's page-level robots behavior. The build no longer injects preview noindex tags or headers, rewrites `robots.txt`, or removes preview sitemap files. Explicit page-level noindex remains on the same legacy pages as the old site; the new-only mobile-app page remains noindex because its feature source identifies it as not yet verified for launch. All other pages default to index/follow.
+
+Fresh production, Vercel-preview, and non-main Cloudflare Pages builds each generated 105 HTML pages. Each build emitted noindex only for the six legacy exception pages and `/features/mobile-app/`; preview builds retained `robots.txt` and both sitemap files without adding a noindex response header.

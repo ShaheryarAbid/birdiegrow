@@ -46,11 +46,6 @@ const {
   noHeader = false,
 } = Astro.props;
 
-// Cloudflare Pages sets CF_PAGES_BRANCH at build time. Any non-main branch build (the redesign
-// preview) is forced noindex; main/local builds are unaffected.
-const previewBranch = process.env.CF_PAGES_BRANCH;
-const isPreview = !!previewBranch && previewBranch !== 'main';
-
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 
@@ -188,7 +183,7 @@ if (crumbSegs.length >= 1 && !hasOwnBreadcrumb) {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
