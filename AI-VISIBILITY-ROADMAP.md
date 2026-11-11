@@ -1,6 +1,6 @@
 # Birdie AI Visibility Roadmap — earning citations on Gemini, Grok & Google AI Mode
 
-**Purpose:** a slow-compounding, one-action-a-day plan to get Birdie cited by the AI engines it currently scores 0 on. The morning task (`birdiegrow-seo-morning-score`) reads this file each run, surfaces the next micro-action, and appends to the Progress Log.
+**Purpose:** a slow-compounding, one-action-a-day plan to get Birdie cited by the AI engines it currently scores 0 on. The morning task (`birdiegrow-seo-morning-score`) reads this file each run, surfaces the next micro-action, and appends to the Progress Logs.
 
 ## Current state — baseline 2026-08-04
 (via Ahrefs `site-explorer-ai-responses-count`, all engines)
