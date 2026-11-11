@@ -25,9 +25,8 @@ export const INTEGRATION_LOGOS: Record<string, LogoSpec> = {
   'Meta Pixel + Conversions API': { tile: 'tint', full: true, parts: [g('meta.svg')] },
   'Google Tag Manager': { tile: 'tint', full: true, parts: [g('gtm.svg')] },
   'Telnyx': { tile: 'tint', full: true, parts: [g('telnyx.svg')] },
-  // Two exports arrived from Figma truncated (Google Analytics 4) or not at all (Resend), so they
-  // keep the previously measured placement until the real artwork comes through.
+  // The Google Analytics 4 export arrived truncated, so it keeps the previously measured placement.
   'UniFi Access': { tile: 'light', full: true, parts: [g('unifi.svg')] },
   'Google Analytics 4': { tile: 'tint', wrap: ['7.71%', '21.34%', '7.71%', '21.32%'], parts: [p('ga4.svg', ['0%', '7.44%', '1.67%', '0%'])] },
-  'Resend': { tile: 'tint', mono: true, parts: [p('resend.svg', ['36.92%', '4.49%', '36.92%', '4.47%'])] },
+  'Resend': { tile: 'tint', mono: true, full: true, parts: [g('resend.svg')] },
 };

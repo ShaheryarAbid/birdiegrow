@@ -22,7 +22,7 @@ export const GOLF_SIMULATOR_SOFTWARE = {
     ['Best for', 'Simulator venues focused on weekday utilization and revenue growth — Birdie pairs booking and operations with a revenue layer that surfaces underused hours and lapsed customers.'],
     ['Works with', 'Any simulator hardware or game software. Birdie is the business layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
     ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
-    ['Pricing', 'From $197/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
+    ['Pricing', 'From $227/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
     ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
   ] as [string, string][],
   platform: {
@@ -149,13 +149,13 @@ export const GOLF_SIMULATOR_SOFTWARE = {
       description: 'Booking and revenue software for indoor golf simulator venues: bay scheduling, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, and 24/7 smart-lock door access.',
       offers: {
         '@type': 'Offer',
-        price: '197',
+        price: '227',
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         url: `${SITE.url}/pricing/`,
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
-          price: '197',
+          price: '227',
           priceCurrency: 'USD',
           unitText: 'MONTH',
         },

@@ -71,7 +71,7 @@ const faqs = [
   ['What should golf simulator booking software be able to do?', 'At minimum: schedule specific bays by the hour (not generic appointment slots or tee times), manage hour-bank memberships with automatic billing, send automated text and email confirmations, reminders and receipts, collect payment at booking to cut no-shows, and ideally support 24/7 door access and utilization/revenue reporting so you can fill weekday hours.'],
   ['Can I use foreUP or golf-course software for a simulator venue?', 'You can, but it’s a repurposing. foreUP, Chronogolf, and Lightspeed are built around tee sheets and pro-shop POS for outdoor courses. They lack the bay-by-the-hour scheduling, hour-bank membership tracking, and automated re-engagement simulator venues rely on, so many operators switch within the first year.'],
   ['Is Square or Acuity enough to run a golf simulator business?', 'They’re fine to start and cheap upfront, but both are general tools: no hour-bank memberships, no utilization tracking, and no automated reactivation. They tend to create manual overhead and no-shows as the venue grows, which is why operators move to purpose-built software.'],
-  ['How much does golf simulator booking software cost?', 'It varies. Birdie starts at $197/month (Booking System plan) with no per-booking fees. Golf-course systems (foreUP, Lightspeed) usually use custom pricing in the low hundreds per month; Mindbody scales from about $139 to $500+/month; Square and Acuity are cheapest upfront but need add-ons to cover memberships and reminders. Book a demo for exact Birdie pricing for your bay count.'],
+  ['How much does golf simulator booking software cost?', 'It varies. Birdie starts at $227/month (Booking System plan) with no per-booking fees. Golf-course systems (foreUP, Lightspeed) usually use custom pricing in the low hundreds per month; Mindbody scales from about $139 to $500+/month; Square and Acuity are cheapest upfront but need add-ons to cover memberships and reminders. Book a demo for exact Birdie pricing for your bay count.'],
 ];
 
 const keepReading: [string, string][] = [
@@ -109,13 +109,13 @@ const schema = [
     url: `${SITE.url}/`,
     offers: {
       '@type': 'Offer',
-      price: '197',
+      price: '227',
       priceCurrency: 'USD',
       priceValidUntil: '2026-12-31',
       availability: 'https://schema.org/InStock',
       url: `${SITE.url}/pricing/`,
-      priceSpecification: { '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD', unitText: 'MONTH' },
-      description: 'Booking System plan, from $197/mo. No per-booking fees.',
+      priceSpecification: { '@type': 'UnitPriceSpecification', price: '227', priceCurrency: 'USD', unitText: 'MONTH' },
+      description: 'Booking System plan, from $227/mo. No per-booking fees.',
     },
   },
 ];
@@ -125,7 +125,7 @@ const schema = [
   <FeatureGrid heading="How we compared these tools" subHtml={'The six criteria we used to compare every tool below. For a full breakdown of how bay-based scheduling works, see our guide to <a href="/golf-simulator-booking-software/">golf simulator booking software</a>. If your priority is day-to-day operations rather than reservations, start with <a href="/golf-simulator-management-software/">golf simulator bay management software</a>. Running more than one site? See <a href="/platform/">golf simulator multi-location software</a>.'} items={needs as [string, string][]} />
   <SoftwareTable hl heading="Every tool compared, side by side" headers={['Software', 'Category', 'Sim-built?', 'Booking', 'Memberships', 'Revenue tools', '24/7 door', 'Best for']} rows={tableRows} note="Compare Birdie head-to-head with any tool via the linked names above." />
   <GroupCards heading="Breakdown by category" groups={groups.map((g) => ({ label: g.label, items: g.items as [string, string, string | null][] }))} />
-  <TextBlock heading="Our pick for simulator venues" paras={['If you run an indoor golf simulator business, choose software built for hourly bays — memberships, automated texts and emails, payments, 24/7 access, and revenue reporting in one place. That’s what Birdie is for. If you’re a golf <em>course</em>, a tee-sheet tool like foreUP or Lightspeed fits better; if you’re a gym or a solo service, Mindbody or Acuity will do. But for filling weekday bays and running an unattended simulator operation, purpose-built wins.', '<strong>Birdie pricing starts at $197/mo</strong> (Booking System plan — no per-booking fees, no long-term contract).']} cta={{ label: 'See Birdie in a free demo', href: SITE.demoPath }} />
+  <TextBlock heading="Our pick for simulator venues" paras={['If you run an indoor golf simulator business, choose software built for hourly bays — memberships, automated texts and emails, payments, 24/7 access, and revenue reporting in one place. That’s what Birdie is for. If you’re a golf <em>course</em>, a tee-sheet tool like foreUP or Lightspeed fits better; if you’re a gym or a solo service, Mindbody or Acuity will do. But for filling weekday bays and running an unattended simulator operation, purpose-built wins.', '<strong>Birdie pricing starts at $227/mo</strong> (Booking System plan — no per-booking fees, no long-term contract).']} cta={{ label: 'See Birdie in a free demo', href: SITE.demoPath }} />
   <Faq heading="Frequently asked questions" items={faqs as [string, string][]} open={0} />
   <LinkCards heading="Keep reading" items={keepReading} />
   <Cta heading="Run your venue on software built for it." body="Bay booking, memberships, payments, 24/7 door access, and revenue tracking — in one platform. Live in 24 hours." items={[]} label="Book a Free Demo" />

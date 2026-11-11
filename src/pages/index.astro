@@ -23,14 +23,14 @@ const productFacts: [string, string][] = [
   ['Best for', 'Simulator venues focused on weekday utilization and revenue growth — Birdie pairs bay booking with a revenue layer that surfaces underused hours and lapsed customers. Works for staffed venues and fully unmanned 24/7 operations.'],
   ['Works with', 'Any simulator hardware or game software. Birdie is the booking layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
   ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
-  ['Pricing', 'From $197/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
+  ['Pricing', 'From $227/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
   ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
 ];
 const productFactPresentations = {
   'Best for': { title: 'Weekday utilization and revenue growth', chips: ['Weekdays', 'Staffed venues', 'Unmanned 24/7'] },
   'Works with': { title: 'Any simulator, any game software', chips: ['TrackMan', 'GSPro', 'E6 Connect', 'TruGolf'] },
   'Integrations': { title: 'Payments, door access, SMS and email', chips: ['Square', 'Clover', 'Kisi', 'PDK', '+6 more'] },
-  'Pricing': { title: 'From $197/month flat', chips: ['No per-booking fees', 'Month-to-month', 'No percentage of revenue'] },
+  'Pricing': { title: 'From $227/month flat', chips: ['No per-booking fees', 'Month-to-month', 'No percentage of revenue'] },
   'Setup': { title: 'Live in about 24 hours', chips: ['One-time fee', 'White-glove onboarding', 'No developers required'] },
 };
 const scalePresentation = {
@@ -42,15 +42,15 @@ const ownerViews = [
   ['Bookings', 'Full control over your daily bookings and schedule.', 'home/preview-calendar'],
   ['Booking Home', 'Pick a bay, a time and a group size. Pay. Done in under 30 seconds.', 'home/preview-analytics'],
   ['Analytics', 'Weekday occupancy, revenue per bay and the hours that sit empty.', 'home/preview-membership'],
-  ['Messages', 'Automated text and email confirmations, reminders and receipts.', 'home/preview-messages'],
-  ['Payments', 'Stripe, Square, Clover and Helcim (beta) built into the booking flow.', 'home/preview-payments'],
+  ['Messages', 'Automated text and email confirmations, reminders and receipts.', 'home/messages.png'],
+  ['Payments', 'Stripe, Square, Clover and Helcim (beta) built into the booking flow.', 'home/payments.png'],
 ];
 // Show the owner dashboard directly; its images are full phone renders.
 const previewGroups = [{
   items: ownerViews.map(([label, text, image]) => ({
     label,
     text,
-    img: `/assets/${image}.webp`,
+    img: `/assets/${image.endsWith('.png') ? image : `${image}.webp`}`,
     kind: 'render' as const,
   })),
 }];
@@ -108,7 +108,7 @@ const logoInfo: Record<string, [string, string, string]> = {
 const schema = [
   { '@context': 'https://schema.org', '@type': 'Organization', name: 'Birdie', url: SITE.url, logo: `${SITE.url}/og-image.jpg`, description: 'Booking and revenue software purpose-built for indoor golf simulator venues — bay scheduling, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, and 24/7 smart-lock door access. Not home-simulator game software.', areaServed: ['US', 'CA'], knowsAbout: ['golf simulator booking software', 'golf simulator management software', 'indoor golf venue operations', 'golf simulator memberships', '24/7 simulator door access', 'golf simulator revenue and utilization'], sameAs: ['https://www.youtube.com/channel/UCPrsHy88OiJl7uDfvTE-UiA', 'https://x.com/birdiegrowgolf', 'https://www.facebook.com/profile.php?id=61580806705716', 'https://www.instagram.com/birdie.grow/', 'https://www.capterra.com/p/10041593/Birdie/', 'https://www.g2.com/products/birdie-2026-04-23/reviews'] },
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Birdie', url: SITE.url },
-  { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Birdie', applicationCategory: 'BusinessApplication', applicationSubCategory: 'Golf Simulator Booking Software', operatingSystem: 'Web', description: SITE.description, url: `${SITE.url}/`, offers: { '@type': 'Offer', price: '197', priceCurrency: 'USD', priceValidUntil: '2026-12-31', availability: 'https://schema.org/InStock', url: `${SITE.url}/pricing/`, priceSpecification: { '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD', unitText: 'MONTH' }, description: 'Booking System plan, from $197/mo.' } },
+  { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Birdie', applicationCategory: 'BusinessApplication', applicationSubCategory: 'Golf Simulator Booking Software', operatingSystem: 'Web', description: SITE.description, url: `${SITE.url}/`, offers: { '@type': 'Offer', price: '227', priceCurrency: 'USD', priceValidUntil: '2026-12-31', availability: 'https://schema.org/InStock', url: `${SITE.url}/pricing/`, priceSpecification: { '@type': 'UnitPriceSpecification', price: '227', priceCurrency: 'USD', unitText: 'MONTH' }, description: 'Booking System plan, from $227/mo.' } },
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
 ];
 const A = '/assets/home/';
@@ -126,7 +126,7 @@ const demo = SITE.demoPath;
     </div>
     <div class="hm-hero__content">
       <h1>The booking <br />system built for golf simulator venues<i>.</i></h1>
-      <p class="hm-hero__p">Bay scheduling, memberships, Stripe, Square, Clover and Helcim (beta) payments, and automated confirmations — purpose-built for simulator operators. Live in 24 hours.</p>
+      <p class="hm-hero__p">The only booking system that runs your bays for you. Customers book, the door unlocks, and Bay Agent starts and ends every session. Live in 24 hours</p>
       <div class="hm-hero__act hm-btns">
         <Button href={demo} mode="light">Book a demo</Button>
         <Button href="#how-it-works" mode="dark" hierarchy="secondary" class="bd-btn--secondary-dark">See how it works <img src={`${A}arrow-right-light.svg`} alt="" width="16" height="16" /></Button>

@@ -6,17 +6,17 @@
  */
 import '../../styles/sections.css';
 import { SHADER_DARK } from '../../data/shader';
-export interface Props { title: string; desc: string; href: string; category?: string; cta?: string; kind?: 'gradient' | 'photo' | 'dark' | 'ball' | 'corner'; index?: number; }
-const { title, desc, href, category, cta = 'Read guide', index = 0 } = Astro.props;
+export interface Props { title: string; desc: string; href: string; category?: string; cta?: string; kind?: 'gradient' | 'photo' | 'dark' | 'ball' | 'corner'; image?: string; index?: number; }
+const { title, desc, href, category, cta = 'Read guide', image, index = 0 } = Astro.props;
 const S = '/assets/sections/';
 const kinds = ['gradient', 'photo', 'ball', 'dark', 'corner', 'photo'] as const;
-const k = Astro.props.kind ?? kinds[index % kinds.length];
+const k = Astro.props.kind ?? (image ? 'photo' : kinds[index % kinds.length]);
 const fx = k === 'gradient' || k === 'corner';
 ---
 <a class="sx-gcard" href={href}>
   <div class={`sx-gthumb sx-gthumb--${k}`} aria-hidden="true">
     {fx && (<><div class="fx-glow"></div><div class="fx-dots"></div></>)}
-    {k === 'photo' && <img src={`${S}thumb-photo.webp`} alt="" loading="lazy" />}
+    {k === 'photo' && <img src={image ?? `${S}thumb-photo.webp`} alt="" loading="lazy" />}
     {k === 'dark' && <img src="/assets/home/cta-image.webp" alt="" loading="lazy" />}
     {k === 'ball' && <img src={`${S}thumb-ball.webp`} alt="" loading="lazy" />}
     <div class="sh"></div>

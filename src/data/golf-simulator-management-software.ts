@@ -5,7 +5,7 @@
 import { SITE } from '../consts';
 
 const FAQS: [string, string][] = [
-  ['What should golf simulator management software be able to do?', 'For a commercial simulator venue the core checklist is: bay-level scheduling by the hour rather than generic appointment slots; hour-bank memberships with automatic draw-down, bay restrictions and advance-booking windows; weekday, off-peak and weekend pricing windows; payment captured at the moment of booking; automated text and email confirmations, reminders and receipts; 24/7 smart-lock door access for unattended operation; utilization and revenue reporting broken out by day and bay; multi-location support if you run more than one venue; and compatibility with whatever simulator hardware and game software you already own. Birdie covers all nine — it sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf rather than replacing them, connects to Stripe, Square, Clover and Helcim (beta) for payments and to Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for door access, and is flat-fee from $197/month with no per-booking fees.'],
+  ['What should golf simulator management software be able to do?', 'For a commercial simulator venue the core checklist is: bay-level scheduling by the hour rather than generic appointment slots; hour-bank memberships with automatic draw-down, bay restrictions and advance-booking windows; weekday, off-peak and weekend pricing windows; payment captured at the moment of booking; automated text and email confirmations, reminders and receipts; 24/7 smart-lock door access for unattended operation; utilization and revenue reporting broken out by day and bay; multi-location support if you run more than one venue; and compatibility with whatever simulator hardware and game software you already own. Birdie covers all nine — it sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf rather than replacing them, connects to Stripe, Square, Clover and Helcim (beta) for payments and to Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for door access, and is flat-fee from $227/month with no per-booking fees.'],
   ['What is the difference between booking software and management software?', 'A booking app captures reservations. A management platform runs the whole business behind them — memberships, payments, customer communication, door access, and revenue reporting — from one system instead of four disconnected tools.'],
   ['Can I start with just the booking system and add the rest later?', 'Yes. Most studios start with bookings and add the website, marketing, and ads management when they are ready to grow. There are no locked-in tiers.'],
   ['Are simulator management systems compatible with POS and inventory tools?', 'Payment and POS compatibility is standard — Birdie connects natively to Stripe, Square, Clover and Helcim (beta), so bay bookings, deposits, memberships, and in-venue sales all settle through the processor you already use. Inventory works differently: rather than syncing to a separate inventory platform, Birdie sells add-ons and retail items directly inside the booking and checkout flow — BYOB fees, guest passes, rentals, and custom items — so bay revenue and add-on revenue land in one report instead of two systems you have to reconcile. If you run a full kitchen or a large retail floor, you will still want a dedicated F&B or inventory platform alongside it. For the food, drink, and pro-shop volume a typical simulator venue actually does, the built-in add-on model is usually enough.'],
@@ -32,7 +32,7 @@ export const GOLF_SIMULATOR_MANAGEMENT_SOFTWARE = {
     ['Best for', 'Simulator venues that want one system to run the whole operation — bookings, memberships, payments, door access and revenue reporting — instead of four disconnected tools. Birdie pairs that with a revenue layer that surfaces underused weekday hours and lapsed customers.'],
     ['Works with', 'Any simulator hardware or game software. Birdie is the management layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
     ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
-    ['Pricing', 'From $197/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
+    ['Pricing', 'From $227/month flat. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
     ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
   ] as [string, string][],
   capabilities: {
@@ -106,9 +106,9 @@ export const GOLF_SIMULATOR_MANAGEMENT_SOFTWARE = {
       url: `${SITE.url}/golf-simulator-management-software/`,
       description: 'All-in-one golf simulator management software: bay booking, hour-bank memberships, payments, automated texts and emails, 24/7 smart-lock door access and revenue reporting.',
       offers: {
-        '@type': 'Offer', price: '197', priceCurrency: 'USD',
+        '@type': 'Offer', price: '227', priceCurrency: 'USD',
         priceSpecification: {
-          '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD',
+          '@type': 'UnitPriceSpecification', price: '227', priceCurrency: 'USD',
           referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
         },
         availability: 'https://schema.org/InStock',

@@ -12,7 +12,7 @@ const FAQS: [string, string][] = [
   ['Do I need to be technical to use it?', 'No. There are no developers, plugins, or migrations required. If you can use a phone, you can run Birdie.'],
   ['Is there a long-term contract?', 'No. Birdie is month-to-month. If it does not deliver, you cancel — there is no lock-in.'],
   ['How do customers pay?', 'Stripe, Square, Clover and Helcim (beta) payments are built directly into the booking flow, so deposits and payments are captured at the moment of reservation — no third-party checkout, no per-booking fees.'],
-  ['How much does golf simulator booking software cost?', 'Birdie starts at $197/month for the booking system, with no per-booking fees and no long-term contract. That includes bay scheduling, memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, and 24/7 smart-lock door access. Website, ads, and SEO are available on higher tiers when you are ready to grow.'],
+  ['How much does golf simulator booking software cost?', 'Birdie starts at $227/month for the booking system, with no per-booking fees and no long-term contract. That includes bay scheduling, memberships, Stripe, Square, Clover and Helcim (beta) payments, automated texts and emails, and 24/7 smart-lock door access. Website, ads, and SEO are available on higher tiers when you are ready to grow.'],
   ['Can booking software reduce no-shows at a simulator venue?', 'Yes. Birdie captures a deposit or full payment at the moment of reservation through its native payment integrations (Stripe, Square, Clover; Helcim in beta), then sends automated text and email confirmations, reminders and receipts and pre-session reminders — the two biggest levers for cutting no-shows on hourly bays.'],
   ['Can customers book and get in without staff on site?', 'Yes. Birdie integrates with PDK smart locks, so every booking generates a time-gated SMS unlock link. Customers let themselves in — no staff, no keypad, no app.'],
   ['Is Birdie a golf simulator reservation or scheduling system too?', 'Yes. "Booking," "reservation," and "scheduling" software describe the same thing for a simulator venue, and Birdie does all of it — real-time bay reservations, membership and recurring scheduling, group bookings, and hourly pricing windows. It replaces separate golf simulator reservation software and scheduling tools with one platform.'],
@@ -20,7 +20,7 @@ const FAQS: [string, string][] = [
   ['Can I take a deposit instead of full payment at booking?', 'Yes. You set the rule per booking type — full payment, a partial deposit, or pay-at-venue — all captured through the native payment integrations at the moment of reservation.'],
   ['Can I import my existing customers and bookings?', 'Yes. As part of white-glove setup we bring over your customer list and active memberships, so you go live in 24 hours without starting from scratch.'],
   ['What booking software do indoor golf clubs use?', 'Indoor golf clubs and simulator venues increasingly use software built specifically for bay-based operation rather than a generic appointment tool or a golf-course tee-sheet system. The must-haves are real-time bay availability, hour-bank memberships, payment captured at booking, automated SMS reminders, and 24/7 door access. Birdie is built for exactly this and goes live in 24 hours, where tools like Acuity or Calendly tend to miss bay memberships, hourly pricing windows, or unattended access.'],
-  ['Is there free golf simulator booking software?', 'Free or generic tools can take a basic reservation, but they do not handle hour-bank memberships, weekday pricing, payment capture, or door access — so most simulator venues outgrow them fast and pay for it in lost revenue and manual work. Birdie is flat-rate from $197/month with no per-booking fees, which usually costs less than the percentage-of-revenue or per-transaction fees other booking tools charge.'],
+  ['Is there free golf simulator booking software?', 'Free or generic tools can take a basic reservation, but they do not handle hour-bank memberships, weekday pricing, payment capture, or door access — so most simulator venues outgrow them fast and pay for it in lost revenue and manual work. Birdie is flat-rate from $227/month with no per-booking fees, which usually costs less than the percentage-of-revenue or per-transaction fees other booking tools charge.'],
 ];
 
 export const GOLF_SIMULATOR_BOOKING_SOFTWARE = {
@@ -34,13 +34,13 @@ export const GOLF_SIMULATOR_BOOKING_SOFTWARE = {
     lead: "Generic booking tools weren't designed for hourly bay rentals, simulator memberships, or 24/7 unattended access. Birdie was. It handles everything a simulator studio needs — online booking and real-time bay reservations, automated texts and emails, Stripe, Square, Clover and Helcim (beta) payments, memberships, and PDK door access — in one platform.",
     primary: { label: 'Book a Demo', href: SITE.demoPath },
     secondary: { label: 'See pricing', href: '/pricing/' },
-    quickAnswer: 'Golf simulator booking software lets an indoor golf venue take online reservations for hourly bays — with real-time availability, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments captured at checkout, automated text and email confirmations, reminders and receipts, and 24/7 smart-lock door access. Unlike generic appointment tools (Acuity, Calendly) or golf-course systems, it is built for bay-based operation, so "booking," "reservation," and "scheduling" are one job, not three tools. Birdie is purpose-built for simulator venues and goes live in 24 hours from $197/month.',
+    quickAnswer: 'Golf simulator booking software lets an indoor golf venue take online reservations for hourly bays — with real-time availability, hour-bank memberships, Stripe, Square, Clover and Helcim (beta) payments captured at checkout, automated text and email confirmations, reminders and receipts, and 24/7 smart-lock door access. Unlike generic appointment tools (Acuity, Calendly) or golf-course systems, it is built for bay-based operation, so "booking," "reservation," and "scheduling" are one job, not three tools. Birdie is purpose-built for simulator venues and goes live in 24 hours from $227/month.',
   },
   facts: [
     ['Best for', 'Simulator venues focused on weekday utilization and revenue growth — Birdie pairs bay booking with a revenue layer that surfaces underused hours and lapsed customers.'],
     ['Works with', 'Any simulator hardware or game software. Birdie is the booking layer that sits above TrackMan, GSPro, Foresight, Uneekor, E6 Connect and TruGolf — it does not replace them and does not require a specific brand.'],
     ['Integrations', 'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.'],
-    ['Pricing', 'From $197/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
+    ['Pricing', 'From $227/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.'],
     ['Setup', 'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.'],
   ] as [string, string][],
   fails: {
@@ -157,8 +157,8 @@ export const GOLF_SIMULATOR_BOOKING_SOFTWARE = {
       description: DESCRIPTION,
       url: `${SITE.url}/golf-simulator-booking-software/`,
       offers: {
-        '@type': 'Offer', price: '197', priceCurrency: 'USD',
-        priceSpecification: { '@type': 'UnitPriceSpecification', price: '197', priceCurrency: 'USD', unitText: 'MONTH' },
+        '@type': 'Offer', price: '227', priceCurrency: 'USD',
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: '227', priceCurrency: 'USD', unitText: 'MONTH' },
       },
       provider: { '@type': 'Organization', name: 'Birdie', url: SITE.url },
     },

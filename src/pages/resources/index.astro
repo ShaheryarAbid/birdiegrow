@@ -19,7 +19,12 @@ const listed = new Set(TOPICS.flatMap((t) => t.slugs));
 const groups = TOPICS.map((t) => ({
   id: t.id,
   label: t.label,
-  items: t.slugs.map((s) => bySlug.get(s)).filter((p): p is NonNullable<typeof p> => !!p).map((p) => ({ title: p.data.title, desc: p.data.description, href: `/resources/${p.slug}/` })),
+  items: t.slugs.map((s) => bySlug.get(s)).filter((p): p is NonNullable<typeof p> => !!p).map((p) => ({
+    title: p.data.title,
+    desc: p.data.description,
+    href: `/resources/${p.slug}/`,
+    ...(p.slug === 'portable-golf-simulator-business' ? { image: '/assets/resources/golf-simulator.png' } : {}),
+  })),
 }));
 const extra = posts.filter((p) => !listed.has(p.slug));
 groups[groups.length - 1].items.push(...extra.map((p) => ({ title: p.data.title, desc: p.data.description, href: `/resources/${p.slug}/` })));

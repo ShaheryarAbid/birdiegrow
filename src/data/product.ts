@@ -15,7 +15,7 @@ import { SITE } from '../consts';
 export const PRICING = [
   {
     name: 'Booking System',
-    price: 'From $197/mo',
+    price: 'From $227/mo',
     badge: 'Most popular',
     blurb: 'Everything you need to run your bays',
     features: [
@@ -59,7 +59,7 @@ export const PRICING = [
 ];
 
 /** Entry price, as a bare number string — used in Offer schema. */
-export const ENTRY_PRICE = '197';
+export const ENTRY_PRICE = '227';
 export const PRICE_VALID_UNTIL = '2026-12-31';
 
 /**
@@ -82,7 +82,7 @@ export const FACTS = {
   integrations:
     'Stripe, Square, Clover and Helcim (beta) for payments; Kisi, PDK, UniFi Access, Avigilon Alta and RemoteLock for 24/7 smart-lock door access; Telnyx and Resend for automated SMS and email.',
   pricing:
-    'From $197/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.',
+    'From $227/month flat for the booking system. No per-booking fees, no percentage of revenue, month-to-month with no long-term contract.',
   setup:
     'White-glove onboarding (one-time fee), live in about 24 hours, no developers required.',
 };
@@ -139,7 +139,7 @@ export function softwareApplicationSchema(opts: {
         priceCurrency: 'USD',
         unitText: 'MONTH',
       },
-      description: 'Booking System plan, from $197/mo. No per-booking fees, no long-term contract.',
+      description: 'Booking System plan, from $227/mo. No per-booking fees, no long-term contract.',
     },
   };
 }

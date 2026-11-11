@@ -7,7 +7,7 @@
 import '../../styles/sections.css';
 import '../../styles/resources.css';
 import GuideCard from './GuideCard.astro';
-export interface Group { id: string; label: string; items: { title: string; desc: string; href: string }[]; }
+export interface Group { id: string; label: string; items: { title: string; desc: string; href: string; image?: string }[]; }
 export interface Props { groups: Group[]; cta?: string; firstCta?: string; id?: string; all?: { label: string; href: string }; }
 const { groups, cta = 'Read guide', firstCta, id = 'guides', all } = Astro.props;
 ---
@@ -21,7 +21,7 @@ const { groups, cta = 'Read guide', firstCta, id = 'guides', all } = Astro.props
       <section class="rs-group" id={g.id}>
         <h2>{g.label}<i>.</i></h2>
         <div class="rs-cards">
-          {g.items.map((it, i) => <GuideCard title={it.title} desc={it.desc} href={it.href} category={g.label} cta={i === 0 && firstCta ? firstCta : cta} index={i} />)}
+          {g.items.map((it, i) => <GuideCard title={it.title} desc={it.desc} href={it.href} category={g.label} cta={i === 0 && firstCta ? firstCta : cta} index={i} image={it.image} />)}
         </div>
       </section>
     ))}
