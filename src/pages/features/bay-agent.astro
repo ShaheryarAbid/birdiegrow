@@ -1,0 +1,71 @@
+---
+/** Bay booking & waivers — /features/bay-booking/ (Figma "Bay booking & waivers", node 546:20535). Content lives in src/data/features/bay-booking.ts. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductHero from '../../components/product/ProductHero.astro';
+import BayPricingCalculator from '../../components/product/BayPricingCalculator.astro';
+import WaiverSignaturesPanel from '../../components/product/WaiverSignaturesPanel.astro';
+import PaymentRuleCards from '../../components/product/PaymentRuleCards.astro';
+import Timeline from '../../components/product/Timeline.astro';
+import LinkCards from '../../components/sections/LinkCards.astro';
+import FeatureCardGrid from '../../components/sections/FeatureCardGrid.astro';
+import ComparisonTable from '../../components/sections/ComparisonTable.astro';
+import Glance from '../../components/sections/Glance.astro';
+import Faq from '../../components/sections/Faq.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { gd } from '../../lib/gd';
+import { BAY_BOOKING } from '../../data/features/bay-agent';
+
+const { meta, hero, whatItDoes, pricing, waivers, payments, rules, comparison, faq, links, cta } = BAY_BOOKING;
+const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
+---
+<BaseLayout title={meta.title} description={meta.description} schema={schema} headerVariant="dark" headerOverlay>
+<div class="hm bay-booking-page">
+  <ProductHero tall {...hero} />
+
+  <!-- What it does — Figma 2049:100754 (mobile 2049:101473). Shared FeatureCardGrid box; on mobile card 2 moves first. -->
+  <section class="hm-sec hm-white hm-stack ba-does" id="what-it-does">
+    <h2 class="hm-h2" set:html={gd(whatItDoes.heading)} />
+    <FeatureCardGrid items={whatItDoes.items} />
+  </section>
+
+  <!-- Hourly pricing calculator — Figma 2049:99348 (mobile 2049:100151). Static example, not interactive. -->
+  <BayPricingCalculator {...pricing} />
+
+  <!-- Waivers & signatures — Figma 2049:99461 (mobile 2049:100272). Static: the booking form is an exported image. -->
+  <WaiverSignaturesPanel {...waivers} />
+
+  <!-- Payment rules — Figma 2049:99568 (mobile 2049:100374). The four cards are exported images. -->
+  <PaymentRuleCards {...payments} />
+
+  <!-- Rules — Figma 2325:62650 (mobile 2049:101872). Shared Timeline; Book a demo hidden on mobile via cta.hideOn. -->
+  <Timeline id="rules" {...rules} />
+
+  <ComparisonTable {...comparison} />
+
+  <Glance />
+  <Faq {...faq} open={1} balls />
+  <!-- <LinkCards {...links} /> -->
+  <Cta {...cta} />
+</div>
+<style is:global>
+    /* Hero: Figma pr-hero photo as the full-bleed background (desktop art, separate mobile art) */
+    .bay-booking-page .pf-hero {
+      background: #000407
+        url("/assets/features/bay-booking-and-weivers-bg.webp") center /
+        cover no-repeat;
+    }
+    .bay-booking-page .pf-hero__art { display: none; }
+    /* What it does: 40px heading-to-box gap (Figma), centred heading */
+    .bay-booking-page .ba-does { gap: 40px; }
+    .bay-booking-page .ba-does .hm-h2 { margin: 0; text-align: center; }
+    @media (max-width: 900px) {
+      .bay-booking-page .pf-hero {
+        background: #000407 url("/assets/features/bay-booking-and-weivers-bg-mobile.webp") center center / cover no-repeat;
+      }
+      .bay-booking-page .ba-does { gap: 32px; }
+      .bay-booking-page .pf-hero--tall {
+        min-height: 800px;
+      }
+    }
+  </style>
+</BaseLayout>

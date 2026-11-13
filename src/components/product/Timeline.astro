@@ -2,7 +2,10 @@
 /**
  * Numbered timeline — Figma "Progress/Process" (desktop 2049:98652, mobile 2049:99041).
  * One dark textured highlight sits behind the list and slides to the active row as the page scrolls; every row gets an equal share of scroll.
- * Props: heading, sub / subHtml, steps [title, text, note?][] (numbered 01..), icons (kept for API compatibility), id, cta {label, href}.
+ * Props: heading, sub / subHtml, steps [title, text, note?][] (numbered 01..), icons (kept for API compatibility), id,
+ * cta? {label, href, variant?, hideOn?} — optional button under the intro.
+ *   variant: 'secondary' (default — light secondary with arrow) | 'primary' (solid dark, no arrow).
+ *   hideOn: breakpoints where the button is hidden — 'mobile' (≤600px), 'tablet' (601–900px), 'desktop' (>900px). Shown everywhere by default.
  */
 import { gd } from '../../lib/gd';
 import { SHADER_DARK } from '../../data/shader';
@@ -17,15 +20,18 @@ export interface Props {
   steps: [string, string, string?][];
   icons?: string[];
   id?: string;
-  cta?: { label: string; href: string };
+  cta?: { label: string; href: string; variant?: 'primary' | 'secondary'; hideOn?: ('mobile' | 'tablet' | 'desktop')[] };
 }
 const { heading, sub, subHtml, steps, id, cta } = Astro.props;
+const ctaHide = (cta?.hideOn ?? []).map((bp) => `pf-tl2__cta--hide-${bp}`).join(' ');
 ---
 <section class="hm-sec hm-white pf-tl2" id={id}>
   <div class="pf-tl2__head">
     <h2 class="hm-h2" set:html={gd(heading)} />
     {sub && <p class="hm-sub">{sub}</p>}{subHtml && <p class="hm-sub" set:html={subHtml} />}
-    {cta && <Button href={cta.href} mode="dark" hierarchy="secondary" class="bd-btn--secondary-light">{cta.label} <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>}
+    {cta && (cta.variant === 'primary'
+      ? <Button href={cta.href} mode="dark" class={`pf-tl2__cta ${ctaHide}`}>{cta.label}</Button>
+      : <Button href={cta.href} mode="dark" hierarchy="secondary" class={`bd-btn--secondary-light pf-tl2__cta ${ctaHide}`}>{cta.label} <img src="/assets/home/arrow-right-dark.svg" alt="" width="16" height="16" /></Button>)}
   </div>
   <div class="pf-tl2__list" data-tl>
     <div class="pf-tl2__hl" aria-hidden="true">
