@@ -496,6 +496,11 @@
 .pf-tl2__hl-c img.ell--m { display: none; left: 7.5px; width: 500px; }
 .pf-tl2__hl-c .hm-noise { inset: -1.5px -.5px -34.5px; }
 
+/* Optional intro button, hidden per breakpoint through Timeline's cta.hideOn prop */
+@media (min-width: 901px) { .pf-tl2__cta--hide-desktop { display: none !important; } }
+@media (min-width: 601px) and (max-width: 900px) { .pf-tl2__cta--hide-tablet { display: none !important; } }
+@media (max-width: 600px) { .pf-tl2__cta--hide-mobile { display: none !important; } }
+
 @media (prefers-reduced-motion: reduce) {
   .pf-tl2__hl, .pf-tl2__list .n, .pf-tl2__list .c, .pf-tl2__list h3, .pf-tl2__list p { transition: none; }
 }

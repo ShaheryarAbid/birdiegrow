@@ -1,0 +1,66 @@
+---
+/**
+ * Four-card feature box — first used for "What it does" on /features/bay-agent/ (Figma 2049:100754, mobile 2049:101473).
+ * Light frame (8px padding and gap) holding white cards in two rows: narrow | wide, then wide | narrow (2fr / 3fr).
+ * Only the box: the section, heading and intro stay in the page.
+ * Props: items[] — { title, body (HTML, may contain links), icon (path to an 18px SVG glyph), bg? (flattened card art, right-aligned),
+ * textWidth? (max text width in px on desktop), mobileOrder? (CSS order below 900px; cards stack in one column) }.
+ */
+import '../../styles/sections.css';
+
+export interface Item {
+  title: string;
+  body: string;
+  icon: string;
+  bg?: string;
+  textWidth?: number;
+  mobileOrder?: number;
+}
+export interface Props {
+  items: Item[];
+  class?: string;
+}
+const { items, class: cls } = Astro.props;
+---
+<div class:list={['fcg', cls]}>
+  {items.map((it) => (
+    <div
+      class:list={['fcg__card', { 'fcg__card--art': it.bg }]}
+      style={[
+        it.bg && `--fcg-bg: url('${it.bg}')`,
+        it.textWidth && `--fcg-tw: ${it.textWidth}px`,
+        it.mobileOrder != null && `--fcg-mo: ${it.mobileOrder}`,
+      ].filter(Boolean).join('; ') || undefined}
+    >
+      <span class="fcg__ic"><img src={it.icon} alt="" width="18" height="18" /></span>
+      <h3 set:html={it.title} />
+      <p set:html={it.body} />
+    </div>
+  ))}
+</div>
+
+<style>
+  /* Desktop (Figma): 1280px frame, rows 500px | flex then flex | 500px — five columns with 2 + 3 spans give the same split. */
+  .fcg { width: 100%; max-width: 1280px; box-sizing: border-box; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 8px; border-radius: 20px; background: rgba(0, 4, 7, .05); }
+  .fcg__card { grid-column: span 2; }
+  .fcg__card:nth-child(4n + 2), .fcg__card:nth-child(4n + 3) { grid-column: span 3; }
+  .fcg__card { position: relative; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; padding: 40px; border-radius: 14px; border: 1px solid rgba(209, 255, 226, .06); background: #fdfffe; overflow: hidden; }
+  /* Cards 2 and 3 carry the flattened Figma art (shader + illustration), pinned to the right edge */
+  .fcg__card--art { background: #fdfffe var(--fcg-bg) right center / auto 100% no-repeat; }
+  /* 44px icon tile: dark pixel texture with the 18px glyph centred (Figma Decorative/Icon-Background) */
+  .fcg__ic { position: relative; flex: none; width: 44px; height: 44px; box-sizing: border-box; display: grid; place-items: center; border-radius: 7.7px; border: .55px solid rgba(253, 255, 254, .5); background: #000407 url('/assets/features/color-pixel.webp') center / cover no-repeat; box-shadow: 0 11px 11px rgba(0, 0, 0, .03), 0 5.5px 5.5px rgba(0, 0, 0, .03); }
+  .fcg__ic img { display: block; width: 18px; height: 18px; }
+  .fcg__card h3 { position: relative; margin: 16px 0 0; max-width: var(--fcg-tw, none); font: 500 20px/1.2 var(--font-ui); letter-spacing: -.03em; color: #000407; }
+  .fcg__card p { position: relative; margin: 8px 0 0; max-width: var(--fcg-tw, none); font: 400 14px/1.3 var(--font-ui); letter-spacing: -.03em; color: #4b5563; }
+  .fcg__card p :global(a) { color: #166534; text-decoration: underline; text-underline-position: from-font; }
+
+  @media (max-width: 900px) {
+    .fcg { grid-template-columns: 1fr; }
+    .fcg__card, .fcg__card:nth-child(4n + 2), .fcg__card:nth-child(4n + 3) { grid-column: auto; order: var(--fcg-mo, 0); padding: 24px; }
+    .fcg__card h3 { font-size: 18px; max-width: none; }
+    .fcg__card p { max-width: none; }
+    /* Figma mobile: the art sits small in the card's top-right corner, bleeding off the top and right edges and fading out below */
+    .fcg__card--art { background-image: none; }
+    .fcg__card--art::before { content: ''; position: absolute; top: -24px; right: -12px; width: 260px; height: 130px; background: var(--fcg-bg) right top / auto 100% no-repeat; -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent); mask-image: linear-gradient(to bottom, #000 55%, transparent); pointer-events: none; }
+  }
+</style>
